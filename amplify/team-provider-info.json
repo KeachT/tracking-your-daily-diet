@@ -1,0 +1,15 @@
+{
+  "prod": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-trackingyourdd-prod-180652-authRole",
+      "UnauthRoleArn": "arn:aws:iam::294631303725:role/amplify-trackingyourdd-prod-180652-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::294631303725:role/amplify-trackingyourdd-prod-180652-authRole",
+      "Region": "ap-northeast-1",
+      "DeploymentBucketName": "amplify-trackingyourdd-prod-180652-deployment",
+      "UnauthRoleName": "amplify-trackingyourdd-prod-180652-unauthRole",
+      "StackName": "amplify-trackingyourdd-prod-180652",
+      "StackId": "arn:aws:cloudformation:ap-northeast-1:294631303725:stack/amplify-trackingyourdd-prod-180652/fba1b5a0-01ed-11ee-847f-0673bbff0e97",
+      "AmplifyAppId": "d1ts854lxdln14"
+    }
+  }
+}
