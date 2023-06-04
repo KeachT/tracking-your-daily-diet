@@ -10,6 +10,11 @@
       "StackName": "amplify-trackingyourdd-prod-180652",
       "StackId": "arn:aws:cloudformation:ap-northeast-1:294631303725:stack/amplify-trackingyourdd-prod-180652/fba1b5a0-01ed-11ee-847f-0673bbff0e97",
       "AmplifyAppId": "d1ts854lxdln14"
+    },
+    "categories": {
+      "auth": {
+        "trackingyourdd89468500": {}
+      }
     }
   },
   "dev": {
