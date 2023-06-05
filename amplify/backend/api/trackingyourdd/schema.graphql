@@ -2,3 +2,11 @@ type Note @model @auth(rules: [{ allow: owner }]) {
   id: ID!
   text: String!
 }
+
+type DailyGoal @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  calories: Float
+  protein: Float
+  carbohydrates: Float
+  fat: Float
+}
