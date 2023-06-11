@@ -7,3 +7,5 @@
 export { default as studioTheme } from "./studioTheme";
 export { default as DailyGoalCreateForm } from "./DailyGoalCreateForm";
 export { default as DailyGoalUpdateForm } from "./DailyGoalUpdateForm";
+export { default as FoodCreateForm } from "./FoodCreateForm";
+export { default as FoodUpdateForm } from "./FoodUpdateForm";

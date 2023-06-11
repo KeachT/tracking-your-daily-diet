@@ -37,3 +37,40 @@ export const listDailyGoals = /* GraphQL */ `
     }
   }
 `;
+export const getFood = /* GraphQL */ `
+  query GetFood($id: ID!) {
+    getFood(id: $id) {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const listFoods = /* GraphQL */ `
+  query ListFoods(
+    $filter: ModelFoodFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listFoods(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        calories
+        protein
+        carbohydrates
+        fat
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;

@@ -5,3 +5,12 @@ type DailyGoal @model @auth(rules: [{ allow: owner }]) {
   carbohydrates: Float
   fat: Float
 }
+
+type Food @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  name: String!
+  calories: Float
+  protein: Float
+  carbohydrates: Float
+  fat: Float
+}

@@ -53,3 +53,57 @@ export const onDeleteDailyGoal = /* GraphQL */ `
     }
   }
 `;
+export const onCreateFood = /* GraphQL */ `
+  subscription OnCreateFood(
+    $filter: ModelSubscriptionFoodFilterInput
+    $owner: String
+  ) {
+    onCreateFood(filter: $filter, owner: $owner) {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onUpdateFood = /* GraphQL */ `
+  subscription OnUpdateFood(
+    $filter: ModelSubscriptionFoodFilterInput
+    $owner: String
+  ) {
+    onUpdateFood(filter: $filter, owner: $owner) {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onDeleteFood = /* GraphQL */ `
+  subscription OnDeleteFood(
+    $filter: ModelSubscriptionFoodFilterInput
+    $owner: String
+  ) {
+    onDeleteFood(filter: $filter, owner: $owner) {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
