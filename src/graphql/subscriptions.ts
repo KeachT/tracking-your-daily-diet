@@ -53,6 +53,177 @@ export const onDeleteDailyGoal = /* GraphQL */ `
     }
   }
 `;
+export const onCreateMealDate = /* GraphQL */ `
+  subscription OnCreateMealDate(
+    $filter: ModelSubscriptionMealDateFilterInput
+    $owner: String
+  ) {
+    onCreateMealDate(filter: $filter, owner: $owner) {
+      id
+      date
+      mealCategories {
+        id
+        name
+        foods {
+          id
+          name
+          calories
+          protein
+          carbohydrates
+          fat
+          createdAt
+          updatedAt
+          owner
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onUpdateMealDate = /* GraphQL */ `
+  subscription OnUpdateMealDate(
+    $filter: ModelSubscriptionMealDateFilterInput
+    $owner: String
+  ) {
+    onUpdateMealDate(filter: $filter, owner: $owner) {
+      id
+      date
+      mealCategories {
+        id
+        name
+        foods {
+          id
+          name
+          calories
+          protein
+          carbohydrates
+          fat
+          createdAt
+          updatedAt
+          owner
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onDeleteMealDate = /* GraphQL */ `
+  subscription OnDeleteMealDate(
+    $filter: ModelSubscriptionMealDateFilterInput
+    $owner: String
+  ) {
+    onDeleteMealDate(filter: $filter, owner: $owner) {
+      id
+      date
+      mealCategories {
+        id
+        name
+        foods {
+          id
+          name
+          calories
+          protein
+          carbohydrates
+          fat
+          createdAt
+          updatedAt
+          owner
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onCreateMealCategory = /* GraphQL */ `
+  subscription OnCreateMealCategory(
+    $filter: ModelSubscriptionMealCategoryFilterInput
+    $owner: String
+  ) {
+    onCreateMealCategory(filter: $filter, owner: $owner) {
+      id
+      name
+      foods {
+        id
+        name
+        calories
+        protein
+        carbohydrates
+        fat
+        createdAt
+        updatedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onUpdateMealCategory = /* GraphQL */ `
+  subscription OnUpdateMealCategory(
+    $filter: ModelSubscriptionMealCategoryFilterInput
+    $owner: String
+  ) {
+    onUpdateMealCategory(filter: $filter, owner: $owner) {
+      id
+      name
+      foods {
+        id
+        name
+        calories
+        protein
+        carbohydrates
+        fat
+        createdAt
+        updatedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onDeleteMealCategory = /* GraphQL */ `
+  subscription OnDeleteMealCategory(
+    $filter: ModelSubscriptionMealCategoryFilterInput
+    $owner: String
+  ) {
+    onDeleteMealCategory(filter: $filter, owner: $owner) {
+      id
+      name
+      foods {
+        id
+        name
+        calories
+        protein
+        carbohydrates
+        fat
+        createdAt
+        updatedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
 export const onCreateFood = /* GraphQL */ `
   subscription OnCreateFood(
     $filter: ModelSubscriptionFoodFilterInput

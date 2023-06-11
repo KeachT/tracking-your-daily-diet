@@ -37,6 +37,111 @@ export const listDailyGoals = /* GraphQL */ `
     }
   }
 `;
+export const getMealDate = /* GraphQL */ `
+  query GetMealDate($id: ID!) {
+    getMealDate(id: $id) {
+      id
+      date
+      mealCategories {
+        id
+        name
+        foods {
+          id
+          name
+          calories
+          protein
+          carbohydrates
+          fat
+          createdAt
+          updatedAt
+          owner
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const listMealDates = /* GraphQL */ `
+  query ListMealDates(
+    $filter: ModelMealDateFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listMealDates(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        date
+        mealCategories {
+          id
+          name
+          createdAt
+          updatedAt
+          owner
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const getMealCategory = /* GraphQL */ `
+  query GetMealCategory($id: ID!) {
+    getMealCategory(id: $id) {
+      id
+      name
+      foods {
+        id
+        name
+        calories
+        protein
+        carbohydrates
+        fat
+        createdAt
+        updatedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const listMealCategories = /* GraphQL */ `
+  query ListMealCategories(
+    $filter: ModelMealCategoryFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listMealCategories(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        foods {
+          id
+          name
+          calories
+          protein
+          carbohydrates
+          fat
+          createdAt
+          updatedAt
+          owner
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;
 export const getFood = /* GraphQL */ `
   query GetFood($id: ID!) {
     getFood(id: $id) {
