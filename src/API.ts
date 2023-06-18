@@ -8,6 +8,7 @@ export type CreateDailyGoalInput = {
   protein?: number | null,
   carbohydrates?: number | null,
   fat?: number | null,
+  _version?: number | null,
 };
 
 export type ModelDailyGoalConditionInput = {
@@ -18,6 +19,7 @@ export type ModelDailyGoalConditionInput = {
   and?: Array< ModelDailyGoalConditionInput | null > | null,
   or?: Array< ModelDailyGoalConditionInput | null > | null,
   not?: ModelDailyGoalConditionInput | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelFloatInput = {
@@ -46,6 +48,13 @@ export enum ModelAttributeTypes {
 }
 
 
+export type ModelBooleanInput = {
+  ne?: boolean | null,
+  eq?: boolean | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
 export type DailyGoal = {
   __typename: "DailyGoal",
   id: string,
@@ -55,6 +64,9 @@ export type DailyGoal = {
   fat?: number | null,
   createdAt: string,
   updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
   owner?: string | null,
 };
 
@@ -64,15 +76,18 @@ export type UpdateDailyGoalInput = {
   protein?: number | null,
   carbohydrates?: number | null,
   fat?: number | null,
+  _version?: number | null,
 };
 
 export type DeleteDailyGoalInput = {
   id: string,
+  _version?: number | null,
 };
 
 export type CreateMealDateInput = {
   id?: string | null,
   date: string,
+  _version?: number | null,
 };
 
 export type ModelMealDateConditionInput = {
@@ -80,6 +95,7 @@ export type ModelMealDateConditionInput = {
   and?: Array< ModelMealDateConditionInput | null > | null,
   or?: Array< ModelMealDateConditionInput | null > | null,
   not?: ModelMealDateConditionInput | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelStringInput = {
@@ -115,6 +131,9 @@ export type MealDate = {
   mealCategories?: ModelMealCategoryConnection | null,
   createdAt: string,
   updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
   owner?: string | null,
 };
 
@@ -122,6 +141,7 @@ export type ModelMealCategoryConnection = {
   __typename: "ModelMealCategoryConnection",
   items:  Array<MealCategory | null >,
   nextToken?: string | null,
+  startedAt?: number | null,
 };
 
 export type MealCategory = {
@@ -132,6 +152,9 @@ export type MealCategory = {
   foods?: ModelFoodConnection | null,
   createdAt: string,
   updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
   owner?: string | null,
 };
 
@@ -147,6 +170,7 @@ export type ModelFoodConnection = {
   __typename: "ModelFoodConnection",
   items:  Array<Food | null >,
   nextToken?: string | null,
+  startedAt?: number | null,
 };
 
 export type Food = {
@@ -160,22 +184,28 @@ export type Food = {
   mealcategoryID: string,
   createdAt: string,
   updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
   owner?: string | null,
 };
 
 export type UpdateMealDateInput = {
   id: string,
   date?: string | null,
+  _version?: number | null,
 };
 
 export type DeleteMealDateInput = {
   id: string,
+  _version?: number | null,
 };
 
 export type CreateMealCategoryInput = {
   id?: string | null,
   name: MealCategoryName,
   mealdateID: string,
+  _version?: number | null,
 };
 
 export type ModelMealCategoryConditionInput = {
@@ -184,6 +214,7 @@ export type ModelMealCategoryConditionInput = {
   and?: Array< ModelMealCategoryConditionInput | null > | null,
   or?: Array< ModelMealCategoryConditionInput | null > | null,
   not?: ModelMealCategoryConditionInput | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelMealCategoryNameInput = {
@@ -211,10 +242,12 @@ export type UpdateMealCategoryInput = {
   id: string,
   name?: MealCategoryName | null,
   mealdateID?: string | null,
+  _version?: number | null,
 };
 
 export type DeleteMealCategoryInput = {
   id: string,
+  _version?: number | null,
 };
 
 export type CreateFoodInput = {
@@ -225,6 +258,7 @@ export type CreateFoodInput = {
   carbohydrates?: number | null,
   fat?: number | null,
   mealcategoryID: string,
+  _version?: number | null,
 };
 
 export type ModelFoodConditionInput = {
@@ -237,6 +271,7 @@ export type ModelFoodConditionInput = {
   and?: Array< ModelFoodConditionInput | null > | null,
   or?: Array< ModelFoodConditionInput | null > | null,
   not?: ModelFoodConditionInput | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type UpdateFoodInput = {
@@ -247,10 +282,12 @@ export type UpdateFoodInput = {
   carbohydrates?: number | null,
   fat?: number | null,
   mealcategoryID?: string | null,
+  _version?: number | null,
 };
 
 export type DeleteFoodInput = {
   id: string,
+  _version?: number | null,
 };
 
 export type ModelDailyGoalFilterInput = {
@@ -262,12 +299,14 @@ export type ModelDailyGoalFilterInput = {
   and?: Array< ModelDailyGoalFilterInput | null > | null,
   or?: Array< ModelDailyGoalFilterInput | null > | null,
   not?: ModelDailyGoalFilterInput | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelDailyGoalConnection = {
   __typename: "ModelDailyGoalConnection",
   items:  Array<DailyGoal | null >,
   nextToken?: string | null,
+  startedAt?: number | null,
 };
 
 export type ModelMealDateFilterInput = {
@@ -276,12 +315,14 @@ export type ModelMealDateFilterInput = {
   and?: Array< ModelMealDateFilterInput | null > | null,
   or?: Array< ModelMealDateFilterInput | null > | null,
   not?: ModelMealDateFilterInput | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelMealDateConnection = {
   __typename: "ModelMealDateConnection",
   items:  Array<MealDate | null >,
   nextToken?: string | null,
+  startedAt?: number | null,
 };
 
 export type ModelMealCategoryFilterInput = {
@@ -291,6 +332,7 @@ export type ModelMealCategoryFilterInput = {
   and?: Array< ModelMealCategoryFilterInput | null > | null,
   or?: Array< ModelMealCategoryFilterInput | null > | null,
   not?: ModelMealCategoryFilterInput | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export enum ModelSortDirection {
@@ -310,6 +352,7 @@ export type ModelFoodFilterInput = {
   and?: Array< ModelFoodFilterInput | null > | null,
   or?: Array< ModelFoodFilterInput | null > | null,
   not?: ModelFoodFilterInput | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSubscriptionDailyGoalFilterInput = {
@@ -320,6 +363,7 @@ export type ModelSubscriptionDailyGoalFilterInput = {
   fat?: ModelSubscriptionFloatInput | null,
   and?: Array< ModelSubscriptionDailyGoalFilterInput | null > | null,
   or?: Array< ModelSubscriptionDailyGoalFilterInput | null > | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSubscriptionIDInput = {
@@ -354,6 +398,7 @@ export type ModelSubscriptionMealDateFilterInput = {
   date?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionMealDateFilterInput | null > | null,
   or?: Array< ModelSubscriptionMealDateFilterInput | null > | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSubscriptionStringInput = {
@@ -377,6 +422,7 @@ export type ModelSubscriptionMealCategoryFilterInput = {
   mealdateID?: ModelSubscriptionIDInput | null,
   and?: Array< ModelSubscriptionMealCategoryFilterInput | null > | null,
   or?: Array< ModelSubscriptionMealCategoryFilterInput | null > | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSubscriptionFoodFilterInput = {
@@ -389,6 +435,7 @@ export type ModelSubscriptionFoodFilterInput = {
   mealcategoryID?: ModelSubscriptionIDInput | null,
   and?: Array< ModelSubscriptionFoodFilterInput | null > | null,
   or?: Array< ModelSubscriptionFoodFilterInput | null > | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type CreateDailyGoalMutationVariables = {
@@ -406,6 +453,9 @@ export type CreateDailyGoalMutation = {
     fat?: number | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -425,6 +475,9 @@ export type UpdateDailyGoalMutation = {
     fat?: number | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -444,6 +497,9 @@ export type DeleteDailyGoalMutation = {
     fat?: number | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -467,12 +523,19 @@ export type CreateMealDateMutation = {
         mealdateID: string,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -496,12 +559,19 @@ export type UpdateMealDateMutation = {
         mealdateID: string,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -525,12 +595,19 @@ export type DeleteMealDateMutation = {
         mealdateID: string,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -559,12 +636,19 @@ export type CreateMealCategoryMutation = {
         mealcategoryID: string,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -593,12 +677,19 @@ export type UpdateMealCategoryMutation = {
         mealcategoryID: string,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -627,12 +718,19 @@ export type DeleteMealCategoryMutation = {
         mealcategoryID: string,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -654,6 +752,9 @@ export type CreateFoodMutation = {
     mealcategoryID: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -675,6 +776,9 @@ export type UpdateFoodMutation = {
     mealcategoryID: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -696,6 +800,9 @@ export type DeleteFoodMutation = {
     mealcategoryID: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -714,6 +821,9 @@ export type GetDailyGoalQuery = {
     fat?: number | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -736,9 +846,42 @@ export type ListDailyGoalsQuery = {
       fat?: number | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       owner?: string | null,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncDailyGoalsQueryVariables = {
+  filter?: ModelDailyGoalFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncDailyGoalsQuery = {
+  syncDailyGoals?:  {
+    __typename: "ModelDailyGoalConnection",
+    items:  Array< {
+      __typename: "DailyGoal",
+      id: string,
+      calories?: number | null,
+      protein?: number | null,
+      carbohydrates?: number | null,
+      fat?: number | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -760,12 +903,19 @@ export type GetMealDateQuery = {
         mealdateID: string,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -786,12 +936,48 @@ export type ListMealDatesQuery = {
       mealCategories?:  {
         __typename: "ModelMealCategoryConnection",
         nextToken?: string | null,
+        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       owner?: string | null,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncMealDatesQueryVariables = {
+  filter?: ModelMealDateFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncMealDatesQuery = {
+  syncMealDates?:  {
+    __typename: "ModelMealDateConnection",
+    items:  Array< {
+      __typename: "MealDate",
+      id: string,
+      date: string,
+      mealCategories?:  {
+        __typename: "ModelMealCategoryConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -818,12 +1004,19 @@ export type GetMealCategoryQuery = {
         mealcategoryID: string,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -845,12 +1038,49 @@ export type ListMealCategoriesQuery = {
       foods?:  {
         __typename: "ModelFoodConnection",
         nextToken?: string | null,
+        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       owner?: string | null,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncMealCategoriesQueryVariables = {
+  filter?: ModelMealCategoryFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncMealCategoriesQuery = {
+  syncMealCategories?:  {
+    __typename: "ModelMealCategoryConnection",
+    items:  Array< {
+      __typename: "MealCategory",
+      id: string,
+      name: MealCategoryName,
+      mealdateID: string,
+      foods?:  {
+        __typename: "ModelFoodConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -873,12 +1103,17 @@ export type MealCategoriesByMealdateIDQuery = {
       foods?:  {
         __typename: "ModelFoodConnection",
         nextToken?: string | null,
+        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       owner?: string | null,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -898,6 +1133,9 @@ export type GetFoodQuery = {
     mealcategoryID: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -922,9 +1160,44 @@ export type ListFoodsQuery = {
       mealcategoryID: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       owner?: string | null,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncFoodsQueryVariables = {
+  filter?: ModelFoodFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncFoodsQuery = {
+  syncFoods?:  {
+    __typename: "ModelFoodConnection",
+    items:  Array< {
+      __typename: "Food",
+      id: string,
+      name: string,
+      calories?: number | null,
+      protein?: number | null,
+      carbohydrates?: number | null,
+      fat?: number | null,
+      mealcategoryID: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -950,9 +1223,13 @@ export type FoodsByMealcategoryIDQuery = {
       mealcategoryID: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       owner?: string | null,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -971,6 +1248,9 @@ export type OnCreateDailyGoalSubscription = {
     fat?: number | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -990,6 +1270,9 @@ export type OnUpdateDailyGoalSubscription = {
     fat?: number | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -1009,6 +1292,9 @@ export type OnDeleteDailyGoalSubscription = {
     fat?: number | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -1032,12 +1318,19 @@ export type OnCreateMealDateSubscription = {
         mealdateID: string,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -1061,12 +1354,19 @@ export type OnUpdateMealDateSubscription = {
         mealdateID: string,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -1090,12 +1390,19 @@ export type OnDeleteMealDateSubscription = {
         mealdateID: string,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -1124,12 +1431,19 @@ export type OnCreateMealCategorySubscription = {
         mealcategoryID: string,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -1158,12 +1472,19 @@ export type OnUpdateMealCategorySubscription = {
         mealcategoryID: string,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -1192,12 +1513,19 @@ export type OnDeleteMealCategorySubscription = {
         mealcategoryID: string,
         createdAt: string,
         updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -1219,6 +1547,9 @@ export type OnCreateFoodSubscription = {
     mealcategoryID: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -1240,6 +1571,9 @@ export type OnUpdateFoodSubscription = {
     mealcategoryID: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -1261,6 +1595,9 @@ export type OnDeleteFoodSubscription = {
     mealcategoryID: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };

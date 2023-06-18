@@ -2,10 +2,19 @@
 import { initSchema } from '@aws-amplify/datastore';
 import { schema } from './schema';
 
+const MealCategoryName = {
+  "BREAKFAST": "BREAKFAST",
+  "LUNCH": "LUNCH",
+  "DINNER": "DINNER",
+  "SNACK": "SNACK"
+};
 
-
-const { Note } = initSchema(schema);
+const { DailyGoal, MealDate, MealCategory, Food } = initSchema(schema);
 
 export {
-  Note
+  DailyGoal,
+  MealDate,
+  MealCategory,
+  Food,
+  MealCategoryName
 };
