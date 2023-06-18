@@ -62,22 +62,15 @@ export const onCreateMealDate = /* GraphQL */ `
       id
       date
       mealCategories {
-        id
-        name
-        foods {
+        items {
           id
           name
-          calories
-          protein
-          carbohydrates
-          fat
+          mealdateID
           createdAt
           updatedAt
           owner
         }
-        createdAt
-        updatedAt
-        owner
+        nextToken
       }
       createdAt
       updatedAt
@@ -94,22 +87,15 @@ export const onUpdateMealDate = /* GraphQL */ `
       id
       date
       mealCategories {
-        id
-        name
-        foods {
+        items {
           id
           name
-          calories
-          protein
-          carbohydrates
-          fat
+          mealdateID
           createdAt
           updatedAt
           owner
         }
-        createdAt
-        updatedAt
-        owner
+        nextToken
       }
       createdAt
       updatedAt
@@ -126,22 +112,15 @@ export const onDeleteMealDate = /* GraphQL */ `
       id
       date
       mealCategories {
-        id
-        name
-        foods {
+        items {
           id
           name
-          calories
-          protein
-          carbohydrates
-          fat
+          mealdateID
           createdAt
           updatedAt
           owner
         }
-        createdAt
-        updatedAt
-        owner
+        nextToken
       }
       createdAt
       updatedAt
@@ -157,16 +136,21 @@ export const onCreateMealCategory = /* GraphQL */ `
     onCreateMealCategory(filter: $filter, owner: $owner) {
       id
       name
+      mealdateID
       foods {
-        id
-        name
-        calories
-        protein
-        carbohydrates
-        fat
-        createdAt
-        updatedAt
-        owner
+        items {
+          id
+          name
+          calories
+          protein
+          carbohydrates
+          fat
+          mealcategoryID
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
       }
       createdAt
       updatedAt
@@ -182,16 +166,21 @@ export const onUpdateMealCategory = /* GraphQL */ `
     onUpdateMealCategory(filter: $filter, owner: $owner) {
       id
       name
+      mealdateID
       foods {
-        id
-        name
-        calories
-        protein
-        carbohydrates
-        fat
-        createdAt
-        updatedAt
-        owner
+        items {
+          id
+          name
+          calories
+          protein
+          carbohydrates
+          fat
+          mealcategoryID
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
       }
       createdAt
       updatedAt
@@ -207,16 +196,21 @@ export const onDeleteMealCategory = /* GraphQL */ `
     onDeleteMealCategory(filter: $filter, owner: $owner) {
       id
       name
+      mealdateID
       foods {
-        id
-        name
-        calories
-        protein
-        carbohydrates
-        fat
-        createdAt
-        updatedAt
-        owner
+        items {
+          id
+          name
+          calories
+          protein
+          carbohydrates
+          fat
+          mealcategoryID
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
       }
       createdAt
       updatedAt
@@ -236,6 +230,7 @@ export const onCreateFood = /* GraphQL */ `
       protein
       carbohydrates
       fat
+      mealcategoryID
       createdAt
       updatedAt
       owner
@@ -254,6 +249,7 @@ export const onUpdateFood = /* GraphQL */ `
       protein
       carbohydrates
       fat
+      mealcategoryID
       createdAt
       updatedAt
       owner
@@ -272,6 +268,7 @@ export const onDeleteFood = /* GraphQL */ `
       protein
       carbohydrates
       fat
+      mealcategoryID
       createdAt
       updatedAt
       owner

@@ -43,22 +43,15 @@ export const getMealDate = /* GraphQL */ `
       id
       date
       mealCategories {
-        id
-        name
-        foods {
+        items {
           id
           name
-          calories
-          protein
-          carbohydrates
-          fat
+          mealdateID
           createdAt
           updatedAt
           owner
         }
-        createdAt
-        updatedAt
-        owner
+        nextToken
       }
       createdAt
       updatedAt
@@ -77,11 +70,7 @@ export const listMealDates = /* GraphQL */ `
         id
         date
         mealCategories {
-          id
-          name
-          createdAt
-          updatedAt
-          owner
+          nextToken
         }
         createdAt
         updatedAt
@@ -96,16 +85,21 @@ export const getMealCategory = /* GraphQL */ `
     getMealCategory(id: $id) {
       id
       name
+      mealdateID
       foods {
-        id
-        name
-        calories
-        protein
-        carbohydrates
-        fat
-        createdAt
-        updatedAt
-        owner
+        items {
+          id
+          name
+          calories
+          protein
+          carbohydrates
+          fat
+          mealcategoryID
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
       }
       createdAt
       updatedAt
@@ -123,16 +117,39 @@ export const listMealCategories = /* GraphQL */ `
       items {
         id
         name
+        mealdateID
         foods {
-          id
-          name
-          calories
-          protein
-          carbohydrates
-          fat
-          createdAt
-          updatedAt
-          owner
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const mealCategoriesByMealdateID = /* GraphQL */ `
+  query MealCategoriesByMealdateID(
+    $mealdateID: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelMealCategoryFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    mealCategoriesByMealdateID(
+      mealdateID: $mealdateID
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        name
+        mealdateID
+        foods {
+          nextToken
         }
         createdAt
         updatedAt
@@ -151,6 +168,7 @@ export const getFood = /* GraphQL */ `
       protein
       carbohydrates
       fat
+      mealcategoryID
       createdAt
       updatedAt
       owner
@@ -171,6 +189,38 @@ export const listFoods = /* GraphQL */ `
         protein
         carbohydrates
         fat
+        mealcategoryID
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const foodsByMealcategoryID = /* GraphQL */ `
+  query FoodsByMealcategoryID(
+    $mealcategoryID: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelFoodFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    foodsByMealcategoryID(
+      mealcategoryID: $mealcategoryID
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        name
+        calories
+        protein
+        carbohydrates
+        fat
+        mealcategoryID
         createdAt
         updatedAt
         owner
