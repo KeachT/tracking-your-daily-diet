@@ -1,18 +1,9 @@
-import { Amplify } from 'aws-amplify'
-import { Authenticator } from '@aws-amplify/ui-react'
-import '@aws-amplify/ui-react/styles.css'
-import awsExports from '../aws-exports'
-Amplify.configure(awsExports)
+import { useAuthenticator } from '@aws-amplify/ui-react'
+import { Dashboard } from '../features/dashboard/Dashboard'
+import { LandingPage } from '../features/landingpage/LandingPage'
 
 export default function Home() {
-  return (
-    <Authenticator>
-      {({ signOut, user }) => (
-        <main>
-          <h1>Hello {user?.username}</h1>
-          <button onClick={signOut}>Sign out</button>
-        </main>
-      )}
-    </Authenticator>
-  )
+  const { authStatus } = useAuthenticator((context) => [context.user])
+
+  return <>{authStatus === 'authenticated' ? <Dashboard /> : <LandingPage />}</>
 }
