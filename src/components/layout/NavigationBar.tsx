@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { useState } from 'react'
+import { useRouter } from 'next/router'
 import { Navbar, Group, Title } from '@mantine/core'
 import {
   IconAdjustmentsHorizontal,
@@ -10,35 +10,34 @@ import {
 } from '@tabler/icons-react'
 import { useNavigationBarStyle } from './useNavigationBarStyle'
 import { useHandleSignOut } from './useHandleSignOut'
+import { Path } from '../../constants'
 
 const data = [
-  { link: '', label: 'Day', icon: IconClockHour9 },
-  { link: '', label: 'Week', icon: IconBoxMultiple7 },
-  { link: '', label: 'Month', icon: IconAlignBoxBottomCenter },
-  { link: '', label: 'Settings', icon: IconAdjustmentsHorizontal },
+  { link: Path.Day, label: 'Day', icon: IconClockHour9 },
+  { link: Path.Week, label: 'Week', icon: IconBoxMultiple7 },
+  { link: Path.Month, label: 'Month', icon: IconAlignBoxBottomCenter },
+  { link: Path.Settings, label: 'Settings', icon: IconAdjustmentsHorizontal },
 ]
 
 export const NavigationBar = () => {
-  const { classes, cx } = useNavigationBarStyle()
-  const [active, setActive] = useState('Day')
+  const router = useRouter()
   const handleSignOut = useHandleSignOut()
+  const { classes, cx } = useNavigationBarStyle()
 
-  const links = data.map((item) => (
-    <Link
-      className={cx(classes.link, {
-        [classes.linkActive]: item.label === active,
-      })}
-      href={item.link}
-      key={item.label}
-      onClick={(event) => {
-        event.preventDefault()
-        setActive(item.label)
-      }}
-    >
-      <item.icon className={classes.linkIcon} stroke={1.5} />
-      <span>{item.label}</span>
-    </Link>
-  ))
+  const links = data.map((item) => {
+    return (
+      <Link
+        className={cx(classes.link, {
+          [classes.linkActive]: item.link === router.pathname,
+        })}
+        href={item.link}
+        key={item.label}
+      >
+        <item.icon className={classes.linkIcon} stroke={1.5} />
+        <span>{item.label}</span>
+      </Link>
+    )
+  })
 
   return (
     <Navbar height={700} width={{ sm: 300 }} p="md">
