@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { FC, ReactNode } from 'react'
-import { NavigationBar } from './NavigationBar'
+import { NavigationBar } from '../navigationbar/NavigationBar'
 
 type Props = {
   title: string
