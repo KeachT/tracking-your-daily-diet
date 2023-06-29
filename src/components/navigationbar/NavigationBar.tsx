@@ -9,7 +9,7 @@ import {
   IconLogout,
 } from '@tabler/icons-react'
 import { useNavigationBarStyle } from './useNavigationBarStyle'
-import { useHandleSignOut } from '../layout/useHandleSignOut'
+import { useHandleSignOut } from './useHandleSignOut'
 import { Path } from '../../constants'
 
 const data = [
