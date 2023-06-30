@@ -1,4 +1,5 @@
 import { GetServerSideProps } from 'next'
+import { Path } from '../constants/path'
 
 export default function Home() {
   return <></>
@@ -7,7 +8,7 @@ export default function Home() {
 export const getServerSideProps: GetServerSideProps = async () => {
   return {
     redirect: {
-      destination: '/day',
+      destination: Path.Day,
       permanent: false,
     },
   }

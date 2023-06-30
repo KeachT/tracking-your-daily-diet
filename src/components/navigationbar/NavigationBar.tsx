@@ -10,7 +10,7 @@ import {
 } from '@tabler/icons-react'
 import { useNavigationBarStyle } from './useNavigationBarStyle'
 import { useHandleSignOut } from './useHandleSignOut'
-import { Path } from '../../constants'
+import { Path } from '../../constants/path'
 
 const data = [
   { link: Path.Day, label: 'Day', icon: IconClockHour9 },
