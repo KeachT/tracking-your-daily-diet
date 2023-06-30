@@ -1,9 +1,14 @@
-import { useAuthenticator } from '@aws-amplify/ui-react'
-import { Dashboard } from '../features/dashboard/Dashboard'
-import { LandingPage } from '../features/landingpage/LandingPage'
+import { GetServerSideProps } from 'next'
 
 export default function Home() {
-  const { authStatus } = useAuthenticator((context) => [context.user])
+  return <></>
+}
 
-  return <>{authStatus === 'authenticated' ? <Dashboard /> : <LandingPage />}</>
+export const getServerSideProps: GetServerSideProps = async () => {
+  return {
+    redirect: {
+      destination: '/day',
+      permanent: false,
+    },
+  }
 }
