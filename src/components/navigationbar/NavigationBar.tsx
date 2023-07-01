@@ -40,7 +40,7 @@ export const NavigationBar = () => {
   })
 
   return (
-    <Navbar height={700} width={{ sm: 300 }} p="md">
+    <Navbar width={{ sm: 300 }} p="md">
       <Navbar.Section grow>
         <Group className={classes.header} position="apart">
           <Title order={3} weight={100}>
