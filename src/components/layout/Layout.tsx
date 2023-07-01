@@ -13,8 +13,15 @@ export const Layout: FC<Props> = ({ title = '', children }) => {
       <Head>
         <title>{`Tracking Your Daily Diet - ${title}`}</title>
       </Head>
-      <NavigationBar />
-      <div className="m-8">{children}</div>
+
+      <header></header>
+
+      <main className="flex">
+        <NavigationBar />
+        <div className="m-8">{children}</div>
+      </main>
+
+      <footer></footer>
     </div>
   )
 }
