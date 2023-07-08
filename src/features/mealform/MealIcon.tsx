@@ -7,11 +7,11 @@ import {
 } from '@tabler/icons-react'
 import { MealCategoryName } from '@/API'
 
-interface CategoryIcons {
+type CategoryIcons = {
   [key: string]: JSX.Element
 }
 
-interface MealIconProps {
+type MealIconProps = {
   mealCategoryName: string
 }
 

@@ -1,4 +1,4 @@
-export interface FormField {
+export type FormField = {
   name: string
   calories: number
   protein: number
@@ -7,6 +7,6 @@ export interface FormField {
   key: string
 }
 
-export interface FormData {
+export type FormData = {
   [x: string]: FormField[]
 }

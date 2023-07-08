@@ -6,7 +6,7 @@ import { MealIcon } from './MealIcon'
 import { NoFoodText } from './NoFoodText'
 import { createFoodInitialValues } from './utils'
 
-interface MealFormAccordionItemProps {
+type MealFormAccordionItemProps = {
   mealCategoryName: string
 }
 
