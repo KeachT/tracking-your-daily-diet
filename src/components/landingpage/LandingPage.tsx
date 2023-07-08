@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Authenticator } from '@aws-amplify/ui-react'
 
-export const LandingPage = () => {
+export function LandingPage() {
   const [displayAuth, setDisplayAuth] = useState(false)
   const onClickAuth = () => [setDisplayAuth(!displayAuth)]
 

@@ -1,7 +1,5 @@
 import { Layout } from '../components/layout/Layout'
 
-const Settings = () => {
+export default function Settings() {
   return <Layout title="Settings">Settings</Layout>
 }
-
-export default Settings

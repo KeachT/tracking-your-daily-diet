@@ -1,4 +1,3 @@
-import { FC } from 'react'
 import { UseFormReturnType } from '@mantine/form'
 import { ActionIcon, Group, Grid, NumberInput, TextInput } from '@mantine/core'
 import { IconTrash } from '@tabler/icons-react'
@@ -9,10 +8,10 @@ interface MealFormFieldsProps {
   mealCategoryName: string
 }
 
-export const MealFormFields: FC<MealFormFieldsProps> = ({
+export function MealFormFields({
   form,
   mealCategoryName,
-}) => {
+}: MealFormFieldsProps) {
   const getFormItemProps = (index: number, fieldName: string) =>
     form.getInputProps(`${mealCategoryName}.${index}.${fieldName}`)
 

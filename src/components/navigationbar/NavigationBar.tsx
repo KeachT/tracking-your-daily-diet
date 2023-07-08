@@ -8,33 +8,33 @@ import {
   IconClockHour9,
   IconLogout,
 } from '@tabler/icons-react'
-import { useNavigationBarStyle } from './useNavigationBarStyle'
+import { navigationBarStyle } from './navigationBarStyle'
 import { useHandleSignOut } from './useHandleSignOut'
 import { Path } from '../../constants/path'
 
-const data = [
-  { link: Path.Day, label: 'Day', icon: IconClockHour9 },
-  { link: Path.Week, label: 'Week', icon: IconBoxMultiple7 },
-  { link: Path.Month, label: 'Month', icon: IconAlignBoxBottomCenter },
-  { link: Path.Settings, label: 'Settings', icon: IconAdjustmentsHorizontal },
+const linkItems = [
+  { path: Path.Day, label: 'Day', icon: IconClockHour9 },
+  { path: Path.Week, label: 'Week', icon: IconBoxMultiple7 },
+  { path: Path.Month, label: 'Month', icon: IconAlignBoxBottomCenter },
+  { path: Path.Settings, label: 'Settings', icon: IconAdjustmentsHorizontal },
 ]
 
-export const NavigationBar = () => {
+export function NavigationBar() {
   const router = useRouter()
   const handleSignOut = useHandleSignOut()
-  const { classes, cx } = useNavigationBarStyle()
+  const { classes, cx } = navigationBarStyle()
 
-  const links = data.map((item) => {
+  const links = linkItems.map((linkItem) => {
     return (
       <Link
         className={cx(classes.link, {
-          [classes.linkActive]: item.link === router.pathname,
+          [classes.linkActive]: linkItem.path === router.pathname,
         })}
-        href={item.link}
-        key={item.label}
+        href={linkItem.path}
+        key={linkItem.label}
       >
-        <item.icon className={classes.linkIcon} stroke={1.5} />
-        <span>{item.label}</span>
+        <linkItem.icon className={classes.linkIcon} stroke={1.5} />
+        <span>{linkItem.label}</span>
       </Link>
     )
   })

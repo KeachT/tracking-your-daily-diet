@@ -1,6 +1,6 @@
 import { createStyles, getStylesRef, rem } from '@mantine/core'
 
-export const useNavigationBarStyle = createStyles((theme) => ({
+export const navigationBarStyle = createStyles((theme) => ({
   header: {
     paddingBottom: theme.spacing.md,
     marginBottom: `calc(${theme.spacing.md} * 1.5)`,

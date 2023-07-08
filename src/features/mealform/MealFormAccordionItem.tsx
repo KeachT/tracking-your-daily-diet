@@ -1,4 +1,3 @@
-import { FC } from 'react'
 import { useForm, UseFormReturnType } from '@mantine/form'
 import { Accordion, Button, Group } from '@mantine/core'
 import { MealFormFields } from './MealFormFields'
@@ -11,9 +10,9 @@ interface MealFormAccordionItemProps {
   mealCategoryName: string
 }
 
-export const MealFormAccordionItem: FC<MealFormAccordionItemProps> = ({
+export function MealFormAccordionItem({
   mealCategoryName,
-}) => {
+}: MealFormAccordionItemProps) {
   const form: UseFormReturnType<FormData, (values: FormData) => FormData> =
     useForm({
       initialValues: {

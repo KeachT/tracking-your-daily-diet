@@ -6,7 +6,7 @@ import { Layout } from '../components/layout/Layout'
 import { DailyNutrition } from '../features/dailynutrition/DailyNutrition'
 import { MealForm } from '../features/mealform/MealForm'
 
-const Day: NextPage = () => {
+export default function Day() {
   // const { user } = useAuthenticator()
   const [value, setValue] = useState<Date | null>(new Date())
 
@@ -36,5 +36,3 @@ const Day: NextPage = () => {
     </Layout>
   )
 }
-
-export default Day

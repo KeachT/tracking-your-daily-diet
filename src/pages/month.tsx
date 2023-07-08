@@ -1,7 +1,5 @@
 import { Layout } from '../components/layout/Layout'
 
-const Month = () => {
+export default function Month() {
   return <Layout title="Month">Month</Layout>
 }
-
-export default Month
