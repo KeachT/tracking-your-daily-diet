@@ -59,6 +59,6 @@ const nutritionRings = nutritions.map((nutrition) => {
   )
 })
 
-export const DailyNutrition = () => {
+export function DailyNutrition() {
   return <Grid gutter={50}>{nutritionRings}</Grid>
 }

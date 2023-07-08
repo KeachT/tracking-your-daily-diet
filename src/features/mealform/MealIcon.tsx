@@ -1,4 +1,3 @@
-import { FC } from 'react'
 import { rem, useMantineTheme } from '@mantine/core'
 import {
   IconSunHigh,
@@ -16,7 +15,7 @@ interface MealIconProps {
   mealCategoryName: string
 }
 
-export const MealIcon: FC<MealIconProps> = ({ mealCategoryName }) => {
+export function MealIcon({ mealCategoryName }: MealIconProps) {
   const theme = useMantineTheme()
   const getColor = (color: string) =>
     theme.colors[color][theme.colorScheme === 'dark' ? 5 : 7]

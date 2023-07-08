@@ -1,13 +1,13 @@
 import Head from 'next/head'
-import { FC, ReactNode } from 'react'
+import { ReactNode } from 'react'
 import { NavigationBar } from '../navigationbar/NavigationBar'
 
-type Props = {
+type LayoutProps = {
   title: string
   children: ReactNode
 }
 
-export const Layout: FC<Props> = ({ title = '', children }) => {
+export function Layout({ title = '', children }: LayoutProps) {
   return (
     <div className="flex min-h-screen">
       <Head>

@@ -1,9 +1,8 @@
-import { FC } from 'react'
 import { Accordion, Box } from '@mantine/core'
 import { MealCategoryName } from '@/API'
 import { MealFormAccordionItem } from './MealFormAccordionItem'
 
-export const MealForm: FC = () => {
+export function MealForm() {
   const mealCategoryNames: string[] = Object.values(MealCategoryName)
 
   return (
