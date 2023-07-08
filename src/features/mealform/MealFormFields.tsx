@@ -3,7 +3,7 @@ import { ActionIcon, Group, Grid, NumberInput, TextInput } from '@mantine/core'
 import { IconTrash } from '@tabler/icons-react'
 import { FormData } from './types'
 
-interface MealFormFieldsProps {
+type MealFormFieldsProps = {
   form: UseFormReturnType<FormData, (values: FormData) => FormData>
   mealCategoryName: string
 }
