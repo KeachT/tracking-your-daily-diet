@@ -1,6 +1,6 @@
 import { Grid } from '@mantine/core'
-import { NutritionRing } from './NutritionRing'
 import { Nutrition } from './types'
+import { NutritionRing } from './NutritionRing'
 
 // TODO This array is mock data.
 const nutritions: Nutrition[] = [

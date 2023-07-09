@@ -17,7 +17,9 @@ export function Layout({ title = '', children }: LayoutProps) {
       <header></header>
 
       <main className="flex">
-        <NavigationBar />
+        <div>
+          <NavigationBar />
+        </div>
         <div className="m-8">{children}</div>
       </main>
 

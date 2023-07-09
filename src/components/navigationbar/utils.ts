@@ -1,6 +1,20 @@
 import { createStyles, getStylesRef, rem } from '@mantine/core'
+import {
+  IconAdjustmentsHorizontal,
+  IconAlignBoxBottomCenter,
+  IconBoxMultiple7,
+  IconClockHour9,
+} from '@tabler/icons-react'
+import { Path } from '../../constants/path'
 
-export const navigationBarStyle = createStyles((theme) => ({
+export const createLinkItems = () => [
+  { path: Path.Day, label: 'Day', icon: IconClockHour9 },
+  { path: Path.Week, label: 'Week', icon: IconBoxMultiple7 },
+  { path: Path.Month, label: 'Month', icon: IconAlignBoxBottomCenter },
+  { path: Path.Settings, label: 'Settings', icon: IconAdjustmentsHorizontal },
+]
+
+export const createNavigationBarStyle = createStyles((theme) => ({
   header: {
     paddingBottom: theme.spacing.md,
     marginBottom: `calc(${theme.spacing.md} * 1.5)`,

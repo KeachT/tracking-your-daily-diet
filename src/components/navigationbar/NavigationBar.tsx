@@ -1,28 +1,15 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Navbar, Group, Title } from '@mantine/core'
-import {
-  IconAdjustmentsHorizontal,
-  IconAlignBoxBottomCenter,
-  IconBoxMultiple7,
-  IconClockHour9,
-  IconLogout,
-} from '@tabler/icons-react'
-import { navigationBarStyle } from './navigationBarStyle'
+import { IconLogout } from '@tabler/icons-react'
+import { createLinkItems, createNavigationBarStyle } from './utils'
 import { useHandleSignOut } from './useHandleSignOut'
-import { Path } from '../../constants/path'
-
-const linkItems = [
-  { path: Path.Day, label: 'Day', icon: IconClockHour9 },
-  { path: Path.Week, label: 'Week', icon: IconBoxMultiple7 },
-  { path: Path.Month, label: 'Month', icon: IconAlignBoxBottomCenter },
-  { path: Path.Settings, label: 'Settings', icon: IconAdjustmentsHorizontal },
-]
 
 export function NavigationBar() {
   const router = useRouter()
+  const linkItems = createLinkItems()
+  const { classes, cx } = createNavigationBarStyle()
   const handleSignOut = useHandleSignOut()
-  const { classes, cx } = navigationBarStyle()
 
   const links = linkItems.map((linkItem) => {
     return (
