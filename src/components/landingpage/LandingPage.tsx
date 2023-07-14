@@ -1,15 +1,15 @@
-import { useState } from 'react'
-import { Authenticator } from '@aws-amplify/ui-react'
+import { useDisclosure } from '@mantine/hooks'
+import { AuthenticatorModal } from '../authenticatormodal/AuthenticatorModal'
 
 export function LandingPage() {
-  const [displayAuth, setDisplayAuth] = useState(false)
-  const handleClickAuth = () => [setDisplayAuth(!displayAuth)]
+  const [opened, { open, close }] = useDisclosure(false)
 
   return (
     <div>
       <p>Landing Page</p>
-      <button onClick={handleClickAuth}>auth</button>
-      {displayAuth && <Authenticator variation="modal" />}
+      <button onClick={open}>auth</button>
+
+      {opened && <AuthenticatorModal opened={opened} close={close} />}
     </div>
   )
 }
