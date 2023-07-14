@@ -19,7 +19,7 @@ export function DatePickerModal({
   }
 
   return (
-    <Modal opened={opened} onClose={close} withCloseButton={false} size="auto">
+    <Modal opened={opened} onClose={close} size="auto">
       <DatePicker onChange={(value) => handleDateChange(value)} />
     </Modal>
   )

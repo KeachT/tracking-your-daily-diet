@@ -1,15 +1,16 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Navbar, Group, Title } from '@mantine/core'
+import { useDisclosure } from '@mantine/hooks'
 import { IconLogout } from '@tabler/icons-react'
 import { createLinkItems, createNavigationBarStyle } from './utils'
-import { useHandleSignOut } from './useHandleSignOut'
+import { LogoutModal } from './LogoutModal'
 
 export function NavigationBar() {
   const router = useRouter()
+  const [opened, { open, close }] = useDisclosure(false)
   const linkItems = createLinkItems()
   const { classes, cx } = createNavigationBarStyle()
-  const handleSignOut = useHandleSignOut()
 
   const links = linkItems.map((linkItem) => {
     return (
@@ -38,18 +39,13 @@ export function NavigationBar() {
       </Navbar.Section>
 
       <Navbar.Section className={classes.footer}>
-        <Link
-          href="#"
-          className={classes.link}
-          onClick={(event) => {
-            handleSignOut()
-            event.preventDefault()
-          }}
-        >
+        <Link href="/" className={classes.link} onClick={open}>
           <IconLogout className={classes.linkIcon} stroke={1.5} />
-          <span>Logout</span>
+          <span>Log out</span>
         </Link>
       </Navbar.Section>
+
+      {opened && <LogoutModal opened={opened} close={close} />}
     </Navbar>
   )
 }
