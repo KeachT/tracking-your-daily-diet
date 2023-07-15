@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import { ReactNode } from 'react'
 import { NavigationBar } from '../navigationbar/NavigationBar'
+import { AppShell } from '@mantine/core'
 
 type LayoutProps = {
   title: string
@@ -9,19 +10,14 @@ type LayoutProps = {
 
 export function Layout({ title = '', children }: LayoutProps) {
   return (
-    <div className="flex min-h-screen">
+    <div>
       <Head>
         <title>{`Tracking Your Daily Diet - ${title}`}</title>
       </Head>
 
       <header></header>
 
-      <main className="flex">
-        <div>
-          <NavigationBar />
-        </div>
-        <div className="m-8">{children}</div>
-      </main>
+      <AppShell navbar={<NavigationBar />}>{children}</AppShell>
 
       <footer></footer>
     </div>
