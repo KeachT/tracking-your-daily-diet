@@ -1,10 +1,10 @@
 import { useForm, UseFormReturnType } from '@mantine/form'
 import { Accordion, Button, Center } from '@mantine/core'
 import { MealFormFields } from './MealFormFields'
-import { FormData } from './types'
+import { FormData } from '../types'
 import { MealIcon } from './MealIcon'
 import { NoFoodText } from './NoFoodText'
-import { createFoodInitialValues } from './utils'
+import { createFoodInitialValues } from '../utils'
 
 type MealFormAccordionItemProps = {
   mealCategoryName: string

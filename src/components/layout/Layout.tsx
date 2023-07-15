@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import { ReactNode } from 'react'
-import { NavigationBar } from '../navigationbar/NavigationBar'
 import { AppShell } from '@mantine/core'
+import { NavigationBar } from '../NavigationBar'
 
 type LayoutProps = {
   title: string

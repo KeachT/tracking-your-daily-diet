@@ -1,4 +1,4 @@
-import { Layout } from '../components/layout/Layout'
+import { Layout } from '../components/Layout'
 
 export default function Week() {
   return <Layout title="Week">Week</Layout>

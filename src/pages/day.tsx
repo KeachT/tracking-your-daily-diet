@@ -1,8 +1,8 @@
 import { Box, Text } from '@mantine/core'
-import { Layout } from '../components/layout/Layout'
-import { DatePickerCard } from '../features/datepickercard/DatePickerCard'
-import { DailyNutrition } from '../features/dailynutrition/DailyNutrition'
-import { MealForm } from '../features/mealform/MealForm'
+import { Layout } from '../components/Layout'
+import { DatePickerCard } from '../features/date-picker-card'
+import { DailyNutrition } from '../features/daily-nutrition'
+import { MealForm } from '../features/meal-form'
 
 export default function Day() {
   // const { user } = useAuthenticator()

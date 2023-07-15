@@ -1,5 +1,5 @@
 import { useDisclosure } from '@mantine/hooks'
-import { AuthenticatorModal } from '../authenticatormodal/AuthenticatorModal'
+import { AuthenticatorModal } from '../AuthenticatorModal'
 
 export function LandingPage() {
   const [opened, { open, close }] = useDisclosure(false)
