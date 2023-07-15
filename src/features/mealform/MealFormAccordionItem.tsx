@@ -1,5 +1,5 @@
 import { useForm, UseFormReturnType } from '@mantine/form'
-import { Accordion, Button, Group } from '@mantine/core'
+import { Accordion, Button, Center } from '@mantine/core'
 import { MealFormFields } from './MealFormFields'
 import { FormData } from './types'
 import { MealIcon } from './MealIcon'
@@ -37,9 +37,9 @@ export function MealFormAccordionItem({
         ) : (
           <NoFoodText />
         )}
-        <Group position="center" mt="md">
+        <Center mt="xl">
           <Button onClick={handleAddFood}>Add Food</Button>
-        </Group>
+        </Center>
       </Accordion.Panel>
     </Accordion.Item>
   )
