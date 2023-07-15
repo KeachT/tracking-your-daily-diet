@@ -1,5 +1,5 @@
 import { Grid } from '@mantine/core'
-import { Nutrition } from './types'
+import { Nutrition } from '../types'
 import { NutritionRing } from './NutritionRing'
 
 // TODO This array is mock data.

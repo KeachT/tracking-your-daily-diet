@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from 'react'
-import { DatePicker, DateValue } from '@mantine/dates'
 import { Modal } from '@mantine/core'
+import { DatePicker, DateValue } from '@mantine/dates'
 
 type DatePickerModalProps = {
   opened: boolean

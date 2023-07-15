@@ -1,4 +1,4 @@
-import { Accordion, Box } from '@mantine/core'
+import { Accordion } from '@mantine/core'
 import { MealCategoryName } from '@/API'
 import { MealFormAccordionItem } from './MealFormAccordionItem'
 

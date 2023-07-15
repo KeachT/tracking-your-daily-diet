@@ -7,7 +7,7 @@ import {
   IconChevronLeft,
   IconChevronRight,
 } from '@tabler/icons-react'
-import { createCardStyle } from './utils'
+import { createCardStyle } from '../utils'
 import { DatePickerModal } from './DatePickerModal'
 
 export function DatePickerCard() {
