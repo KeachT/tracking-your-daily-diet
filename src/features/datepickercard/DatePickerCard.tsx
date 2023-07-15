@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Box, Card, Grid, Text } from '@mantine/core'
+import { DateValue } from '@mantine/dates'
 import { useDisclosure } from '@mantine/hooks'
 import {
   IconBoxMultiple,
@@ -10,7 +11,7 @@ import { createCardStyle } from './utils'
 import { DatePickerModal } from './DatePickerModal'
 
 export function DatePickerCard() {
-  const [currentDate, setCurrentDate] = useState<Date | null>(new Date())
+  const [currentDate, setCurrentDate] = useState<DateValue>(new Date())
   const [opened, { open, close }] = useDisclosure(false)
   const { classes } = createCardStyle()
 
@@ -69,6 +70,7 @@ export function DatePickerCard() {
         <DatePickerModal
           opened={opened}
           close={close}
+          currentDate={currentDate}
           setCurrentDate={setCurrentDate}
         />
       )}

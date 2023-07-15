@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Modal, Text } from '@mantine/core'
+import { Box, Button, Center, Modal, Text } from '@mantine/core'
 import { useHandleSignOut } from './useHandleSignOut'
 
 type LogoutModalProps = {
@@ -12,10 +12,10 @@ export function LogoutModal({ opened, close }: LogoutModalProps) {
   return (
     <Modal opened={opened} onClose={close} size="auto">
       <Box p={20}>
-        <Text align="center" mb={30}>
-          Are you sure you want to log out?
-        </Text>
-        <Flex justify="center">
+        <Center>
+          <Text mb={30}>Are you sure you want to log out?</Text>
+        </Center>
+        <Center>
           <Button
             variant="outline"
             color="gray"
@@ -26,7 +26,7 @@ export function LogoutModal({ opened, close }: LogoutModalProps) {
           >
             <span>Log out</span>
           </Button>
-        </Flex>
+        </Center>
       </Box>
     </Modal>
   )
