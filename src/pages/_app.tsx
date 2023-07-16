@@ -32,7 +32,8 @@ function MyApp({ Component, pageProps }: AppProps) {
     if (authStatus === 'authenticated') {
       router.push(Path.Day)
     }
-  }, [authStatus, router])
+    // eslint-disable-next-line no-unused-vars
+  }, [authStatus])
 
   return <>{isLoading ? <LoadingIndicator /> : <Component {...pageProps} />}</>
 }
