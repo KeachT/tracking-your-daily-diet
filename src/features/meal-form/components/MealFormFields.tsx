@@ -1,7 +1,7 @@
 import { UseFormReturnType } from '@mantine/form'
 import { ActionIcon, Group, Grid, NumberInput, TextInput } from '@mantine/core'
 import { IconTrash } from '@tabler/icons-react'
-import { FormData } from './types'
+import { FormData } from '../types'
 
 type MealFormFieldsProps = {
   form: UseFormReturnType<FormData, (values: FormData) => FormData>
