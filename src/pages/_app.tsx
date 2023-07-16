@@ -32,7 +32,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     if (authStatus === 'authenticated') {
       router.push(Path.Day)
     }
-  }, [authStatus])
+  }, [authStatus, router])
 
   return <>{isLoading ? <LoadingIndicator /> : <Component {...pageProps} />}</>
 }
