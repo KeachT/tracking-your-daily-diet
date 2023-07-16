@@ -24,7 +24,7 @@ export function NavigationBar() {
       </Navbar.Section>
 
       <Navbar.Section className={classes.footer}>
-        <Box className={classes.link} onClick={open}>
+        <Box className={`${classes.link} cursor-pointer`} onClick={open}>
           <IconLogout className={classes.linkIcon} stroke={1.5} />
           <span>Log out</span>
         </Box>
