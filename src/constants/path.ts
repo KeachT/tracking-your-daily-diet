@@ -4,4 +4,5 @@ export enum Path {
   Week = '/week',
   Month = '/month',
   Settings = '/settings',
+  Landingpage = '/landingpage',
 }

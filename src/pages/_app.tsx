@@ -1,8 +1,12 @@
 import type { AppProps } from 'next/app'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react'
 import '@/styles/globals.css'
 import '@aws-amplify/ui-react/styles.css'
-import { LandingPage } from '../components/LandingPage'
+import { Path } from '../constants/path'
+import { checkIsLoading } from '../utils/checkIsLoading'
+import { LoadingIndicator } from '../components/LoadingIndicator'
 
 import { Amplify } from 'aws-amplify'
 import awsExports from '../aws-exports'
@@ -17,15 +21,18 @@ export default function App(props: AppProps) {
 }
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const { authStatus } = useAuthenticator((context) => [context.user])
+  const { authStatus } = useAuthenticator((context) => [context.authStatus])
+  const router = useRouter()
+  const isLoading = checkIsLoading(authStatus, router.pathname)
 
-  return (
-    <>
-      {authStatus === 'authenticated' ? (
-        <Component {...pageProps} />
-      ) : (
-        <LandingPage />
-      )}
-    </>
-  )
+  useEffect(() => {
+    if (authStatus === 'unauthenticated') {
+      router.push(Path.Landingpage)
+    }
+    if (authStatus === 'authenticated') {
+      router.push(Path.Day)
+    }
+  }, [authStatus])
+
+  return <>{isLoading ? <LoadingIndicator /> : <Component {...pageProps} />}</>
 }
