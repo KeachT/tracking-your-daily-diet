@@ -18,7 +18,6 @@ export function LogoutModal({ opened, close }: LogoutModalProps) {
         <Center>
           <Button
             variant="outline"
-            color="gray"
             onClick={(event) => {
               handleSignOut()
               event.preventDefault()
