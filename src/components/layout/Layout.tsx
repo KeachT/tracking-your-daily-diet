@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import { ReactNode } from 'react'
-// import { AppShell } from '@mantine/core'
-import { NavigationBar } from '../NavigationBar'
+import { AppShell } from '@mantine/core'
+import { NavigationBar } from '../NavigationBar/NavigationBar'
 
 type LayoutProps = {
   title: string
@@ -17,9 +17,7 @@ export function Layout({ title = '', children }: LayoutProps) {
 
       <header></header>
 
-      <NavigationBar />
-      {children}
-      {/* <AppShell navbar={<NavigationBar />}>{children}</AppShell> */}
+      <AppShell navbar={<NavigationBar />}>{children}</AppShell>
 
       <footer></footer>
     </div>
