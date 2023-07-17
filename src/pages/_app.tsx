@@ -4,18 +4,26 @@ import { useEffect } from 'react'
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react'
 import '@/styles/globals.css'
 import '@aws-amplify/ui-react/styles.css'
+import { MantineProvider } from '@mantine/core'
 import { Path } from '../constants/path'
 import { checkIsLoading } from '../utils/checkIsLoading'
 import { LoadingIndicator } from '../components/LoadingIndicator'
-
 import { Amplify } from 'aws-amplify'
 import awsExports from '../aws-exports'
+
 Amplify.configure(awsExports)
 
 export default function App(props: AppProps) {
   return (
     <Authenticator.Provider>
-      <MyApp {...props} />
+      <MantineProvider
+        withGlobalStyles
+        withNormalizeCSS
+        // Put your mantine theme override here
+        theme={{ colorScheme: 'light' }}
+      >
+        <MyApp {...props} />
+      </MantineProvider>
     </Authenticator.Provider>
   )
 }
@@ -35,5 +43,5 @@ function MyApp({ Component, pageProps }: AppProps) {
     // eslint-disable-next-line no-unused-vars
   }, [authStatus])
 
-  return <>{isLoading ? <LoadingIndicator /> : <Component {...pageProps} />}</>
+  return isLoading ? <LoadingIndicator /> : <Component {...pageProps} />
 }
