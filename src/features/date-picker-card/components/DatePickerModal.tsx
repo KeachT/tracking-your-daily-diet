@@ -23,6 +23,7 @@ export function DatePickerModal({
   return (
     <Modal opened={opened} onClose={close} size="auto">
       <DatePicker
+        firstDayOfWeek={0}
         value={currentDate}
         onChange={(selectedDate) => handleDateChange(selectedDate)}
       />
