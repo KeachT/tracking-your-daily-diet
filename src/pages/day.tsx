@@ -15,12 +15,15 @@ export default function Day() {
 
       <Box maw={700} mb={50}>
         <Text weight={200} size="xl" mb={20}>
-          DailyNutritions
+          Daily Nutritions
         </Text>
         <DailyNutrition />
       </Box>
 
       <Box maw={700} mb={50}>
+        <Text weight={200} size="xl" mb={20}>
+          Daily Meals
+        </Text>
         <MealForm />
       </Box>
     </Layout>
