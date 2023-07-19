@@ -17,7 +17,9 @@ export function Layout({ title = '', children }: LayoutProps) {
 
       <header></header>
 
-      <AppShell navbar={<NavigationBar />}>{children}</AppShell>
+      <AppShell navbar={<NavigationBar />} m={20}>
+        {children}
+      </AppShell>
 
       <footer></footer>
     </div>
