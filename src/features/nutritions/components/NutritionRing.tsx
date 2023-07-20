@@ -2,7 +2,7 @@ import { Grid, RingProgress, Text } from '@mantine/core'
 import { Nutrition } from '../types'
 
 export function NutritionRing({ name, number, percent, color }: Nutrition) {
-  const unit = name === 'Calorie' ? 'Kcal' : 'g'
+  const unit = name === 'Calories' ? 'Kcal' : 'g'
 
   return (
     <Grid.Col sm={6} md={3} key={name}>

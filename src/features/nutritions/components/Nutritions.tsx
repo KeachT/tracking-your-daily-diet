@@ -5,7 +5,7 @@ import { NutritionRing } from './NutritionRing'
 // TODO This array is mock data.
 const nutritions: Nutrition[] = [
   {
-    name: 'Calorie',
+    name: 'Calories',
     color: 'violet',
     number: 1800,
     percent: 70,
@@ -25,7 +25,7 @@ const nutritions: Nutrition[] = [
   },
 ]
 
-export function DailyNutrition() {
+export function Nutritions() {
   return (
     <Grid gutter={50}>
       {nutritions.map((nutrition) => (
