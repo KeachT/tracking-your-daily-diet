@@ -1,7 +1,7 @@
 import { Box, Text } from '@mantine/core'
 import { Layout } from '../components/Layout'
 import { DatePickerCard } from '../features/date-picker-card'
-import { DailyNutrition } from '../features/daily-nutrition'
+import { Nutritions } from '../features/nutritions'
 import { CaloriesChart } from '../features/calories-chart'
 
 export default function Week() {
@@ -15,7 +15,7 @@ export default function Week() {
         <Text weight={200} size="xl" mb={20}>
           Weelky Nutritions
         </Text>
-        <DailyNutrition />
+        <Nutritions />
       </Box>
 
       <Text weight={200} size="xl" mb={20}>
