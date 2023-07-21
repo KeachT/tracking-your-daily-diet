@@ -32,9 +32,9 @@ export function DatePickerCard() {
 
   return (
     <Box>
-      <Card radius="lg" withBorder>
+      <Card radius="md" withBorder>
         <Grid align="baseline" justify="center" mt={2} mb={10}>
-          <Text weight={100} size="md">
+          <Text weight={200} size="md">
             Current Day:
           </Text>
           <Text weight={200} size="xl" ml={8}>
