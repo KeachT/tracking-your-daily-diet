@@ -11,8 +11,8 @@ export function NutritionRing({ name, number, percent, color }: Nutrition) {
       </Text>
 
       <RingProgress
-        size={150}
-        thickness={8}
+        size={140}
+        thickness={6}
         roundCaps
         label={
           <div>
