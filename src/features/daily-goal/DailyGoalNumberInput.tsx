@@ -6,7 +6,7 @@ type DailyGoalNumberInputProps = {
   value: number | ''
   step: number
   withAsterisk?: boolean
-  handleChange: (value: number | '') => void
+  handleChange: (value: number) => void
 }
 
 export function DailyGoalNumberInput({
