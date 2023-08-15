@@ -10,7 +10,7 @@ export function LoadingIndicator() {
         height: '100vh',
       }}
     >
-      <Loader color="violet" size="xl" variant="bars" />
+      <Loader color="lime" size="xl" variant="bars" />
     </Container>
   )
 }
