@@ -1,27 +1,22 @@
-import { useForm, UseFormReturnType } from '@mantine/form'
 import { Accordion, Button, Center } from '@mantine/core'
+import { createFoodInitialValues } from '../utils'
+import { FormsType } from '../types'
+
 import { MealFormFields } from './MealFormFields'
-import { FormData } from '../types'
 import { MealIcon } from './MealIcon'
 import { NoFoodText } from './NoFoodText'
-import { createFoodInitialValues } from '../utils'
 
 type MealFormAccordionItemProps = {
   mealCategoryName: string
+  forms: FormsType
 }
 
 export function MealFormAccordionItem({
   mealCategoryName,
+  forms,
 }: MealFormAccordionItemProps) {
-  const form: UseFormReturnType<FormData, (values: FormData) => FormData> =
-    useForm({
-      initialValues: {
-        [mealCategoryName]: [createFoodInitialValues()],
-      },
-    })
-
   const handleAddFood = () => {
-    form.insertListItem(`${mealCategoryName}`, createFoodInitialValues())
+    forms.insertListItem(`${mealCategoryName}`, createFoodInitialValues())
   }
 
   return (
@@ -32,8 +27,8 @@ export function MealFormAccordionItem({
         {mealCategoryName}
       </Accordion.Control>
       <Accordion.Panel>
-        {form.values[mealCategoryName].length > 0 ? (
-          <MealFormFields form={form} mealCategoryName={mealCategoryName} />
+        {forms.values[mealCategoryName].length > 0 ? (
+          <MealFormFields form={forms} mealCategoryName={mealCategoryName} />
         ) : (
           <NoFoodText />
         )}
