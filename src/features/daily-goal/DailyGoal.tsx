@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react'
 import { Box, Button } from '@mantine/core'
 import { CreateDailyGoalInput, UpdateDailyGoalInput } from '../../API'
 import { useDailyGoalStore } from '../../stores/dailyGoal'
-import { fetchDailyGoals, addDailyGoal, updDailyGoal } from './utils'
+import { addDailyGoal, updDailyGoal } from './utils'
 import { DailyGoalNumberInput } from './DailyGoalNumberInput'
 
 export function DailyGoal() {

@@ -1,49 +1,8 @@
 import { Grid, Paper } from '@mantine/core'
-import { Nutrition } from '../types'
 import { NutritionRing } from './NutritionRing'
 import { useNutritionNumbersStore } from '../../../stores/nutritionNumbers'
 import { useDailyGoalStore } from '../../../stores/dailyGoal'
-
-const calcDailyPercent = (daily: number, goal: number) =>
-  Math.round((daily / (goal ? goal : 1)) * 100)
-
-const createNutritions = (
-  // daily
-  dailyCalories: number,
-  dailyProtein: number,
-  dailyFat: number,
-  dailyCarbohydrates: number,
-  // dailyGoals
-  calories: number,
-  protein: number,
-  fat: number,
-  carbohydrates: number
-): Nutrition[] => [
-  {
-    name: 'Calories',
-    color: 'violet',
-    number: dailyCalories,
-    percent: calcDailyPercent(dailyCalories, calories),
-  },
-  {
-    name: 'Protein',
-    color: 'red',
-    number: dailyProtein,
-    percent: calcDailyPercent(dailyProtein, protein),
-  },
-  {
-    name: 'Fat',
-    color: 'yellow',
-    number: dailyFat,
-    percent: calcDailyPercent(dailyFat, fat),
-  },
-  {
-    name: `Carbonhydrates`,
-    color: 'teal',
-    number: dailyCarbohydrates,
-    percent: calcDailyPercent(dailyCarbohydrates, carbohydrates),
-  },
-]
+import { createNutritions } from '../utils'
 
 export function Nutritions() {
   const { dailyCalories, dailyProtein, dailyFat, dailyCarbohydrates } =

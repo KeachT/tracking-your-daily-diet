@@ -26,15 +26,10 @@ export const useDailyGoalStore = create<DailyGoalState>()((set) => ({
 
   setDailyGoalId: (newDailyGoalId) =>
     set(() => ({ dailyGoalId: newDailyGoalId })),
-
   setCalories: (newCalories) => set(() => ({ calories: newCalories })),
-
   setProtein: (newProtein) => set(() => ({ protein: newProtein })),
-
   setFat: (newFat) => set(() => ({ fat: newFat })),
-
   setCarbohydrates: (newCarbohydrates) =>
     set(() => ({ carbohydrates: newCarbohydrates })),
-
   setVersion: (newVersion) => set(() => ({ version: newVersion })),
 }))
