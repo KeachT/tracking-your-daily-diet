@@ -1,16 +1,24 @@
-import { useEffect, useState } from 'react'
 import { Box, Button } from '@mantine/core'
 import { CreateDailyGoalInput, UpdateDailyGoalInput } from '../../API'
-import { fetchDailyGoals, addDailyGoal, updDailyGoal } from './utils'
+import { useDailyGoalStore } from '../../stores/dailyGoal'
+import { addDailyGoal, updDailyGoal } from './utils'
 import { DailyGoalNumberInput } from './DailyGoalNumberInput'
 
 export function DailyGoal() {
-  const [dailyGoalId, setDailyGoalId] = useState<string>('')
-  const [calories, setCalories] = useState<number>(0)
-  const [protein, setProtein] = useState<number>(0)
-  const [fat, setFat] = useState<number>(0)
-  const [carbohydrates, setCarbohydrates] = useState<number>(0)
-  const [version, setVersion] = useState<number>(0)
+  const {
+    dailyGoalId,
+    calories,
+    protein,
+    fat,
+    carbohydrates,
+    version,
+    setDailyGoalId,
+    setCalories,
+    setProtein,
+    setFat,
+    setCarbohydrates,
+    setVersion,
+  } = useDailyGoalStore()
 
   const createDailyGoalInput: CreateDailyGoalInput = {
     calories: calories,
@@ -51,17 +59,6 @@ export function DailyGoal() {
       setVersion
     )
   }
-
-  useEffect(() => {
-    fetchDailyGoals(
-      setDailyGoalId,
-      setCalories,
-      setProtein,
-      setFat,
-      setCarbohydrates,
-      setVersion
-    )
-  }, [])
 
   return (
     <Box>

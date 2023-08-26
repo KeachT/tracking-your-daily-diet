@@ -1,44 +1,24 @@
 import { Grid, Paper } from '@mantine/core'
-import { Nutrition } from '../types'
 import { NutritionRing } from './NutritionRing'
 import { useNutritionNumbersStore } from '../../../stores/nutritionNumbers'
-
-const createNutritions = (
-  dailyCalories: number,
-  dailyProtein: number,
-  dailyFat: number,
-  dailyCarbohydrates: number
-): Nutrition[] => [
-  {
-    name: 'Calories',
-    color: 'violet',
-    number: dailyCalories,
-    percent: 70,
-  },
-  {
-    name: 'Protein',
-    color: 'red',
-    number: dailyProtein,
-    percent: 75,
-  },
-  { name: 'Fat', color: 'yellow', number: dailyFat, percent: 90 },
-  {
-    name: `Carbonhydrates`,
-    color: 'teal',
-    number: dailyCarbohydrates,
-    percent: 85,
-  },
-]
+import { useDailyGoalStore } from '../../../stores/dailyGoal'
+import { createNutritions } from '../utils'
 
 export function Nutritions() {
   const { dailyCalories, dailyProtein, dailyFat, dailyCarbohydrates } =
     useNutritionNumbersStore()
 
+  const { calories, protein, fat, carbohydrates } = useDailyGoalStore()
+
   const nutritions = createNutritions(
     dailyCalories,
     dailyProtein,
     dailyFat,
-    dailyCarbohydrates
+    dailyCarbohydrates,
+    calories,
+    protein,
+    fat,
+    carbohydrates
   )
 
   return (
