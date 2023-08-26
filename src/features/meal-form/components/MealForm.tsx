@@ -5,7 +5,7 @@ import { MealCategoryName } from '@/API'
 import { sum } from 'radash'
 
 import { useNutritionNumbersStore } from '../../../stores/nutritionNumbers'
-import { createFoodInitialValues } from '../utils'
+import { createFoodInitialValues, createSumValuesAry } from '../utils'
 import { FormsType } from '../types'
 import { MealFormAccordionItem } from './MealFormAccordionItem'
 
@@ -20,44 +20,32 @@ export function MealForm() {
   const mealCategoryNames: string[] = Object.values(MealCategoryName)
 
   const forms: FormsType = useForm({
-    initialValues: {
-      [mealCategoryNames[0]]: [createFoodInitialValues()],
-      [mealCategoryNames[1]]: [createFoodInitialValues()],
-      [mealCategoryNames[2]]: [createFoodInitialValues()],
-      [mealCategoryNames[3]]: [createFoodInitialValues()],
-    },
+    initialValues: Object.fromEntries(
+      mealCategoryNames.map((name) => [name, [createFoodInitialValues()]])
+    ),
   })
 
-  const formValuesObj = forms.values
-  const formValuesAry = Object.keys(formValuesObj).map((key) => {
-    const formValue = formValuesObj[key]
+  const sumValuesAry = createSumValuesAry(forms)
+  const newDailyCalories = sum(sumValuesAry, (f) => f.sumCalories)
+  const newDailyProtein = sum(sumValuesAry, (f) => f.sumProtein)
+  const newDailyFat = sum(sumValuesAry, (f) => f.sumFat)
+  const newDailyCarbohydrates = sum(sumValuesAry, (f) => f.sumCarbohydrates)
 
-    const sumCalories = sum(formValue, (f) => Number(f.calories))
-    const sumProtein = sum(formValue, (f) => Number(f.protein))
-    const sumFat = sum(formValue, (f) => Number(f.fat))
-    const sumCarbohydrates = sum(formValue, (f) => Number(f.carbohydrates))
+  useEffect(() => {
+    setDailyCalories(newDailyCalories)
+  }, [newDailyCalories, setDailyCalories])
 
-    return { sumCalories, sumProtein, sumFat, sumCarbohydrates }
-  })
+  useEffect(() => {
+    setDailyProtein(newDailyProtein)
+  }, [newDailyProtein, setDailyProtein])
 
-  const newDailyCalories = sum(formValuesAry, (f) => f.sumCalories)
-  const newDailyProtein = sum(formValuesAry, (f) => f.sumProtein)
-  const newDailyFat = sum(formValuesAry, (f) => f.sumFat)
-  const newDailyCarbohydrates = sum(formValuesAry, (f) => f.sumCarbohydrates)
+  useEffect(() => {
+    setDailyFat(newDailyFat)
+  }, [newDailyFat, setDailyFat])
 
-  useEffect(
-    () => setDailyCalories(newDailyCalories),
-    [newDailyCalories, setDailyCalories]
-  )
-  useEffect(
-    () => setDailyProtein(newDailyProtein),
-    [newDailyProtein, setDailyProtein]
-  )
-  useEffect(() => setDailyFat(newDailyFat), [newDailyFat, setDailyFat])
-  useEffect(
-    () => setDailyCarbohydrates(newDailyCarbohydrates),
-    [newDailyCarbohydrates, setDailyCarbohydrates]
-  )
+  useEffect(() => {
+    setDailyCarbohydrates(newDailyCarbohydrates)
+  }, [newDailyCarbohydrates, setDailyCarbohydrates])
 
   return (
     <Accordion defaultValue={mealCategoryNames[0]} variant="separated">
