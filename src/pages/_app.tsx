@@ -6,6 +6,8 @@ import '@/styles/globals.css'
 import '@aws-amplify/ui-react/styles.css'
 import { MantineProvider } from '@mantine/core'
 import { Path } from '../constants/path'
+import { fetchDailyGoals } from '../features/daily-goal/utils'
+import { useDailyGoalStore } from '../stores/dailyGoal'
 import { checkIsLoading } from '../utils/checkIsLoading'
 import { LoadingIndicator } from '../components/LoadingIndicator'
 import { Amplify } from 'aws-amplify'
@@ -33,6 +35,15 @@ function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
   const isLoading = checkIsLoading(authStatus, router.pathname)
 
+  const {
+    setDailyGoalId,
+    setCalories,
+    setProtein,
+    setFat,
+    setCarbohydrates,
+    setVersion,
+  } = useDailyGoalStore()
+
   useEffect(() => {
     if (authStatus === 'unauthenticated') {
       router.push(Path.Landingpage)
@@ -40,6 +51,19 @@ function MyApp({ Component, pageProps }: AppProps) {
     if (authStatus === 'authenticated') {
       router.push(Path.Day)
     }
+    // eslint-disable-next-line no-unused-vars
+  }, [authStatus])
+
+  useEffect(() => {
+    authStatus === 'authenticated' &&
+      fetchDailyGoals(
+        setDailyGoalId,
+        setCalories,
+        setProtein,
+        setFat,
+        setCarbohydrates,
+        setVersion
+      )
     // eslint-disable-next-line no-unused-vars
   }, [authStatus])
 

@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from 'react'
 import { API } from 'aws-amplify'
 import { listDailyGoals } from '../../graphql/queries'
 import { createDailyGoal, updateDailyGoal } from '../../graphql/mutations'
@@ -10,15 +9,17 @@ import {
   UpdateDailyGoalInput,
   UpdateDailyGoalMutation,
 } from '../../API'
+import { DailyGoalState } from '../../stores/dailyGoal'
 
 export async function fetchDailyGoals(
-  setDailyGoalId: Dispatch<SetStateAction<string>>,
-  setCalories: Dispatch<SetStateAction<number>>,
-  setProtein: Dispatch<SetStateAction<number>>,
-  setFat: Dispatch<SetStateAction<number>>,
-  setCarbohydrates: Dispatch<SetStateAction<number>>,
-  setVersion: Dispatch<SetStateAction<number>>
+  setDailyGoalId: DailyGoalState['setDailyGoalId'],
+  setCalories: DailyGoalState['setCalories'],
+  setProtein: DailyGoalState['setProtein'],
+  setFat: DailyGoalState['setFat'],
+  setCarbohydrates: DailyGoalState['setCarbohydrates'],
+  setVersion: DailyGoalState['setVersion']
 ) {
+  console.log('called fetchDailyGoals')
   try {
     const { data } = await API.graphql<GraphQLQuery<ListDailyGoalsQuery>>({
       query: listDailyGoals,
@@ -37,12 +38,12 @@ export async function fetchDailyGoals(
 
 export async function addDailyGoal(
   createDailyGoalInput: CreateDailyGoalInput,
-  setDailyGoalId: Dispatch<SetStateAction<string>>,
-  setCalories: Dispatch<SetStateAction<number>>,
-  setProtein: Dispatch<SetStateAction<number>>,
-  setFat: Dispatch<SetStateAction<number>>,
-  setCarbohydrates: Dispatch<SetStateAction<number>>,
-  setVersion: Dispatch<SetStateAction<number>>
+  setDailyGoalId: DailyGoalState['setDailyGoalId'],
+  setCalories: DailyGoalState['setCalories'],
+  setProtein: DailyGoalState['setProtein'],
+  setFat: DailyGoalState['setFat'],
+  setCarbohydrates: DailyGoalState['setCarbohydrates'],
+  setVersion: DailyGoalState['setVersion']
 ) {
   try {
     const { data } = await API.graphql<GraphQLQuery<CreateDailyGoalMutation>>({
@@ -63,12 +64,12 @@ export async function addDailyGoal(
 
 export async function updDailyGoal(
   updateDailyGoalInput: UpdateDailyGoalInput,
-  setDailyGoalId: Dispatch<SetStateAction<string>>,
-  setCalories: Dispatch<SetStateAction<number>>,
-  setProtein: Dispatch<SetStateAction<number>>,
-  setFat: Dispatch<SetStateAction<number>>,
-  setCarbohydrates: Dispatch<SetStateAction<number>>,
-  setVersion: Dispatch<SetStateAction<number>>
+  setDailyGoalId: DailyGoalState['setDailyGoalId'],
+  setCalories: DailyGoalState['setCalories'],
+  setProtein: DailyGoalState['setProtein'],
+  setFat: DailyGoalState['setFat'],
+  setCarbohydrates: DailyGoalState['setCarbohydrates'],
+  setVersion: DailyGoalState['setVersion']
 ) {
   try {
     const { data } = await API.graphql<GraphQLQuery<UpdateDailyGoalMutation>>({
