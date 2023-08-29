@@ -7,7 +7,6 @@ export type DailyGoalState = {
   fat: number
   carbohydrates: number
   version: number
-
   setDailyGoalId: (dailyGoalId: string) => void
   setCalories: (calories: number) => void
   setProtein: (protein: number) => void
@@ -23,7 +22,6 @@ export const useDailyGoalStore = create<DailyGoalState>()((set) => ({
   fat: 0,
   carbohydrates: 0,
   version: 0,
-
   setDailyGoalId: (newDailyGoalId) =>
     set(() => ({ dailyGoalId: newDailyGoalId })),
   setCalories: (newCalories) => set(() => ({ calories: newCalories })),

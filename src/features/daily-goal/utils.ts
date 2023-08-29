@@ -19,12 +19,12 @@ export async function fetchDailyGoals(
   setCarbohydrates: DailyGoalState['setCarbohydrates'],
   setVersion: DailyGoalState['setVersion']
 ) {
-  console.log('called fetchDailyGoals')
   try {
     const { data } = await API.graphql<GraphQLQuery<ListDailyGoalsQuery>>({
       query: listDailyGoals,
       authMode: 'AMAZON_COGNITO_USER_POOLS',
     })
+
     setDailyGoalId(data?.listDailyGoals?.items?.[0]?.id || '')
     setCalories(data?.listDailyGoals?.items?.[0]?.calories || 0)
     setProtein(data?.listDailyGoals?.items?.[0]?.protein || 0)
@@ -51,6 +51,7 @@ export async function addDailyGoal(
       variables: { input: createDailyGoalInput },
       authMode: 'AMAZON_COGNITO_USER_POOLS',
     })
+
     setDailyGoalId(data?.createDailyGoal?.id || '')
     setCalories(data?.createDailyGoal?.calories || 0)
     setProtein(data?.createDailyGoal?.protein || 0)
@@ -77,6 +78,7 @@ export async function updDailyGoal(
       variables: { input: updateDailyGoalInput },
       authMode: 'AMAZON_COGNITO_USER_POOLS',
     })
+
     setDailyGoalId(data?.updateDailyGoal?.id || '')
     setCalories(data?.updateDailyGoal?.calories || 0)
     setProtein(data?.updateDailyGoal?.protein || 0)
