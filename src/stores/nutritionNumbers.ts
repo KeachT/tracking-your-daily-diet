@@ -5,7 +5,6 @@ type NutritionNumbersState = {
   dailyProtein: number
   dailyFat: number
   dailyCarbohydrates: number
-
   setDailyCalories: (dailyCalories: number) => void
   setDailyProtein: (dailyProtein: number) => void
   setDailyFat: (dailyFat: number) => void
@@ -18,7 +17,6 @@ export const useNutritionNumbersStore = create<NutritionNumbersState>()(
     dailyProtein: 0,
     dailyFat: 0,
     dailyCarbohydrates: 0,
-
     setDailyCalories: (newDailyCalories) =>
       set(() => ({ dailyCalories: newDailyCalories })),
     setDailyProtein: (newDailyProtein) =>

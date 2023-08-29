@@ -8,7 +8,7 @@ import { Nutrition } from './types'
  * @returns Returns the percentage of progress as an integer (number).
  */
 const calcDailyPercent = (dailyIntake: number, targetGoal: number) =>
-  Math.round((dailyIntake / (targetGoal ?? 1)) * 100)
+  Math.round((dailyIntake / (targetGoal || 1)) * 100)
 
 /**
  * Creates an array of Nutrition objects based on daily values and goals.
