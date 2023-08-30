@@ -1,12 +1,12 @@
-import { Dispatch, SetStateAction } from 'react'
 import { Modal } from '@mantine/core'
 import { DatePicker, DateValue } from '@mantine/dates'
+import { CurrentDateState } from '../../../stores/currentDate'
 
 type DatePickerModalProps = {
   opened: boolean
   close: () => void
   currentDate: DateValue
-  setCurrentDate: Dispatch<SetStateAction<DateValue>>
+  setCurrentDate: CurrentDateState['setCurrentDate']
 }
 
 export function DatePickerModal({

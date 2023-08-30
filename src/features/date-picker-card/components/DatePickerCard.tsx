@@ -1,17 +1,16 @@
-import { useState } from 'react'
 import { Box, Card, Grid, Text } from '@mantine/core'
-import { DateValue } from '@mantine/dates'
 import { useDisclosure } from '@mantine/hooks'
 import {
-  IconBoxMultiple,
   IconChevronLeft,
+  IconBoxMultiple,
   IconChevronRight,
 } from '@tabler/icons-react'
+import { useCurrentDateStore } from '../../../stores/currentDate'
 import { createCardStyle } from '../utils'
 import { DatePickerModal } from './DatePickerModal'
 
 export function DatePickerCard() {
-  const [currentDate, setCurrentDate] = useState<DateValue>(new Date())
+  const { currentDate, setCurrentDate } = useCurrentDateStore()
   const [opened, { open, close }] = useDisclosure(false)
   const { classes } = createCardStyle()
 
