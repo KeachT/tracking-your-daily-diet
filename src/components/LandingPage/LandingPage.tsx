@@ -1,5 +1,6 @@
-import { Container, Text, Button, Center } from '@mantine/core'
+import { Container, Text, Button, Center, Alert } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
+import { IconAlertCircle } from '@tabler/icons-react'
 import { AuthenticatorModal } from '../AuthenticatorModal'
 import { createLandingPageStyle } from './utils'
 
@@ -26,6 +27,17 @@ export function LandingPage() {
           tracking your meals and monitoring your progress to achieve your
           goals. Join us today and take the first step towards a healthier you!
         </Text>
+
+        {/* TODO Turn this alert off when the app is complete. */}
+        <Alert
+          icon={<IconAlertCircle size="2rem" />}
+          title="Notice"
+          color="red"
+          mt={30}
+        >
+          This application is currently in development. It may contain bugs and
+          incomplete features.
+        </Alert>
 
         <Center mt={30}>
           <Button
