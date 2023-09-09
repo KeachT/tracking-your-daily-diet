@@ -51,7 +51,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     if (authStatus === 'authenticated') {
       router.push(Path.Day)
     }
-    // eslint-disable-next-line no-unused-vars
+    // eslint-disable-next-line
   }, [authStatus])
 
   useEffect(() => {
@@ -64,7 +64,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         setCarbohydrates,
         setVersion
       )
-    // eslint-disable-next-line no-unused-vars
+    // eslint-disable-next-line
   }, [authStatus])
 
   return isLoading ? <LoadingIndicator /> : <Component {...pageProps} />
