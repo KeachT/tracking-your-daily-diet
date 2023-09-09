@@ -1,7 +1,7 @@
 import { Accordion, Button, Center } from '@mantine/core'
-import { createFoodInitialValues } from '../utils'
-import { FormsType } from '../types'
 
+import { FormsType } from '../types'
+import { createFoodInitialValues } from '../utils'
 import { MealFormFields } from './MealFormFields'
 import { MealIcon } from './MealIcon'
 import { NoFoodText } from './NoFoodText'

@@ -1,5 +1,5 @@
-import { useCallback } from 'react'
 import { useAuthenticator } from '@aws-amplify/ui-react'
+import { useCallback } from 'react'
 
 export function useHandleSignOut() {
   const { signOut } = useAuthenticator()

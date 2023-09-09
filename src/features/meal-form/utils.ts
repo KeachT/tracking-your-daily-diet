@@ -1,15 +1,16 @@
-import { API } from 'aws-amplify'
 import { GraphQLQuery } from '@aws-amplify/api'
-import { listMealDates } from '../../graphql/queries'
-import { createMealDate } from '../../graphql/mutations'
+import { randomId } from '@mantine/hooks'
+import { API } from 'aws-amplify'
+import { sum } from 'radash'
+
 import {
+  CreateMealDateInput,
+  CreateMealDateMutation,
   ListMealDatesQuery,
   ListMealDatesQueryVariables,
-  CreateMealDateMutation,
-  CreateMealDateInput,
 } from '../../API'
-import { randomId } from '@mantine/hooks'
-import { sum } from 'radash'
+import { createMealDate } from '../../graphql/mutations'
+import { listMealDates } from '../../graphql/queries'
 import { MealDateState } from '../../stores/mealDate'
 import { FormField, FormsType } from './types'
 

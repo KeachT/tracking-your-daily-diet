@@ -1,6 +1,7 @@
+import { TablerIconsProps } from '@tabler/icons-react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { TablerIconsProps } from '@tabler/icons-react'
+
 import { Path } from '../../constants/path'
 import { createNavigationBarStyle } from './utils'
 

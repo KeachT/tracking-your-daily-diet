@@ -1,4 +1,5 @@
 import { Grid, RingProgress, Text } from '@mantine/core'
+
 import { Nutrition } from '../types'
 
 export function NutritionRing({ name, number, percent, color }: Nutrition) {

@@ -1,8 +1,9 @@
 import { Grid, Paper } from '@mantine/core'
-import { NutritionRing } from './NutritionRing'
-import { useNutritionNumbersStore } from '../../../stores/nutritionNumbers'
+
 import { useDailyGoalStore } from '../../../stores/dailyGoal'
+import { useNutritionNumbersStore } from '../../../stores/nutritionNumbers'
 import { createNutritions } from '../utils'
+import { NutritionRing } from './NutritionRing'
 
 export function Nutritions() {
   const { dailyCalories, dailyProtein, dailyFat, dailyCarbohydrates } =

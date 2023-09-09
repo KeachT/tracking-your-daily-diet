@@ -1,5 +1,6 @@
 import { Modal } from '@mantine/core'
 import { DatePicker, DateValue } from '@mantine/dates'
+
 import { CurrentDateState } from '../../../stores/currentDate'
 
 type DatePickerModalProps = {
