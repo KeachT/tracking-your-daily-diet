@@ -1,5 +1,5 @@
-import { create } from 'zustand'
 import { DateValue } from '@mantine/dates'
+import { create } from 'zustand'
 
 export type CurrentDateState = {
   currentDate: DateValue

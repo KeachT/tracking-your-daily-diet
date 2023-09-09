@@ -1,10 +1,11 @@
 import { Box, Card, Grid, Text } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import {
-  IconChevronLeft,
   IconBoxMultiple,
+  IconChevronLeft,
   IconChevronRight,
 } from '@tabler/icons-react'
+
 import { useCurrentDateStore } from '../../../stores/currentDate'
 import { createCardStyle } from '../utils'
 import { DatePickerModal } from './DatePickerModal'

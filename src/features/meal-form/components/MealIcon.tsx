@@ -1,10 +1,11 @@
 import { rem, useMantineTheme } from '@mantine/core'
 import {
-  IconSunHigh,
   IconBaguette,
-  IconMoon,
   IconChartDonut,
+  IconMoon,
+  IconSunHigh,
 } from '@tabler/icons-react'
+
 import { MealCategoryName } from '@/API'
 
 type CategoryIcons = {

@@ -1,4 +1,4 @@
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts'
+import { CartesianGrid, Line, LineChart, Tooltip,XAxis, YAxis } from 'recharts'
 
 const data = [
   { name: '7/16', calories: 2000, DailyGoal: 3000, max: 4000 },

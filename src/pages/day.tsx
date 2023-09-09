@@ -1,12 +1,11 @@
 import { Box, Text } from '@mantine/core'
+
 import { Layout } from '../components/Layout'
 import { DatePickerCard } from '../features/date-picker-card'
-import { Nutritions } from '../features/nutritions'
 import { MealForm } from '../features/meal-form'
+import { Nutritions } from '../features/nutritions'
 
 export default function Day() {
-  // const { user } = useAuthenticator()
-
   return (
     <Layout title="Day">
       <Box maw={300} mb={50}>

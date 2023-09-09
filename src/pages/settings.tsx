@@ -1,4 +1,5 @@
 import { Box, Text } from '@mantine/core'
+
 import { Layout } from '../components/Layout'
 import { DailyGoal } from '../features/daily-goal'
 

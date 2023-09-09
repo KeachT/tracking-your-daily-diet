@@ -1,6 +1,7 @@
-import { Container, Text, Button, Center, Alert } from '@mantine/core'
+import { Alert,Button, Center, Container, Text } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { IconAlertCircle } from '@tabler/icons-react'
+
 import { AuthenticatorModal } from '../AuthenticatorModal'
 import { createLandingPageStyle } from './utils'
 

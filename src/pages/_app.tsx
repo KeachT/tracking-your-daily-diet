@@ -1,17 +1,19 @@
+import '@/styles/globals.css'
+import '@aws-amplify/ui-react/styles.css'
+
+import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react'
+import { MantineProvider } from '@mantine/core'
+import { Amplify } from 'aws-amplify'
 import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
-import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react'
-import '@/styles/globals.css'
-import '@aws-amplify/ui-react/styles.css'
-import { MantineProvider } from '@mantine/core'
+
+import awsExports from '../aws-exports'
+import { LoadingIndicator } from '../components/LoadingIndicator'
 import { Path } from '../constants/path'
 import { fetchDailyGoals } from '../features/daily-goal/utils'
 import { useDailyGoalStore } from '../stores/dailyGoal'
 import { checkIsLoading } from '../utils/checkIsLoading'
-import { LoadingIndicator } from '../components/LoadingIndicator'
-import { Amplify } from 'aws-amplify'
-import awsExports from '../aws-exports'
 
 Amplify.configure(awsExports)
 

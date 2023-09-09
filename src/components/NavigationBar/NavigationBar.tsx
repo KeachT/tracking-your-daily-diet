@@ -1,9 +1,10 @@
 import { Box, Group, Navbar, Title } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { IconLogout } from '@tabler/icons-react'
-import { createLinkItems, createNavigationBarStyle } from './utils'
-import { NavigationBarLink } from './NavigationBarLink'
+
 import { LogoutModal } from './LogoutModal'
+import { NavigationBarLink } from './NavigationBarLink'
+import { createLinkItems, createNavigationBarStyle } from './utils'
 
 export function NavigationBar() {
   const [opened, { open, close }] = useDisclosure(false)

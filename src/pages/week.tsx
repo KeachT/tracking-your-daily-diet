@@ -1,8 +1,9 @@
 import { Box, Text } from '@mantine/core'
+
 import { Layout } from '../components/Layout'
+import { CaloriesChart } from '../features/calories-chart'
 import { DatePickerCard } from '../features/date-picker-card'
 import { Nutritions } from '../features/nutritions'
-import { CaloriesChart } from '../features/calories-chart'
 
 export default function Week() {
   return (

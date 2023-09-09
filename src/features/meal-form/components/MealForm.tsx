@@ -1,18 +1,19 @@
-import { useEffect } from 'react'
 import { Accordion } from '@mantine/core'
 import { useForm } from '@mantine/form'
-import { MealCategoryName } from '@/API'
 import { sum } from 'radash'
+import { useEffect } from 'react'
 
-import { useNutritionNumbersStore } from '../../../stores/nutritionNumbers'
+import { MealCategoryName } from '@/API'
+
 import { useCurrentDateStore } from '../../../stores/currentDate'
 import { useMealDateStore } from '../../../stores/mealDate'
+import { useNutritionNumbersStore } from '../../../stores/nutritionNumbers'
+import { FormsType } from '../types'
 import {
   createFoodInitialValues,
   createSumValuesAry,
   fetchMealDates,
 } from '../utils'
-import { FormsType } from '../types'
 import { MealFormAccordionItem } from './MealFormAccordionItem'
 
 export function MealForm() {

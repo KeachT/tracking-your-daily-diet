@@ -1,4 +1,5 @@
 import { GetServerSideProps } from 'next'
+
 import { Path } from '../constants/path'
 
 export default function Home() {

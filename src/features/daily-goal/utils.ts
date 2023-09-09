@@ -1,14 +1,15 @@
-import { API } from 'aws-amplify'
-import { listDailyGoals } from '../../graphql/queries'
-import { createDailyGoal, updateDailyGoal } from '../../graphql/mutations'
 import { GraphQLQuery } from '@aws-amplify/api'
+import { API } from 'aws-amplify'
+
 import {
-  ListDailyGoalsQuery,
   CreateDailyGoalInput,
   CreateDailyGoalMutation,
+  ListDailyGoalsQuery,
   UpdateDailyGoalInput,
   UpdateDailyGoalMutation,
 } from '../../API'
+import { createDailyGoal, updateDailyGoal } from '../../graphql/mutations'
+import { listDailyGoals } from '../../graphql/queries'
 import { DailyGoalState } from '../../stores/dailyGoal'
 
 export async function fetchDailyGoals(
