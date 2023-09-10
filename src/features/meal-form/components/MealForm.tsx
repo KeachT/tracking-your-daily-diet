@@ -61,16 +61,14 @@ export function MealForm() {
   }, [currentDateString, setMealDate])
 
   return (
-    <>
-      <Accordion defaultValue={mealCategoryNames[0]} variant="separated">
-        {mealCategoryNames.map((mealCategoryName) => (
-          <MealFormAccordionItem
-            key={mealCategoryName}
-            mealCategoryName={mealCategoryName}
-            forms={forms}
-          />
-        ))}
-      </Accordion>
-    </>
+    <Accordion defaultValue={mealCategoryNames[0]} variant="separated">
+      {mealCategoryNames.map((mealCategoryName) => (
+        <MealFormAccordionItem
+          key={mealCategoryName}
+          mealCategoryName={mealCategoryName}
+          forms={forms}
+        />
+      ))}
+    </Accordion>
   )
 }
