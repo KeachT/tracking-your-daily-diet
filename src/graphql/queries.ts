@@ -16,6 +16,7 @@ export const getDailyGoal = /* GraphQL */ `
       _deleted
       _lastChangedAt
       owner
+      __typename
     }
   }
 `;
@@ -38,9 +39,11 @@ export const listDailyGoals = /* GraphQL */ `
         _deleted
         _lastChangedAt
         owner
+        __typename
       }
       nextToken
       startedAt
+      __typename
     }
   }
 `;
@@ -69,9 +72,11 @@ export const syncDailyGoals = /* GraphQL */ `
         _deleted
         _lastChangedAt
         owner
+        __typename
       }
       nextToken
       startedAt
+      __typename
     }
   }
 `;
@@ -85,15 +90,22 @@ export const getMealDate = /* GraphQL */ `
           id
           name
           mealdateID
+          foods {
+            nextToken
+            startedAt
+            __typename
+          }
           createdAt
           updatedAt
           _version
           _deleted
           _lastChangedAt
           owner
+          __typename
         }
         nextToken
         startedAt
+        __typename
       }
       createdAt
       updatedAt
@@ -101,6 +113,7 @@ export const getMealDate = /* GraphQL */ `
       _deleted
       _lastChangedAt
       owner
+      __typename
     }
   }
 `;
@@ -115,8 +128,21 @@ export const listMealDates = /* GraphQL */ `
         id
         date
         mealCategories {
+          items {
+            id
+            name
+            mealdateID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            owner
+            __typename
+          }
           nextToken
           startedAt
+          __typename
         }
         createdAt
         updatedAt
@@ -124,9 +150,11 @@ export const listMealDates = /* GraphQL */ `
         _deleted
         _lastChangedAt
         owner
+        __typename
       }
       nextToken
       startedAt
+      __typename
     }
   }
 `;
@@ -147,8 +175,21 @@ export const syncMealDates = /* GraphQL */ `
         id
         date
         mealCategories {
+          items {
+            id
+            name
+            mealdateID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            owner
+            __typename
+          }
           nextToken
           startedAt
+          __typename
         }
         createdAt
         updatedAt
@@ -156,9 +197,11 @@ export const syncMealDates = /* GraphQL */ `
         _deleted
         _lastChangedAt
         owner
+        __typename
       }
       nextToken
       startedAt
+      __typename
     }
   }
 `;
@@ -183,9 +226,11 @@ export const getMealCategory = /* GraphQL */ `
           _deleted
           _lastChangedAt
           owner
+          __typename
         }
         nextToken
         startedAt
+        __typename
       }
       createdAt
       updatedAt
@@ -193,6 +238,7 @@ export const getMealCategory = /* GraphQL */ `
       _deleted
       _lastChangedAt
       owner
+      __typename
     }
   }
 `;
@@ -208,8 +254,25 @@ export const listMealCategories = /* GraphQL */ `
         name
         mealdateID
         foods {
+          items {
+            id
+            name
+            calories
+            protein
+            carbohydrates
+            fat
+            mealcategoryID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            owner
+            __typename
+          }
           nextToken
           startedAt
+          __typename
         }
         createdAt
         updatedAt
@@ -217,9 +280,11 @@ export const listMealCategories = /* GraphQL */ `
         _deleted
         _lastChangedAt
         owner
+        __typename
       }
       nextToken
       startedAt
+      __typename
     }
   }
 `;
@@ -241,8 +306,25 @@ export const syncMealCategories = /* GraphQL */ `
         name
         mealdateID
         foods {
+          items {
+            id
+            name
+            calories
+            protein
+            carbohydrates
+            fat
+            mealcategoryID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            owner
+            __typename
+          }
           nextToken
           startedAt
+          __typename
         }
         createdAt
         updatedAt
@@ -250,9 +332,11 @@ export const syncMealCategories = /* GraphQL */ `
         _deleted
         _lastChangedAt
         owner
+        __typename
       }
       nextToken
       startedAt
+      __typename
     }
   }
 `;
@@ -276,8 +360,25 @@ export const mealCategoriesByMealdateID = /* GraphQL */ `
         name
         mealdateID
         foods {
+          items {
+            id
+            name
+            calories
+            protein
+            carbohydrates
+            fat
+            mealcategoryID
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            owner
+            __typename
+          }
           nextToken
           startedAt
+          __typename
         }
         createdAt
         updatedAt
@@ -285,9 +386,11 @@ export const mealCategoriesByMealdateID = /* GraphQL */ `
         _deleted
         _lastChangedAt
         owner
+        __typename
       }
       nextToken
       startedAt
+      __typename
     }
   }
 `;
@@ -307,6 +410,7 @@ export const getFood = /* GraphQL */ `
       _deleted
       _lastChangedAt
       owner
+      __typename
     }
   }
 `;
@@ -331,9 +435,11 @@ export const listFoods = /* GraphQL */ `
         _deleted
         _lastChangedAt
         owner
+        __typename
       }
       nextToken
       startedAt
+      __typename
     }
   }
 `;
@@ -364,9 +470,11 @@ export const syncFoods = /* GraphQL */ `
         _deleted
         _lastChangedAt
         owner
+        __typename
       }
       nextToken
       startedAt
+      __typename
     }
   }
 `;
@@ -399,9 +507,11 @@ export const foodsByMealcategoryID = /* GraphQL */ `
         _deleted
         _lastChangedAt
         owner
+        __typename
       }
       nextToken
       startedAt
+      __typename
     }
   }
 `;

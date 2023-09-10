@@ -19,6 +19,7 @@ export const onCreateDailyGoal = /* GraphQL */ `
       _deleted
       _lastChangedAt
       owner
+      __typename
     }
   }
 `;
@@ -39,6 +40,7 @@ export const onUpdateDailyGoal = /* GraphQL */ `
       _deleted
       _lastChangedAt
       owner
+      __typename
     }
   }
 `;
@@ -59,6 +61,7 @@ export const onDeleteDailyGoal = /* GraphQL */ `
       _deleted
       _lastChangedAt
       owner
+      __typename
     }
   }
 `;
@@ -75,15 +78,22 @@ export const onCreateMealDate = /* GraphQL */ `
           id
           name
           mealdateID
+          foods {
+            nextToken
+            startedAt
+            __typename
+          }
           createdAt
           updatedAt
           _version
           _deleted
           _lastChangedAt
           owner
+          __typename
         }
         nextToken
         startedAt
+        __typename
       }
       createdAt
       updatedAt
@@ -91,6 +101,7 @@ export const onCreateMealDate = /* GraphQL */ `
       _deleted
       _lastChangedAt
       owner
+      __typename
     }
   }
 `;
@@ -107,15 +118,22 @@ export const onUpdateMealDate = /* GraphQL */ `
           id
           name
           mealdateID
+          foods {
+            nextToken
+            startedAt
+            __typename
+          }
           createdAt
           updatedAt
           _version
           _deleted
           _lastChangedAt
           owner
+          __typename
         }
         nextToken
         startedAt
+        __typename
       }
       createdAt
       updatedAt
@@ -123,6 +141,7 @@ export const onUpdateMealDate = /* GraphQL */ `
       _deleted
       _lastChangedAt
       owner
+      __typename
     }
   }
 `;
@@ -139,15 +158,22 @@ export const onDeleteMealDate = /* GraphQL */ `
           id
           name
           mealdateID
+          foods {
+            nextToken
+            startedAt
+            __typename
+          }
           createdAt
           updatedAt
           _version
           _deleted
           _lastChangedAt
           owner
+          __typename
         }
         nextToken
         startedAt
+        __typename
       }
       createdAt
       updatedAt
@@ -155,6 +181,7 @@ export const onDeleteMealDate = /* GraphQL */ `
       _deleted
       _lastChangedAt
       owner
+      __typename
     }
   }
 `;
@@ -182,9 +209,11 @@ export const onCreateMealCategory = /* GraphQL */ `
           _deleted
           _lastChangedAt
           owner
+          __typename
         }
         nextToken
         startedAt
+        __typename
       }
       createdAt
       updatedAt
@@ -192,6 +221,7 @@ export const onCreateMealCategory = /* GraphQL */ `
       _deleted
       _lastChangedAt
       owner
+      __typename
     }
   }
 `;
@@ -219,9 +249,11 @@ export const onUpdateMealCategory = /* GraphQL */ `
           _deleted
           _lastChangedAt
           owner
+          __typename
         }
         nextToken
         startedAt
+        __typename
       }
       createdAt
       updatedAt
@@ -229,6 +261,7 @@ export const onUpdateMealCategory = /* GraphQL */ `
       _deleted
       _lastChangedAt
       owner
+      __typename
     }
   }
 `;
@@ -256,9 +289,11 @@ export const onDeleteMealCategory = /* GraphQL */ `
           _deleted
           _lastChangedAt
           owner
+          __typename
         }
         nextToken
         startedAt
+        __typename
       }
       createdAt
       updatedAt
@@ -266,6 +301,7 @@ export const onDeleteMealCategory = /* GraphQL */ `
       _deleted
       _lastChangedAt
       owner
+      __typename
     }
   }
 `;
@@ -288,6 +324,7 @@ export const onCreateFood = /* GraphQL */ `
       _deleted
       _lastChangedAt
       owner
+      __typename
     }
   }
 `;
@@ -310,6 +347,7 @@ export const onUpdateFood = /* GraphQL */ `
       _deleted
       _lastChangedAt
       owner
+      __typename
     }
   }
 `;
@@ -332,6 +370,7 @@ export const onDeleteFood = /* GraphQL */ `
       _deleted
       _lastChangedAt
       owner
+      __typename
     }
   }
 `;

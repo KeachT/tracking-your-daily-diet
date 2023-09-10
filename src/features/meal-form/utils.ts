@@ -4,13 +4,17 @@ import { API } from 'aws-amplify'
 import { sum } from 'radash'
 
 import {
+  CreateMealCategoryInput,
+  CreateMealCategoryMutation,
   CreateMealDateInput,
   CreateMealDateMutation,
+  GetMealDateQuery,
   ListMealDatesQuery,
   ListMealDatesQueryVariables,
+  MealCategoryName,
 } from '../../API'
-import { createMealDate } from '../../graphql/mutations'
-import { listMealDates } from '../../graphql/queries'
+import { createMealCategory, createMealDate } from '../../graphql/mutations'
+import { getMealDate, listMealDates } from '../../graphql/queries'
 import { MealDateState } from '../../stores/mealDate'
 import { FormField, FormsType } from './types'
 
@@ -49,14 +53,6 @@ export const createSumValuesAry = (forms: FormsType) => {
   return sumValuesAry
 }
 
-/**
- * Fetches meal dates from the server based on the current date.
- *
- * @async
- * @param currentDateString - The current date in string format.
- * @param setMealDate - The function to set the fetched meal date to store.
- * @return A promise that resolves when the meal dates are fetched and processed.
- */
 export async function fetchMealDates(
   currentDateString: string,
   setMealDate: MealDateState['setMealDate']
@@ -68,7 +64,7 @@ export async function fetchMealDates(
   }
 
   try {
-    const { data } = await API.graphql<GraphQLQuery<ListMealDatesQuery>>({
+    let { data } = await API.graphql<GraphQLQuery<ListMealDatesQuery>>({
       query: listMealDates,
       variables: listMealDatesQueryVariables,
       authMode: 'AMAZON_COGNITO_USER_POOLS',
@@ -77,31 +73,32 @@ export async function fetchMealDates(
     const mealDate = data?.listMealDates?.items[0]
     setMealDate(mealDate)
 
-    !mealDate &&
-      addMealDate(
-        {
-          date: currentDateString,
-        },
-        setMealDate
-      )
+    const mealDateId = mealDate?.id || ''
+    const mealCategoriesExists =
+      (mealDate?.mealCategories?.items.length || 0) > 0
+
+    if (mealDate && !mealCategoriesExists) {
+      await createMealCategories(mealDateId)
+      await fetchMealDate(mealDateId, setMealDate)
+    }
+
+    if (!mealDate) {
+      await addMealDate(currentDateString, setMealDate)
+    }
   } catch (err) {
-    console.log('error fetching DailyGoals')
+    console.log('Error fetching MealDates')
   }
 }
 
-/**
- * Adds a new meal date to the server.
- *
- * @async
- * @param createMealDateInput - The input data for creating a new meal date.
- * @param setMealDate - The function to set the newly created meal date to store.
- * @return A promise that resolves when the meal date is successfully created and set.
- */
 async function addMealDate(
-  createMealDateInput: CreateMealDateInput,
+  currentDateString: string,
   setMealDate: MealDateState['setMealDate']
 ) {
   try {
+    const createMealDateInput: CreateMealDateInput = {
+      date: currentDateString,
+    }
+
     const { data } = await API.graphql<GraphQLQuery<CreateMealDateMutation>>({
       query: createMealDate,
       variables: { input: createMealDateInput },
@@ -109,8 +106,51 @@ async function addMealDate(
     })
 
     const mealDate = data?.createMealDate
+    const mealDateId = mealDate?.id || ''
+
+    await createMealCategories(mealDateId)
+    await fetchMealDate(mealDateId, setMealDate)
+  } catch (err) {
+    console.log('Error creating MealDate:', err)
+  }
+}
+
+async function createMealCategories(mealDateId: string) {
+  try {
+    const mealCategoryNames: MealCategoryName[] =
+      Object.values(MealCategoryName)
+
+    for (const name of mealCategoryNames) {
+      const createMealCategoryInput: CreateMealCategoryInput = {
+        name: name,
+        mealdateID: mealDateId, // in the schema, mealdateID
+      }
+
+      await API.graphql<GraphQLQuery<CreateMealCategoryMutation>>({
+        query: createMealCategory,
+        variables: { input: createMealCategoryInput },
+        authMode: 'AMAZON_COGNITO_USER_POOLS',
+      })
+    }
+  } catch (err) {
+    console.log('Error creating MealCategory:', err)
+  }
+}
+
+async function fetchMealDate(
+  mealDateId: string,
+  setMealDate: MealDateState['setMealDate']
+) {
+  try {
+    const { data } = await API.graphql<GraphQLQuery<GetMealDateQuery>>({
+      query: getMealDate,
+      variables: { id: mealDateId },
+      authMode: 'AMAZON_COGNITO_USER_POOLS',
+    })
+
+    const mealDate = data?.getMealDate
     setMealDate(mealDate)
   } catch (err) {
-    console.log('Error creating DailyGoal:', err)
+    console.log('Error fetching MealDate:', err)
   }
 }
