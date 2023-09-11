@@ -11,5 +11,4 @@ A simple and intuitive app to help you track your diet and achieve your goals.
 - View and analyze nutritional information
 
 ## Images
-
-![Tracking Your Daily Diet Image](https://github.com/KeachT/tracking-your-daily-diet/assets/62630204/e720af17-bbcd-4d13-be4e-5078180cbdb2)
+<img width="1430" alt="Tracking Your Daily Diet Image" src="https://github.com/KeachT/tracking-your-daily-diet/assets/62630204/e1449362-a5e4-4404-9ceb-f6935057c085">
