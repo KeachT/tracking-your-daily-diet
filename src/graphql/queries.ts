@@ -91,6 +91,22 @@ export const getMealDate = /* GraphQL */ `
           name
           mealdateID
           foods {
+            items {
+              id
+              name
+              calories
+              protein
+              carbohydrates
+              fat
+              mealcategoryID
+              createdAt
+              updatedAt
+              _version
+              _deleted
+              _lastChangedAt
+              owner
+              __typename
+            }
             nextToken
             startedAt
             __typename
@@ -132,6 +148,27 @@ export const listMealDates = /* GraphQL */ `
             id
             name
             mealdateID
+            foods {
+              items {
+                id
+                name
+                calories
+                protein
+                carbohydrates
+                fat
+                mealcategoryID
+                createdAt
+                updatedAt
+                _version
+                _deleted
+                _lastChangedAt
+                owner
+                __typename
+              }
+              nextToken
+              startedAt
+              __typename
+            }
             createdAt
             updatedAt
             _version
@@ -179,6 +216,27 @@ export const syncMealDates = /* GraphQL */ `
             id
             name
             mealdateID
+            foods {
+              items {
+                id
+                name
+                calories
+                protein
+                carbohydrates
+                fat
+                mealcategoryID
+                createdAt
+                updatedAt
+                _version
+                _deleted
+                _lastChangedAt
+                owner
+                __typename
+              }
+              nextToken
+              startedAt
+              __typename
+            }
             createdAt
             updatedAt
             _version

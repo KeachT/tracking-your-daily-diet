@@ -6,6 +6,7 @@ import { useEffect } from 'react'
 import { MealCategoryName } from '@/API'
 
 import { useCurrentDateStore } from '../../../stores/currentDate'
+import { useMealCategoriesStore } from '../../../stores/mealCategories'
 import { useMealDateStore } from '../../../stores/mealDate'
 import { useNutritionNumbersStore } from '../../../stores/nutritionNumbers'
 import { FormsType } from '../types'
@@ -19,6 +20,7 @@ import { MealFormAccordionItem } from './MealFormAccordionItem'
 export function MealForm() {
   const { currentDate } = useCurrentDateStore()
   const { mealDate, setMealDate } = useMealDateStore()
+  const { mealCategories, setMealCategories } = useMealCategoriesStore()
   const currentDateString = currentDate?.toISOString()?.split('T')?.[0] || ''
   const mealCategoryNames: string[] = Object.values(MealCategoryName)
 
@@ -57,8 +59,8 @@ export function MealForm() {
   }, [newDailyCarbohydrates, setDailyCarbohydrates])
 
   useEffect(() => {
-    fetchMealDates(currentDateString, setMealDate)
-  }, [currentDateString, setMealDate])
+    fetchMealDates(currentDateString, setMealDate, setMealCategories)
+  }, [currentDateString, setMealDate, setMealCategories])
 
   return (
     <Accordion defaultValue={mealCategoryNames[0]} variant="separated">
