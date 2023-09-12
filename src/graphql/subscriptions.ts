@@ -79,6 +79,22 @@ export const onCreateMealDate = /* GraphQL */ `
           name
           mealdateID
           foods {
+            items {
+              id
+              name
+              calories
+              protein
+              carbohydrates
+              fat
+              mealcategoryID
+              createdAt
+              updatedAt
+              _version
+              _deleted
+              _lastChangedAt
+              owner
+              __typename
+            }
             nextToken
             startedAt
             __typename
@@ -119,6 +135,22 @@ export const onUpdateMealDate = /* GraphQL */ `
           name
           mealdateID
           foods {
+            items {
+              id
+              name
+              calories
+              protein
+              carbohydrates
+              fat
+              mealcategoryID
+              createdAt
+              updatedAt
+              _version
+              _deleted
+              _lastChangedAt
+              owner
+              __typename
+            }
             nextToken
             startedAt
             __typename
@@ -159,6 +191,22 @@ export const onDeleteMealDate = /* GraphQL */ `
           name
           mealdateID
           foods {
+            items {
+              id
+              name
+              calories
+              protein
+              carbohydrates
+              fat
+              mealcategoryID
+              createdAt
+              updatedAt
+              _version
+              _deleted
+              _lastChangedAt
+              owner
+              __typename
+            }
             nextToken
             startedAt
             __typename
