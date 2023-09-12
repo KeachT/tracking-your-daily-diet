@@ -15,6 +15,7 @@ import {
 } from '../../API'
 import { createMealCategory, createMealDate } from '../../graphql/mutations'
 import { getMealDate, listMealDates } from '../../graphql/queries'
+import { MealCategoriesState } from '../../stores/mealCategories'
 import { MealDateState } from '../../stores/mealDate'
 import { FormField, FormsType } from './types'
 
@@ -55,7 +56,8 @@ export const createSumValuesAry = (forms: FormsType) => {
 
 export async function fetchMealDates(
   currentDateString: string,
-  setMealDate: MealDateState['setMealDate']
+  setMealDate: MealDateState['setMealDate'],
+  setMealCategories: MealCategoriesState['setMealCategories']
 ) {
   const listMealDatesQueryVariables: ListMealDatesQueryVariables = {
     filter: {
@@ -73,26 +75,30 @@ export async function fetchMealDates(
     const mealDate = data?.listMealDates?.items[0]
     setMealDate(mealDate)
 
-    const mealDateId = mealDate?.id || ''
-    const mealCategoriesExists =
-      (mealDate?.mealCategories?.items.length || 0) > 0
-
-    if (mealDate && !mealCategoriesExists) {
-      await createMealCategories(mealDateId)
-      await fetchMealDate(mealDateId, setMealDate)
+    if (!mealDate) {
+      await addMealDate(currentDateString, setMealDate, setMealCategories)
+      return
     }
 
-    if (!mealDate) {
-      await addMealDate(currentDateString, setMealDate)
+    const mealDateId = mealDate.id
+    const mealCategoriesExists =
+      (mealDate.mealCategories?.items?.length || 0) > 0
+
+    if (mealCategoriesExists) {
+      setMealCategories(mealDate?.mealCategories?.items)
+    } else {
+      await createMealCategories(mealDateId)
+      await fetchMealDate(mealDateId, setMealDate, setMealCategories)
     }
   } catch (err) {
-    console.log('Error fetching MealDates')
+    console.log('Error fetching MealDates:', err)
   }
 }
 
 async function addMealDate(
   currentDateString: string,
-  setMealDate: MealDateState['setMealDate']
+  setMealDate: MealDateState['setMealDate'],
+  setMealCategories: MealCategoriesState['setMealCategories']
 ) {
   try {
     const createMealDateInput: CreateMealDateInput = {
@@ -109,7 +115,7 @@ async function addMealDate(
     const mealDateId = mealDate?.id || ''
 
     await createMealCategories(mealDateId)
-    await fetchMealDate(mealDateId, setMealDate)
+    await fetchMealDate(mealDateId, setMealDate, setMealCategories)
   } catch (err) {
     console.log('Error creating MealDate:', err)
   }
@@ -120,18 +126,20 @@ async function createMealCategories(mealDateId: string) {
     const mealCategoryNames: MealCategoryName[] =
       Object.values(MealCategoryName)
 
-    for (const name of mealCategoryNames) {
-      const createMealCategoryInput: CreateMealCategoryInput = {
-        name: name,
-        mealdateID: mealDateId, // in the schema, mealdateID
-      }
+    await Promise.all(
+      mealCategoryNames.map(async (name) => {
+        const createMealCategoryInput: CreateMealCategoryInput = {
+          name,
+          mealdateID: mealDateId,
+        }
 
-      await API.graphql<GraphQLQuery<CreateMealCategoryMutation>>({
-        query: createMealCategory,
-        variables: { input: createMealCategoryInput },
-        authMode: 'AMAZON_COGNITO_USER_POOLS',
+        await API.graphql<GraphQLQuery<CreateMealCategoryMutation>>({
+          query: createMealCategory,
+          variables: { input: createMealCategoryInput },
+          authMode: 'AMAZON_COGNITO_USER_POOLS',
+        })
       })
-    }
+    )
   } catch (err) {
     console.log('Error creating MealCategory:', err)
   }
@@ -139,7 +147,8 @@ async function createMealCategories(mealDateId: string) {
 
 async function fetchMealDate(
   mealDateId: string,
-  setMealDate: MealDateState['setMealDate']
+  setMealDate: MealDateState['setMealDate'],
+  setMealCategories: MealCategoriesState['setMealCategories']
 ) {
   try {
     const { data } = await API.graphql<GraphQLQuery<GetMealDateQuery>>({
@@ -149,7 +158,10 @@ async function fetchMealDate(
     })
 
     const mealDate = data?.getMealDate
-    setMealDate(mealDate)
+    if (mealDate) {
+      setMealDate(mealDate)
+      setMealCategories(mealDate.mealCategories?.items)
+    }
   } catch (err) {
     console.log('Error fetching MealDate:', err)
   }
