@@ -1,12 +1,12 @@
 import { UseFormReturnType } from '@mantine/form'
 
 export type FormField = {
+  id: string
   name: string
   calories: number
   protein: number
   carbohydrates: number
   fat: number
-  key: string
 }
 
 export type FormData = {
