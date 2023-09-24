@@ -4,16 +4,26 @@ import { API } from 'aws-amplify'
 import { sum } from 'radash'
 
 import {
+  CreateFoodMutation,
   CreateMealCategoryInput,
   CreateMealCategoryMutation,
   CreateMealDateInput,
   CreateMealDateMutation,
+  DeleteFoodInput,
+  DeleteFoodMutation,
   GetMealDateQuery,
   ListMealDatesQuery,
   ListMealDatesQueryVariables,
   MealCategoryName,
+  UpdateFoodMutation,
 } from '../../API'
-import { createMealCategory, createMealDate } from '../../graphql/mutations'
+import {
+  createFood,
+  createMealCategory,
+  createMealDate,
+  deleteFood,
+  updateFood,
+} from '../../graphql/mutations'
 import { getMealDate, listMealDates } from '../../graphql/queries'
 import { MealCategoriesState } from '../../stores/mealCategories'
 import { MealDateState } from '../../stores/mealDate'
@@ -26,12 +36,12 @@ import { FormField, FormsType } from './types'
  */
 export const createFoodInitialValues = (): FormField => {
   return {
+    id: randomId(),
     name: '',
     calories: 0,
     protein: 0,
     carbohydrates: 0,
     fat: 0,
-    key: randomId(),
   }
 }
 
@@ -145,8 +155,8 @@ async function createMealCategories(mealDateId: string) {
   }
 }
 
-async function fetchMealDate(
-  mealDateId: string,
+export async function fetchMealDate(
+  mealDateId: string | undefined,
   setMealDate: MealDateState['setMealDate'],
   setMealCategories: MealCategoriesState['setMealCategories']
 ) {
@@ -164,5 +174,73 @@ async function fetchMealDate(
     }
   } catch (err) {
     console.log('Error fetching MealDate:', err)
+  }
+}
+
+export async function createFoods(
+  createTargetFoods: any,
+  mealcategoryID: string
+) {
+  try {
+    await Promise.all(
+      createTargetFoods.map(async (createTargetFood: any) => {
+        const { id, ...rest } = createTargetFood
+        const variables = { input: { ...rest, mealcategoryID } }
+
+        await API.graphql<GraphQLQuery<CreateFoodMutation>>({
+          query: createFood,
+          variables,
+          authMode: 'AMAZON_COGNITO_USER_POOLS',
+        })
+      })
+    )
+  } catch (err) {
+    console.log('Error creating food:', err)
+  }
+}
+
+export async function deleteFoods(deleteTargetFoods: any) {
+  try {
+    await Promise.all(
+      deleteTargetFoods.map(async (deleteTargetFood: any) => {
+        const { id, _version } = deleteTargetFood
+        const deleteFoodInput: DeleteFoodInput = { id, _version }
+
+        await API.graphql<GraphQLQuery<DeleteFoodMutation>>({
+          query: deleteFood,
+          variables: { input: deleteFoodInput },
+          authMode: 'AMAZON_COGNITO_USER_POOLS',
+        })
+      })
+    )
+  } catch (err) {
+    console.log('Error deleting food:', err)
+  }
+}
+
+export async function updateFoods(updateTargetFoods: any) {
+  try {
+    await Promise.all(
+      updateTargetFoods.map(async (updateTargetFood: any) => {
+        // Exclude not necessary property
+        const {
+          __typename,
+          createdAt,
+          updatedAt,
+          _deleted,
+          _lastChangedAt,
+          owner,
+          ...updateFoodInput
+        } = updateTargetFood
+
+        await API.graphql<GraphQLQuery<UpdateFoodMutation>>({
+          query: updateFood,
+          variables: { input: updateFoodInput },
+          authMode: 'AMAZON_COGNITO_USER_POOLS',
+        })
+      })
+    )
+  } catch (err) {
+    console.log('Error updating food:', err)
   }
 }
