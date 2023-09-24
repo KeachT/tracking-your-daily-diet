@@ -19,7 +19,7 @@ import { MealFormAccordionItem } from './MealFormAccordionItem'
 
 export function MealForm() {
   const { currentDate } = useCurrentDateStore()
-  const { mealDate, setMealDate } = useMealDateStore()
+  const { setMealDate } = useMealDateStore()
   const { mealCategories, setMealCategories } = useMealCategoriesStore()
   const currentDateString = currentDate?.toISOString()?.split('T')?.[0] || ''
   const mealCategoryNames: string[] = Object.values(MealCategoryName)
@@ -29,6 +29,25 @@ export function MealForm() {
       mealCategoryNames.map((name) => [name, [createFoodInitialValues()]])
     ),
   })
+
+  useEffect(() => {
+    const initialFormValues = Object.fromEntries(
+      mealCategoryNames.map((mealCategoryName) => {
+        const mealCategoryFoods = mealCategories.find(
+          (mealCategory: any) => mealCategory?.name === mealCategoryName
+        )?.foods?.items
+
+        return [
+          mealCategoryName,
+          mealCategoryFoods ? mealCategoryFoods : [createFoodInitialValues()],
+        ]
+      })
+    )
+
+    forms.setValues(initialFormValues)
+    // eslint-disable-next-line
+  }, [mealCategories])
+
   const sumValuesAry = createSumValuesAry(forms)
   const newDailyCalories = sum(sumValuesAry, (f) => f.sumCalories)
   const newDailyProtein = sum(sumValuesAry, (f) => f.sumProtein)
