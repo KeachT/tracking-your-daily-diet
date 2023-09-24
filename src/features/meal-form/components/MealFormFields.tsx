@@ -17,7 +17,7 @@ export function MealFormFields({
     form.getInputProps(`${mealCategoryName}.${index}.${fieldName}`)
 
   return form.values?.[mealCategoryName].map((item, index) => (
-    <Group key={item.key} mt="xs">
+    <Group key={item.id} mt="xs">
       <Grid>
         <Grid.Col xs={6} sm={3}>
           <TextInput
