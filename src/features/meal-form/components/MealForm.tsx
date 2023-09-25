@@ -9,12 +9,9 @@ import { useCurrentDateStore } from '../../../stores/currentDate'
 import { useMealCategoriesStore } from '../../../stores/mealCategories'
 import { useMealDateStore } from '../../../stores/mealDate'
 import { useNutritionNumbersStore } from '../../../stores/nutritionNumbers'
+import { fetchMealDates } from '../api'
 import { FormsType } from '../types'
-import {
-  createFoodInitialValues,
-  createSumValuesAry,
-  fetchMealDates,
-} from '../utils'
+import { createFoodInitialValues, createSumValuesAry } from '../utils'
 import { MealFormAccordionItem } from './MealFormAccordionItem'
 
 export function MealForm() {
