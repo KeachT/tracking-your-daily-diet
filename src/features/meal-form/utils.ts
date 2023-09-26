@@ -45,8 +45,11 @@ export const saveFoods = (
   mealDate: any,
   setMealDate: any,
   mealCategories: any,
-  setMealCategories: any
+  setMealCategories: any,
+  open: any
 ) => {
+  open()
+
   const targetFormValues = forms.values[mealCategoryName]
   const targetFormValuesFoodIds = targetFormValues?.map(
     (targetFormValue) => targetFormValue?.id
