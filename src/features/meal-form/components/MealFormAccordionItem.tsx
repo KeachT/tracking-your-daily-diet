@@ -1,4 +1,7 @@
-import { Accordion, Button, Center } from '@mantine/core'
+import { Accordion, Button, Center, Dialog, Group, Text } from '@mantine/core'
+import { useDisclosure } from '@mantine/hooks'
+import { IconCircleCheck } from '@tabler/icons-react'
+import { useEffect } from 'react'
 
 import { useMealCategoriesStore } from '../../../stores/mealCategories'
 import { useMealDateStore } from '../../../stores/mealDate'
@@ -19,6 +22,7 @@ export function MealFormAccordionItem({
 }: MealFormAccordionItemProps) {
   const { mealDate, setMealDate } = useMealDateStore()
   const { mealCategories, setMealCategories } = useMealCategoriesStore()
+  const [opened, { open, close }] = useDisclosure(false)
 
   const handleSave = () =>
     saveFoods(
@@ -27,12 +31,20 @@ export function MealFormAccordionItem({
       mealDate,
       setMealDate,
       mealCategories,
-      setMealCategories
+      setMealCategories,
+      open
     )
 
   const handleAdd = () => {
     forms.insertListItem(`${mealCategoryName}`, createFoodInitialValues())
   }
+
+  useEffect(() => {
+    opened &&
+      setTimeout(() => {
+        close()
+      }, 3000)
+  }, [opened, close])
 
   return (
     <Accordion.Item value={mealCategoryName}>
@@ -56,6 +68,15 @@ export function MealFormAccordionItem({
           </Button>
         </Center>
       </Accordion.Panel>
+
+      {opened && (
+        <Dialog opened={opened} onClose={close} withBorder>
+          <Group>
+            <IconCircleCheck size={30} strokeWidth={2.5} color="teal" />
+            <Text>Saved!</Text>
+          </Group>
+        </Dialog>
+      )}
     </Accordion.Item>
   )
 }

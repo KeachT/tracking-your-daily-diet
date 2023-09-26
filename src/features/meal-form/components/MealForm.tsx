@@ -1,4 +1,4 @@
-import { Accordion } from '@mantine/core'
+import { Accordion, Dialog } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { sum } from 'radash'
 import { useEffect } from 'react'
@@ -18,6 +18,7 @@ export function MealForm() {
   const { currentDate } = useCurrentDateStore()
   const { setMealDate } = useMealDateStore()
   const { mealCategories, setMealCategories } = useMealCategoriesStore()
+
   const currentDateString = currentDate?.toISOString()?.split('T')?.[0] || ''
   const mealCategoryNames: string[] = Object.values(MealCategoryName)
 
