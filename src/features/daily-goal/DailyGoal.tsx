@@ -2,8 +2,8 @@ import { Box, Button } from '@mantine/core'
 
 import { CreateDailyGoalInput, UpdateDailyGoalInput } from '../../API'
 import { useDailyGoalStore } from '../../stores/dailyGoal'
+import { addDailyGoal, updDailyGoal } from './api'
 import { DailyGoalNumberInput } from './DailyGoalNumberInput'
-import { addDailyGoal, updDailyGoal } from './utils'
 
 export function DailyGoal() {
   const {

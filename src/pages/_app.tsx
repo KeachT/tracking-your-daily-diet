@@ -11,7 +11,7 @@ import { useEffect } from 'react'
 import awsExports from '../aws-exports'
 import { LoadingIndicator } from '../components/LoadingIndicator'
 import { Path } from '../constants/path'
-import { fetchDailyGoals } from '../features/daily-goal/utils'
+import { fetchDailyGoals } from '../features/daily-goal/api'
 import { useDailyGoalStore } from '../stores/dailyGoal'
 import { checkIsLoading } from '../utils/checkIsLoading'
 
