@@ -39,6 +39,17 @@ export const createSumValuesAry = (forms: FormsType) => {
   return sumValuesAry
 }
 
+/**
+ * Saves foods to a meal category.
+ *
+ * @param mealCategoryName - The name of the meal category.
+ * @param forms - The forms data.
+ * @param mealDate - The meal date.
+ * @param setMealDate - A function to set the meal date.
+ * @param mealCategories - The meal categories.
+ * @param setMealCategories - A function to set the meal categories.
+ * @param open - A function to open dialog.
+ */
 export const saveFoods = (
   mealCategoryName: string,
   forms: FormsType,
@@ -58,9 +69,7 @@ export const saveFoods = (
   const targetMealCategory = mealCategories.find(
     (mealCategory: any) => mealCategory?.name === mealCategoryName
   )
-  const targetMealCategoryFoods = mealCategories.find(
-    (mealCategory: any) => mealCategory?.name === mealCategoryName
-  )?.foods?.items
+  const targetMealCategoryFoods = targetMealCategory?.foods?.items
   const targetMealCategoriesFoodIds = targetMealCategoryFoods?.map(
     (targetMealCategory: any) => targetMealCategory?.id
   )
@@ -77,26 +86,25 @@ export const saveFoods = (
     (id) => !createFoodIds.includes(id) && !deleteFoodIds.includes(id)
   )
 
+  const createFoodIdsSet = new Set(createFoodIds)
+  const deleteFoodIdsSet = new Set(deleteFoodIds)
+  const updateFoodIdsSet = new Set(updateFoodIds)
+
   const createTargetFoods = targetFormValues?.filter((formValue) =>
-    createFoodIds.includes(formValue.id)
+    createFoodIdsSet.has(formValue.id)
   )
   const deleteTargetFoods = targetMealCategoryFoods?.filter(
     (targetMealCategoryFood: any) =>
-      deleteFoodIds.includes(targetMealCategoryFood.id)
+      deleteFoodIdsSet.has(targetMealCategoryFood.id)
   )
   const updateTargetFoods = targetFormValues?.filter((formValue) =>
-    updateFoodIds.includes(formValue.id)
+    updateFoodIdsSet.has(formValue.id)
   )
 
-  if (createTargetFoods.length > 0) {
+  createTargetFoods.length > 0 &&
     createFoods(createTargetFoods, targetMealCategory.id)
-  }
-  if (deleteTargetFoods.length > 0) {
-    deleteFoods(deleteTargetFoods)
-  }
-  if (updateTargetFoods.length > 0) {
-    updateFoods(updateTargetFoods)
-  }
+  deleteTargetFoods.length > 0 && deleteFoods(deleteTargetFoods)
+  updateTargetFoods.length > 0 && updateFoods(updateTargetFoods)
 
   fetchMealDate(mealDate?.id, setMealDate, setMealCategories)
 }
