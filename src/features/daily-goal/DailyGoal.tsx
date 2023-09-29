@@ -6,7 +6,6 @@ import { DailyGoalNumberInput } from './DailyGoalNumberInput'
 
 export function DailyGoal() {
   const { dailyGoal, setDailyGoal } = useDailyGoalStore()
-  console.log('dailyGoal', dailyGoal)
 
   const setNutritionValues = (value: number, nutritionName: string) => {
     const newDailyGoal = { ...dailyGoal, [nutritionName]: value }

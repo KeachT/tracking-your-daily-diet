@@ -19,6 +19,6 @@ export async function fetchDailyGoals(
       data?.listDailyGoals?.items?.[0] || createDailyGoalInitialValues()
     )
   } catch (err) {
-    console.log('error fetching DailyGoals')
+    console.log('Error fetching DailyGoals')
   }
 }
