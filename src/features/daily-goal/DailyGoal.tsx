@@ -1,64 +1,23 @@
 import { Box, Button } from '@mantine/core'
 
-import { CreateDailyGoalInput, UpdateDailyGoalInput } from '../../API'
 import { useDailyGoalStore } from '../../stores/dailyGoal'
+import { addDailyGoal, updDailyGoal } from './api'
 import { DailyGoalNumberInput } from './DailyGoalNumberInput'
-import { addDailyGoal, updDailyGoal } from './utils'
 
 export function DailyGoal() {
-  const {
-    dailyGoalId,
-    calories,
-    protein,
-    fat,
-    carbohydrates,
-    version,
-    setDailyGoalId,
-    setCalories,
-    setProtein,
-    setFat,
-    setCarbohydrates,
-    setVersion,
-  } = useDailyGoalStore()
+  const { dailyGoal, setDailyGoal } = useDailyGoalStore()
 
-  const createDailyGoalInput: CreateDailyGoalInput = {
-    calories: calories,
-    protein: protein,
-    carbohydrates: carbohydrates,
-    fat: fat,
-  }
-
-  const updateDailyGoalInput: UpdateDailyGoalInput = {
-    id: dailyGoalId,
-    calories: calories,
-    protein: protein,
-    carbohydrates: carbohydrates,
-    fat: fat,
-    _version: version,
+  const setNutritionValues = (value: number, nutritionName: string) => {
+    const newDailyGoal = { ...dailyGoal, [nutritionName]: value }
+    setDailyGoal(newDailyGoal)
   }
 
   const handleClick = () => {
-    if (!dailyGoalId) {
-      addDailyGoal(
-        createDailyGoalInput,
-        setDailyGoalId,
-        setCalories,
-        setProtein,
-        setFat,
-        setCarbohydrates,
-        setVersion
-      )
+    if (!dailyGoal.id) {
+      addDailyGoal(dailyGoal, setDailyGoal)
       return
     }
-    updDailyGoal(
-      updateDailyGoalInput,
-      setDailyGoalId,
-      setCalories,
-      setProtein,
-      setFat,
-      setCarbohydrates,
-      setVersion
-    )
+    updDailyGoal(dailyGoal, setDailyGoal)
   }
 
   return (
@@ -66,30 +25,30 @@ export function DailyGoal() {
       <DailyGoalNumberInput
         label="Calories (Kcal)"
         placeholder="Calories"
-        value={calories}
-        handleChange={setCalories}
+        value={dailyGoal.calories || 0}
+        handleChange={(values) => setNutritionValues(values, 'calories')}
         step={10}
         withAsterisk
       />
       <DailyGoalNumberInput
         label="Protein (g)"
         placeholder="Protein"
-        value={protein}
-        handleChange={setProtein}
+        value={dailyGoal.protein || 0}
+        handleChange={(values) => setNutritionValues(values, 'protein')}
         step={1}
       />
       <DailyGoalNumberInput
         label="Fat (g)"
         placeholder="Fat"
-        value={fat}
-        handleChange={setFat}
+        value={dailyGoal.fat || 0}
+        handleChange={(values) => setNutritionValues(values, 'fat')}
         step={1}
       />
       <DailyGoalNumberInput
         label="Carbohydrates (g)"
         placeholder="Carbohydrates"
-        value={carbohydrates}
-        handleChange={setCarbohydrates}
+        value={dailyGoal.carbohydrates || 0}
+        handleChange={(values) => setNutritionValues(values, 'carbohydrates')}
         step={1}
       />
 

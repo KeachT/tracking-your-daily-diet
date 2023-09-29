@@ -11,7 +11,7 @@ import { useEffect } from 'react'
 import awsExports from '../aws-exports'
 import { LoadingIndicator } from '../components/LoadingIndicator'
 import { Path } from '../constants/path'
-import { fetchDailyGoals } from '../features/daily-goal/utils'
+import { fetchDailyGoals } from '../features/daily-goal/api'
 import { useDailyGoalStore } from '../stores/dailyGoal'
 import { checkIsLoading } from '../utils/checkIsLoading'
 
@@ -37,14 +37,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
   const isLoading = checkIsLoading(authStatus, router.pathname)
 
-  const {
-    setDailyGoalId,
-    setCalories,
-    setProtein,
-    setFat,
-    setCarbohydrates,
-    setVersion,
-  } = useDailyGoalStore()
+  const { setDailyGoal } = useDailyGoalStore()
 
   useEffect(() => {
     if (authStatus === 'unauthenticated') {
@@ -57,15 +50,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [authStatus])
 
   useEffect(() => {
-    authStatus === 'authenticated' &&
-      fetchDailyGoals(
-        setDailyGoalId,
-        setCalories,
-        setProtein,
-        setFat,
-        setCarbohydrates,
-        setVersion
-      )
+    authStatus === 'authenticated' && fetchDailyGoals(setDailyGoal)
     // eslint-disable-next-line
   }, [authStatus])
 
