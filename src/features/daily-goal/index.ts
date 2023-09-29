@@ -1,1 +1,1 @@
-export * from './DailyGoal'
+export * from './components/DailyGoal'

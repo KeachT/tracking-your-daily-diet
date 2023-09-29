@@ -48,7 +48,6 @@ export const createSumValuesAry = (forms: FormsType) => {
  * @param setMealDate - A function to set the meal date.
  * @param mealCategories - The meal categories.
  * @param setMealCategories - A function to set the meal categories.
- * @param open - A function to open dialog.
  */
 export const saveFoods = (
   mealCategoryName: string,
@@ -56,11 +55,8 @@ export const saveFoods = (
   mealDate: any,
   setMealDate: any,
   mealCategories: any,
-  setMealCategories: any,
-  open: any
+  setMealCategories: any
 ) => {
-  open()
-
   const targetFormValues = forms.values[mealCategoryName]
   const targetFormValuesFoodIds = targetFormValues?.map(
     (targetFormValue) => targetFormValue?.id
