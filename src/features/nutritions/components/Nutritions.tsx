@@ -9,17 +9,17 @@ export function Nutritions() {
   const { dailyCalories, dailyProtein, dailyFat, dailyCarbohydrates } =
     useNutritionNumbersStore()
 
-  const { calories, protein, fat, carbohydrates } = useDailyGoalStore()
+  const { dailyGoal } = useDailyGoalStore()
 
   const nutritions = createNutritions(
     dailyCalories,
     dailyProtein,
     dailyFat,
     dailyCarbohydrates,
-    calories,
-    protein,
-    fat,
-    carbohydrates
+    dailyGoal.calories || 0,
+    dailyGoal.protein || 0,
+    dailyGoal.fat || 0,
+    dailyGoal.carbohydrates || 0
   )
 
   return (

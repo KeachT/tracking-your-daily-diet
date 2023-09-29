@@ -37,14 +37,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
   const isLoading = checkIsLoading(authStatus, router.pathname)
 
-  const {
-    setDailyGoalId,
-    setCalories,
-    setProtein,
-    setFat,
-    setCarbohydrates,
-    setVersion,
-  } = useDailyGoalStore()
+  const { setDailyGoal } = useDailyGoalStore()
 
   useEffect(() => {
     if (authStatus === 'unauthenticated') {
@@ -57,15 +50,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [authStatus])
 
   useEffect(() => {
-    authStatus === 'authenticated' &&
-      fetchDailyGoals(
-        setDailyGoalId,
-        setCalories,
-        setProtein,
-        setFat,
-        setCarbohydrates,
-        setVersion
-      )
+    authStatus === 'authenticated' && fetchDailyGoals(setDailyGoal)
     // eslint-disable-next-line
   }, [authStatus])
 

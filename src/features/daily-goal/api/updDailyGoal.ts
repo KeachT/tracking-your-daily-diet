@@ -4,16 +4,21 @@ import { API } from 'aws-amplify'
 import { UpdateDailyGoalInput, UpdateDailyGoalMutation } from '../../../API'
 import { updateDailyGoal } from '../../../graphql/mutations'
 import { DailyGoalState } from '../../../stores/dailyGoal'
+import { createDailyGoalInitialValues } from '../utils'
 
 export async function updDailyGoal(
-  updateDailyGoalInput: UpdateDailyGoalInput,
-  setDailyGoalId: DailyGoalState['setDailyGoalId'],
-  setCalories: DailyGoalState['setCalories'],
-  setProtein: DailyGoalState['setProtein'],
-  setFat: DailyGoalState['setFat'],
-  setCarbohydrates: DailyGoalState['setCarbohydrates'],
-  setVersion: DailyGoalState['setVersion']
+  dailyGoal: DailyGoalState['dailyGoal'],
+  setDailyGoal: DailyGoalState['setDailyGoal']
 ) {
+  const updateDailyGoalInput: UpdateDailyGoalInput = {
+    id: dailyGoal.id,
+    calories: dailyGoal.calories,
+    protein: dailyGoal.protein,
+    carbohydrates: dailyGoal.carbohydrates,
+    fat: dailyGoal.fat,
+    _version: dailyGoal._version,
+  }
+
   try {
     const { data } = await API.graphql<GraphQLQuery<UpdateDailyGoalMutation>>({
       query: updateDailyGoal,
@@ -21,12 +26,7 @@ export async function updDailyGoal(
       authMode: 'AMAZON_COGNITO_USER_POOLS',
     })
 
-    setDailyGoalId(data?.updateDailyGoal?.id || '')
-    setCalories(data?.updateDailyGoal?.calories || 0)
-    setProtein(data?.updateDailyGoal?.protein || 0)
-    setFat(data?.updateDailyGoal?.fat || 0)
-    setCarbohydrates(data?.updateDailyGoal?.carbohydrates || 0)
-    setVersion(data?.updateDailyGoal?._version || 0)
+    setDailyGoal(data?.updateDailyGoal || createDailyGoalInitialValues())
   } catch (err) {
     console.log('Error updating DailyGoal:', err)
   }
