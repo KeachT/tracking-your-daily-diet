@@ -8,7 +8,7 @@ type AuthenticatorModalProps = {
 
 export function AuthenticatorModal({ opened, close }: AuthenticatorModalProps) {
   return (
-    <Modal opened={opened} onClose={close} size="auto">
+    <Modal opened={opened} onClose={close} withCloseButton={false} size="auto">
       <Authenticator />
     </Modal>
   )

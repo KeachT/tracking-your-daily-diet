@@ -11,10 +11,12 @@ export function LogoutModal({ opened, close }: LogoutModalProps) {
   const handleSignOut = useHandleSignOut()
 
   return (
-    <Modal opened={opened} onClose={close} size="auto">
+    <Modal opened={opened} onClose={close} withCloseButton={false} size="auto">
       <Box p={20}>
         <Center>
-          <Text mb={30}>Are you sure you want to log out?</Text>
+          <Text mt={10} mb={30}>
+            Are you sure you want to log out?
+          </Text>
         </Center>
         <Center>
           <Button
