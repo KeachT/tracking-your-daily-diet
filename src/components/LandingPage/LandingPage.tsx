@@ -1,4 +1,4 @@
-import { Alert,Button, Center, Container, Text } from '@mantine/core'
+import { Alert, Button, Center, Container, Text } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { IconAlertCircle } from '@tabler/icons-react'
 
@@ -47,7 +47,7 @@ export function LandingPage() {
             gradient={{ from: 'cyan', to: 'teal' }}
             onClick={open}
           >
-            Get started
+            Sign In
           </Button>
         </Center>
       </Container>
