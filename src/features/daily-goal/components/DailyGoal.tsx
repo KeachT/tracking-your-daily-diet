@@ -1,10 +1,14 @@
 import { Box, Button } from '@mantine/core'
+import { useDisclosure } from '@mantine/hooks'
+import { useEffect } from 'react'
 
-import { useDailyGoalStore } from '../../stores/dailyGoal'
-import { addDailyGoal, updDailyGoal } from './api'
+import { DialogSaved } from '../../../components/DialogSaved'
+import { useDailyGoalStore } from '../../../stores/dailyGoal'
+import { addDailyGoal, updDailyGoal } from '../api'
 import { DailyGoalNumberInput } from './DailyGoalNumberInput'
 
 export function DailyGoal() {
+  const [opened, { open, close }] = useDisclosure(false)
   const { dailyGoal, setDailyGoal } = useDailyGoalStore()
 
   const setNutritionValues = (value: number, nutritionName: string) => {
@@ -13,12 +17,22 @@ export function DailyGoal() {
   }
 
   const handleClick = () => {
+    open()
+
     if (!dailyGoal.id) {
       addDailyGoal(dailyGoal, setDailyGoal)
       return
     }
+
     updDailyGoal(dailyGoal, setDailyGoal)
   }
+
+  useEffect(() => {
+    opened &&
+      setTimeout(() => {
+        close()
+      }, 3000)
+  }, [opened, close])
 
   return (
     <Box>
@@ -55,6 +69,8 @@ export function DailyGoal() {
       <Button mr={50} onClick={handleClick}>
         Save
       </Button>
+
+      {opened && <DialogSaved opened={opened} close={close} />}
     </Box>
   )
 }
