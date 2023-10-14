@@ -8,12 +8,12 @@ import { sum } from 'radash'
  * @returns {{ currentDateString: string, prevWeekDateString: string }} An object containing date strings.
  */
 export const createWeekDateString = (currentDate: DateValue) => {
-  const nowDate = new Date()
-  const prevWeekDate = new Date()
-
   const currentDateString = currentDate?.toISOString()?.split('T')?.[0] || ''
 
+  const nowDate = new Date()
+  const prevWeekDate = new Date()
   prevWeekDate.setDate((currentDate || nowDate).getDate() - 6)
+
   const prevWeekDateString = prevWeekDate?.toISOString()?.split('T')?.[0] || ''
 
   return { currentDateString, prevWeekDateString }

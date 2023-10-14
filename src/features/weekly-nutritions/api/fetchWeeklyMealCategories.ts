@@ -1,9 +1,9 @@
 import { GraphQLQuery } from '@aws-amplify/api'
 import { API } from 'aws-amplify'
 
-import { ListMealDatesQuery, ListMealDatesQueryVariables } from '../../API'
-import { listMealDates } from '../../graphql/queries'
-import { WeeklyMealCategoriesState } from '../../stores/weeklyMealCategories'
+import { ListMealDatesQuery, ListMealDatesQueryVariables } from '../../../API'
+import { listMealDates } from '../../../graphql/queries'
+import { WeeklyMealCategoriesState } from '../../../stores/weeklyMealCategories'
 
 export async function fetchWeeklyMealCategories(
   currentDateString: string,
