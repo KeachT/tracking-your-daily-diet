@@ -11,7 +11,7 @@ import { useMealDateStore } from '../../../stores/mealDate'
 import { useNutritionNumbersStore } from '../../../stores/nutritionNumbers'
 import { fetchMealDates } from '../api'
 import { FormsType } from '../types'
-import { createFoodInitialValues, createSumValuesAry } from '../utils'
+import { createFoodInitialValues, createSumNutritionValues } from '../utils'
 import { MealFormAccordionItem } from './MealFormAccordionItem'
 
 export function MealForm() {
@@ -46,11 +46,14 @@ export function MealForm() {
     // eslint-disable-next-line
   }, [mealCategories])
 
-  const sumValuesAry = createSumValuesAry(forms)
-  const newDailyCalories = sum(sumValuesAry, (f) => f.sumCalories)
-  const newDailyProtein = sum(sumValuesAry, (f) => f.sumProtein)
-  const newDailyFat = sum(sumValuesAry, (f) => f.sumFat)
-  const newDailyCarbohydrates = sum(sumValuesAry, (f) => f.sumCarbohydrates)
+  const sumNutritionValues = createSumNutritionValues(forms)
+  const newDailyCalories = sum(sumNutritionValues, (f) => f.sumCalories)
+  const newDailyProtein = sum(sumNutritionValues, (f) => f.sumProtein)
+  const newDailyFat = sum(sumNutritionValues, (f) => f.sumFat)
+  const newDailyCarbohydrates = sum(
+    sumNutritionValues,
+    (f) => f.sumCarbohydrates
+  )
 
   const {
     setDailyCalories,
