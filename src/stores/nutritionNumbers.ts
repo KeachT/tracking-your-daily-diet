@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-type NutritionNumbersState = {
+export type NutritionNumbersState = {
   dailyCalories: number
   dailyProtein: number
   dailyFat: number

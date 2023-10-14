@@ -1,14 +1,23 @@
 import { Grid, Paper } from '@mantine/core'
 
 import { useDailyGoalStore } from '../../../stores/dailyGoal'
-import { useNutritionNumbersStore } from '../../../stores/nutritionNumbers'
+import { NutritionNumbersState } from '../../../stores/nutritionNumbers'
 import { createNutritions } from '../utils'
 import { NutritionRing } from './NutritionRing'
 
-export function Nutritions() {
-  const { dailyCalories, dailyProtein, dailyFat, dailyCarbohydrates } =
-    useNutritionNumbersStore()
+type NutritionsProps = {
+  dailyCalories: NutritionNumbersState['dailyCalories']
+  dailyProtein: NutritionNumbersState['dailyProtein']
+  dailyFat: NutritionNumbersState['dailyFat']
+  dailyCarbohydrates: NutritionNumbersState['dailyCarbohydrates']
+}
 
+export function Nutritions({
+  dailyCalories,
+  dailyProtein,
+  dailyFat,
+  dailyCarbohydrates,
+}: NutritionsProps) {
   const { dailyGoal } = useDailyGoalStore()
 
   const nutritions = createNutritions(

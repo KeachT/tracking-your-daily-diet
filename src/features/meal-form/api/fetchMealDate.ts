@@ -2,7 +2,7 @@ import { GraphQLQuery } from '@aws-amplify/api'
 import { API } from 'aws-amplify'
 
 import { GetMealDateQuery } from '../../../API'
-import { getMealDate, listMealDates } from '../../../graphql/queries'
+import { getMealDate } from '../../../graphql/queries'
 import { MealCategoriesState } from '../../../stores/mealCategories'
 import { MealDateState } from '../../../stores/mealDate'
 

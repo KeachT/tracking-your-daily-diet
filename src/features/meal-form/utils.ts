@@ -21,12 +21,12 @@ export const createFoodInitialValues = (): FormField => {
 }
 
 /**
- * Creates an array of objects containing the sum of values for each property in the forms.
+ * Creates an array of objects containing the sum of nutritions in the forms.
  *
  * @param forms - The forms object containing the values to be summed.
  * @returns The array of objects with the sum of values for calories, protein, fat, and carbohydrates.
  */
-export const createSumValuesAry = (forms: FormsType) => {
+export const createSumNutritionValues = (forms: FormsType) => {
   const sumValuesAry = Object.values(forms.values).map((formValue) => {
     const sumCalories = sum(formValue, (f) => Number(f.calories))
     const sumProtein = sum(formValue, (f) => Number(f.protein))
