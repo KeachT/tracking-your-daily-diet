@@ -1,21 +1,26 @@
-import { CartesianGrid, Line, LineChart, Tooltip,XAxis, YAxis } from 'recharts'
+import { CartesianGrid, Line, LineChart, Tooltip, XAxis, YAxis } from 'recharts'
 
-const data = [
-  { name: '7/16', calories: 2000, DailyGoal: 3000, max: 4000 },
-  { name: '7/17', calories: 2100, DailyGoal: 3000, max: 4000 },
-  { name: '7/18', calories: 2300, DailyGoal: 3000, max: 4000 },
-  { name: '7/19', calories: 2200, DailyGoal: 3000, max: 4000 },
-  { name: '7/20', calories: 2300, DailyGoal: 3000, max: 4000 },
-  { name: '7/21', calories: 2300, DailyGoal: 3000, max: 4000 },
-  { name: '7/22', calories: 2300, DailyGoal: 3000, max: 4000 },
-]
+import { useCurrentDateStore } from '../../stores/currentDate'
+import { useDailyGoalStore } from '../../stores/dailyGoal'
+import { useWeeklyMealDates } from '../../stores/weeklyMealDates'
+import { createWeeklyCaloriesData } from './utils'
 
 export function CaloriesChart() {
+  const { dailyGoal } = useDailyGoalStore()
+  const { currentDate } = useCurrentDateStore()
+  const { weeklyMealDates } = useWeeklyMealDates()
+
+  const weeklyCaloriesData: any = createWeeklyCaloriesData(
+    weeklyMealDates,
+    dailyGoal,
+    currentDate
+  )
+
   return (
     <LineChart
       width={750}
       height={300}
-      data={data}
+      data={weeklyCaloriesData}
       margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
     >
       <Line

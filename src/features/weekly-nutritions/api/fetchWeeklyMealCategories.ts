@@ -4,11 +4,13 @@ import { API } from 'aws-amplify'
 import { ListMealDatesQuery, ListMealDatesQueryVariables } from '../../../API'
 import { listMealDates } from '../../../graphql/queries'
 import { WeeklyMealCategoriesState } from '../../../stores/weeklyMealCategories'
+import { WeeklyMealDatesState } from '../../../stores/weeklyMealDates'
 
 export async function fetchWeeklyMealCategories(
   currentDateString: string,
   prevWeekDateString: string,
-  setWeeklyMealCategories: WeeklyMealCategoriesState['setWeeklyMealCategories']
+  setWeeklyMealCategories: WeeklyMealCategoriesState['setWeeklyMealCategories'],
+  setWeeklyMealDates: WeeklyMealDatesState['setWeeklyMealDates']
 ) {
   const listMealDatesQueryVariables: ListMealDatesQueryVariables = {
     filter: {
@@ -24,11 +26,11 @@ export async function fetchWeeklyMealCategories(
     })
 
     const weeklyMealDates = data?.listMealDates?.items
-
     const weeklyMealCategories = weeklyMealDates?.flatMap(
       (mealDate) => mealDate?.mealCategories?.items
     )
 
+    setWeeklyMealDates(weeklyMealDates)
     setWeeklyMealCategories(weeklyMealCategories)
   } catch (err) {
     console.log('Error fetching MealDates:', err)

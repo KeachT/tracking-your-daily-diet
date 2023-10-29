@@ -3,12 +3,13 @@ import { useEffect } from 'react'
 import { Nutritions } from '../../../features/nutritions'
 import { useCurrentDateStore } from '../../../stores/currentDate'
 import { useWeeklyMealCategoriesStore } from '../../../stores/weeklyMealCategories'
+import { useWeeklyMealDates } from '../../../stores/weeklyMealDates'
 import { fetchWeeklyMealCategories } from '../api/fetchWeeklyMealCategories'
 import { createAvgWeekNutritionValues, createWeekDateString } from '../utils'
 
 export function WeeklyNutritions() {
   const { currentDate } = useCurrentDateStore()
-
+  const { setWeeklyMealDates } = useWeeklyMealDates()
   const { weeklyMealCategories, setWeeklyMealCategories } =
     useWeeklyMealCategoriesStore()
 
@@ -26,9 +27,15 @@ export function WeeklyNutritions() {
     fetchWeeklyMealCategories(
       currentDateString,
       prevWeekDateString,
-      setWeeklyMealCategories
+      setWeeklyMealCategories,
+      setWeeklyMealDates
     )
-  }, [currentDateString, prevWeekDateString, setWeeklyMealCategories])
+  }, [
+    currentDateString,
+    prevWeekDateString,
+    setWeeklyMealCategories,
+    setWeeklyMealDates,
+  ])
 
   return (
     <Nutritions
