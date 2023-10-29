@@ -1,9 +1,9 @@
 import { CartesianGrid, Line, LineChart, Tooltip, XAxis, YAxis } from 'recharts'
 
-import { useCurrentDateStore } from '../../stores/currentDate'
-import { useDailyGoalStore } from '../../stores/dailyGoal'
-import { useWeeklyMealDates } from '../../stores/weeklyMealDates'
-import { createWeeklyCaloriesData } from './utils'
+import { useCurrentDateStore } from '../../../stores/currentDate'
+import { useDailyGoalStore } from '../../../stores/dailyGoal'
+import { useWeeklyMealDates } from '../../../stores/weeklyMealDates'
+import { createWeeklyCaloriesData } from '../utils'
 
 export function CaloriesChart() {
   const { dailyGoal } = useDailyGoalStore()

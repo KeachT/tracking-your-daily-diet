@@ -1,1 +1,1 @@
-export * from './CaloriesChart'
+export * from './components/CaloriesChart'
