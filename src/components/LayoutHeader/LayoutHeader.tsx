@@ -5,10 +5,11 @@ import {
   Title,
   useMantineTheme,
 } from '@mantine/core'
+import { Dispatch, SetStateAction } from 'react'
 
 type LayoutHeaderProps = {
   navbarOpened: boolean
-  setNavbarOpened: React.Dispatch<React.SetStateAction<boolean>>
+  setNavbarOpened: Dispatch<SetStateAction<boolean>>
 }
 
 export function LayoutHeader({
