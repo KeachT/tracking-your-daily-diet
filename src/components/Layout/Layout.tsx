@@ -1,7 +1,8 @@
 import { AppShell } from '@mantine/core'
 import Head from 'next/head'
-import { ReactNode } from 'react'
+import { ReactNode, useState } from 'react'
 
+import { LayoutHeader } from '../LayoutHeader'
 import { NavigationBar } from '../NavigationBar'
 
 type LayoutProps = {
@@ -10,19 +11,28 @@ type LayoutProps = {
 }
 
 export function Layout({ title = '', children }: LayoutProps) {
+  const [navbarOpened, setNavbarOpened] = useState(false)
+
   return (
     <div>
       <Head>
         <title>{`Tracking Your Daily Diet - ${title}`}</title>
       </Head>
 
-      <header></header>
-
-      <AppShell navbar={<NavigationBar />} m={20}>
+      <AppShell
+        m={20}
+        navbarOffsetBreakpoint="sm"
+        fixed
+        navbar={<NavigationBar navbarOpened={navbarOpened} />}
+        header={
+          <LayoutHeader
+            navbarOpened={navbarOpened}
+            setNavbarOpened={setNavbarOpened}
+          />
+        }
+      >
         {children}
       </AppShell>
-
-      <footer></footer>
     </div>
   )
 }
