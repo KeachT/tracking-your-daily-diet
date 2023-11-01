@@ -1,4 +1,4 @@
-import { Box, Group, Navbar, Title } from '@mantine/core'
+import { Box, Navbar } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { IconLogout } from '@tabler/icons-react'
 
@@ -6,19 +6,23 @@ import { LogoutModal } from './LogoutModal'
 import { NavigationBarLink } from './NavigationBarLink'
 import { createLinkItems, createNavigationBarStyle } from './utils'
 
-export function NavigationBar() {
+type NavigationBarProps = {
+  navbarOpened: boolean
+}
+
+export function NavigationBar({ navbarOpened = false }: NavigationBarProps) {
   const [opened, { open, close }] = useDisclosure(false)
   const { classes } = createNavigationBarStyle()
   const linkItems = createLinkItems()
 
   return (
-    <Navbar width={{ sm: 300 }} p="md">
+    <Navbar
+      p="sm"
+      width={{ sm: 300 }}
+      hiddenBreakpoint="sm"
+      hidden={!navbarOpened}
+    >
       <Navbar.Section grow>
-        <Group className={classes.header} position="apart">
-          <Title order={3} weight={100}>
-            Tracking Your Daily Diet
-          </Title>
-        </Group>
         {linkItems.map((linkItem) => (
           <NavigationBarLink key={linkItem.label} linkItem={linkItem} />
         ))}
