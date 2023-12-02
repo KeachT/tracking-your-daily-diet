@@ -1,20 +1,17 @@
 import { sum } from 'radash'
 
 import { CurrentDateState } from '../../stores/currentDate'
-import { DailyGoalState } from '../../stores/dailyGoal'
 import { WeeklyMealDatesState } from '../../stores/weeklyMealDates'
 
 /**
  * Creates weekly calorie data for chart.
  *
  * @param weeklyMealDates Weekly meal date data.
- * @param dailyGoal Daily goal data.
  * @param currentDate Current date.
  * @returns Array of weekly calorie data for chart.
  */
 export const createWeeklyCaloriesData = (
   weeklyMealDates: WeeklyMealDatesState['weeklyMealDates'],
-  dailyGoal: DailyGoalState['dailyGoal'],
   currentDate: CurrentDateState['currentDate']
 ) => {
   const weekDayStrings = createWeekDayStrings(currentDate)
@@ -35,8 +32,6 @@ export const createWeeklyCaloriesData = (
     return {
       name: `${month}/${day}`,
       calories: dailyCalories,
-      DailyGoal: dailyGoal.calories,
-      max: Math.round((dailyGoal?.calories || 0) / 1000) * 1000 * 2,
     }
   })
 
