@@ -1,12 +1,4 @@
-import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  ReferenceLine,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from 'recharts'
+import { Bar, BarChart, ReferenceLine, Tooltip, XAxis, YAxis } from 'recharts'
 
 import { useCurrentDateStore } from '../../../stores/currentDate'
 import { useDailyGoalStore } from '../../../stores/dailyGoal'
@@ -37,7 +29,6 @@ export function CaloriesChart() {
         bottom: 5,
       }}
     >
-      <CartesianGrid strokeDasharray="2 2" />
       <XAxis dataKey="name" />
       <YAxis domain={[0, dailyGoalCalories]} />
       <Tooltip />
