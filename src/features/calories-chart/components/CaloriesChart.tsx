@@ -1,4 +1,12 @@
-import { CartesianGrid, Line, LineChart, Tooltip, XAxis, YAxis } from 'recharts'
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  ReferenceLine,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from 'recharts'
 
 import { useCurrentDateStore } from '../../../stores/currentDate'
 import { useDailyGoalStore } from '../../../stores/dailyGoal'
@@ -12,35 +20,29 @@ export function CaloriesChart() {
 
   const weeklyCaloriesData: any = createWeeklyCaloriesData(
     weeklyMealDates,
-    dailyGoal,
     currentDate
   )
 
+  const dailyGoalCalories = dailyGoal?.calories || 0
+
   return (
-    <LineChart
-      width={750}
-      height={300}
+    <BarChart
+      width={700}
+      height={400}
       data={weeklyCaloriesData}
-      margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
+      margin={{
+        top: 5,
+        right: 30,
+        left: 20,
+        bottom: 5,
+      }}
     >
-      <Line
-        type="basis"
-        dot={false}
-        dataKey="calories"
-        stroke="#8884d8"
-        strokeWidth={1.2}
-      />
-      <Line
-        type="monotone"
-        dot={false}
-        dataKey="DailyGoal"
-        stroke="#e627a0"
-        strokeWidth={1.2}
-      />
-      <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+      <CartesianGrid strokeDasharray="2 2" />
       <XAxis dataKey="name" />
-      <YAxis dataKey="max" />
+      <YAxis domain={[0, dailyGoalCalories]} />
       <Tooltip />
-    </LineChart>
+      <ReferenceLine y={dailyGoalCalories} stroke="red" />
+      <Bar dataKey="calories" fill="#9775fa" />
+    </BarChart>
   )
 }
