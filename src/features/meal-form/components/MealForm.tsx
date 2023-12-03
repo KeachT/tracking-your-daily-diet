@@ -9,6 +9,7 @@ import { useCurrentDateStore } from '../../../stores/currentDate'
 import { useMealCategoriesStore } from '../../../stores/mealCategories'
 import { useMealDateStore } from '../../../stores/mealDate'
 import { useNutritionNumbersStore } from '../../../stores/nutritionNumbers'
+import { createStringFromDate } from '../../../utils/createStringFromDate'
 import { fetchMealDates } from '../api'
 import { FormsType } from '../types'
 import { createFoodInitialValues, createSumNutritionValues } from '../utils'
@@ -19,7 +20,7 @@ export function MealForm() {
   const { setMealDate } = useMealDateStore()
   const { mealCategories, setMealCategories } = useMealCategoriesStore()
 
-  const currentDateString = currentDate?.toISOString()?.split('T')?.[0] || ''
+  const currentDateString = createStringFromDate(currentDate)
   const mealCategoryNames: string[] = Object.values(MealCategoryName)
 
   const forms: FormsType = useForm({

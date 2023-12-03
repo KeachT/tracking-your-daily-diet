@@ -1,6 +1,8 @@
 import { DateValue } from '@mantine/dates'
 import { sum } from 'radash'
 
+import { createStringFromDate } from '../../utils/createStringFromDate'
+
 /**
  * Generates the current date and the date of the previous week.
  *
@@ -8,13 +10,13 @@ import { sum } from 'radash'
  * @returns {{ currentDateString: string, prevWeekDateString: string }} An object containing date strings.
  */
 export const createWeekDateString = (currentDate: DateValue) => {
-  const currentDateString = currentDate?.toISOString()?.split('T')?.[0] || ''
-
   const nowDate = new Date()
   const prevWeekDate = new Date()
+
   prevWeekDate.setDate((currentDate || nowDate).getDate() - 6)
 
-  const prevWeekDateString = prevWeekDate?.toISOString()?.split('T')?.[0] || ''
+  const currentDateString = createStringFromDate(currentDate)
+  const prevWeekDateString = createStringFromDate(prevWeekDate)
 
   return { currentDateString, prevWeekDateString }
 }
