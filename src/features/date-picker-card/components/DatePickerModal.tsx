@@ -6,7 +6,7 @@ import { CurrentDateState } from '../../../stores/currentDate'
 type DatePickerModalProps = {
   opened: boolean
   close: () => void
-  currentDate: DateValue
+  currentDate: CurrentDateState['currentDate']
   setCurrentDate: CurrentDateState['setCurrentDate']
 }
 

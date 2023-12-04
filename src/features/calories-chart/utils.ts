@@ -2,6 +2,7 @@ import { sum } from 'radash'
 
 import { CurrentDateState } from '../../stores/currentDate'
 import { WeeklyMealDatesState } from '../../stores/weeklyMealDates'
+import { createPrevWeekDate } from '../../utils/createPrevWeekDate'
 import { createStringFromDate } from '../../utils/createStringFromDate'
 
 /**
@@ -46,10 +47,7 @@ export const createWeeklyCaloriesData = (
  * @returns An array of weekday strings for the week.
  */
 const createWeekDayStrings = (currentDate: CurrentDateState['currentDate']) => {
-  const nowDate = new Date()
-  const prevWeekDate = new Date()
-
-  prevWeekDate.setDate((currentDate || nowDate).getDate() - 6)
+  const prevWeekDate = createPrevWeekDate(currentDate)
 
   const weekDayStrings = []
   for (let i = 0; i < 7; i++) {
