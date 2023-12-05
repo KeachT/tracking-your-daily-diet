@@ -19,7 +19,7 @@ export function CaloriesChart() {
 
   return (
     <BarChart
-      width={700}
+      width={600}
       height={400}
       data={weeklyCaloriesData}
       margin={{

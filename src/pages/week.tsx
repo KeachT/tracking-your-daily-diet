@@ -1,4 +1,4 @@
-import { Box, Text } from '@mantine/core'
+import { Box, ScrollArea, Text } from '@mantine/core'
 
 import { Layout } from '../components/Layout'
 import { CaloriesChart } from '../features/calories-chart'
@@ -19,10 +19,14 @@ export default function Week() {
         <WeeklyNutritions />
       </Box>
 
-      <Text weight={200} size="xl" mb={20}>
-        Weekly Calories Chart
-      </Text>
-      <CaloriesChart />
+      <Box maw={700} mb={50}>
+        <Text weight={200} size="xl" mb={20}>
+          Weekly Calories Chart
+        </Text>
+        <ScrollArea maw={600} h={500} mb={50}>
+          <CaloriesChart />
+        </ScrollArea>
+      </Box>
     </Layout>
   )
 }
