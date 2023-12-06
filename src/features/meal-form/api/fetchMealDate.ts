@@ -6,11 +6,11 @@ import { getMealDate } from '../../../graphql/queries'
 import { MealCategoriesState } from '../../../stores/mealCategories'
 import { MealDateState } from '../../../stores/mealDate'
 
-export async function fetchMealDate(
+export const fetchMealDate = async (
   mealDateId: string | undefined,
   setMealDate: MealDateState['setMealDate'],
   setMealCategories: MealCategoriesState['setMealCategories']
-) {
+) => {
   try {
     const { data } = await API.graphql<GraphQLQuery<GetMealDateQuery>>({
       query: getMealDate,

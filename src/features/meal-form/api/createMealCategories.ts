@@ -8,7 +8,7 @@ import {
 } from '../../../API'
 import { createMealCategory } from '../../../graphql/mutations'
 
-export async function createMealCategories(mealDateId: string) {
+export const createMealCategories = async (mealDateId: string) => {
   try {
     const mealCategoryNames: MealCategoryName[] =
       Object.values(MealCategoryName)

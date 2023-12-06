@@ -6,10 +6,10 @@ import { updateDailyGoal } from '../../../graphql/mutations'
 import { DailyGoalState } from '../../../stores/dailyGoal'
 import { createDailyGoalInitialValues } from '../utils'
 
-export async function updDailyGoal(
+export const updDailyGoal = async (
   dailyGoal: DailyGoalState['dailyGoal'],
   setDailyGoal: DailyGoalState['setDailyGoal']
-) {
+) => {
   const updateDailyGoalInput: UpdateDailyGoalInput = {
     id: dailyGoal.id,
     calories: dailyGoal.calories,

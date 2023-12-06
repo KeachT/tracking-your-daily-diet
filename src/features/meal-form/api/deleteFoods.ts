@@ -4,7 +4,7 @@ import { API } from 'aws-amplify'
 import { DeleteFoodInput, DeleteFoodMutation } from '../../../API'
 import { deleteFood } from '../../../graphql/mutations'
 
-export async function deleteFoods(deleteTargetFoods: any) {
+export const deleteFoods = async (deleteTargetFoods: any) => {
   try {
     await Promise.all(
       deleteTargetFoods.map(async (deleteTargetFood: any) => {

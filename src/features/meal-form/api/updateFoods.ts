@@ -4,7 +4,7 @@ import { API } from 'aws-amplify'
 import { UpdateFoodMutation } from '../../../API'
 import { updateFood } from '../../../graphql/mutations'
 
-export async function updateFoods(updateTargetFoods: any) {
+export const updateFoods = async (updateTargetFoods: any) => {
   try {
     await Promise.all(
       updateTargetFoods.map(async (updateTargetFood: any) => {

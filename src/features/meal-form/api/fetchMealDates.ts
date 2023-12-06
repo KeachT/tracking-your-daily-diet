@@ -9,11 +9,11 @@ import { addMealDate } from './addMealDate'
 import { createMealCategories } from './createMealCategories'
 import { fetchMealDate } from './fetchMealDate'
 
-export async function fetchMealDates(
+export const fetchMealDates = async (
   currentDateString: string,
   setMealDate: MealDateState['setMealDate'],
   setMealCategories: MealCategoriesState['setMealCategories']
-) {
+) => {
   const listMealDatesQueryVariables: ListMealDatesQueryVariables = {
     filter: {
       date: { eq: currentDateString },
