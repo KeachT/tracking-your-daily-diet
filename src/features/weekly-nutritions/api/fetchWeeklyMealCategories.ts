@@ -6,12 +6,12 @@ import { listMealDates } from '../../../graphql/queries'
 import { WeeklyMealCategoriesState } from '../../../stores/weeklyMealCategories'
 import { WeeklyMealDatesState } from '../../../stores/weeklyMealDates'
 
-export async function fetchWeeklyMealCategories(
+export const fetchWeeklyMealCategories = async (
   currentDateString: string,
   prevWeekDateString: string,
   setWeeklyMealCategories: WeeklyMealCategoriesState['setWeeklyMealCategories'],
   setWeeklyMealDates: WeeklyMealDatesState['setWeeklyMealDates']
-) {
+) => {
   const listMealDatesQueryVariables: ListMealDatesQueryVariables = {
     filter: {
       date: { between: [prevWeekDateString, currentDateString] },

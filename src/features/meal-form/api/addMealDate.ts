@@ -8,11 +8,11 @@ import { MealDateState } from '../../../stores/mealDate'
 import { createMealCategories } from './createMealCategories'
 import { fetchMealDate } from './fetchMealDate'
 
-export async function addMealDate(
+export const addMealDate = async (
   currentDateString: string,
   setMealDate: MealDateState['setMealDate'],
   setMealCategories: MealCategoriesState['setMealCategories']
-) {
+) => {
   try {
     const createMealDateInput: CreateMealDateInput = {
       date: currentDateString,

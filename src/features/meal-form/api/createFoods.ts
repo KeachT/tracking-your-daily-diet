@@ -4,10 +4,10 @@ import { API } from 'aws-amplify'
 import { CreateFoodMutation } from '../../../API'
 import { createFood } from '../../../graphql/mutations'
 
-export async function createFoods(
+export const createFoods = async (
   createTargetFoods: any,
   mealcategoryID: string
-) {
+) => {
   try {
     await Promise.all(
       createTargetFoods.map(async (createTargetFood: any) => {

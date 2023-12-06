@@ -6,9 +6,9 @@ import { listDailyGoals } from '../../../graphql/queries'
 import { DailyGoalState } from '../../../stores/dailyGoal'
 import { createDailyGoalInitialValues } from '../utils'
 
-export async function fetchDailyGoals(
+export const fetchDailyGoals = async (
   setDailyGoal: DailyGoalState['setDailyGoal']
-) {
+) => {
   try {
     const { data } = await API.graphql<GraphQLQuery<ListDailyGoalsQuery>>({
       query: listDailyGoals,
