@@ -31,7 +31,7 @@ export function LandingPage() {
 
         {/* TODO Turn this alert off when the app is complete. */}
         <Alert
-          icon={<IconAlertCircle size="2rem" />}
+          icon={<IconAlertCircle size={20} />}
           title="Notice"
           color="red"
           mt={30}
@@ -42,7 +42,7 @@ export function LandingPage() {
 
         <Center mt={30}>
           <Button
-            size="xl"
+            size="lg"
             variant="gradient"
             gradient={{ from: 'cyan', to: 'teal' }}
             onClick={open}

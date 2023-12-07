@@ -1,4 +1,4 @@
-import { createStyles, rem } from '@mantine/core'
+import { createStyles } from '@mantine/core'
 
 export const createLandingPageStyle = createStyles((theme) => ({
   wrapper: {
@@ -10,18 +10,18 @@ export const createLandingPageStyle = createStyles((theme) => ({
 
   inner: {
     position: 'relative',
-    paddingTop: rem(200),
-    paddingBottom: rem(120),
+    paddingTop: 200,
+    paddingBottom: 100,
 
     [theme.fn.smallerThan('sm')]: {
-      paddingBottom: rem(80),
-      paddingTop: rem(80),
+      paddingBottom: 100,
+      paddingTop: 50,
     },
   },
 
   title: {
     fontFamily: `Greycliff CF, ${theme.fontFamily}`,
-    fontSize: rem(62),
+    fontSize: 60,
     fontWeight: 900,
     lineHeight: 1.1,
     margin: 0,
@@ -29,17 +29,17 @@ export const createLandingPageStyle = createStyles((theme) => ({
     color: theme.colorScheme === 'dark' ? theme.white : theme.black,
 
     [theme.fn.smallerThan('sm')]: {
-      fontSize: rem(42),
+      fontSize: 40,
       lineHeight: 1.2,
     },
   },
 
   description: {
     marginTop: theme.spacing.xl,
-    fontSize: rem(24),
+    fontSize: 24,
 
     [theme.fn.smallerThan('sm')]: {
-      fontSize: rem(18),
+      fontSize: 16,
     },
   },
 }))
