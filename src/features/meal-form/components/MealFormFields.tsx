@@ -66,7 +66,7 @@ export function MealFormFields({
             color="red"
             onClick={() => form.removeListItem(`${mealCategoryName}`, index)}
           >
-            <IconTrash size="1rem" />
+            <IconTrash size={18} />
           </ActionIcon>
         </Grid.Col>
       </Grid>

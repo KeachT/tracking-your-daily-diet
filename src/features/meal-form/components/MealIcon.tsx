@@ -1,4 +1,4 @@
-import { rem, useMantineTheme } from '@mantine/core'
+import { useMantineTheme } from '@mantine/core'
 import {
   IconBaguette,
   IconChartDonut,
@@ -23,16 +23,16 @@ export function MealIcon({ mealCategoryName }: MealIconProps) {
 
   const categoryIcons: CategoryIcons = {
     [MealCategoryName.BREAKFAST]: (
-      <IconSunHigh size={rem(20)} color={getColor('red')} />
+      <IconSunHigh size={20} color={getColor('red')} />
     ),
     [MealCategoryName.LUNCH]: (
-      <IconBaguette size={rem(20)} color={getColor('yellow')} />
+      <IconBaguette size={20} color={getColor('yellow')} />
     ),
     [MealCategoryName.DINNER]: (
-      <IconMoon size={rem(20)} color={getColor('violet')} />
+      <IconMoon size={20} color={getColor('violet')} />
     ),
     [MealCategoryName.SNACK]: (
-      <IconChartDonut size={rem(20)} color={getColor('green')} />
+      <IconChartDonut size={20} color={getColor('green')} />
     ),
   }
 
