@@ -54,7 +54,7 @@ export function MealFormFields({
         </Grid.Col>
         <Grid.Col xs={6} sm={2}>
           <NumberInput
-            placeholder="Carbohydrates"
+            placeholder="Carbo"
             min={0}
             max={999999}
             hideControls
