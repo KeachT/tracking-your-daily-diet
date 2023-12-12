@@ -13,10 +13,10 @@ export const createFoodInitialValues = (): FormField => {
   return {
     id: randomId(),
     name: '',
-    calories: 0,
-    protein: 0,
-    carbohydrates: 0,
-    fat: 0,
+    calories: '',
+    protein: '',
+    carbohydrates: '',
+    fat: '',
   }
 }
 

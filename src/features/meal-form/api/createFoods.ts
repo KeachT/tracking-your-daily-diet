@@ -11,8 +11,16 @@ export const createFoods = async (
   try {
     await Promise.all(
       createTargetFoods.map(async (createTargetFood: any) => {
-        const { id, ...rest } = createTargetFood
-        const variables = { input: { ...rest, mealcategoryID } }
+        const variables = {
+          input: {
+            mealcategoryID,
+            name: createTargetFood.name || '',
+            calories: createTargetFood.calories || 0,
+            protein: createTargetFood.protein || 0,
+            carbohydrates: createTargetFood.carbohydrates || 0,
+            fat: createTargetFood.fat || 0,
+          },
+        }
 
         await API.graphql<GraphQLQuery<CreateFoodMutation>>({
           query: createFood,
