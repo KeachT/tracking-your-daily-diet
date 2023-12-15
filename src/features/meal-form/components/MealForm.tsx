@@ -1,4 +1,4 @@
-import { Accordion, Dialog } from '@mantine/core'
+import { Accordion } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { sum } from 'radash'
 import { useEffect } from 'react'
@@ -12,7 +12,11 @@ import { useNutritionNumbersStore } from '../../../stores/nutritionNumbers'
 import { createStringFromDate } from '../../../utils/createStringFromDate'
 import { fetchMealDates } from '../api'
 import { FormsType } from '../types'
-import { createFoodInitialValues, createSumNutritionValues } from '../utils'
+import {
+  createFoodInitialValues,
+  createInitialFormValues,
+  createSumNutritionValues,
+} from '../utils'
 import { MealFormAccordionItem } from './MealFormAccordionItem'
 
 export function MealForm() {
@@ -30,17 +34,9 @@ export function MealForm() {
   })
 
   useEffect(() => {
-    const initialFormValues = Object.fromEntries(
-      mealCategoryNames.map((mealCategoryName) => {
-        const mealCategoryFoods = mealCategories.find(
-          (mealCategory: any) => mealCategory?.name === mealCategoryName
-        )?.foods?.items
-
-        return [
-          mealCategoryName,
-          mealCategoryFoods ? mealCategoryFoods : [createFoodInitialValues()],
-        ]
-      })
+    const initialFormValues = createInitialFormValues(
+      mealCategoryNames,
+      mealCategories
     )
 
     forms.setValues(initialFormValues)
