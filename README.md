@@ -4,6 +4,8 @@
 
 A simple and intuitive app to help you track your diet and achieve your goals.
 
+https://www.tracking-your-daily-diet.com
+
 ## Features
 
 - Track your daily meals
