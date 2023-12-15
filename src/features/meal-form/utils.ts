@@ -21,6 +21,34 @@ export const createFoodInitialValues = (): FormField => {
 }
 
 /**
+ * The createInitialFormValues function generates initial form values based on the given mealCategoryNames and mealCategories.
+ *
+ * @param mealCategoryNames - An array of meal category names.
+ * @param mealCategories - The meal categories object.
+ * @returns The initial form values.
+ */
+export const createInitialFormValues = (
+  mealCategoryNames: string[],
+  mealCategories: any
+) => {
+  return mealCategoryNames.reduce((formValues, mealCategoryName) => {
+    const mealCategory = mealCategories.find(
+      (mealCategory: any) => mealCategory?.name === mealCategoryName
+    )
+
+    const mealCategoryFoods = mealCategory?.foods?.items || [
+      createFoodInitialValues(),
+    ]
+
+    const sortedFoods = [...mealCategoryFoods].sort((a, b) =>
+      b.createdAt.localeCompare(a.createdAt)
+    )
+
+    return { ...formValues, [mealCategoryName]: sortedFoods }
+  }, {})
+}
+
+/**
  * Creates an array of objects containing the sum of nutritions in the forms.
  *
  * @param forms - The forms object containing the values to be summed.
