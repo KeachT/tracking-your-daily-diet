@@ -30,6 +30,8 @@ export function DailyGoalNumberInput({
       radius="md"
       withAsterisk={withAsterisk}
       onChange={handleChange}
+      precision={placeholder === 'Calories' ? 0 : 2}
+      removeTrailingZeros={placeholder === 'Calories' ? false : true}
     />
   )
 }

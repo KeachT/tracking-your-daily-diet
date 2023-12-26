@@ -40,6 +40,8 @@ export function MealFormFields({
             min={0}
             max={999999}
             hideControls
+            precision={2}
+            removeTrailingZeros
             {...getFormItemProps(index, 'protein')}
           />
         </Grid.Col>
@@ -49,6 +51,8 @@ export function MealFormFields({
             min={0}
             max={999999}
             hideControls
+            precision={2}
+            removeTrailingZeros
             {...getFormItemProps(index, 'fat')}
           />
         </Grid.Col>
@@ -58,6 +62,8 @@ export function MealFormFields({
             min={0}
             max={999999}
             hideControls
+            precision={2}
+            removeTrailingZeros
             {...getFormItemProps(index, 'carbohydrates')}
           />
         </Grid.Col>

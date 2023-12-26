@@ -41,9 +41,11 @@ export const createAvgWeekNutritionValues = (weeklyMealCategories: any) => {
   )
 
   const avgWeeklyCalories = Math.round(weeklyCalories / 7)
-  const avgWeeklyProtein = Math.round(weeklyProtein / 7)
-  const avgWeeklyFat = Math.round(weeklyFat / 7)
-  const avgWeeklyCarbohydrates = Math.round(weeklyCarbohydrates / 7)
+  const avgWeeklyProtein = Math.round((weeklyProtein / 7) * 100) / 100
+  const avgWeeklyFat = Math.round((weeklyFat / 7) * 100) / 100
+  const avgWeeklyCarbohydrates =
+    Math.round((weeklyCarbohydrates / 7) * 100) / 100
+
   return {
     avgWeeklyCalories,
     avgWeeklyProtein,
