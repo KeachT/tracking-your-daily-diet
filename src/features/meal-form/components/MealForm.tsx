@@ -44,13 +44,18 @@ export function MealForm() {
   }, [mealCategories])
 
   const sumNutritionValues = createSumNutritionValues(forms)
-  const newDailyCalories = sum(sumNutritionValues, (f) => f.sumCalories)
-  const newDailyProtein = sum(sumNutritionValues, (f) => f.sumProtein)
-  const newDailyFat = sum(sumNutritionValues, (f) => f.sumFat)
-  const newDailyCarbohydrates = sum(
+  const sumDailyCalories = sum(sumNutritionValues, (f) => f.sumCalories)
+  const sumDailyProtein = sum(sumNutritionValues, (f) => f.sumProtein)
+  const sumDailyFat = sum(sumNutritionValues, (f) => f.sumFat)
+  const sumDailyCarbohydrates = sum(
     sumNutritionValues,
     (f) => f.sumCarbohydrates
   )
+
+  const roundedDailyProtein = Math.round(sumDailyProtein * 100) / 100
+  const roundedDailyFat = Math.round(sumDailyFat * 100) / 100
+  const roundedDailyCarbohydrates =
+    Math.round(sumDailyCarbohydrates * 100) / 100
 
   const {
     setDailyCalories,
@@ -60,20 +65,20 @@ export function MealForm() {
   } = useNutritionNumbersStore()
 
   useEffect(() => {
-    setDailyCalories(newDailyCalories)
-  }, [newDailyCalories, setDailyCalories])
+    setDailyCalories(sumDailyCalories)
+  }, [sumDailyCalories, setDailyCalories])
 
   useEffect(() => {
-    setDailyProtein(newDailyProtein)
-  }, [newDailyProtein, setDailyProtein])
+    setDailyProtein(roundedDailyProtein)
+  }, [roundedDailyProtein, setDailyProtein])
 
   useEffect(() => {
-    setDailyFat(newDailyFat)
-  }, [newDailyFat, setDailyFat])
+    setDailyFat(roundedDailyFat)
+  }, [roundedDailyFat, setDailyFat])
 
   useEffect(() => {
-    setDailyCarbohydrates(newDailyCarbohydrates)
-  }, [newDailyCarbohydrates, setDailyCarbohydrates])
+    setDailyCarbohydrates(roundedDailyCarbohydrates)
+  }, [roundedDailyCarbohydrates, setDailyCarbohydrates])
 
   useEffect(() => {
     fetchMealDates(currentDateString, setMealDate, setMealCategories)
