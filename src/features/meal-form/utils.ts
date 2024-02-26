@@ -41,7 +41,7 @@ export const createInitialFormValues = (
     ]
 
     const sortedFoods = [...mealCategoryFoods].sort((a, b) =>
-      b.createdAt.localeCompare(a.createdAt)
+      a.createdAt.localeCompare(b.createdAt)
     )
 
     return { ...formValues, [mealCategoryName]: sortedFoods }
