@@ -1,4 +1,6 @@
 import { randomId } from '@mantine/hooks'
+import _differenceWith from 'lodash-es/differenceWith'
+import _isEqual from 'lodash-es/isequal'
 import { diff, sum } from 'radash'
 
 import { createFoods, deleteFoods, fetchMealDate, updateFoods } from './api'
@@ -85,50 +87,51 @@ export const saveFoods = (
   mealCategories: any,
   setMealCategories: any
 ) => {
-  const targetFormValues = forms.values[mealCategoryName]
-  const targetFormValuesFoodIds = targetFormValues?.map(
-    (targetFormValue) => targetFormValue?.id
-  )
+  const formFoods = forms.values[mealCategoryName]
+  const formFoodIds = formFoods?.map((targetFormValue) => targetFormValue?.id)
 
-  const targetMealCategory = mealCategories.find(
+  const mealCategory = mealCategories.find(
     (mealCategory: any) => mealCategory?.name === mealCategoryName
   )
-  const targetMealCategoryFoods = targetMealCategory?.foods?.items
-  const targetMealCategoriesFoodIds = targetMealCategoryFoods?.map(
+  const mealCategoryFoods = mealCategory?.foods?.items
+  const mealCategoriesFoodIds = mealCategoryFoods?.map(
     (targetMealCategory: any) => targetMealCategory?.id
   )
 
-  const createFoodIds = diff(
-    targetFormValuesFoodIds,
-    targetMealCategoriesFoodIds
-  )
-  const deleteFoodIds = diff(
-    targetMealCategoriesFoodIds,
-    targetFormValuesFoodIds
-  )
-  const updateFoodIds = targetFormValuesFoodIds?.filter(
-    (id) => !createFoodIds.includes(id) && !deleteFoodIds.includes(id)
+  const newFoodIds = diff(formFoodIds, mealCategoriesFoodIds)
+  const removedFoodIds = diff(mealCategoriesFoodIds, formFoodIds)
+  const updatedFoodIds = formFoodIds?.filter(
+    (id) => !newFoodIds.includes(id) && !removedFoodIds.includes(id)
   )
 
-  const createFoodIdsSet = new Set(createFoodIds)
-  const deleteFoodIdsSet = new Set(deleteFoodIds)
-  const updateFoodIdsSet = new Set(updateFoodIds)
+  const newFoodIdsSet = new Set(newFoodIds)
+  const removedFoodIdsSet = new Set(removedFoodIds)
+  const updatedFoodIdsSet = new Set(updatedFoodIds)
 
-  const createTargetFoods = targetFormValues?.filter((formValue) =>
-    createFoodIdsSet.has(formValue.id)
+  const newFoods = formFoods?.filter((formFood) =>
+    newFoodIdsSet.has(formFood.id)
   )
-  const deleteTargetFoods = targetMealCategoryFoods?.filter(
-    (targetMealCategoryFood: any) =>
-      deleteFoodIdsSet.has(targetMealCategoryFood.id)
+  const removedFoods = mealCategoryFoods?.filter((mealCategoryFood: any) =>
+    removedFoodIdsSet.has(mealCategoryFood.id)
   )
-  const updateTargetFoods = targetFormValues?.filter((formValue) =>
-    updateFoodIdsSet.has(formValue.id)
+  const foodsDiff = getDifferentObjects(formFoods, mealCategoryFoods)
+  const updatedFoods = foodsDiff.filter((food) =>
+    updatedFoodIdsSet.has(food.id)
   )
 
-  createTargetFoods.length > 0 &&
-    createFoods(createTargetFoods, targetMealCategory.id)
-  deleteTargetFoods.length > 0 && deleteFoods(deleteTargetFoods)
-  updateTargetFoods.length > 0 && updateFoods(updateTargetFoods)
+  if (newFoods.length > 0) createFoods(newFoods, mealCategory.id)
+  if (removedFoods.length > 0) deleteFoods(removedFoods)
+  if (updatedFoods.length > 0) updateFoods(updatedFoods)
 
   fetchMealDate(mealDate?.id, setMealDate, setMealCategories)
+}
+
+/**
+ * Get an array of objects that are present in the first array but not in the second array.
+ * @param array1 - The first array to compare.
+ * @param array2 - The second array to compare.
+ * @returns An array of objects that are present in the first array but not in the second array.
+ */
+const getDifferentObjects = (array1: any, array2: any) => {
+  return _differenceWith(array1, array2, _isEqual)
 }
