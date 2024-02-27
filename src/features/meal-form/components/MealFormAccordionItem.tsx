@@ -1,4 +1,4 @@
-import { Accordion, Button, Center, Dialog, Group, Text } from '@mantine/core'
+import { Accordion, Button, Center } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { useEffect } from 'react'
 
