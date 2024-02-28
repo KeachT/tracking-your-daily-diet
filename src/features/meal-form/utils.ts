@@ -1,6 +1,6 @@
 import { randomId } from '@mantine/hooks'
-import _differenceWith from 'lodash-es/differenceWith'
-import _isEqual from 'lodash-es/isequal'
+import _differenceWith from 'lodash.differencewith'
+import _isEqual from 'lodash.isequal'
 import { diff, sum } from 'radash'
 
 import { createFoods, deleteFoods, fetchMealDate, updateFoods } from './api'
