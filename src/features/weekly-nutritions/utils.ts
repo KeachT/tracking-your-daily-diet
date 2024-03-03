@@ -1,5 +1,7 @@
 import { sum } from 'radash'
 
+import { MealCategoryName } from '@/API'
+
 import { CurrentDateState } from '../../stores/currentDate'
 import { createPrevWeekDate } from '../../utils/createPrevWeekDate'
 import { createStringFromDate } from '../../utils/createStringFromDate'
@@ -19,6 +21,35 @@ export const createWeekDateString = (
   const prevWeekDateString = createStringFromDate(prevWeekDate)
 
   return { currentDateString, prevWeekDateString }
+}
+
+/**
+ * Function that returns the number of items in the meal category with the most items from the given list of meal categories.
+ * @param weeklyMealCategories List of meal categories
+ * @returns The number of items in the meal category with the most items
+ */
+export const countWeeklyDateWithFoods = (weeklyMealCategories: any) => {
+  const weeklyMealCategoriesWithFoods = weeklyMealCategories.filter(
+    (category: any) => category.foods.items.length > 0
+  )
+
+  const breakfastCount = weeklyMealCategoriesWithFoods.filter(
+    (category: any) => category.name === MealCategoryName.BREAKFAST
+  ).length
+  const lunchCount = weeklyMealCategoriesWithFoods.filter(
+    (category: any) => category.name === MealCategoryName.LUNCH
+  ).length
+  const dinnerCount = weeklyMealCategoriesWithFoods.filter(
+    (category: any) => category.name === MealCategoryName.DINNER
+  ).length
+  const snackCount = weeklyMealCategoriesWithFoods.filter(
+    (category: any) => category.name === MealCategoryName.SNACK
+  ).length
+
+  const maxCount =
+    Math.max(breakfastCount, lunchCount, dinnerCount, snackCount) || 1
+
+  return maxCount
 }
 
 /**
