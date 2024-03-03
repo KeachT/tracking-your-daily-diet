@@ -58,7 +58,10 @@ export const countWeeklyDateWithFoods = (weeklyMealCategories: any) => {
  * @param {any} weeklyMealCategories - Object containing weekly meal categories
  * @returns {Object} - Object containing the average values
  */
-export const createAvgWeekNutritionValues = (weeklyMealCategories: any) => {
+export const createAvgWeekNutritionValues = (
+  weeklyMealCategories: any,
+  weeklyDateWithFoodsCount: number
+) => {
   const weeklyFoods = weeklyMealCategories.flatMap(
     (category: any) => category.foods.items
   )
@@ -71,11 +74,14 @@ export const createAvgWeekNutritionValues = (weeklyMealCategories: any) => {
     (food: any) => food?.carbohydrates || 0
   )
 
-  const avgWeeklyCalories = Math.round(weeklyCalories / 7)
-  const avgWeeklyProtein = Math.round((weeklyProtein / 7) * 100) / 100
-  const avgWeeklyFat = Math.round((weeklyFat / 7) * 100) / 100
+  const avgWeeklyCalories =
+    Math.round((weeklyCalories / weeklyDateWithFoodsCount) * 100) / 100
+  const avgWeeklyProtein =
+    Math.round((weeklyProtein / weeklyDateWithFoodsCount) * 100) / 100
+  const avgWeeklyFat =
+    Math.round((weeklyFat / weeklyDateWithFoodsCount) * 100) / 100
   const avgWeeklyCarbohydrates =
-    Math.round((weeklyCarbohydrates / 7) * 100) / 100
+    Math.round((weeklyCarbohydrates / weeklyDateWithFoodsCount) * 100) / 100
 
   return {
     avgWeeklyCalories,
