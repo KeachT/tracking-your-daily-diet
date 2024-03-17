@@ -1,3 +1,5 @@
 src/models
 src/ui-components
 amplify-codegen-temp/models
+
+src/models/models
