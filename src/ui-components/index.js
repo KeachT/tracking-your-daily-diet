@@ -4,8 +4,8 @@
  * Any changes to this file will be overwritten when running amplify pull. *
  **************************************************************************/
 
-export { default as studioTheme } from "./studioTheme";
 export { default as DailyGoalCreateForm } from "./DailyGoalCreateForm";
 export { default as DailyGoalUpdateForm } from "./DailyGoalUpdateForm";
 export { default as MealDateCreateForm } from "./MealDateCreateForm";
 export { default as MealDateUpdateForm } from "./MealDateUpdateForm";
+export { default as studioTheme } from "./studioTheme";
