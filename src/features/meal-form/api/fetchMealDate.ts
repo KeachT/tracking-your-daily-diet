@@ -24,6 +24,8 @@ export const fetchMealDate = async (
       setMealCategories(mealDate.mealCategories?.items)
     }
   } catch (err) {
-    console.log('Error fetching MealDate:', err)
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Error fetching MealDate:', err)
+    }
   }
 }

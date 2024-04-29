@@ -7,9 +7,13 @@ export function useHandleSignOut() {
   const handleSignOut = useCallback(async () => {
     try {
       await signOut()
-      console.log('Signed out')
+      if (process.env.NODE_ENV !== 'production') {
+        console.info('Signed out')
+      }
     } catch (error) {
-      console.error('Error signing out:', error)
+      if (process.env.NODE_ENV !== 'production') {
+        console.error('Error signing out:', error)
+      }
     }
   }, [signOut])
 

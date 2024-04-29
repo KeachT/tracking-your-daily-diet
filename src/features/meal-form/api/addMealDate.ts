@@ -30,6 +30,8 @@ export const addMealDate = async (
     await createMealCategories(mealDateId)
     await fetchMealDate(mealDateId, setMealDate, setMealCategories)
   } catch (err) {
-    console.log('Error creating MealDate:', err)
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Error creating MealDate:', err)
+    }
   }
 }

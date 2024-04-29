@@ -19,6 +19,8 @@ export const fetchDailyGoals = async (
       data?.listDailyGoals?.items?.[0] || createDailyGoalInitialValues()
     )
   } catch (err) {
-    console.log('Error fetching DailyGoals')
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Error fetching DailyGoals')
+    }
   }
 }
