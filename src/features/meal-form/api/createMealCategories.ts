@@ -28,6 +28,8 @@ export const createMealCategories = async (mealDateId: string) => {
       })
     )
   } catch (err) {
-    console.log('Error creating MealCategory:', err)
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Error creating MealCategory:', err)
+    }
   }
 }

@@ -30,6 +30,8 @@ export const createFoods = async (
       })
     )
   } catch (err) {
-    console.log('Error creating food:', err)
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Error creating food:', err)
+    }
   }
 }

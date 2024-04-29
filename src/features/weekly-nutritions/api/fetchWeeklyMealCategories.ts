@@ -33,6 +33,8 @@ export const fetchWeeklyMealCategories = async (
     setWeeklyMealDates(weeklyMealDates)
     setWeeklyMealCategories(weeklyMealCategories)
   } catch (err) {
-    console.log('Error fetching MealDates:', err)
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Error fetching MealDates:', err)
+    }
   }
 }

@@ -27,6 +27,8 @@ export const updateFoods = async (updateTargetFoods: any) => {
       })
     )
   } catch (err) {
-    console.log('Error updating food:', err)
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Error updating food:', err)
+    }
   }
 }

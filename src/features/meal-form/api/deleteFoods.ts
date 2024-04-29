@@ -19,6 +19,8 @@ export const deleteFoods = async (deleteTargetFoods: any) => {
       })
     )
   } catch (err) {
-    console.log('Error deleting food:', err)
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Error deleting food:', err)
+    }
   }
 }

@@ -28,6 +28,8 @@ export const updDailyGoal = async (
 
     setDailyGoal(data?.updateDailyGoal || createDailyGoalInitialValues())
   } catch (err) {
-    console.log('Error updating DailyGoal:', err)
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Error updating DailyGoal:', err)
+    }
   }
 }
