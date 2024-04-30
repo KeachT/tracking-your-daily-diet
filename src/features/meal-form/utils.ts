@@ -1,7 +1,7 @@
 import { randomId } from '@mantine/hooks'
 import _differenceWith from 'lodash.differencewith'
 import _isEqual from 'lodash.isequal'
-import { diff, sum } from 'radash'
+import { diff, sort, sum } from 'radash'
 
 import { createFoods, deleteFoods, fetchMealDate, updateFoods } from './api'
 import { FormField, FormsType } from './types'
@@ -41,10 +41,7 @@ export const createInitialFormValues = (
     const mealCategoryFoods = mealCategory?.foods?.items || [
       createFoodInitialValues(),
     ]
-
-    const sortedFoods = [...mealCategoryFoods].sort((a, b) =>
-      a.createdAt.localeCompare(b.createdAt)
-    )
+    const sortedFoods = sort([...mealCategoryFoods], (f) => f.calories, true)
 
     return { ...formValues, [mealCategoryName]: sortedFoods }
   }, {})
