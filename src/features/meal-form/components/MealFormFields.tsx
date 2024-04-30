@@ -18,7 +18,7 @@ export function MealFormFields({
 
   return form.values?.[mealCategoryName].map((item, index) => (
     <Group key={item.id} mt="xs">
-      <Grid>
+      <Grid align="center">
         <Grid.Col xs={6} sm={3}>
           <TextInput
             placeholder="Food name"
@@ -67,7 +67,7 @@ export function MealFormFields({
             {...getFormItemProps(index, 'carbohydrates')}
           />
         </Grid.Col>
-        <Grid.Col span={1}>
+        <Grid.Col span={1} mt={2}>
           <ActionIcon
             color="red"
             onClick={() => form.removeListItem(`${mealCategoryName}`, index)}
