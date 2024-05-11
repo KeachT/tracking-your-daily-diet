@@ -18,8 +18,7 @@ type MealIconProps = {
 
 export function MealIcon({ mealCategoryName }: MealIconProps) {
   const theme = useMantineTheme()
-  const getColor = (color: string) =>
-    theme.colors[color][theme.colorScheme === 'dark' ? 5 : 7]
+  const getColor = (color: string) => theme.colors[color][7]
 
   const categoryIcons: CategoryIcons = {
     [MealCategoryName.BREAKFAST]: (

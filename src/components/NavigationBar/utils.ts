@@ -1,4 +1,4 @@
-import { createStyles, getStylesRef } from '@mantine/core'
+import { createStyles, getStylesRef } from '@mantine/emotion'
 import {
   IconAdjustmentsHorizontal,
   IconBoxMultiple7,
@@ -17,58 +17,45 @@ export const createNavigationBarStyle = createStyles((theme) => ({
   footer: {
     paddingTop: theme.spacing.md,
     marginTop: theme.spacing.md,
-    borderTop: `${16} solid ${
-      theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[2]
-    }`,
+    borderTop: `${16} solid ${theme.colors.gray[2]}`,
   },
 
   link: {
-    ...theme.fn.focusStyles(),
     display: 'flex',
     alignItems: 'center',
     textDecoration: 'none',
     fontSize: theme.fontSizes.sm,
-    color:
-      theme.colorScheme === 'dark'
-        ? theme.colors.dark[1]
-        : theme.colors.gray[7],
+    color: theme.colors.gray[7],
     padding: `${theme.spacing.xs} ${theme.spacing.sm}`,
     borderRadius: theme.radius.sm,
     fontWeight: 500,
 
+    '&:focus': {
+      outline: `2px solid ${theme.colors[theme.primaryColor][9]}`,
+    },
+
     '&:hover': {
-      backgroundColor:
-        theme.colorScheme === 'dark'
-          ? theme.colors.dark[6]
-          : theme.colors.gray[0],
-      color: theme.colorScheme === 'dark' ? theme.white : theme.black,
+      backgroundColor: theme.colors.gray[0],
+      color: theme.black,
 
       [`& .${getStylesRef('icon')}`]: {
-        color: theme.colorScheme === 'dark' ? theme.white : theme.black,
+        color: theme.black,
       },
     },
   },
 
   linkIcon: {
     ref: getStylesRef('icon'),
-    color:
-      theme.colorScheme === 'dark'
-        ? theme.colors.dark[2]
-        : theme.colors.gray[6],
+    color: theme.colors.gray[6],
     marginRight: theme.spacing.sm,
   },
 
   linkActive: {
     '&, &:hover': {
-      backgroundColor: theme.fn.variant({
-        variant: 'light',
-        color: theme.primaryColor,
-      }).background,
-      color: theme.fn.variant({ variant: 'light', color: theme.primaryColor })
-        .color,
+      backgroundColor: theme.colors[theme.primaryColor][1],
+      color: theme.colors[theme.primaryColor][9],
       [`& .${getStylesRef('icon')}`]: {
-        color: theme.fn.variant({ variant: 'light', color: theme.primaryColor })
-          .color,
+        color: theme.colors[theme.primaryColor][9],
       },
     },
   },
