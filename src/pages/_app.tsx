@@ -1,5 +1,6 @@
 import '@/styles/globals.css'
 import '@aws-amplify/ui-react/styles.css'
+import '@mantine/core/styles.css'
 
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react'
 import { MantineProvider } from '@mantine/core'
@@ -20,12 +21,7 @@ Amplify.configure(awsExports)
 export default function App(props: AppProps) {
   return (
     <Authenticator.Provider>
-      <MantineProvider
-        withGlobalStyles
-        withNormalizeCSS
-        // Put your mantine theme override here
-        theme={{ colorScheme: 'light' }}
-      >
+      <MantineProvider defaultColorScheme="light">
         <MyApp {...props} />
       </MantineProvider>
     </Authenticator.Provider>
