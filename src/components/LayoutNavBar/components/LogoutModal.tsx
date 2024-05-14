@@ -1,6 +1,6 @@
 import { Box, Button, Center, Modal, Text } from '@mantine/core'
 
-import { useHandleSignOut } from './useHandleSignOut'
+import { useHandleSignOut } from '../useHandleSignOut'
 
 type LogoutModalProps = {
   opened: boolean
