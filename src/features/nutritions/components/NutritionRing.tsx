@@ -7,7 +7,7 @@ export function NutritionRing({ name, number, percent, color }: Nutrition) {
 
   return (
     <Grid.Col sm={6} md={3} key={name}>
-      <Text weight={200} size="md">
+      <Text fw={200} size="md">
         {name}
       </Text>
 
@@ -17,10 +17,10 @@ export function NutritionRing({ name, number, percent, color }: Nutrition) {
         roundCaps
         label={
           <div>
-            <Text color="blue" weight={400} align="center" size="lg">
+            <Text color="blue" fw={400} align="center" size="lg">
               {number}
             </Text>
-            <Text weight={200} align="center" size="sm">
+            <Text fw={200} align="center" size="sm">
               {unit}
             </Text>
           </div>

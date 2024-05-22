@@ -7,7 +7,7 @@ export default function Settings() {
   return (
     <Layout title="Settings">
       <Box maw={700} mb={30}>
-        <Text weight={200} size="xl" mb={20}>
+        <Text fw={200} size="xl" mb={20}>
           Daily Goal
         </Text>
       </Box>

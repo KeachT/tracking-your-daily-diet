@@ -22,22 +22,17 @@ export function DatePickerCard() {
     setCurrentDate(newDate)
   }
 
-  const handleClickIconChevronRight = () => {
-    currentDateChange(1)
-  }
-
-  const handleClickIconChevronLeft = () => {
-    currentDateChange(-1)
-  }
+  const handleClickIconChevronRight = () => currentDateChange(1)
+  const handleClickIconChevronLeft = () => currentDateChange(-1)
 
   return (
     <Box>
       <Card radius="md" withBorder>
         <Grid align="baseline" justify="center" mt={2} mb={10}>
-          <Text weight={200} size="md">
+          <Text fw={200} size="md">
             Current Date:
           </Text>
-          <Text weight={200} size="xl" ml={8}>
+          <Text fw={200} size="xl" ml={8}>
             {currentDate?.toLocaleDateString()}
           </Text>
         </Grid>

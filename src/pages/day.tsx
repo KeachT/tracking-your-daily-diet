@@ -13,14 +13,14 @@ export default function Day() {
       </Box>
 
       <Box maw={700} mb={50}>
-        <Text weight={200} size="xl" mb={20}>
+        <Text fw={200} size="xl" mb={20}>
           Daily Nutritions
         </Text>
         <DailyNutritions />
       </Box>
 
       <Box maw={700} mb={50}>
-        <Text weight={200} size="xl" mb={20}>
+        <Text fw={200} size="xl" mb={20}>
           Daily Meals
         </Text>
         <MealForm />

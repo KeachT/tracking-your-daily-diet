@@ -13,14 +13,14 @@ export default function Week() {
       </Box>
 
       <Box maw={700} mb={50}>
-        <Text weight={200} size="xl" mb={20}>
+        <Text fw={200} size="xl" mb={20}>
           Weekly Nutritions
         </Text>
         <WeeklyNutritions />
       </Box>
 
       <Box maw={700} mb={50}>
-        <Text weight={200} size="xl" mb={20}>
+        <Text fw={200} size="xl" mb={20}>
           Weekly Calories Chart
         </Text>
         <ScrollArea maw={600} h={500} mb={50}>
