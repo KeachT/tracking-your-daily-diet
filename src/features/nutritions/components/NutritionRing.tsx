@@ -6,7 +6,7 @@ export function NutritionRing({ name, number, percent, color }: Nutrition) {
   const unit = name === 'Calories' ? 'Kcal' : 'g'
 
   return (
-    <Grid.Col sm={6} md={3} key={name}>
+    <Grid.Col span={{ base: 3, sm: 6, md: 3 }} key={name}>
       <Text fw={200} size="md">
         {name}
       </Text>
