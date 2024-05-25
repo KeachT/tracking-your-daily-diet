@@ -1,5 +1,6 @@
 import { Grid, RingProgress, Text } from '@mantine/core'
 
+import styles from '../style/NutritionRing.module.css'
 import { Nutrition } from '../types'
 
 export function NutritionRing({ name, number, percent, color }: Nutrition) {
@@ -16,11 +17,11 @@ export function NutritionRing({ name, number, percent, color }: Nutrition) {
         thickness={6}
         roundCaps
         label={
-          <div>
-            <Text color="blue" fw={400} align="center" size="lg">
+          <div className={styles.label}>
+            <Text c="blue" fw={400} size="lg">
               {number}
             </Text>
-            <Text fw={200} align="center" size="sm">
+            <Text fw={200} size="sm">
               {unit}
             </Text>
           </div>
