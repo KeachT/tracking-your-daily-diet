@@ -26,7 +26,7 @@ export default function App(props: AppProps) {
       <MantineEmotionProvider cache={emotionCache}>
         <MantineProvider
           stylesTransform={emotionTransform}
-          defaultColorScheme="dark"
+          defaultColorScheme="light"
         >
           <MyApp {...props} />
         </MantineProvider>
