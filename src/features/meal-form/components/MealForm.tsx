@@ -12,36 +12,23 @@ import { useNutritionNumbersStore } from '../../../stores/nutritionNumbers'
 import { createStringFromDate } from '../../../utils/createStringFromDate'
 import { fetchMealDates } from '../api'
 import { FormsType } from '../types'
-import {
-  createFoodInitialValues,
-  createInitialFormValues,
-  createSumNutritionValues,
-} from '../utils'
+import { createInitialFormValues, createSumNutritionValues } from '../utils'
 import { MealFormAccordionItem } from './MealFormAccordionItem'
 
 export function MealForm() {
   const { currentDate } = useCurrentDateStore()
   const { setMealDate } = useMealDateStore()
   const { mealCategories, setMealCategories } = useMealCategoriesStore()
+  const {
+    setDailyCalories,
+    setDailyProtein,
+    setDailyFat,
+    setDailyCarbohydrates,
+  } = useNutritionNumbersStore()
 
   const currentDateString = createStringFromDate(currentDate)
   const mealCategoryNames: string[] = Object.values(MealCategoryName)
-
-  const forms: FormsType = useForm({
-    initialValues: Object.fromEntries(
-      mealCategoryNames.map((name) => [name, [createFoodInitialValues()]])
-    ),
-  })
-
-  useEffect(() => {
-    const initialFormValues = createInitialFormValues(
-      mealCategoryNames,
-      mealCategories
-    )
-
-    forms.setValues(initialFormValues)
-    // eslint-disable-next-line
-  }, [mealCategories])
+  const forms: FormsType = useForm({})
 
   const sumNutritionValues = createSumNutritionValues(forms)
   const sumDailyCalories = sum(sumNutritionValues, (f) => f.sumCalories)
@@ -57,12 +44,11 @@ export function MealForm() {
   const roundedDailyCarbohydrates =
     Math.round(sumDailyCarbohydrates * 100) / 100
 
-  const {
-    setDailyCalories,
-    setDailyProtein,
-    setDailyFat,
-    setDailyCarbohydrates,
-  } = useNutritionNumbersStore()
+  useEffect(() => {
+    const initialFormValues = createInitialFormValues(mealCategories)
+    forms.setValues(initialFormValues)
+    // eslint-disable-next-line
+  }, [mealCategories])
 
   useEffect(() => {
     setDailyCalories(sumDailyCalories)
