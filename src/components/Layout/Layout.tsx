@@ -26,7 +26,7 @@ export function Layout({ title = '', children }: LayoutProps) {
           collapsed: { mobile: !navbarOpened },
         }}
         header={{ height: 60 }}
-        padding="sm"
+        padding="xl"
       >
         <AppShell.Header>
           <LayoutHeader

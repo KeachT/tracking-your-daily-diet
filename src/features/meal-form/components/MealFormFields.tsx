@@ -19,7 +19,7 @@ export function MealFormFields({
   return form.values?.[mealCategoryName].map((item, index) => (
     <Group key={item.id} mt="xs">
       <Grid align="center">
-        <Grid.Col span={{ base: 2, xs: 6, sm: 2 }}>
+        <Grid.Col span={{ base: 3, xs: 6, sm: 3 }}>
           <TextInput
             placeholder="Food name"
             {...getFormItemProps(index, 'name')}
