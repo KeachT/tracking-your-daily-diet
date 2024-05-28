@@ -8,19 +8,19 @@ import { MealForm } from '../features/meal-form'
 export default function Day() {
   return (
     <Layout title="Day">
-      <Box maw={300} mb={50}>
+      <Box maw={300} mb={30}>
         <DatePickerCard />
       </Box>
 
-      <Box maw={700} mb={50}>
-        <Text fw={200} size="xl" mb={20}>
+      <Box maw={700} mb={30}>
+        <Text fw={200} size="xl" mb={10}>
           Daily Nutritions
         </Text>
         <DailyNutritions />
       </Box>
 
-      <Box maw={700} mb={50}>
-        <Text fw={200} size="xl" mb={20}>
+      <Box maw={700} mb={30}>
+        <Text fw={200} size="xl" mb={10}>
           Daily Meals
         </Text>
         <MealForm />
