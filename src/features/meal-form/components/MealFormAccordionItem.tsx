@@ -24,9 +24,11 @@ export function MealFormAccordionItem({
   const { mealCategories, setMealCategories } = useMealCategoriesStore()
   const [opened, { open, close }] = useDisclosure(false)
 
+  const handleAdd = () =>
+    forms.insertListItem(`${mealCategoryName}`, createFoodInitialValues())
+
   const handleSave = () => {
     open()
-
     saveFoods(
       mealCategoryName,
       forms,
@@ -37,15 +39,8 @@ export function MealFormAccordionItem({
     )
   }
 
-  const handleAdd = () => {
-    forms.insertListItem(`${mealCategoryName}`, createFoodInitialValues())
-  }
-
   useEffect(() => {
-    opened &&
-      setTimeout(() => {
-        close()
-      }, 3000)
+    opened && setTimeout(() => close(), 3000)
   }, [opened, close])
 
   return (

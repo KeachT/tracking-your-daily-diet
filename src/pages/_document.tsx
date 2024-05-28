@@ -1,15 +1,17 @@
-import { createGetInitialProps } from '@mantine/next'
+import createEmotionServer from '@emotion/server/create-instance'
+import { ColorSchemeScript } from '@mantine/core'
+import { createGetInitialProps } from '@mantine/emotion'
 import Document, { Head, Html, Main, NextScript } from 'next/document'
 
-const getInitialProps = createGetInitialProps()
+import { emotionCache } from '../emotion/cache'
 
 export default class _Document extends Document {
-  static getInitialProps = getInitialProps
-
   render() {
     return (
       <Html lang="en">
-        <Head />
+        <Head>
+          <ColorSchemeScript defaultColorScheme="light" />
+        </Head>
         <body>
           <Main />
           <NextScript />
@@ -18,3 +20,7 @@ export default class _Document extends Document {
     )
   }
 }
+
+const stylesServer = createEmotionServer(emotionCache)
+
+_Document.getInitialProps = createGetInitialProps(Document, stylesServer)

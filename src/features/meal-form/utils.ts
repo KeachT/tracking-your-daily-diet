@@ -3,6 +3,8 @@ import _differenceWith from 'lodash.differencewith'
 import _isEqual from 'lodash.isequal'
 import { diff, sort, sum } from 'radash'
 
+import { MealCategoryName } from '@/API'
+
 import { createFoods, deleteFoods, fetchMealDate, updateFoods } from './api'
 import { FormField, FormsType } from './types'
 
@@ -25,26 +27,26 @@ export const createFoodInitialValues = (): FormField => {
 /**
  * The createInitialFormValues function generates initial form values based on the given mealCategoryNames and mealCategories.
  *
- * @param mealCategoryNames - An array of meal category names.
  * @param mealCategories - The meal categories object.
  * @returns The initial form values.
  */
-export const createInitialFormValues = (
-  mealCategoryNames: string[],
-  mealCategories: any
-) => {
-  return mealCategoryNames.reduce((formValues, mealCategoryName) => {
-    const mealCategory = mealCategories.find(
-      (mealCategory: any) => mealCategory?.name === mealCategoryName
-    )
+export const createInitialFormValues = (mealCategories: any) => {
+  const mealCategoryNames: string[] = Object.values(MealCategoryName)
 
-    const mealCategoryFoods = mealCategory?.foods?.items || [
-      createFoodInitialValues(),
-    ]
-    const sortedFoods = sort([...mealCategoryFoods], (f) => f.calories, true)
+  const initialFormValues = mealCategoryNames.reduce(
+    (formValues, mealCategoryName) => {
+      const mealCategory = mealCategories.find(
+        (mealCategory: any) => mealCategory?.name === mealCategoryName
+      )
+      const mealCategoryFoods = mealCategory?.foods?.items || []
+      const sortedFoods = sort([...mealCategoryFoods], (f) => f.calories, true)
 
-    return { ...formValues, [mealCategoryName]: sortedFoods }
-  }, {})
+      return { ...formValues, [mealCategoryName]: sortedFoods }
+    },
+    {}
+  )
+
+  return initialFormValues
 }
 
 /**

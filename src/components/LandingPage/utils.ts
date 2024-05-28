@@ -1,11 +1,10 @@
-import { createStyles } from '@mantine/core'
+import { createStyles } from '@mantine/emotion'
 
-export const createLandingPageStyle = createStyles((theme) => ({
+export const createLandingPageStyle = createStyles((theme, _, u) => ({
   wrapper: {
     position: 'relative',
     boxSizing: 'border-box',
-    backgroundColor:
-      theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.white,
+    backgroundColor: theme.white,
   },
 
   inner: {
@@ -13,7 +12,7 @@ export const createLandingPageStyle = createStyles((theme) => ({
     paddingTop: 200,
     paddingBottom: 100,
 
-    [theme.fn.smallerThan('sm')]: {
+    [u.smallerThan('sm')]: {
       paddingBottom: 100,
       paddingTop: 50,
     },
@@ -26,9 +25,9 @@ export const createLandingPageStyle = createStyles((theme) => ({
     lineHeight: 1.1,
     margin: 0,
     padding: 0,
-    color: theme.colorScheme === 'dark' ? theme.white : theme.black,
+    color: theme.black,
 
-    [theme.fn.smallerThan('sm')]: {
+    [u.smallerThan('sm')]: {
       fontSize: 40,
       lineHeight: 1.2,
     },
@@ -38,7 +37,7 @@ export const createLandingPageStyle = createStyles((theme) => ({
     marginTop: theme.spacing.xl,
     fontSize: 24,
 
-    [theme.fn.smallerThan('sm')]: {
+    [u.smallerThan('sm')]: {
       fontSize: 16,
     },
   },

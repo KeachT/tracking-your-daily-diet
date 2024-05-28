@@ -19,13 +19,13 @@ export function MealFormFields({
   return form.values?.[mealCategoryName].map((item, index) => (
     <Group key={item.id} mt="xs">
       <Grid align="center">
-        <Grid.Col xs={6} sm={3}>
+        <Grid.Col span={{ base: 3, xs: 6, sm: 3 }}>
           <TextInput
             placeholder="Food name"
             {...getFormItemProps(index, 'name')}
           />
         </Grid.Col>
-        <Grid.Col xs={6} sm={2}>
+        <Grid.Col span={{ base: 2, xs: 6, sm: 2 }}>
           <NumberInput
             placeholder="Calories"
             min={0}
@@ -34,36 +34,33 @@ export function MealFormFields({
             {...getFormItemProps(index, 'calories')}
           />
         </Grid.Col>
-        <Grid.Col xs={6} sm={2}>
+        <Grid.Col span={{ base: 2, xs: 6, sm: 2 }}>
           <NumberInput
             placeholder="Protein"
             min={0}
             max={999999}
             hideControls
-            precision={2}
-            removeTrailingZeros
+            decimalScale={2}
             {...getFormItemProps(index, 'protein')}
           />
         </Grid.Col>
-        <Grid.Col xs={6} sm={2}>
+        <Grid.Col span={{ base: 2, xs: 6, sm: 2 }}>
           <NumberInput
             placeholder="Fat"
             min={0}
             max={999999}
             hideControls
-            precision={2}
-            removeTrailingZeros
+            decimalScale={2}
             {...getFormItemProps(index, 'fat')}
           />
         </Grid.Col>
-        <Grid.Col xs={6} sm={2}>
+        <Grid.Col span={{ base: 2, xs: 6, sm: 2 }}>
           <NumberInput
             placeholder="Carbo"
             min={0}
             max={999999}
             hideControls
-            precision={2}
-            removeTrailingZeros
+            decimalScale={2}
             {...getFormItemProps(index, 'carbohydrates')}
           />
         </Grid.Col>

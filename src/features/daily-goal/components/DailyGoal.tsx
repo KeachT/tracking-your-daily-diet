@@ -11,7 +11,10 @@ export function DailyGoal() {
   const [opened, { open, close }] = useDisclosure(false)
   const { dailyGoal, setDailyGoal } = useDailyGoalStore()
 
-  const setNutritionValues = (value: number, nutritionName: string) => {
+  const setNutritionValues = (
+    value: number | string,
+    nutritionName: string
+  ) => {
     const newDailyGoal = { ...dailyGoal, [nutritionName]: value }
     setDailyGoal(newDailyGoal)
   }
