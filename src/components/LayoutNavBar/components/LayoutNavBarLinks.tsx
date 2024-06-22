@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-import classes from '../styles/NavigationBarLinks.module.css'
+import classes from '../styles/LayoutNavBarLinks.module.css'
 import { createLinkItems } from '../utils'
 
 export function LayoutNavBarLinks() {

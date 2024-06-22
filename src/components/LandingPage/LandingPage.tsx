@@ -3,11 +3,10 @@ import { useDisclosure } from '@mantine/hooks'
 import { IconAlertCircle } from '@tabler/icons-react'
 
 import { AuthenticatorModal } from '../AuthenticatorModal'
-import { createLandingPageStyle } from './utils'
+import classes from './LandingPage.module.css'
 
 export function LandingPage() {
   const [opened, { open, close }] = useDisclosure(false)
-  const { classes } = createLandingPageStyle()
 
   return (
     <div className={classes.wrapper}>

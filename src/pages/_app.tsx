@@ -4,7 +4,6 @@ import '@mantine/core/styles.css'
 
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react'
 import { MantineProvider } from '@mantine/core'
-import { emotionTransform, MantineEmotionProvider } from '@mantine/emotion'
 import { Amplify } from 'aws-amplify'
 import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
@@ -13,7 +12,6 @@ import { useEffect } from 'react'
 import awsExports from '../aws-exports'
 import { LoadingIndicator } from '../components/LoadingIndicator'
 import { Path } from '../constants/path'
-import { emotionCache } from '../emotion/cache'
 import { fetchDailyGoals } from '../features/daily-goal/api'
 import { useDailyGoalStore } from '../stores/dailyGoal'
 import { checkIsLoading } from '../utils/checkIsLoading'
@@ -23,14 +21,9 @@ Amplify.configure(awsExports)
 export default function App(props: AppProps) {
   return (
     <Authenticator.Provider>
-      <MantineEmotionProvider cache={emotionCache}>
-        <MantineProvider
-          stylesTransform={emotionTransform}
-          defaultColorScheme="light"
-        >
-          <MyApp {...props} />
-        </MantineProvider>
-      </MantineEmotionProvider>
+      <MantineProvider defaultColorScheme="light">
+        <MyApp {...props} />
+      </MantineProvider>
     </Authenticator.Provider>
   )
 }
