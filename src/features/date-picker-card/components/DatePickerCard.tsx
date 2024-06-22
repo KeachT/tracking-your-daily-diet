@@ -7,13 +7,12 @@ import {
 } from '@tabler/icons-react'
 
 import { useCurrentDateStore } from '../../../stores/currentDate'
-import { createCardStyle } from '../utils'
+import classes from '../DatePickerCard.module.css'
 import { DatePickerModal } from './DatePickerModal'
 
 export function DatePickerCard() {
   const { currentDate, setCurrentDate } = useCurrentDateStore()
   const [opened, { open, close }] = useDisclosure(false)
-  const { classes } = createCardStyle()
 
   const currentDateChange = (amount: number) => {
     const oldDate = currentDate || new Date()

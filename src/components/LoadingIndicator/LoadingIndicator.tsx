@@ -1,15 +1,10 @@
 import { Container, Loader } from '@mantine/core'
 
+import classes from './LoadingIndicator.module.css'
+
 export function LoadingIndicator() {
   return (
-    <Container
-      sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
-      }}
-    >
+    <Container className={classes.container}>
       <Loader color="lime" size="xl" variant="bars" />
     </Container>
   )

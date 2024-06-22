@@ -1,7 +1,7 @@
 import { Box } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 
-import classes from '../styles/NavigationBar.module.css'
+import classes from '../styles/LayoutNavBar.module.css'
 import { LayoutNavBarLinks } from './LayoutNavBarLinks'
 import { LogoutLink } from './LogoutLink'
 import { LogoutModal } from './LogoutModal'

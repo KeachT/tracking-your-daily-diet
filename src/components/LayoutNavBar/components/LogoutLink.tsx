@@ -1,7 +1,7 @@
 import { Box } from '@mantine/core'
 import { IconLogout } from '@tabler/icons-react'
 
-import classes from '../styles/NavigationBarLinks.module.css'
+import classes from '../styles/LayoutNavBarLinks.module.css'
 
 type LogoutLinkProps = {
   open: () => void
