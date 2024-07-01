@@ -1,5 +1,5 @@
 import { LandingPage } from '../components/LandingPage'
 
-export default function LP() {
+export default function Lp() {
   return <LandingPage />
 }
