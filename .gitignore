@@ -58,7 +58,7 @@ amplify/team-provider-info.json
 #amplify-do-not-edit-end
 
 # Playwright
-/test-results/
-/playwright-report/
-/blob-report/
-/playwright/.cache/
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
