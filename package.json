@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "^4.6.5",
+    "@aws-amplify/ui-react": "^4.6.4",
     "@mantine/core": "^7.9.1",
     "@mantine/dates": "^7.9.1",
     "@mantine/form": "^7.9.1",
@@ -18,7 +18,7 @@
     "@types/node": "^20.14.0",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "aws-amplify": "^6.4.3",
+    "aws-amplify": "^5.3.12",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.8",
     "eslint": "8.42.0",
