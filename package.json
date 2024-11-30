@@ -39,6 +39,7 @@
     "@types/lodash.differencewith": "^4.5.9",
     "@types/lodash.isequal": "^4.5.8",
     "autoprefixer": "^10.4.14",
+    "dotenv": "^16.4.5",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "postcss": "^8.4.38",
