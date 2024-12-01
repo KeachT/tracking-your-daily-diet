@@ -9,7 +9,7 @@ test.describe('Settings Page Tests', () => {
 
   test('should save settings correctly', async ({ page }) => {
     await page.getByRole('link', { name: 'Settings' }).click()
-    await expect(page).toHaveURL('http://localhost:3000/settings')
+    await expect(page).toHaveURL(/\/settings/)
 
     await page.getByPlaceholder('Calories').fill('2000')
     await page.getByPlaceholder('Protein').fill('100')
@@ -20,7 +20,7 @@ test.describe('Settings Page Tests', () => {
     await page.reload()
     await page.getByRole('link', { name: 'Settings' }).click()
 
-    await expect(page).toHaveURL('http://localhost:3000/settings')
+    await expect(page).toHaveURL(/\/settings/)
     await expect(page.getByPlaceholder('Calories')).toHaveValue('2000')
     await expect(page.getByPlaceholder('Protein')).toHaveValue('100')
     await expect(page.getByPlaceholder('Fat')).toHaveValue('90')
