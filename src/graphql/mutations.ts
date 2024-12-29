@@ -2,423 +2,168 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createDailyGoal = /* GraphQL */ `
-  mutation CreateDailyGoal(
-    $input: CreateDailyGoalInput!
-    $condition: ModelDailyGoalConditionInput
-  ) {
-    createDailyGoal(input: $input, condition: $condition) {
-      id
-      calories
-      protein
-      carbohydrates
-      fat
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      owner
-      __typename
-    }
+import * as APITypes from "../API";
+type GeneratedMutation<InputType, OutputType> = string & {
+  __generatedMutationInput: InputType;
+  __generatedMutationOutput: OutputType;
+};
+
+export const createDailyGoal = /* GraphQL */ `mutation CreateDailyGoal(
+  $input: CreateDailyGoalInput!
+  $condition: ModelDailyGoalConditionInput
+) {
+  createDailyGoal(input: $input, condition: $condition) {
+    id
+    calories
+    protein
+    carbohydrates
+    fat
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    owner
+    __typename
   }
-`;
-export const updateDailyGoal = /* GraphQL */ `
-  mutation UpdateDailyGoal(
-    $input: UpdateDailyGoalInput!
-    $condition: ModelDailyGoalConditionInput
-  ) {
-    updateDailyGoal(input: $input, condition: $condition) {
-      id
-      calories
-      protein
-      carbohydrates
-      fat
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      owner
-      __typename
-    }
+}
+` as GeneratedMutation<
+  APITypes.CreateDailyGoalMutationVariables,
+  APITypes.CreateDailyGoalMutation
+>;
+export const updateDailyGoal = /* GraphQL */ `mutation UpdateDailyGoal(
+  $input: UpdateDailyGoalInput!
+  $condition: ModelDailyGoalConditionInput
+) {
+  updateDailyGoal(input: $input, condition: $condition) {
+    id
+    calories
+    protein
+    carbohydrates
+    fat
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    owner
+    __typename
   }
-`;
-export const deleteDailyGoal = /* GraphQL */ `
-  mutation DeleteDailyGoal(
-    $input: DeleteDailyGoalInput!
-    $condition: ModelDailyGoalConditionInput
-  ) {
-    deleteDailyGoal(input: $input, condition: $condition) {
-      id
-      calories
-      protein
-      carbohydrates
-      fat
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      owner
-      __typename
-    }
+}
+` as GeneratedMutation<
+  APITypes.UpdateDailyGoalMutationVariables,
+  APITypes.UpdateDailyGoalMutation
+>;
+export const deleteDailyGoal = /* GraphQL */ `mutation DeleteDailyGoal(
+  $input: DeleteDailyGoalInput!
+  $condition: ModelDailyGoalConditionInput
+) {
+  deleteDailyGoal(input: $input, condition: $condition) {
+    id
+    calories
+    protein
+    carbohydrates
+    fat
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    owner
+    __typename
   }
-`;
-export const createMealDate = /* GraphQL */ `
-  mutation CreateMealDate(
-    $input: CreateMealDateInput!
-    $condition: ModelMealDateConditionInput
-  ) {
-    createMealDate(input: $input, condition: $condition) {
-      id
-      date
-      mealCategories {
-        items {
-          id
-          name
-          mealdateID
-          foods {
-            items {
-              id
-              name
-              calories
-              protein
-              carbohydrates
-              fat
-              mealcategoryID
-              createdAt
-              updatedAt
-              _version
-              _deleted
-              _lastChangedAt
-              owner
-              __typename
-            }
-            nextToken
-            startedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          owner
-          __typename
-        }
-        nextToken
-        startedAt
-        __typename
-      }
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      owner
-      __typename
-    }
-  }
-`;
-export const updateMealDate = /* GraphQL */ `
-  mutation UpdateMealDate(
-    $input: UpdateMealDateInput!
-    $condition: ModelMealDateConditionInput
-  ) {
-    updateMealDate(input: $input, condition: $condition) {
-      id
-      date
-      mealCategories {
-        items {
-          id
-          name
-          mealdateID
-          foods {
-            items {
-              id
-              name
-              calories
-              protein
-              carbohydrates
-              fat
-              mealcategoryID
-              createdAt
-              updatedAt
-              _version
-              _deleted
-              _lastChangedAt
-              owner
-              __typename
-            }
-            nextToken
-            startedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          owner
-          __typename
-        }
-        nextToken
-        startedAt
-        __typename
-      }
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      owner
-      __typename
-    }
-  }
-`;
-export const deleteMealDate = /* GraphQL */ `
-  mutation DeleteMealDate(
-    $input: DeleteMealDateInput!
-    $condition: ModelMealDateConditionInput
-  ) {
-    deleteMealDate(input: $input, condition: $condition) {
-      id
-      date
-      mealCategories {
-        items {
-          id
-          name
-          mealdateID
-          foods {
-            items {
-              id
-              name
-              calories
-              protein
-              carbohydrates
-              fat
-              mealcategoryID
-              createdAt
-              updatedAt
-              _version
-              _deleted
-              _lastChangedAt
-              owner
-              __typename
-            }
-            nextToken
-            startedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          owner
-          __typename
-        }
-        nextToken
-        startedAt
-        __typename
-      }
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      owner
-      __typename
-    }
-  }
-`;
-export const createMealCategory = /* GraphQL */ `
-  mutation CreateMealCategory(
-    $input: CreateMealCategoryInput!
-    $condition: ModelMealCategoryConditionInput
-  ) {
-    createMealCategory(input: $input, condition: $condition) {
-      id
-      name
-      mealdateID
-      foods {
-        items {
-          id
-          name
-          calories
-          protein
-          carbohydrates
-          fat
-          mealcategoryID
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          owner
-          __typename
-        }
-        nextToken
-        startedAt
-        __typename
-      }
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      owner
-      __typename
-    }
-  }
-`;
-export const updateMealCategory = /* GraphQL */ `
-  mutation UpdateMealCategory(
-    $input: UpdateMealCategoryInput!
-    $condition: ModelMealCategoryConditionInput
-  ) {
-    updateMealCategory(input: $input, condition: $condition) {
-      id
-      name
-      mealdateID
-      foods {
-        items {
-          id
-          name
-          calories
-          protein
-          carbohydrates
-          fat
-          mealcategoryID
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          owner
-          __typename
-        }
-        nextToken
-        startedAt
-        __typename
-      }
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      owner
-      __typename
-    }
-  }
-`;
-export const deleteMealCategory = /* GraphQL */ `
-  mutation DeleteMealCategory(
-    $input: DeleteMealCategoryInput!
-    $condition: ModelMealCategoryConditionInput
-  ) {
-    deleteMealCategory(input: $input, condition: $condition) {
-      id
-      name
-      mealdateID
-      foods {
-        items {
-          id
-          name
-          calories
-          protein
-          carbohydrates
-          fat
-          mealcategoryID
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          owner
-          __typename
-        }
-        nextToken
-        startedAt
-        __typename
-      }
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      owner
-      __typename
-    }
-  }
-`;
-export const createFood = /* GraphQL */ `
-  mutation CreateFood(
-    $input: CreateFoodInput!
-    $condition: ModelFoodConditionInput
-  ) {
-    createFood(input: $input, condition: $condition) {
+}
+` as GeneratedMutation<
+  APITypes.DeleteDailyGoalMutationVariables,
+  APITypes.DeleteDailyGoalMutation
+>;
+export const createMealRecord = /* GraphQL */ `mutation CreateMealRecord(
+  $input: CreateMealRecordInput!
+  $condition: ModelMealRecordConditionInput
+) {
+  createMealRecord(input: $input, condition: $condition) {
+    id
+    date
+    category
+    foods {
       id
       name
       calories
       protein
       carbohydrates
       fat
-      mealcategoryID
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      owner
       __typename
     }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    owner
+    __typename
   }
-`;
-export const updateFood = /* GraphQL */ `
-  mutation UpdateFood(
-    $input: UpdateFoodInput!
-    $condition: ModelFoodConditionInput
-  ) {
-    updateFood(input: $input, condition: $condition) {
+}
+` as GeneratedMutation<
+  APITypes.CreateMealRecordMutationVariables,
+  APITypes.CreateMealRecordMutation
+>;
+export const updateMealRecord = /* GraphQL */ `mutation UpdateMealRecord(
+  $input: UpdateMealRecordInput!
+  $condition: ModelMealRecordConditionInput
+) {
+  updateMealRecord(input: $input, condition: $condition) {
+    id
+    date
+    category
+    foods {
       id
       name
       calories
       protein
       carbohydrates
       fat
-      mealcategoryID
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      owner
       __typename
     }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    owner
+    __typename
   }
-`;
-export const deleteFood = /* GraphQL */ `
-  mutation DeleteFood(
-    $input: DeleteFoodInput!
-    $condition: ModelFoodConditionInput
-  ) {
-    deleteFood(input: $input, condition: $condition) {
+}
+` as GeneratedMutation<
+  APITypes.UpdateMealRecordMutationVariables,
+  APITypes.UpdateMealRecordMutation
+>;
+export const deleteMealRecord = /* GraphQL */ `mutation DeleteMealRecord(
+  $input: DeleteMealRecordInput!
+  $condition: ModelMealRecordConditionInput
+) {
+  deleteMealRecord(input: $input, condition: $condition) {
+    id
+    date
+    category
+    foods {
       id
       name
       calories
       protein
       carbohydrates
       fat
-      mealcategoryID
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      owner
       __typename
     }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    owner
+    __typename
   }
-`;
+}
+` as GeneratedMutation<
+  APITypes.DeleteMealRecordMutationVariables,
+  APITypes.DeleteMealRecordMutation
+>;
