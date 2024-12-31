@@ -2,8 +2,7 @@ import { max, sum } from 'radash'
 
 import { CurrentDateState } from '../../stores/currentDate'
 import { WeeklyMealRecordsState } from '../../stores/weeklyMealRecords'
-import { createPrevWeekDate } from '../../utils/createPrevWeekDate'
-import { createStringFromDate } from '../../utils/createStringFromDate'
+import { createPrevWeekDate, createStringFromDate } from '../../utils'
 
 /**
  * Creates an array of weekly calories data based on meal records and the current date.

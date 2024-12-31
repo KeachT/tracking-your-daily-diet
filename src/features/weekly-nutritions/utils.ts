@@ -3,8 +3,7 @@ import { sum } from 'radash'
 import { MealCategoryName } from '@/API'
 
 import { CurrentDateState } from '../../stores/currentDate'
-import { createPrevWeekDate } from '../../utils/createPrevWeekDate'
-import { createStringFromDate } from '../../utils/createStringFromDate'
+import { createPrevWeekDate, createStringFromDate } from '../../utils'
 
 /**
  * Generates the current date and the date of the previous week.

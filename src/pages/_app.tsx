@@ -14,7 +14,7 @@ import { LoadingIndicator } from '../components/LoadingIndicator'
 import { Path } from '../constants/path'
 import { fetchDailyGoals } from '../features/daily-goal/api'
 import { useDailyGoalStore } from '../stores/dailyGoal'
-import { checkIsLoading } from '../utils/checkIsLoading'
+import { checkIsLoading } from '../utils'
 
 Amplify.configure(awsExports)
 
