@@ -16,7 +16,7 @@ export function CaloriesChart() {
   const { weeklyMealRecords } = useWeeklyMealRecordsStore()
 
   const dailyGoalCalories = dailyGoal?.calories || 0
-  const weeklyCaloriesData: any = createWeeklyCaloriesData(
+  const weeklyCaloriesData = createWeeklyCaloriesData(
     weeklyMealRecords,
     currentDate
   )
