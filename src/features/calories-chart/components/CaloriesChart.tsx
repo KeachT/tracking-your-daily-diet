@@ -2,7 +2,7 @@ import { Bar, BarChart, ReferenceLine, Tooltip, XAxis, YAxis } from 'recharts'
 
 import { useCurrentDateStore } from '../../../stores/currentDate'
 import { useDailyGoalStore } from '../../../stores/dailyGoal'
-import { useWeeklyMealDates } from '../../../stores/weeklyMealDates'
+import { useWeeklyMealRecordsStore } from '../../../stores/weeklyMealRecords'
 import {
   createWeeklyCaloriesData,
   determineYLimit,
@@ -13,11 +13,11 @@ import {
 export function CaloriesChart() {
   const { dailyGoal } = useDailyGoalStore()
   const { currentDate } = useCurrentDateStore()
-  const { weeklyMealDates } = useWeeklyMealDates()
+  const { weeklyMealRecords } = useWeeklyMealRecordsStore()
 
   const dailyGoalCalories = dailyGoal?.calories || 0
   const weeklyCaloriesData: any = createWeeklyCaloriesData(
-    weeklyMealDates,
+    weeklyMealRecords,
     currentDate
   )
   const maxCalories = getMaxCalories(weeklyCaloriesData)

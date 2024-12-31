@@ -83,8 +83,8 @@ export const schema = {
                 }
             ]
         },
-        "MealDate": {
-            "name": "MealDate",
+        "MealRecord": {
+            "name": "MealRecord",
             "fields": {
                 "id": {
                     "name": "id",
@@ -100,79 +100,8 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "mealCategories": {
-                    "name": "mealCategories",
-                    "isArray": true,
-                    "type": {
-                        "model": "MealCategory"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": [
-                            "mealdateID"
-                        ]
-                    }
-                },
-                "createdAt": {
-                    "name": "createdAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                },
-                "updatedAt": {
-                    "name": "updatedAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                }
-            },
-            "syncable": true,
-            "pluralName": "MealDates",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {}
-                },
-                {
-                    "type": "auth",
-                    "properties": {
-                        "rules": [
-                            {
-                                "provider": "userPools",
-                                "ownerField": "owner",
-                                "allow": "owner",
-                                "identityClaim": "cognito:username",
-                                "operations": [
-                                    "create",
-                                    "update",
-                                    "delete",
-                                    "read"
-                                ]
-                            }
-                        ]
-                    }
-                }
-            ]
-        },
-        "MealCategory": {
-            "name": "MealCategory",
-            "fields": {
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "name": {
-                    "name": "name",
+                "category": {
+                    "name": "category",
                     "isArray": false,
                     "type": {
                         "enum": "MealCategoryName"
@@ -180,28 +109,15 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "mealdateID": {
-                    "name": "mealdateID",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
                 "foods": {
                     "name": "foods",
                     "isArray": true,
                     "type": {
-                        "model": "Food"
+                        "nonModel": "FoodItem"
                     },
                     "isRequired": false,
                     "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": [
-                            "mealcategoryID"
-                        ]
-                    }
+                    "isArrayNullable": true
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -221,20 +137,11 @@ export const schema = {
                 }
             },
             "syncable": true,
-            "pluralName": "MealCategories",
+            "pluralName": "MealRecords",
             "attributes": [
                 {
                     "type": "model",
                     "properties": {}
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byMealDate",
-                        "fields": [
-                            "mealdateID"
-                        ]
-                    }
                 },
                 {
                     "type": "auth",
@@ -256,9 +163,22 @@ export const schema = {
                     }
                 }
             ]
-        },
-        "Food": {
-            "name": "Food",
+        }
+    },
+    "enums": {
+        "MealCategoryName": {
+            "name": "MealCategoryName",
+            "values": [
+                "BREAKFAST",
+                "LUNCH",
+                "DINNER",
+                "SNACK"
+            ]
+        }
+    },
+    "nonModels": {
+        "FoodItem": {
+            "name": "FoodItem",
             "fields": {
                 "id": {
                     "name": "id",
@@ -301,81 +221,10 @@ export const schema = {
                     "type": "Float",
                     "isRequired": false,
                     "attributes": []
-                },
-                "mealcategoryID": {
-                    "name": "mealcategoryID",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "createdAt": {
-                    "name": "createdAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                },
-                "updatedAt": {
-                    "name": "updatedAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
                 }
-            },
-            "syncable": true,
-            "pluralName": "Foods",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {}
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byMealCategory",
-                        "fields": [
-                            "mealcategoryID"
-                        ]
-                    }
-                },
-                {
-                    "type": "auth",
-                    "properties": {
-                        "rules": [
-                            {
-                                "provider": "userPools",
-                                "ownerField": "owner",
-                                "allow": "owner",
-                                "identityClaim": "cognito:username",
-                                "operations": [
-                                    "create",
-                                    "update",
-                                    "delete",
-                                    "read"
-                                ]
-                            }
-                        ]
-                    }
-                }
-            ]
+            }
         }
     },
-    "enums": {
-        "MealCategoryName": {
-            "name": "MealCategoryName",
-            "values": [
-                "BREAKFAST",
-                "LUNCH",
-                "DINNER",
-                "SNACK"
-            ]
-        }
-    },
-    "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "d67440223442198fb681363e7b51a05f"
+    "version": "bdb68beb848dc9ed6ef7b71fb26596f7"
 };

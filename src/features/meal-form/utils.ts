@@ -1,11 +1,11 @@
 import { randomId } from '@mantine/hooks'
 import _differenceWith from 'lodash.differencewith'
 import _isEqual from 'lodash.isequal'
-import { diff, sort, sum } from 'radash'
+import { sort, sum } from 'radash'
 
 import { MealCategoryName } from '@/API'
 
-import { createFoods, deleteFoods, fetchMealDate, updateFoods } from './api'
+import { createMealRec, updateMealRec } from './api'
 import { FormField, FormsType } from './types'
 
 /**
@@ -25,21 +25,22 @@ export const createFoodInitialValues = (): FormField => {
 }
 
 /**
- * The createInitialFormValues function generates initial form values based on the given mealCategoryNames and mealCategories.
+ * The createInitialFormValues function generates initial form values based on the given mealCategoryNames and mealRecords.
  *
- * @param mealCategories - The meal categories object.
+ * @param mealRecords - The meal records array.
  * @returns The initial form values.
  */
-export const createInitialFormValues = (mealCategories: any) => {
+export const createInitialFormValues = (mealRecords: any) => {
   const mealCategoryNames: string[] = Object.values(MealCategoryName)
 
   const initialFormValues = mealCategoryNames.reduce(
     (formValues, mealCategoryName) => {
-      const mealCategory = mealCategories.find(
-        (mealCategory: any) => mealCategory?.name === mealCategoryName
+      const mealRecord = mealRecords.find(
+        (mealRecord: any) => mealRecord?.category === mealCategoryName
       )
-      const mealCategoryFoods = mealCategory?.foods?.items || []
-      const sortedFoods = sort([...mealCategoryFoods], (f) => f.calories, true)
+
+      const foods = mealRecord?.foods || []
+      const sortedFoods = sort([...foods], (f) => f.calories, true)
 
       return { ...formValues, [mealCategoryName]: sortedFoods }
     },
@@ -69,68 +70,28 @@ export const createSumNutritionValues = (forms: FormsType) => {
 }
 
 /**
- * Saves foods to a meal category.
+ * Saves a meal record by either updating an existing record or creating a new one.
  *
- * @param mealCategoryName - The name of the meal category.
- * @param forms - The forms data.
- * @param mealDate - The meal date.
- * @param setMealDate - A function to set the meal date.
- * @param mealCategories - The meal categories.
- * @param setMealCategories - A function to set the meal categories.
+ * @param forms - The form data containing meal information.
+ * @param mealCategoryName - The name of the meal category (e.g., breakfast, lunch, dinner).
+ * @param currentDateString - The current date as a string.
+ * @param mealRecords - The list of existing meal records.
  */
-export const saveFoods = (
-  mealCategoryName: string,
+export const saveMealRecord = (
   forms: FormsType,
-  mealDate: any,
-  setMealDate: any,
-  mealCategories: any,
-  setMealCategories: any
+  mealCategoryName: string,
+  currentDateString: string,
+  mealRecords: any
 ) => {
-  const formFoods = forms.values[mealCategoryName]
-  const formFoodIds = formFoods?.map((targetFormValue) => targetFormValue?.id)
-
-  const mealCategory = mealCategories.find(
-    (mealCategory: any) => mealCategory?.name === mealCategoryName
-  )
-  const mealCategoryFoods = mealCategory?.foods?.items
-  const mealCategoriesFoodIds = mealCategoryFoods?.map(
-    (targetMealCategory: any) => targetMealCategory?.id
+  const mealRecord = mealRecords.find(
+    (mealRecord: any) => mealRecord?.category === mealCategoryName
   )
 
-  const newFoodIds = diff(formFoodIds, mealCategoriesFoodIds)
-  const removedFoodIds = diff(mealCategoriesFoodIds, formFoodIds)
-  const updatedFoodIds = formFoodIds?.filter(
-    (id) => !newFoodIds.includes(id) && !removedFoodIds.includes(id)
-  )
+  if (mealRecord) {
+    updateMealRec(forms, mealCategoryName, mealRecord)
+  }
 
-  const newFoodIdsSet = new Set(newFoodIds)
-  const removedFoodIdsSet = new Set(removedFoodIds)
-  const updatedFoodIdsSet = new Set(updatedFoodIds)
-
-  const newFoods = formFoods?.filter((formFood) =>
-    newFoodIdsSet.has(formFood.id)
-  )
-  const removedFoods = mealCategoryFoods?.filter((mealCategoryFood: any) =>
-    removedFoodIdsSet.has(mealCategoryFood.id)
-  )
-  const foodsDiff = getDifferentObjects(formFoods, mealCategoryFoods)
-  const updatedFoods = foodsDiff.filter((food) =>
-    updatedFoodIdsSet.has(food.id)
-  )
-
-  if (newFoods.length > 0) createFoods(newFoods, mealCategory.id)
-  if (removedFoods.length > 0) deleteFoods(removedFoods)
-  if (updatedFoods.length > 0) updateFoods(updatedFoods)
-
-  fetchMealDate(mealDate?.id, setMealDate, setMealCategories)
-}
-
-/**
- * Get an array of objects that are present in the first array but not in the second array.
- * @param array1 - The first array to compare.
- * @param array2 - The second array to compare.
- * @returns An array of objects that are present in the first array but not in the second array.
- */
-const getDifferentObjects = (array1: any, array2: any) => {
-  return _differenceWith(array1, array2, _isEqual)
+  if (!mealRecord) {
+    createMealRec(forms, mealCategoryName, currentDateString)
+  }
 }

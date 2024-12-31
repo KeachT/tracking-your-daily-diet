@@ -24,26 +24,32 @@ export const createWeekDateString = (
 }
 
 /**
- * Function that returns the number of items in the meal category with the most items from the given list of meal categories.
- * @param weeklyMealCategories List of meal categories
- * @returns The number of items in the meal category with the most items
+ * Counts the maximum number of meal records with foods for each meal category in a week.
+ *
+ * @param weeklyMealRecords - An array of meal records for the week.
+ * Each meal record should have a `foods` array and a `category` property.
+ *
+ * @returns The maximum count of meal records with foods for any meal category (breakfast, lunch, dinner, or snack).
  */
-export const countWeeklyDateWithFoods = (weeklyMealCategories: any) => {
-  const weeklyMealCategoriesWithFoods = weeklyMealCategories.filter(
-    (category: any) => category.foods.items.length > 0
+export const countWeeklyDateWithFoods = (weeklyMealRecords: any) => {
+  const weeklyMealRecordsWithFoods = weeklyMealRecords.filter(
+    (category: any) => category.foods.length > 0
   )
 
-  const breakfastCount = weeklyMealCategoriesWithFoods.filter(
-    (category: any) => category.name === MealCategoryName.BREAKFAST
+  const breakfastCount = weeklyMealRecordsWithFoods.filter(
+    (mealRecord: any) => mealRecord.category === MealCategoryName.BREAKFAST
   ).length
-  const lunchCount = weeklyMealCategoriesWithFoods.filter(
-    (category: any) => category.name === MealCategoryName.LUNCH
+
+  const lunchCount = weeklyMealRecordsWithFoods.filter(
+    (mealRecord: any) => mealRecord.category === MealCategoryName.LUNCH
   ).length
-  const dinnerCount = weeklyMealCategoriesWithFoods.filter(
-    (category: any) => category.name === MealCategoryName.DINNER
+
+  const dinnerCount = weeklyMealRecordsWithFoods.filter(
+    (mealRecord: any) => mealRecord.category === MealCategoryName.DINNER
   ).length
-  const snackCount = weeklyMealCategoriesWithFoods.filter(
-    (category: any) => category.name === MealCategoryName.SNACK
+
+  const snackCount = weeklyMealRecordsWithFoods.filter(
+    (mealRecord: any) => mealRecord.category === MealCategoryName.SNACK
   ).length
 
   const maxCount =
@@ -53,17 +59,34 @@ export const countWeeklyDateWithFoods = (weeklyMealCategories: any) => {
 }
 
 /**
- * Function that calculates the average week nutritions and returns them as an object.
+ * Calculates the average weekly nutrition values from the provided meal records.
  *
- * @param {any} weeklyMealCategories - Object containing weekly meal categories
- * @returns {Object} - Object containing the average values
+ * @param weeklyMealRecords - An array of meal records for the week. Each meal record should contain a list of foods.
+ * @param weeklyDateWithFoodsCount - The number of days in the week that have food records.
+ * @returns An object containing the average weekly values for calories, protein, fat, and carbohydrates.
+ *
+ * @example
+ * const weeklyMealRecords = [
+ *   { foods: [{ calories: 200, protein: 10, fat: 5, carbohydrates: 30 }] },
+ *   { foods: [{ calories: 300, protein: 20, fat: 10, carbohydrates: 40 }] }
+ * ];
+ * const weeklyDateWithFoodsCount = 2;
+ * const avgValues = createAvgWeekNutritionValues(weeklyMealRecords, weeklyDateWithFoodsCount);
+ * console.log(avgValues);
+ * // Output:
+ * // {
+ * //   avgWeeklyCalories: 250,
+ * //   avgWeeklyProtein: 15,
+ * //   avgWeeklyFat: 7.5,
+ * //   avgWeeklyCarbohydrates: 35
+ * // }
  */
 export const createAvgWeekNutritionValues = (
-  weeklyMealCategories: any,
+  weeklyMealRecords: any,
   weeklyDateWithFoodsCount: number
 ) => {
-  const weeklyFoods = weeklyMealCategories.flatMap(
-    (category: any) => category.foods.items
+  const weeklyFoods = weeklyMealRecords.flatMap(
+    (mealRecord: any) => mealRecord.foods
   )
 
   const weeklyCalories = sum(weeklyFoods, (food: any) => food?.calories || 0)

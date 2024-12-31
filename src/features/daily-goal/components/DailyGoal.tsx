@@ -23,11 +23,11 @@ export function DailyGoal() {
     open()
 
     if (!dailyGoal.id) {
-      addDailyGoal(dailyGoal, setDailyGoal)
+      addDailyGoal(dailyGoal)
       return
     }
 
-    updDailyGoal(dailyGoal, setDailyGoal)
+    updDailyGoal(dailyGoal)
   }
 
   useEffect(() => {

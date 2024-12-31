@@ -3,10 +3,11 @@ import { useDisclosure } from '@mantine/hooks'
 import { useEffect } from 'react'
 
 import { DialogSaved } from '../../../components/DialogSaved'
-import { useMealCategoriesStore } from '../../../stores/mealCategories'
-import { useMealDateStore } from '../../../stores/mealDate'
+import { useCurrentDateStore } from '../../../stores/currentDate'
+import { useMealRecordsStore } from '../../../stores/mealRecords'
+import { createStringFromDate } from '../../../utils/createStringFromDate'
 import { FormsType } from '../types'
-import { createFoodInitialValues, saveFoods } from '../utils'
+import { createFoodInitialValues, saveMealRecord } from '../utils'
 import { MealFormFields } from './MealFormFields'
 import { MealIcon } from './MealIcon'
 import { NoFoodText } from './NoFoodText'
@@ -20,23 +21,17 @@ export function MealFormAccordionItem({
   mealCategoryName,
   forms,
 }: MealFormAccordionItemProps) {
-  const { mealDate, setMealDate } = useMealDateStore()
-  const { mealCategories, setMealCategories } = useMealCategoriesStore()
   const [opened, { open, close }] = useDisclosure(false)
+  const { mealRecords } = useMealRecordsStore()
+  const { currentDate } = useCurrentDateStore()
+  const currentDateString = createStringFromDate(currentDate)
 
   const handleAdd = () =>
     forms.insertListItem(`${mealCategoryName}`, createFoodInitialValues())
 
   const handleSave = () => {
     open()
-    saveFoods(
-      mealCategoryName,
-      forms,
-      mealDate,
-      setMealDate,
-      mealCategories,
-      setMealCategories
-    )
+    saveMealRecord(forms, mealCategoryName, currentDateString, mealRecords)
   }
 
   useEffect(() => {

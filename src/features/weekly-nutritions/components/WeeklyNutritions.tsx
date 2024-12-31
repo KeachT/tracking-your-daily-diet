@@ -2,9 +2,8 @@ import { useEffect } from 'react'
 
 import { Nutritions } from '../../../features/nutritions'
 import { useCurrentDateStore } from '../../../stores/currentDate'
-import { useWeeklyMealCategoriesStore } from '../../../stores/weeklyMealCategories'
-import { useWeeklyMealDates } from '../../../stores/weeklyMealDates'
-import { fetchWeeklyMealCategories } from '../api/fetchWeeklyMealCategories'
+import { useWeeklyMealRecordsStore } from '../../../stores/weeklyMealRecords'
+import { fetchWeeklyMealRecords } from '../api/fetchWeeklyMealRecords'
 import {
   countWeeklyDateWithFoods,
   createAvgWeekNutritionValues,
@@ -13,37 +12,28 @@ import {
 
 export function WeeklyNutritions() {
   const { currentDate } = useCurrentDateStore()
-  const { setWeeklyMealDates } = useWeeklyMealDates()
-  const { weeklyMealCategories, setWeeklyMealCategories } =
-    useWeeklyMealCategoriesStore()
+  const { weeklyMealRecords, setWeeklyMealRecords } =
+    useWeeklyMealRecordsStore()
 
   const { currentDateString, prevWeekDateString } =
     createWeekDateString(currentDate)
-  const weeklyDateWithFoodsCount =
-    countWeeklyDateWithFoods(weeklyMealCategories)
+
+  const weeklyDateWithFoodsCount = countWeeklyDateWithFoods(weeklyMealRecords)
+
   const {
     avgWeeklyCalories,
     avgWeeklyProtein,
     avgWeeklyFat,
     avgWeeklyCarbohydrates,
-  } = createAvgWeekNutritionValues(
-    weeklyMealCategories,
-    weeklyDateWithFoodsCount
-  )
+  } = createAvgWeekNutritionValues(weeklyMealRecords, weeklyDateWithFoodsCount)
 
   useEffect(() => {
-    fetchWeeklyMealCategories(
+    fetchWeeklyMealRecords(
       currentDateString,
       prevWeekDateString,
-      setWeeklyMealCategories,
-      setWeeklyMealDates
+      setWeeklyMealRecords
     )
-  }, [
-    currentDateString,
-    prevWeekDateString,
-    setWeeklyMealCategories,
-    setWeeklyMealDates,
-  ])
+  }, [currentDateString, prevWeekDateString, setWeeklyMealRecords])
 
   return (
     <Nutritions

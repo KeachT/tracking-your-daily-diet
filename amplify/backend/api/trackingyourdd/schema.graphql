@@ -1,3 +1,6 @@
+"""
+Represents the daily nutritional goals for a user.
+"""
 type DailyGoal @model @auth(rules: [{ allow: owner }]) {
   id: ID!
   calories: Float
@@ -6,28 +9,23 @@ type DailyGoal @model @auth(rules: [{ allow: owner }]) {
   fat: Float
 }
 
-type MealDate @model @auth(rules: [{ allow: owner }]) {
+"""
+Definition of Denormalized Data Models
+"""
+type MealRecord @model @auth(rules: [{ allow: owner }]) {
   id: ID!
   date: AWSDate!
-  mealCategories: [MealCategory]
-    @hasMany(indexName: "byMealDate", fields: ["id"])
+  category: MealCategoryName!
+  foods: [FoodItem]
 }
 
-type MealCategory @model @auth(rules: [{ allow: owner }]) {
-  id: ID!
-  name: MealCategoryName!
-  mealdateID: ID! @index(name: "byMealDate")
-  foods: [Food] @hasMany(indexName: "byMealCategory", fields: ["id"])
-}
-
-type Food @model @auth(rules: [{ allow: owner }]) {
+type FoodItem {
   id: ID!
   name: String!
   calories: Float
   protein: Float
   carbohydrates: Float
   fat: Float
-  mealcategoryID: ID! @index(name: "byMealCategory")
 }
 
 enum MealCategoryName {

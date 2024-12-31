@@ -2,9 +2,39 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getDailyGoal = /* GraphQL */ `
-  query GetDailyGoal($id: ID!) {
-    getDailyGoal(id: $id) {
+import * as APITypes from "../API";
+type GeneratedQuery<InputType, OutputType> = string & {
+  __generatedQueryInput: InputType;
+  __generatedQueryOutput: OutputType;
+};
+
+export const getDailyGoal = /* GraphQL */ `query GetDailyGoal($id: ID!) {
+  getDailyGoal(id: $id) {
+    id
+    calories
+    protein
+    carbohydrates
+    fat
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetDailyGoalQueryVariables,
+  APITypes.GetDailyGoalQuery
+>;
+export const listDailyGoals = /* GraphQL */ `query ListDailyGoals(
+  $filter: ModelDailyGoalFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listDailyGoals(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
       id
       calories
       protein
@@ -18,111 +48,87 @@ export const getDailyGoal = /* GraphQL */ `
       owner
       __typename
     }
+    nextToken
+    startedAt
+    __typename
   }
-`;
-export const listDailyGoals = /* GraphQL */ `
-  query ListDailyGoals(
-    $filter: ModelDailyGoalFilterInput
-    $limit: Int
-    $nextToken: String
+}
+` as GeneratedQuery<
+  APITypes.ListDailyGoalsQueryVariables,
+  APITypes.ListDailyGoalsQuery
+>;
+export const syncDailyGoals = /* GraphQL */ `query SyncDailyGoals(
+  $filter: ModelDailyGoalFilterInput
+  $limit: Int
+  $nextToken: String
+  $lastSync: AWSTimestamp
+) {
+  syncDailyGoals(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    lastSync: $lastSync
   ) {
-    listDailyGoals(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        calories
-        protein
-        carbohydrates
-        fat
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        owner
-        __typename
-      }
-      nextToken
-      startedAt
+    items {
+      id
+      calories
+      protein
+      carbohydrates
+      fat
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
       __typename
     }
+    nextToken
+    startedAt
+    __typename
   }
-`;
-export const syncDailyGoals = /* GraphQL */ `
-  query SyncDailyGoals(
-    $filter: ModelDailyGoalFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncDailyGoals(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        calories
-        protein
-        carbohydrates
-        fat
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        owner
-        __typename
-      }
-      nextToken
-      startedAt
+}
+` as GeneratedQuery<
+  APITypes.SyncDailyGoalsQueryVariables,
+  APITypes.SyncDailyGoalsQuery
+>;
+export const getMealRecord = /* GraphQL */ `query GetMealRecord($id: ID!) {
+  getMealRecord(id: $id) {
+    id
+    date
+    category
+    foods {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
       __typename
     }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    owner
+    __typename
   }
-`;
-export const getMealDate = /* GraphQL */ `
-  query GetMealDate($id: ID!) {
-    getMealDate(id: $id) {
+}
+` as GeneratedQuery<
+  APITypes.GetMealRecordQueryVariables,
+  APITypes.GetMealRecordQuery
+>;
+export const listMealRecords = /* GraphQL */ `query ListMealRecords(
+  $filter: ModelMealRecordFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listMealRecords(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
       id
       date
-      mealCategories {
-        items {
-          id
-          name
-          mealdateID
-          foods {
-            items {
-              id
-              name
-              calories
-              protein
-              carbohydrates
-              fat
-              mealcategoryID
-              createdAt
-              updatedAt
-              _version
-              _deleted
-              _lastChangedAt
-              owner
-              __typename
-            }
-            nextToken
-            startedAt
-            __typename
-          }
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          owner
-          __typename
-        }
-        nextToken
-        startedAt
-        __typename
-      }
+      category
       createdAt
       updatedAt
       _version
@@ -131,165 +137,31 @@ export const getMealDate = /* GraphQL */ `
       owner
       __typename
     }
+    nextToken
+    startedAt
+    __typename
   }
-`;
-export const listMealDates = /* GraphQL */ `
-  query ListMealDates(
-    $filter: ModelMealDateFilterInput
-    $limit: Int
-    $nextToken: String
+}
+` as GeneratedQuery<
+  APITypes.ListMealRecordsQueryVariables,
+  APITypes.ListMealRecordsQuery
+>;
+export const syncMealRecords = /* GraphQL */ `query SyncMealRecords(
+  $filter: ModelMealRecordFilterInput
+  $limit: Int
+  $nextToken: String
+  $lastSync: AWSTimestamp
+) {
+  syncMealRecords(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    lastSync: $lastSync
   ) {
-    listMealDates(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        date
-        mealCategories {
-          items {
-            id
-            name
-            mealdateID
-            foods {
-              items {
-                id
-                name
-                calories
-                protein
-                carbohydrates
-                fat
-                mealcategoryID
-                createdAt
-                updatedAt
-                _version
-                _deleted
-                _lastChangedAt
-                owner
-                __typename
-              }
-              nextToken
-              startedAt
-              __typename
-            }
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-            owner
-            __typename
-          }
-          nextToken
-          startedAt
-          __typename
-        }
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        owner
-        __typename
-      }
-      nextToken
-      startedAt
-      __typename
-    }
-  }
-`;
-export const syncMealDates = /* GraphQL */ `
-  query SyncMealDates(
-    $filter: ModelMealDateFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncMealDates(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        date
-        mealCategories {
-          items {
-            id
-            name
-            mealdateID
-            foods {
-              items {
-                id
-                name
-                calories
-                protein
-                carbohydrates
-                fat
-                mealcategoryID
-                createdAt
-                updatedAt
-                _version
-                _deleted
-                _lastChangedAt
-                owner
-                __typename
-              }
-              nextToken
-              startedAt
-              __typename
-            }
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-            owner
-            __typename
-          }
-          nextToken
-          startedAt
-          __typename
-        }
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        owner
-        __typename
-      }
-      nextToken
-      startedAt
-      __typename
-    }
-  }
-`;
-export const getMealCategory = /* GraphQL */ `
-  query GetMealCategory($id: ID!) {
-    getMealCategory(id: $id) {
+    items {
       id
-      name
-      mealdateID
-      foods {
-        items {
-          id
-          name
-          calories
-          protein
-          carbohydrates
-          fat
-          mealcategoryID
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          owner
-          __typename
-        }
-        nextToken
-        startedAt
-        __typename
-      }
+      date
+      category
       createdAt
       updatedAt
       _version
@@ -298,278 +170,12 @@ export const getMealCategory = /* GraphQL */ `
       owner
       __typename
     }
+    nextToken
+    startedAt
+    __typename
   }
-`;
-export const listMealCategories = /* GraphQL */ `
-  query ListMealCategories(
-    $filter: ModelMealCategoryFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listMealCategories(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        name
-        mealdateID
-        foods {
-          items {
-            id
-            name
-            calories
-            protein
-            carbohydrates
-            fat
-            mealcategoryID
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-            owner
-            __typename
-          }
-          nextToken
-          startedAt
-          __typename
-        }
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        owner
-        __typename
-      }
-      nextToken
-      startedAt
-      __typename
-    }
-  }
-`;
-export const syncMealCategories = /* GraphQL */ `
-  query SyncMealCategories(
-    $filter: ModelMealCategoryFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncMealCategories(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        name
-        mealdateID
-        foods {
-          items {
-            id
-            name
-            calories
-            protein
-            carbohydrates
-            fat
-            mealcategoryID
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-            owner
-            __typename
-          }
-          nextToken
-          startedAt
-          __typename
-        }
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        owner
-        __typename
-      }
-      nextToken
-      startedAt
-      __typename
-    }
-  }
-`;
-export const mealCategoriesByMealdateID = /* GraphQL */ `
-  query MealCategoriesByMealdateID(
-    $mealdateID: ID!
-    $sortDirection: ModelSortDirection
-    $filter: ModelMealCategoryFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    mealCategoriesByMealdateID(
-      mealdateID: $mealdateID
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        name
-        mealdateID
-        foods {
-          items {
-            id
-            name
-            calories
-            protein
-            carbohydrates
-            fat
-            mealcategoryID
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-            owner
-            __typename
-          }
-          nextToken
-          startedAt
-          __typename
-        }
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        owner
-        __typename
-      }
-      nextToken
-      startedAt
-      __typename
-    }
-  }
-`;
-export const getFood = /* GraphQL */ `
-  query GetFood($id: ID!) {
-    getFood(id: $id) {
-      id
-      name
-      calories
-      protein
-      carbohydrates
-      fat
-      mealcategoryID
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      owner
-      __typename
-    }
-  }
-`;
-export const listFoods = /* GraphQL */ `
-  query ListFoods(
-    $filter: ModelFoodFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listFoods(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        name
-        calories
-        protein
-        carbohydrates
-        fat
-        mealcategoryID
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        owner
-        __typename
-      }
-      nextToken
-      startedAt
-      __typename
-    }
-  }
-`;
-export const syncFoods = /* GraphQL */ `
-  query SyncFoods(
-    $filter: ModelFoodFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncFoods(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        name
-        calories
-        protein
-        carbohydrates
-        fat
-        mealcategoryID
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        owner
-        __typename
-      }
-      nextToken
-      startedAt
-      __typename
-    }
-  }
-`;
-export const foodsByMealcategoryID = /* GraphQL */ `
-  query FoodsByMealcategoryID(
-    $mealcategoryID: ID!
-    $sortDirection: ModelSortDirection
-    $filter: ModelFoodFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    foodsByMealcategoryID(
-      mealcategoryID: $mealcategoryID
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        name
-        calories
-        protein
-        carbohydrates
-        fat
-        mealcategoryID
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        owner
-        __typename
-      }
-      nextToken
-      startedAt
-      __typename
-    }
-  }
-`;
+}
+` as GeneratedQuery<
+  APITypes.SyncMealRecordsQueryVariables,
+  APITypes.SyncMealRecordsQuery
+>;
