@@ -1,4 +1,4 @@
-import { CurrentDateState } from '../stores/currentDate'
+import { CurrentDateState } from '../stores'
 import { createStringFromDate } from './createStringFromDate'
 
 /**

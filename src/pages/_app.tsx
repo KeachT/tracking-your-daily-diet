@@ -13,7 +13,7 @@ import awsExports from '../aws-exports'
 import { LoadingIndicator } from '../components/LoadingIndicator'
 import { Path } from '../constants/path'
 import { fetchDailyGoals } from '../features/daily-goal/api'
-import { useDailyGoalStore } from '../stores/dailyGoal'
+import { useDailyGoalStore } from '../stores'
 import { checkIsLoading } from '../utils'
 
 Amplify.configure(awsExports)

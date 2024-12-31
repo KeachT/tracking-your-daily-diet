@@ -5,9 +5,11 @@ import { useEffect } from 'react'
 
 import { MealCategoryName } from '@/API'
 
-import { useCurrentDateStore } from '../../../stores/currentDate'
-import { useMealRecordsStore } from '../../../stores/mealRecords'
-import { useNutritionNumbersStore } from '../../../stores/nutritionNumbers'
+import {
+  useCurrentDateStore,
+  useMealRecordsStore,
+  useNutritionNumbersStore,
+} from '../../../stores'
 import { createStringFromDate } from '../../../utils'
 import { fetchMealRecords } from '../api'
 import { FormsType } from '../types'

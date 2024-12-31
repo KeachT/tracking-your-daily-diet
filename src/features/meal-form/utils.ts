@@ -5,7 +5,7 @@ import { sort, sum } from 'radash'
 
 import { MealCategoryName } from '@/API'
 
-import { MealRecordsState } from '../../stores/mealRecords'
+import { MealRecordsState } from '../../stores'
 import { addMealRecord, updMealRecord } from './api'
 import { FormField, FormsType } from './types'
 

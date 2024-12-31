@@ -8,7 +8,7 @@ import {
   ListMealRecordsQueryVariables,
 } from '../../../API'
 import { getMealRecord, listMealRecords } from '../../../graphql/queries'
-import { MealRecordsState } from '../../../stores/mealRecords'
+import { MealRecordsState } from '../../../stores'
 
 export const fetchMealRecords = async (
   currentDateString: string,

@@ -7,7 +7,7 @@ import {
   UpdateDailyGoalMutationVariables,
 } from '../../../API'
 import { updateDailyGoal } from '../../../graphql/mutations'
-import { DailyGoalState } from '../../../stores/dailyGoal'
+import { DailyGoalState } from '../../../stores'
 
 export const updDailyGoal = async (dailyGoal: DailyGoalState['dailyGoal']) => {
   const updateDailyGoalInput: UpdateDailyGoalInput = {

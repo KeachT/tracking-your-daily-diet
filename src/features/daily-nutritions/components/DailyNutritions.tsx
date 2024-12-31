@@ -1,4 +1,4 @@
-import { useNutritionNumbersStore } from '../../../stores/nutritionNumbers'
+import { useNutritionNumbersStore } from '../../../stores'
 import { Nutritions } from '../../nutritions'
 
 export function DailyNutritions() {

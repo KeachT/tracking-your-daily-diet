@@ -9,7 +9,7 @@ import {
   MealRecord,
 } from '../../../API'
 import { getMealRecord, listMealRecords } from '../../../graphql/queries'
-import { WeeklyMealRecordsState } from '../../../stores/weeklyMealRecords'
+import { WeeklyMealRecordsState } from '../../../stores'
 
 export const fetchWeeklyMealRecords = async (
   currentDateString: string,

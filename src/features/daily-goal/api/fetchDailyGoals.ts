@@ -3,7 +3,7 @@ import { API } from 'aws-amplify'
 
 import { ListDailyGoalsQuery } from '../../../API'
 import { listDailyGoals } from '../../../graphql/queries'
-import { DailyGoalState } from '../../../stores/dailyGoal'
+import { DailyGoalState } from '../../../stores'
 import { createDailyGoalInitialValues } from '../utils'
 
 export const fetchDailyGoals = async (

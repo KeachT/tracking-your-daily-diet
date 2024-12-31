@@ -1,8 +1,7 @@
 import { useEffect } from 'react'
 
 import { Nutritions } from '../../../features/nutritions'
-import { useCurrentDateStore } from '../../../stores/currentDate'
-import { useWeeklyMealRecordsStore } from '../../../stores/weeklyMealRecords'
+import { useCurrentDateStore, useWeeklyMealRecordsStore } from '../../../stores'
 import { fetchWeeklyMealRecords } from '../api/fetchWeeklyMealRecords'
 import {
   countWeeklyDateWithFoods,
