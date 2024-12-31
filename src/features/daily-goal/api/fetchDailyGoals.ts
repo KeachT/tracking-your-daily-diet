@@ -15,9 +15,10 @@ export const fetchDailyGoals = async (
       authMode: 'AMAZON_COGNITO_USER_POOLS',
     })
 
-    setDailyGoal(
+    const dailyGoal =
       data?.listDailyGoals?.items?.[0] || createDailyGoalInitialValues()
-    )
+
+    setDailyGoal(dailyGoal)
   } catch (err) {
     if (process.env.NODE_ENV !== 'production') {
       console.error('Error fetching DailyGoals')
