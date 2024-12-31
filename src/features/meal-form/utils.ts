@@ -6,7 +6,7 @@ import { sort, sum } from 'radash'
 import { MealCategoryName } from '@/API'
 
 import { MealRecordsState } from '../../stores/mealRecords'
-import { createMealRec, updateMealRec } from './api'
+import { addMealRecord, updMealRecord } from './api'
 import { FormField, FormsType } from './types'
 
 /**
@@ -39,7 +39,7 @@ export const createInitialFormValues = (
   const initialFormValues = mealCategoryNames.reduce(
     (formValues, mealCategoryName) => {
       const mealRecord = mealRecords.find(
-        (mealRecord: any) => mealRecord?.category === mealCategoryName
+        (mealRecord) => mealRecord?.category === mealCategoryName
       )
 
       const foods = mealRecord?.foods || []
@@ -91,10 +91,10 @@ export const saveMealRecord = (
   )
 
   if (mealRecord) {
-    updateMealRec(forms, mealCategoryName, mealRecord)
+    updMealRecord(forms, mealCategoryName, mealRecord)
   }
 
   if (!mealRecord) {
-    createMealRec(forms, mealCategoryName, currentDateString)
+    addMealRecord(forms, mealCategoryName, currentDateString)
   }
 }
