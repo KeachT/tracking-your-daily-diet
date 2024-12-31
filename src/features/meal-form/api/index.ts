@@ -1,3 +1,3 @@
 export * from './createMealRec'
 export * from './fetchMealRecords'
-export * from './updateMealRec'
+export * from './updMealRecord'
