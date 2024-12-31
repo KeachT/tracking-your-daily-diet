@@ -1,30 +1,35 @@
 import { max, sum } from 'radash'
 
 import { CurrentDateState } from '../../stores/currentDate'
-import { WeeklyMealDatesState } from '../../stores/weeklyMealDates'
+import { WeeklyMealRecordsState } from '../../stores/weeklyMealRecords'
 import { createPrevWeekDate } from '../../utils/createPrevWeekDate'
 import { createStringFromDate } from '../../utils/createStringFromDate'
 
 /**
- * Creates weekly calorie data for chart.
+ * Creates an array of weekly calories data based on meal records and the current date.
  *
- * @param weeklyMealDates Weekly meal date data.
- * @param currentDate Current date.
- * @returns Array of weekly calorie data for chart.
+ * @param weeklyMealRecords - An array of meal records for the week.
+ * @param currentDate - The current date.
+ * @returns An array of objects representing the calories consumed each day of the week.
+ *
+ * Each object in the returned array contains:
+ * - `name`: A string representing the month and day (formatted as MM/DD).
+ * - `calories`: The total number of calories consumed on that day.
  */
 export const createWeeklyCaloriesData = (
-  weeklyMealDates: WeeklyMealDatesState['weeklyMealDates'],
+  weeklyMealRecords: WeeklyMealRecordsState['weeklyMealRecords'],
   currentDate: CurrentDateState['currentDate']
 ) => {
   const weekDayStrings = createWeekDayStrings(currentDate)
 
   const weeklyCaloriesData = weekDayStrings.map((dayString: string) => {
-    const mealDate = weeklyMealDates.find(
-      (mealDate: any) => mealDate.date === dayString
+    const mealRecords: any[] = weeklyMealRecords.filter(
+      (mealRecord: any) => mealRecord.date === dayString
     )
-    const dailyFoods = mealDate?.mealCategories?.items?.flatMap(
-      (category: any) => category.foods.items
+    const dailyFoods: any[] = mealRecords?.flatMap(
+      (mealRecord: any) => mealRecord.foods
     )
+
     const dailyCalories = sum(dailyFoods, (food: any) => food?.calories || 0)
     const [_year, month, day] = dayString.split('-')
 
