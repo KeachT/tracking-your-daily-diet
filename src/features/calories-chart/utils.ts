@@ -11,7 +11,7 @@ import { createPrevWeekDate, createStringFromDate } from '../../utils'
  * @param currentDate - The current date.
  * @returns An array of objects representing the calories consumed each day of the week.
  *
- * Each object in the returned array contains:
+ * Each object in the returned array contains the following properties:
  * - `name`: A string representing the month and day (formatted as MM/DD).
  * - `calories`: The total number of calories consumed on that day.
  */
