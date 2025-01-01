@@ -29,9 +29,9 @@ export function CaloriesChart() {
       <XAxis dataKey="name" />
       <YAxis domain={[0, yLimit]} ticks={ticks} />
       <Tooltip />
-      <ReferenceLine y={maxCalories} />
-      <ReferenceLine y={dailyGoalCalories} stroke="red" />
-      <ReferenceLine y={dailyGoalCalories / 2} />
+      <ReferenceLine y={maxCalories} key="max-calories" />
+      <ReferenceLine y={dailyGoalCalories} stroke="red" key="daily-goal" />
+      <ReferenceLine y={dailyGoalCalories / 2} key="half-daily-goal" />
       <Bar dataKey="calories" fill="#845ef7" barSize={30} />
     </BarChart>
   )

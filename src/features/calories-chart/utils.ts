@@ -2,8 +2,7 @@ import { max, sum } from 'radash'
 
 import { CurrentDateState } from '../../stores/currentDate'
 import { WeeklyMealRecordsState } from '../../stores/weeklyMealRecords'
-import { createPrevWeekDate } from '../../utils/createPrevWeekDate'
-import { createStringFromDate } from '../../utils/createStringFromDate'
+import { createPrevWeekDate, createStringFromDate } from '../../utils'
 
 /**
  * Creates an array of weekly calories data based on meal records and the current date.
@@ -12,7 +11,7 @@ import { createStringFromDate } from '../../utils/createStringFromDate'
  * @param currentDate - The current date.
  * @returns An array of objects representing the calories consumed each day of the week.
  *
- * Each object in the returned array contains:
+ * Each object in the returned array contains the following properties:
  * - `name`: A string representing the month and day (formatted as MM/DD).
  * - `calories`: The total number of calories consumed on that day.
  */
