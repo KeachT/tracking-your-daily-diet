@@ -3,6 +3,7 @@ import { randomId } from '@mantine/hooks'
 import { API } from 'aws-amplify'
 
 import {
+  CreateMealRecordInput,
   CreateMealRecordMutation,
   CreateMealRecordMutationVariables,
   MealCategoryName,
@@ -10,7 +11,7 @@ import {
 import { createMealRecord } from '../../../graphql/mutations'
 import { FormsType } from '../types'
 
-export const createMealRec = async (
+export const addMealRecord = async (
   forms: FormsType,
   mealCategoryName: string,
   currentDateString: string
@@ -29,13 +30,15 @@ export const createMealRec = async (
     }
   })
 
+  const createMealRecordInput: CreateMealRecordInput = {
+    id: randomId(),
+    date: currentDateString,
+    category: mealCategoryName as MealCategoryName,
+    foods: normalizedFoods,
+  }
+
   const variables: CreateMealRecordMutationVariables = {
-    input: {
-      id: randomId(),
-      date: currentDateString,
-      category: mealCategoryName as MealCategoryName,
-      foods: normalizedFoods,
-    },
+    input: createMealRecordInput,
   }
 
   try {

@@ -2,20 +2,23 @@ import { GraphQLQuery } from '@aws-amplify/api'
 import { API } from 'aws-amplify'
 
 import {
+  FoodItemInput,
+  MealRecord,
+  UpdateMealRecordInput,
   UpdateMealRecordMutation,
   UpdateMealRecordMutationVariables,
 } from '../../../API'
 import { updateMealRecord } from '../../../graphql/mutations'
 import { FormsType } from '../types'
 
-export const updateMealRec = async (
+export const updMealRecord = async (
   forms: FormsType,
   mealCategoryName: string,
-  mealRecord: any
+  mealRecord: MealRecord
 ) => {
   const foods = forms.values[mealCategoryName]
 
-  const normalizedFoods = foods.map((food) => {
+  const normalizedFoods: FoodItemInput[] = foods.map((food) => {
     const { id, name, calories, protein, carbohydrates, fat } = food
     return {
       id,
@@ -27,14 +30,16 @@ export const updateMealRec = async (
     }
   })
 
+  const updateMealRecordInput: UpdateMealRecordInput = {
+    id: mealRecord.id,
+    date: mealRecord.date,
+    category: mealRecord.category,
+    foods: normalizedFoods,
+    _version: mealRecord._version,
+  }
+
   const variables: UpdateMealRecordMutationVariables = {
-    input: {
-      id: mealRecord.id,
-      date: mealRecord.date,
-      category: mealRecord.category,
-      foods: normalizedFoods,
-      _version: mealRecord._version,
-    },
+    input: updateMealRecordInput,
   }
 
   try {

@@ -6,6 +6,7 @@ import {
   GetMealRecordQueryVariables,
   ListMealRecordsQuery,
   ListMealRecordsQueryVariables,
+  MealRecord,
 } from '../../../API'
 import { getMealRecord, listMealRecords } from '../../../graphql/queries'
 import { WeeklyMealRecordsState } from '../../../stores/weeklyMealRecords'
@@ -45,7 +46,7 @@ export const fetchWeeklyMealRecords = async (
       })
     )
 
-    setWeeklyMealRecords(mealRecordsWithFoods)
+    setWeeklyMealRecords(mealRecordsWithFoods as MealRecord[])
   } catch (err) {
     if (process.env.NODE_ENV !== 'production') {
       console.error('Error fetching MealDates:', err)

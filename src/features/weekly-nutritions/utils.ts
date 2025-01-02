@@ -3,6 +3,7 @@ import { sum } from 'radash'
 import { MealCategoryName } from '@/API'
 
 import { CurrentDateState } from '../../stores/currentDate'
+import { WeeklyMealRecordsState } from '../../stores/weeklyMealRecords'
 import { createPrevWeekDate, createStringFromDate } from '../../utils'
 
 /**
@@ -30,7 +31,9 @@ export const createWeekDateString = (
  *
  * @returns The maximum count of meal records with foods for any meal category (breakfast, lunch, dinner, or snack).
  */
-export const countWeeklyDateWithFoods = (weeklyMealRecords: any) => {
+export const countWeeklyDateWithFoods = (
+  weeklyMealRecords: WeeklyMealRecordsState['weeklyMealRecords']
+) => {
   const weeklyMealRecordsWithFoods = weeklyMealRecords.filter(
     (category: any) => category.foods.length > 0
   )
@@ -81,11 +84,11 @@ export const countWeeklyDateWithFoods = (weeklyMealRecords: any) => {
  * // }
  */
 export const createAvgWeekNutritionValues = (
-  weeklyMealRecords: any,
+  weeklyMealRecords: WeeklyMealRecordsState['weeklyMealRecords'],
   weeklyDateWithFoodsCount: number
 ) => {
   const weeklyFoods = weeklyMealRecords.flatMap(
-    (mealRecord: any) => mealRecord.foods
+    (mealRecord) => mealRecord.foods
   )
 
   const weeklyCalories = sum(weeklyFoods, (food: any) => food?.calories || 0)

@@ -3,6 +3,7 @@ import { max, sum } from 'radash'
 import { CurrentDateState } from '../../stores/currentDate'
 import { WeeklyMealRecordsState } from '../../stores/weeklyMealRecords'
 import { createPrevWeekDate, createStringFromDate } from '../../utils'
+import { WeeklyCaloriesData } from './types'
 
 /**
  * Creates an array of weekly calories data based on meal records and the current date.
@@ -11,25 +12,24 @@ import { createPrevWeekDate, createStringFromDate } from '../../utils'
  * @param currentDate - The current date.
  * @returns An array of objects representing the calories consumed each day of the week.
  *
- * Each object in the returned array contains the following properties:
+ * Each object in the returned array contains:
  * - `name`: A string representing the month and day (formatted as MM/DD).
  * - `calories`: The total number of calories consumed on that day.
  */
 export const createWeeklyCaloriesData = (
   weeklyMealRecords: WeeklyMealRecordsState['weeklyMealRecords'],
   currentDate: CurrentDateState['currentDate']
-) => {
+): WeeklyCaloriesData[] => {
   const weekDayStrings = createWeekDayStrings(currentDate)
 
   const weeklyCaloriesData = weekDayStrings.map((dayString: string) => {
-    const mealRecords: any[] = weeklyMealRecords.filter(
-      (mealRecord: any) => mealRecord.date === dayString
-    )
-    const dailyFoods: any[] = mealRecords?.flatMap(
-      (mealRecord: any) => mealRecord.foods
+    const mealRecords = weeklyMealRecords.filter(
+      (mealRecord) => mealRecord.date === dayString
     )
 
+    const dailyFoods = mealRecords?.flatMap((mealRecord) => mealRecord.foods)
     const dailyCalories = sum(dailyFoods, (food: any) => food?.calories || 0)
+
     const [_year, month, day] = dayString.split('-')
 
     return {
@@ -66,7 +66,9 @@ const createWeekDayStrings = (currentDate: CurrentDateState['currentDate']) => {
  * @param weeklyCaloriesData - The array of weekly calories data.
  * @returns The maximum number of calories.
  */
-export const getMaxCalories = (weeklyCaloriesData: any): number => {
+export const getMaxCalories = (
+  weeklyCaloriesData: WeeklyCaloriesData[]
+): number => {
   const maxCalories =
     max(weeklyCaloriesData, (data: any) => data.calories)?.calories || 0
 

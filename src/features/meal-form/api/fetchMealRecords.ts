@@ -44,7 +44,7 @@ export const fetchMealRecords = async (
       })
     )
 
-    setMealRecords(mealRecordsWithFoods)
+    setMealRecords(mealRecordsWithFoods as MealRecordsState['mealRecords'])
   } catch (err) {
     if (process.env.NODE_ENV !== 'production') {
       console.error('Error fetching MealDates:', err)

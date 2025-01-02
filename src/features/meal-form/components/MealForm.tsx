@@ -28,7 +28,7 @@ export function MealForm() {
   const forms: FormsType = useForm({})
   const mealCategoryNames: string[] = Object.values(MealCategoryName)
 
-  // Calculate daily nutrition values from the forms
+  // Calculate daily nutrition values from the forms.
   const sumNutritionValues = createSumNutritionValues(forms)
   const sumDailyCalories = sum(sumNutritionValues, (f) => f.sumCalories)
   const sumDailyProtein = sum(sumNutritionValues, (f) => f.sumProtein)
@@ -38,7 +38,7 @@ export function MealForm() {
     (f) => f.sumCarbohydrates
   )
 
-  // For floating point precision
+  // For floating point precision.
   const roundedDailyProtein = Math.round(sumDailyProtein * 100) / 100
   const roundedDailyFat = Math.round(sumDailyFat * 100) / 100
   const roundedDailyCarbohydrates =

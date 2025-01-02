@@ -1,8 +1,10 @@
 import { create } from 'zustand'
 
+import { MealRecord } from '../API'
+
 export type WeeklyMealRecordsState = {
-  weeklyMealRecords: any
-  setWeeklyMealRecords: (weeklyMealRecords: any) => void
+  weeklyMealRecords: MealRecord[]
+  setWeeklyMealRecords: (weeklyMealRecords: MealRecord[]) => void
 }
 
 export const useWeeklyMealRecordsStore = create<WeeklyMealRecordsState>(
