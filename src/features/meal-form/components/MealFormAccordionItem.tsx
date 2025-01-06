@@ -45,6 +45,7 @@ export function MealFormAccordionItem({
       >
         {mealCategoryName}
       </Accordion.Control>
+
       <Accordion.Panel>
         {forms.values[mealCategoryName]?.length > 0 ? (
           <MealFormFields form={forms} mealCategoryName={mealCategoryName} />
