@@ -31,7 +31,7 @@ export function Nutritions({
   )
 
   return (
-    <Paper withBorder radius="md" p="md">
+    <Paper withBorder radius="sm" p="md">
       <Grid gutter={20}>
         {nutritions.map((nutrition) => (
           <NutritionRing

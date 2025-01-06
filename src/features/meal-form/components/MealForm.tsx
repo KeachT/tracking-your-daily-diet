@@ -1,4 +1,4 @@
-import { Accordion } from '@mantine/core'
+import { Accordion, Box, Text } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { sum } from 'radash'
 import { useEffect } from 'react'
@@ -68,14 +68,20 @@ export function MealForm() {
   }, [currentDateString, setMealRecords])
 
   return (
-    <Accordion defaultValue={mealCategoryNames[0]} variant="separated">
-      {mealCategoryNames.map((mealCategoryName) => (
-        <MealFormAccordionItem
-          key={mealCategoryName}
-          mealCategoryName={mealCategoryName}
-          forms={forms}
-        />
-      ))}
-    </Accordion>
+    <Box>
+      <Text fw={200} size="xl" mb={10}>
+        Daily Meals
+      </Text>
+
+      <Accordion defaultValue={mealCategoryNames[0]} variant="separated">
+        {mealCategoryNames.map((mealCategoryName) => (
+          <MealFormAccordionItem
+            key={mealCategoryName}
+            mealCategoryName={mealCategoryName}
+            forms={forms}
+          />
+        ))}
+      </Accordion>
+    </Box>
   )
 }
