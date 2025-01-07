@@ -5,7 +5,7 @@ import { sort, sum } from 'radash'
 
 import { MealCategoryName } from '@/API'
 
-import { MealRecordsState } from '../../stores/mealRecords'
+import { MealRecordsState } from '../../stores'
 import { addMealRecord, updMealRecord } from './api'
 import { FormField, FormsType } from './types'
 
@@ -78,7 +78,7 @@ export const createSumNutritionValues = (forms: FormsType) => {
  * @param forms - The form data containing meal information.
  * @param mealCategoryName - The name of the meal category (e.g., breakfast, lunch, dinner).
  * @param currentDateString - The current date as a string.
- * @param mealRecords - The list of existing meal records.
+ * @param mealRecords - The list of existing meal records
  */
 export const saveMealRecord = (
   forms: FormsType,

@@ -2,8 +2,7 @@ import { sum } from 'radash'
 
 import { MealCategoryName } from '@/API'
 
-import { CurrentDateState } from '../../stores/currentDate'
-import { WeeklyMealRecordsState } from '../../stores/weeklyMealRecords'
+import { CurrentDateState, WeeklyMealRecordsState } from '../../stores'
 import { createPrevWeekDate, createStringFromDate } from '../../utils'
 
 /**

@@ -1,8 +1,10 @@
 import { Bar, BarChart, ReferenceLine, Tooltip, XAxis, YAxis } from 'recharts'
 
-import { useCurrentDateStore } from '../../../stores/currentDate'
-import { useDailyGoalStore } from '../../../stores/dailyGoal'
-import { useWeeklyMealRecordsStore } from '../../../stores/weeklyMealRecords'
+import {
+  useCurrentDateStore,
+  useDailyGoalStore,
+  useWeeklyMealRecordsStore,
+} from '../../../stores'
 import {
   createWeeklyCaloriesData,
   determineYLimit,

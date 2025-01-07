@@ -1,7 +1,6 @@
 import { max, sum } from 'radash'
 
-import { CurrentDateState } from '../../stores/currentDate'
-import { WeeklyMealRecordsState } from '../../stores/weeklyMealRecords'
+import { CurrentDateState, WeeklyMealRecordsState } from '../../stores'
 import { createPrevWeekDate, createStringFromDate } from '../../utils'
 import { WeeklyCaloriesData } from './types'
 

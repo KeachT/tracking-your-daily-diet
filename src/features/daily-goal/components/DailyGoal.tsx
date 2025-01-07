@@ -3,7 +3,7 @@ import { useDisclosure } from '@mantine/hooks'
 import { useEffect } from 'react'
 
 import { DialogSaved } from '../../../components/DialogSaved'
-import { useDailyGoalStore } from '../../../stores/dailyGoal'
+import { useDailyGoalStore } from '../../../stores'
 import { addDailyGoal, updDailyGoal } from '../api'
 import { DailyGoalNumberInput } from './DailyGoalNumberInput'
 
