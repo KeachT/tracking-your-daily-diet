@@ -5,13 +5,10 @@ import { useEffect } from 'react'
 
 import { MealCategoryName } from '@/API'
 
-import {
-  useCurrentDateStore,
-  useMealRecordsStore,
-  useNutritionNumbersStore,
-} from '../../../stores'
+import { useCurrentDateStore, useNutritionNumbersStore } from '../../../stores'
 import { createStringFromDate } from '../../../utils'
 import { fetchMealRecords } from '../api'
+import { useMealRecordsStore } from '../stores'
 import { FormsType } from '../types'
 import { createInitialFormValues, createSumNutritionValues } from '../utils'
 import { MealFormAccordionItem } from './MealFormAccordionItem'
@@ -30,7 +27,6 @@ export function MealForm() {
   const forms: FormsType = useForm({})
   const mealCategoryNames: string[] = Object.values(MealCategoryName)
 
-  // Calculate daily nutrition values from the forms
   const sumNutritionValues = createSumNutritionValues(forms)
   const sumDailyCalories = sum(sumNutritionValues, (f) => f.sumCalories)
   const sumDailyProtein = sum(sumNutritionValues, (f) => f.sumProtein)
@@ -40,7 +36,6 @@ export function MealForm() {
     (f) => f.sumCarbohydrates
   )
 
-  // For floating point precision
   const roundedDailyProtein = Math.round(sumDailyProtein * 100) / 100
   const roundedDailyFat = Math.round(sumDailyFat * 100) / 100
   const roundedDailyCarbohydrates =

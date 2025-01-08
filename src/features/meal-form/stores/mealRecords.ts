@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-import { MealRecord } from '../API'
+import { MealRecord } from '../../../API'
 
 export type MealRecordsState = {
   mealRecords: MealRecord[]
