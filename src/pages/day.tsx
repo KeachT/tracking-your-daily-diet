@@ -1,4 +1,4 @@
-import { Box, Text } from '@mantine/core'
+import { Box } from '@mantine/core'
 
 import { Layout } from '../components/Layout'
 import { DailyNutritions } from '../features/daily-nutritions'
@@ -13,16 +13,10 @@ export default function Day() {
       </Box>
 
       <Box maw={700} mb={30}>
-        <Text fw={200} size="xl" mb={10}>
-          Daily Nutritions
-        </Text>
         <DailyNutritions />
       </Box>
 
       <Box maw={700} mb={30}>
-        <Text fw={200} size="xl" mb={10}>
-          Daily Meals
-        </Text>
         <MealForm />
       </Box>
     </Layout>

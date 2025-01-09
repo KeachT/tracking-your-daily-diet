@@ -1,3 +1,4 @@
+import { Box, ScrollArea, Text } from '@mantine/core'
 import { Bar, BarChart, ReferenceLine, Tooltip, XAxis, YAxis } from 'recharts'
 
 import {
@@ -12,7 +13,7 @@ import {
   getMaxCalories,
 } from '../utils'
 
-export function CaloriesChart() {
+export function WeeklyCaloriesChart() {
   const { dailyGoal } = useDailyGoalStore()
   const { currentDate } = useCurrentDateStore()
   const { weeklyMealRecords } = useWeeklyMealRecordsStore()
@@ -27,14 +28,22 @@ export function CaloriesChart() {
   const ticks = generateYAxisTicks(maxCalories, dailyGoalCalories)
 
   return (
-    <BarChart width={600} height={400} data={weeklyCaloriesData}>
-      <XAxis dataKey="name" />
-      <YAxis domain={[0, yLimit]} ticks={ticks} />
-      <Tooltip />
-      <ReferenceLine y={maxCalories} key="max-calories" />
-      <ReferenceLine y={dailyGoalCalories} stroke="red" key="daily-goal" />
-      <ReferenceLine y={dailyGoalCalories / 2} key="half-daily-goal" />
-      <Bar dataKey="calories" fill="#845ef7" barSize={30} />
-    </BarChart>
+    <Box>
+      <Text fw={200} size="xl" mb={10}>
+        Weekly Calories Chart
+      </Text>
+
+      <ScrollArea maw={700} h={500} mb={50}>
+        <BarChart width={700} height={400} data={weeklyCaloriesData}>
+          <XAxis dataKey="name" />
+          <YAxis domain={[0, yLimit]} ticks={ticks} />
+          <Tooltip />
+          <ReferenceLine y={maxCalories} key="max-calories" />
+          <ReferenceLine y={dailyGoalCalories} stroke="red" key="daily-goal" />
+          <ReferenceLine y={dailyGoalCalories / 2} key="half-daily-goal" />
+          <Bar dataKey="calories" fill="#845ef7" barSize={30} />
+        </BarChart>
+      </ScrollArea>
+    </Box>
   )
 }

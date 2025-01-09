@@ -1,4 +1,4 @@
-import { Box, Button } from '@mantine/core'
+import { Box, Button, Text } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { useEffect } from 'react'
 
@@ -39,6 +39,12 @@ export function DailyGoal() {
 
   return (
     <Box>
+      <Box maw={700} mb={10}>
+        <Text fw={200} size="xl">
+          Daily Goal
+        </Text>
+      </Box>
+
       <DailyGoalNumberInput
         label="Calories (Kcal)"
         placeholder="Calories"

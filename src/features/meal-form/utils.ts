@@ -73,7 +73,7 @@ export const createSumNutritionValues = (forms: FormsType) => {
 }
 
 /**
- * Saves a meal record by either updating an existing record or creating a new one.
+ * Saves a meal record by either updating an existing record or creating a new one
  *
  * @param forms - The form data containing meal information.
  * @param mealCategoryName - The name of the meal category (e.g., breakfast, lunch, dinner).
