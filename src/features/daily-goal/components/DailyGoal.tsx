@@ -1,14 +1,12 @@
 import { Box, Button, Text } from '@mantine/core'
-import { useDisclosure } from '@mantine/hooks'
-import { useEffect } from 'react'
+import { Notifications, notifications } from '@mantine/notifications'
+import { IconCheck, IconX } from '@tabler/icons-react'
 
-import { DialogSaved } from '../../../components/DialogSaved'
 import { useDailyGoalStore } from '../../../stores'
-import { addDailyGoal, updDailyGoal } from '../api'
+import { saveDailyGoal } from '../utils'
 import { DailyGoalNumberInput } from './DailyGoalNumberInput'
 
 export function DailyGoal() {
-  const [opened, { open, close }] = useDisclosure(false)
   const { dailyGoal, setDailyGoal } = useDailyGoalStore()
 
   const setNutritionValues = (
@@ -20,22 +18,31 @@ export function DailyGoal() {
   }
 
   const handleClick = () => {
-    open()
-
-    if (!dailyGoal.id) {
-      addDailyGoal(dailyGoal)
-      return
+    try {
+      saveDailyGoal(dailyGoal, setDailyGoal)
+      handleSuccess()
+    } catch (err) {
+      handleError()
     }
-
-    updDailyGoal(dailyGoal)
   }
 
-  useEffect(() => {
-    opened &&
-      setTimeout(() => {
-        close()
-      }, 3000)
-  }, [opened, close])
+  const handleSuccess = () => {
+    notifications.show({
+      title: 'Saved!',
+      message: 'Settings',
+      color: 'green',
+      icon: <IconCheck />,
+    })
+  }
+
+  const handleError = () => {
+    notifications.show({
+      title: 'Error!',
+      message: 'Settings',
+      color: 'red',
+      icon: <IconX />,
+    })
+  }
 
   return (
     <Box>
@@ -79,7 +86,7 @@ export function DailyGoal() {
         Save
       </Button>
 
-      {opened && <DialogSaved opened={opened} close={close} />}
+      <Notifications limit={10} autoClose={2000} />
     </Box>
   )
 }

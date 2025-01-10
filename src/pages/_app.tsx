@@ -1,6 +1,7 @@
 import '@/styles/globals.css'
 import '@aws-amplify/ui-react/styles.css'
 import '@mantine/core/styles.css'
+import '@mantine/notifications/styles.css'
 
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react'
 import { MantineProvider } from '@mantine/core'
