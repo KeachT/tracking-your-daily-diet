@@ -1,8 +1,7 @@
 import { Accordion, Button, Center } from '@mantine/core'
-import { useDisclosure } from '@mantine/hooks'
-import { useEffect } from 'react'
+import { Notifications, notifications } from '@mantine/notifications'
+import { IconCheck, IconX } from '@tabler/icons-react'
 
-import { DialogSaved } from '../../../components/DialogSaved'
 import { useCurrentDateStore } from '../../../stores'
 import { createStringFromDate } from '../../../utils'
 import { useMealRecordsStore } from '../stores'
@@ -21,7 +20,6 @@ export function MealFormAccordionItem({
   mealCategoryName,
   forms,
 }: MealFormAccordionItemProps) {
-  const [opened, { open, close }] = useDisclosure(false)
   const { mealRecords } = useMealRecordsStore()
   const { currentDate } = useCurrentDateStore()
   const currentDateString = createStringFromDate(currentDate)
@@ -29,14 +27,35 @@ export function MealFormAccordionItem({
   const handleAdd = () =>
     forms.insertListItem(`${mealCategoryName}`, createFoodInitialValues())
 
-  const handleSave = () => {
-    open()
-    saveMealRecord(forms, mealCategoryName, currentDateString, mealRecords)
+  const handleSave = async () => {
+    try {
+      await saveMealRecord(
+        forms,
+        mealCategoryName,
+        currentDateString,
+        mealRecords
+      )
+      handleSuccess()
+    } catch (err) {
+      handleError()
+    }
   }
 
-  useEffect(() => {
-    opened && setTimeout(() => close(), 3000)
-  }, [opened, close])
+  const handleSuccess = () =>
+    notifications.show({
+      title: 'Saved!',
+      message: 'Day',
+      color: 'green',
+      icon: <IconCheck />,
+    })
+
+  const handleError = () =>
+    notifications.show({
+      title: 'Error!',
+      message: 'Day',
+      color: 'red',
+      icon: <IconX />,
+    })
 
   return (
     <Accordion.Item value={mealCategoryName}>
@@ -62,7 +81,7 @@ export function MealFormAccordionItem({
         </Center>
       </Accordion.Panel>
 
-      {opened && <DialogSaved opened={opened} close={close} />}
+      <Notifications limit={10} autoClose={2000} />
     </Accordion.Item>
   )
 }

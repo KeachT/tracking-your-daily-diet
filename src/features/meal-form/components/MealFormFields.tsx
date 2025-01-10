@@ -25,7 +25,7 @@ export function MealFormFields({
             {...getFormItemProps(index, 'name')}
           />
         </Grid.Col>
-        <Grid.Col span={{ base: 12, xs: 3, sm: 2 }}>
+        <Grid.Col span={{ base: 3, sm: 2 }}>
           <NumberInput
             placeholder="Calories"
             min={0}
@@ -34,7 +34,7 @@ export function MealFormFields({
             {...getFormItemProps(index, 'calories')}
           />
         </Grid.Col>
-        <Grid.Col span={{ base: 12, xs: 3, sm: 2 }}>
+        <Grid.Col span={{ base: 3, sm: 2 }}>
           <NumberInput
             placeholder="Protein"
             min={0}
@@ -44,7 +44,7 @@ export function MealFormFields({
             {...getFormItemProps(index, 'protein')}
           />
         </Grid.Col>
-        <Grid.Col span={{ base: 12, xs: 3, sm: 2 }}>
+        <Grid.Col span={{ base: 3, sm: 2 }}>
           <NumberInput
             placeholder="Fat"
             min={0}
@@ -54,7 +54,7 @@ export function MealFormFields({
             {...getFormItemProps(index, 'fat')}
           />
         </Grid.Col>
-        <Grid.Col span={{ base: 12, xs: 3, sm: 2 }}>
+        <Grid.Col span={{ base: 3, sm: 2 }}>
           <NumberInput
             placeholder="Carbo"
             min={0}

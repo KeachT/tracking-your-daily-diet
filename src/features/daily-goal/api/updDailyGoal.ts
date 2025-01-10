@@ -9,7 +9,10 @@ import {
 import { updateDailyGoal } from '../../../graphql/mutations'
 import { DailyGoalState } from '../../../stores'
 
-export const updDailyGoal = async (dailyGoal: DailyGoalState['dailyGoal']) => {
+export const updDailyGoal = async (
+  dailyGoal: DailyGoalState['dailyGoal'],
+  setDailyGoal: DailyGoalState['setDailyGoal']
+) => {
   const updateDailyGoalInput: UpdateDailyGoalInput = {
     id: dailyGoal.id,
     calories: dailyGoal.calories,
@@ -24,11 +27,13 @@ export const updDailyGoal = async (dailyGoal: DailyGoalState['dailyGoal']) => {
   }
 
   try {
-    await API.graphql<GraphQLQuery<UpdateDailyGoalMutation>>({
+    const { data } = await API.graphql<GraphQLQuery<UpdateDailyGoalMutation>>({
       query: updateDailyGoal,
       variables,
       authMode: 'AMAZON_COGNITO_USER_POOLS',
     })
+    const dailyGoal = data?.updateDailyGoal as DailyGoalState['dailyGoal']
+    setDailyGoal(dailyGoal)
   } catch (err) {
     if (process.env.NODE_ENV !== 'production') {
       console.error('Error updating DailyGoal:', err)

@@ -80,7 +80,7 @@ export const createSumNutritionValues = (forms: FormsType) => {
  * @param currentDateString - The current date as a string.
  * @param mealRecords - The list of existing meal records.
  */
-export const saveMealRecord = (
+export const saveMealRecord = async (
   forms: FormsType,
   mealCategoryName: string,
   currentDateString: string,
@@ -91,10 +91,10 @@ export const saveMealRecord = (
   )
 
   if (mealRecord) {
-    updMealRecord(forms, mealCategoryName, mealRecord)
+    await updMealRecord(forms, mealCategoryName, mealRecord)
   }
 
   if (!mealRecord) {
-    addMealRecord(forms, mealCategoryName, currentDateString)
+    await addMealRecord(forms, mealCategoryName, currentDateString)
   }
 }
