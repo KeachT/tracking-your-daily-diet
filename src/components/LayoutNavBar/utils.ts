@@ -4,7 +4,7 @@ import {
   IconClockHour9,
 } from '@tabler/icons-react'
 
-import { Path } from '../../constants/path'
+import { Path } from '../../constants'
 
 export const createLinkItems = () => [
   { path: Path.Day, label: 'Day', icon: IconClockHour9 },
