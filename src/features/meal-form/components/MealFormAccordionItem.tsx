@@ -1,7 +1,9 @@
 import { Accordion, Button, Center } from '@mantine/core'
 import { Notifications, notifications } from '@mantine/notifications'
 import { IconCheck, IconX } from '@tabler/icons-react'
+import { useState } from 'react'
 
+import { SAVE_BUTTON_REENABLE_DELAY_MS } from '../../../constants'
 import { useCurrentDateStore } from '../../../stores'
 import { createStringFromDate } from '../../../utils'
 import { useMealRecordsStore } from '../stores'
@@ -20,6 +22,7 @@ export function MealFormAccordionItem({
   mealCategoryName,
   forms,
 }: MealFormAccordionItemProps) {
+  const [isSaveButtonDisabled, setIsSaveButtonDisabled] = useState(false)
   const { mealRecords } = useMealRecordsStore()
   const { currentDate } = useCurrentDateStore()
   const currentDateString = createStringFromDate(currentDate)
@@ -28,6 +31,7 @@ export function MealFormAccordionItem({
     forms.insertListItem(`${mealCategoryName}`, createFoodInitialValues())
 
   const handleSave = async () => {
+    setIsSaveButtonDisabled(true)
     try {
       await saveMealRecord(
         forms,
@@ -41,21 +45,31 @@ export function MealFormAccordionItem({
     }
   }
 
-  const handleSuccess = () =>
+  const handleSuccess = () => {
     notifications.show({
       title: 'Saved!',
       message: 'Day',
       color: 'green',
       icon: <IconCheck />,
     })
+    setTimeout(
+      () => setIsSaveButtonDisabled(false),
+      SAVE_BUTTON_REENABLE_DELAY_MS
+    )
+  }
 
-  const handleError = () =>
+  const handleError = () => {
     notifications.show({
       title: 'Error!',
       message: 'Day',
       color: 'red',
       icon: <IconX />,
     })
+    setTimeout(
+      () => setIsSaveButtonDisabled(false),
+      SAVE_BUTTON_REENABLE_DELAY_MS
+    )
+  }
 
   return (
     <Accordion.Item value={mealCategoryName}>
@@ -75,7 +89,11 @@ export function MealFormAccordionItem({
           <Button onClick={handleAdd} mr="md">
             Add
           </Button>
-          <Button onClick={handleSave} color="teal">
+          <Button
+            onClick={handleSave}
+            color="teal"
+            disabled={isSaveButtonDisabled}
+          >
             Save
           </Button>
         </Center>

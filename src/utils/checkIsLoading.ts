@@ -1,4 +1,4 @@
-import { Path } from '../constants/path'
+import { Path } from '../constants'
 
 export const checkIsLoading = (authStatus: string, pathname: string) =>
   authStatus === 'configuring' ||

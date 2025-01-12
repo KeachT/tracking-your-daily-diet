@@ -12,7 +12,7 @@ import { useEffect } from 'react'
 
 import awsExports from '../aws-exports'
 import { LoadingIndicator } from '../components/LoadingIndicator'
-import { Path } from '../constants/path'
+import { Path } from '../constants'
 import { fetchDailyGoals } from '../features/daily-goal/api'
 import { useDailyGoalStore } from '../stores'
 import { checkIsLoading } from '../utils'
