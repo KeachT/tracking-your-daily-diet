@@ -1,12 +1,18 @@
 import { Box, Button, Text } from '@mantine/core'
 import { Notifications, notifications } from '@mantine/notifications'
 import { IconCheck, IconX } from '@tabler/icons-react'
+import { useState } from 'react'
 
+import {
+  NOTIFICATION_DISPLAY_DURATION_MS,
+  SAVE_BUTTON_REENABLE_DELAY_MS,
+} from '../../../constants'
 import { useDailyGoalStore } from '../../../stores'
 import { saveDailyGoal } from '../utils'
 import { DailyGoalNumberInput } from './DailyGoalNumberInput'
 
 export function DailyGoal() {
+  const [isSaveButtonDisabled, setIsSaveButtonDisabled] = useState(false)
   const { dailyGoal, setDailyGoal } = useDailyGoalStore()
 
   const setNutritionValues = (
@@ -17,7 +23,8 @@ export function DailyGoal() {
     setDailyGoal(newDailyGoal)
   }
 
-  const handleClick = () => {
+  const handleSave = () => {
+    setIsSaveButtonDisabled(true)
     try {
       saveDailyGoal(dailyGoal, setDailyGoal)
       handleSuccess()
@@ -33,6 +40,10 @@ export function DailyGoal() {
       color: 'green',
       icon: <IconCheck />,
     })
+    setTimeout(
+      () => setIsSaveButtonDisabled(false),
+      SAVE_BUTTON_REENABLE_DELAY_MS
+    )
   }
 
   const handleError = () => {
@@ -42,6 +53,10 @@ export function DailyGoal() {
       color: 'red',
       icon: <IconX />,
     })
+    setTimeout(
+      () => setIsSaveButtonDisabled(false),
+      SAVE_BUTTON_REENABLE_DELAY_MS
+    )
   }
 
   return (
@@ -82,11 +97,16 @@ export function DailyGoal() {
         step={1}
       />
 
-      <Button mr={50} onClick={handleClick}>
+      <Button
+        mr={50}
+        color="teal"
+        onClick={handleSave}
+        disabled={isSaveButtonDisabled}
+      >
         Save
       </Button>
 
-      <Notifications limit={10} autoClose={2000} />
+      <Notifications limit={10} autoClose={NOTIFICATION_DISPLAY_DURATION_MS} />
     </Box>
   )
 }

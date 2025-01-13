@@ -31,10 +31,9 @@ export default function App(props: AppProps) {
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { authStatus } = useAuthenticator((context) => [context.authStatus])
+  const { setDailyGoal } = useDailyGoalStore()
   const router = useRouter()
   const isLoading = checkIsLoading(authStatus, router.pathname)
-
-  const { setDailyGoal } = useDailyGoalStore()
 
   useEffect(() => {
     if (authStatus === 'unauthenticated') {
