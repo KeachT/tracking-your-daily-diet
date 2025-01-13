@@ -42,7 +42,6 @@ export const fetchMealRecords = async (
         fetchMealRecordWithFoods(mealRecordId as string)
       )
     )
-    console.log(uniqueMealRecordsWithFoods)
 
     setMealRecords(
       uniqueMealRecordsWithFoods as MealRecordsState['mealRecords']

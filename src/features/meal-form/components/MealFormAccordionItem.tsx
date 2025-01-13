@@ -3,7 +3,10 @@ import { Notifications, notifications } from '@mantine/notifications'
 import { IconCheck, IconX } from '@tabler/icons-react'
 import { useState } from 'react'
 
-import { SAVE_BUTTON_REENABLE_DELAY_MS } from '../../../constants'
+import {
+  NOTIFICATION_DISPLAY_DURATION_MS,
+  SAVE_BUTTON_REENABLE_DELAY_MS,
+} from '../../../constants'
 import { useCurrentDateStore } from '../../../stores'
 import { createStringFromDate } from '../../../utils'
 import { useMealRecordsStore } from '../stores'
@@ -86,12 +89,12 @@ export function MealFormAccordionItem({
           <NoFoodText />
         )}
         <Center mt="xl">
-          <Button onClick={handleAdd} mr="md">
+          <Button mr="md" onClick={handleAdd}>
             Add
           </Button>
           <Button
-            onClick={handleSave}
             color="teal"
+            onClick={handleSave}
             disabled={isSaveButtonDisabled}
           >
             Save
@@ -99,7 +102,7 @@ export function MealFormAccordionItem({
         </Center>
       </Accordion.Panel>
 
-      <Notifications limit={10} autoClose={2000} />
+      <Notifications limit={10} autoClose={NOTIFICATION_DISPLAY_DURATION_MS} />
     </Accordion.Item>
   )
 }
