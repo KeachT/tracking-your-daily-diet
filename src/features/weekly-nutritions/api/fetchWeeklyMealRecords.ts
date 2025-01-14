@@ -2,14 +2,13 @@ import { GraphQLQuery } from '@aws-amplify/api'
 import { API } from 'aws-amplify'
 
 import {
-  GetMealRecordQuery,
-  GetMealRecordQueryVariables,
   ListMealRecordsQuery,
   ListMealRecordsQueryVariables,
   MealRecord,
 } from '../../../API'
-import { getMealRecord, listMealRecords } from '../../../graphql/queries'
+import { listMealRecords } from '../../../graphql/queries'
 import { WeeklyMealRecordsState } from '../../../stores'
+import { fetchMealRecordWithFoods } from '../../meal-form/api/fetchMealRecordWithFoods'
 
 export const fetchWeeklyMealRecords = async (
   currentDateString: string,
@@ -30,20 +29,23 @@ export const fetchWeeklyMealRecords = async (
     })
 
     const mealRecords = data?.listMealRecords?.items || []
-    const mealRecordIds = mealRecords.map((mealRecord) => mealRecord?.id)
+
+    // Remove duplicate meal records with the same date and category
+    const uniqueMealRecordsMap = new Map(
+      mealRecords.map((mealRecord) => {
+        const dateCategoryKey = mealRecord?.date + '-' + mealRecord?.category
+        return [dateCategoryKey, mealRecord]
+      })
+    )
+    const uniqueMealRecords = [...uniqueMealRecordsMap.values()]
+    const uniqueMealRecordIds = uniqueMealRecords.map(
+      (uniqueMealRecord) => uniqueMealRecord?.id
+    )
 
     const mealRecordsWithFoods = await Promise.all(
-      mealRecordIds.map(async (mealRecordId) => {
-        const variables: GetMealRecordQueryVariables = {
-          id: mealRecordId || '',
-        }
-        const { data } = await API.graphql<GraphQLQuery<GetMealRecordQuery>>({
-          query: getMealRecord,
-          variables,
-          authMode: 'AMAZON_COGNITO_USER_POOLS',
-        })
-        return data?.getMealRecord
-      })
+      uniqueMealRecordIds.map((mealRecordId) =>
+        fetchMealRecordWithFoods(mealRecordId as string)
+      )
     )
 
     setWeeklyMealRecords(mealRecordsWithFoods as MealRecord[])
