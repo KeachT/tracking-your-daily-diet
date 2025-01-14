@@ -2,42 +2,51 @@ import { max, sum } from 'radash'
 
 import { CurrentDateState, WeeklyMealRecordsState } from '../../stores'
 import { createPrevWeekDate, createStringFromDate } from '../../utils'
-import { WeeklyCaloriesData } from './types'
+import { WeeklyNutritionsData } from './types'
 
 /**
- * Creates an array of weekly calories data based on meal records and the current date.
+ * Generates an array of weekly nutrition data based on the provided meal records and current date.
  *
  * @param weeklyMealRecords - An array of meal records for the week.
- * @param currentDate - The current date.
- * @returns An array of objects representing the calories consumed each day of the week.
+ * @param currentDate - The current date used to generate the week day strings.
+ * @returns An array of objects representing the nutrition data for each day of the week.
  *
- * Each object in the returned array contains:
+ * Each object in the returned array contains the following properties:
  * - `name`: A string representing the month and day (formatted as MM/DD).
  * - `calories`: The total number of calories consumed on that day.
+ * - `protein`: The total amount of protein consumed on that day.
+ * - `fat`: The total amount of fat consumed on that day.
+ * - `carbohydrates`: The total amount of carbohydrates consumed on that day.
  */
-export const createWeeklyCaloriesData = (
+export const createWeeklyNutritionsData = (
   weeklyMealRecords: WeeklyMealRecordsState['weeklyMealRecords'],
   currentDate: CurrentDateState['currentDate']
-): WeeklyCaloriesData[] => {
+): WeeklyNutritionsData[] => {
   const weekDayStrings = createWeekDayStrings(currentDate)
 
-  const weeklyCaloriesData = weekDayStrings.map((dayString: string) => {
+  const weeklyNutritionsData = weekDayStrings.map((dayString: string) => {
     const mealRecords = weeklyMealRecords.filter(
       (mealRecord) => mealRecord.date === dayString
     )
-
+    const [_year, month, day] = dayString.split('-')
     const dailyFoods = mealRecords?.flatMap((mealRecord) => mealRecord.foods)
     const dailyCalories = sum(dailyFoods, (food: any) => food?.calories || 0)
-
-    const [_year, month, day] = dayString.split('-')
-
+    const dailyProtein = sum(dailyFoods, (food: any) => food?.protein || 0)
+    const dailyFat = sum(dailyFoods, (food: any) => food?.fat || 0)
+    const dailyCarbohydrates = sum(
+      dailyFoods,
+      (food: any) => food?.carbohydrates || 0
+    )
     return {
       name: `${month}/${day}`,
       calories: dailyCalories,
+      protein: dailyProtein,
+      fat: dailyFat,
+      carbohydrates: dailyCarbohydrates,
     }
   })
 
-  return weeklyCaloriesData
+  return weeklyNutritionsData
 }
 
 /**
@@ -60,16 +69,17 @@ const createWeekDayStrings = (currentDate: CurrentDateState['currentDate']) => {
 }
 
 /**
- * Calculates the maximum number of calories from the given weekly calories data.
+ * Gets the maximum calories from an array of weekly nutrition data.
  *
- * @param weeklyCaloriesData - The array of weekly calories data.
- * @returns The maximum number of calories.
+ * @param weeklyNutritionsData - An array of weekly nutrition data objects.
+ * @returns The maximum number of calories found in the weekly nutrition data, or 0 if the array is empty.
  */
 export const getMaxCalories = (
-  weeklyCaloriesData: WeeklyCaloriesData[]
+  weeklyNutritionsData: WeeklyNutritionsData[]
 ): number => {
   const maxCalories =
-    max(weeklyCaloriesData, (data: any) => data.calories)?.calories || 0
+    max(weeklyNutritionsData, (data: WeeklyNutritionsData) => data.calories)
+      ?.calories || 0
 
   return maxCalories
 }
@@ -105,7 +115,7 @@ export const generateYAxisTicks = (
   maxCalories: number,
   dailyGoalCalories: number
 ) => {
-  const ticks = [maxCalories, dailyGoalCalories, dailyGoalCalories / 2]
+  const ticks = [maxCalories, dailyGoalCalories]
   const sortedTicks = [...ticks].sort((a, b) => a - b)
 
   return sortedTicks

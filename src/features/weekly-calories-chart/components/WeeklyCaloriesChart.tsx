@@ -7,7 +7,7 @@ import {
   useWeeklyMealRecordsStore,
 } from '../../../stores'
 import {
-  createWeeklyCaloriesData,
+  createWeeklyNutritionsData,
   determineYLimit,
   generateYAxisTicks,
   getMaxCalories,
@@ -19,11 +19,11 @@ export function WeeklyCaloriesChart() {
   const { weeklyMealRecords } = useWeeklyMealRecordsStore()
 
   const dailyGoalCalories = dailyGoal?.calories || 0
-  const weeklyCaloriesData = createWeeklyCaloriesData(
+  const weeklyNutritionsData = createWeeklyNutritionsData(
     weeklyMealRecords,
     currentDate
   )
-  const maxCalories = getMaxCalories(weeklyCaloriesData)
+  const maxCalories = getMaxCalories(weeklyNutritionsData)
   const yLimit = determineYLimit(maxCalories, dailyGoalCalories)
   const ticks = generateYAxisTicks(maxCalories, dailyGoalCalories)
 
@@ -34,14 +34,21 @@ export function WeeklyCaloriesChart() {
       </Text>
 
       <ScrollArea maw={700} h={500} mb={50}>
-        <BarChart width={700} height={400} data={weeklyCaloriesData}>
+        <BarChart width={700} height={400} data={weeklyNutritionsData}>
           <XAxis dataKey="name" />
           <YAxis domain={[0, yLimit]} ticks={ticks} />
           <Tooltip />
-          <ReferenceLine y={maxCalories} key="max-calories" />
-          <ReferenceLine y={dailyGoalCalories} stroke="red" key="daily-goal" />
-          <ReferenceLine y={dailyGoalCalories / 2} key="half-daily-goal" />
+          <ReferenceLine y={maxCalories} />
+          <ReferenceLine y={dailyGoalCalories} stroke="red" />
           <Bar dataKey="calories" fill="#845ef7" barSize={30} />
+          <Bar dataKey="protein" fill="#ff6b6b" activeBar={false} barSize={0} />
+          <Bar dataKey="fat" fill="#fcc419" activeBar={false} barSize={0} />
+          <Bar
+            dataKey="carbohydrates"
+            fill="#20c997"
+            activeBar={false}
+            barSize={0}
+          />
         </BarChart>
       </ScrollArea>
     </Box>
