@@ -1,7 +1,11 @@
 import { max, sum } from 'radash'
 
 import { CurrentDateState, WeeklyMealRecordsState } from '../../stores'
-import { createPrevWeekDate, createStringFromDate } from '../../utils'
+import {
+  createPrevWeekDate,
+  createStringFromDate,
+  roundToTwoDecimalPlaces,
+} from '../../utils'
 import { WeeklyNutritionsData } from './types'
 
 /**
@@ -28,7 +32,9 @@ export const createWeeklyNutritionsData = (
     const mealRecords = weeklyMealRecords.filter(
       (mealRecord) => mealRecord.date === dayString
     )
+
     const [_year, month, day] = dayString.split('-')
+
     const dailyFoods = mealRecords?.flatMap((mealRecord) => mealRecord.foods)
     const dailyCalories = sum(dailyFoods, (food: any) => food?.calories || 0)
     const dailyProtein = sum(dailyFoods, (food: any) => food?.protein || 0)
@@ -37,12 +43,13 @@ export const createWeeklyNutritionsData = (
       dailyFoods,
       (food: any) => food?.carbohydrates || 0
     )
+
     return {
       name: `${month}/${day}`,
-      calories: dailyCalories,
-      protein: dailyProtein,
-      fat: dailyFat,
-      carbohydrates: dailyCarbohydrates,
+      calories: roundToTwoDecimalPlaces(dailyCalories),
+      protein: roundToTwoDecimalPlaces(dailyProtein),
+      fat: roundToTwoDecimalPlaces(dailyFat),
+      carbohydrates: roundToTwoDecimalPlaces(dailyCarbohydrates),
     }
   })
 

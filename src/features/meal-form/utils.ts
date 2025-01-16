@@ -54,22 +54,35 @@ export const createInitialFormValues = (
 }
 
 /**
- * Creates an array of objects containing the sum of nutritions in the forms.
+ * Calculates the sum of nutritional values (calories, protein, fat, and carbohydrates)
+ * from a given set of forms.
  *
- * @param forms - The forms object containing the values to be summed.
- * @returns The array of objects with the sum of values for calories, protein, fat, and carbohydrates.
+ * @param {FormsType} forms - The forms containing daily food entries categorized by type.
+ * @returns {Object} An object containing the summed nutritional values:
+ * - `sumDailyCalories`: Total calories from all food entries.
+ * - `sumDailyProtein`: Total protein from all food entries.
+ * - `sumDailyFat`: Total fat from all food entries.
+ * - `sumDailyCarbohydrates`: Total carbohydrates from all food entries.
  */
 export const createSumNutritionValues = (forms: FormsType) => {
-  const sumValuesAry = Object.values(forms.values).map((formValue) => {
-    const sumCalories = sum(formValue, (f) => Number(f.calories))
-    const sumProtein = sum(formValue, (f) => Number(f.protein))
-    const sumFat = sum(formValue, (f) => Number(f.fat))
-    const sumCarbohydrates = sum(formValue, (f) => Number(f.carbohydrates))
+  const dailyFoodsByCategory = Object.values(forms.values)
+  const dailyFoods = dailyFoodsByCategory.flat()
 
-    return { sumCalories, sumProtein, sumFat, sumCarbohydrates }
-  })
+  const sumDailyCalories = sum(dailyFoods.flat(), (f) =>
+    Number(f.calories || 0)
+  )
+  const sumDailyProtein = sum(dailyFoods.flat(), (f) => Number(f.protein || 0))
+  const sumDailyFat = sum(dailyFoods.flat(), (f) => Number(f.fat || 0))
+  const sumDailyCarbohydrates = sum(dailyFoods.flat(), (f) =>
+    Number(f.carbohydrates || 0)
+  )
 
-  return sumValuesAry
+  return {
+    sumDailyCalories,
+    sumDailyProtein,
+    sumDailyFat,
+    sumDailyCarbohydrates,
+  }
 }
 
 /**
