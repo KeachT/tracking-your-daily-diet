@@ -3,7 +3,11 @@ import { sum } from 'radash'
 import { MealCategoryName } from '@/API'
 
 import { CurrentDateState, WeeklyMealRecordsState } from '../../stores'
-import { createPrevWeekDate, createStringFromDate } from '../../utils'
+import {
+  createPrevWeekDate,
+  createStringFromDate,
+  roundToTwoDecimalPlaces,
+} from '../../utils'
 
 /**
  * Generates the current date and the date of the previous week.
@@ -98,19 +102,15 @@ export const createAvgWeekNutritionValues = (
     (food: any) => food?.carbohydrates || 0
   )
 
-  const avgWeeklyCalories =
-    Math.round((weeklyCalories / weeklyDateWithFoodsCount) * 100) / 100
-  const avgWeeklyProtein =
-    Math.round((weeklyProtein / weeklyDateWithFoodsCount) * 100) / 100
-  const avgWeeklyFat =
-    Math.round((weeklyFat / weeklyDateWithFoodsCount) * 100) / 100
-  const avgWeeklyCarbohydrates =
-    Math.round((weeklyCarbohydrates / weeklyDateWithFoodsCount) * 100) / 100
+  const avgWeeklyCalories = weeklyCalories / weeklyDateWithFoodsCount
+  const avgWeeklyProtein = weeklyProtein / weeklyDateWithFoodsCount
+  const avgWeeklyFat = weeklyFat / weeklyDateWithFoodsCount
+  const avgWeeklyCarbohydrates = weeklyCarbohydrates / weeklyDateWithFoodsCount
 
   return {
-    avgWeeklyCalories,
-    avgWeeklyProtein,
-    avgWeeklyFat,
-    avgWeeklyCarbohydrates,
+    avgWeeklyCalories: roundToTwoDecimalPlaces(avgWeeklyCalories),
+    avgWeeklyProtein: roundToTwoDecimalPlaces(avgWeeklyProtein),
+    avgWeeklyFat: roundToTwoDecimalPlaces(avgWeeklyFat),
+    avgWeeklyCarbohydrates: roundToTwoDecimalPlaces(avgWeeklyCarbohydrates),
   }
 }

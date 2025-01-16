@@ -6,7 +6,7 @@ import { useEffect } from 'react'
 import { MealCategoryName } from '@/API'
 
 import { useCurrentDateStore, useNutritionNumbersStore } from '../../../stores'
-import { createStringFromDate } from '../../../utils'
+import { createStringFromDate, roundToTwoDecimalPlaces } from '../../../utils'
 import { fetchMealRecords } from '../api'
 import { useMealRecordsStore } from '../stores'
 import { FormsType } from '../types'
@@ -36,11 +36,6 @@ export function MealForm() {
     (f) => f.sumCarbohydrates
   )
 
-  const roundedDailyProtein = Math.round(sumDailyProtein * 100) / 100
-  const roundedDailyFat = Math.round(sumDailyFat * 100) / 100
-  const roundedDailyCarbohydrates =
-    Math.round(sumDailyCarbohydrates * 100) / 100
-
   useEffect(() => {
     const initialFormValues = createInitialFormValues(mealRecords)
     forms.setValues(initialFormValues)
@@ -48,20 +43,20 @@ export function MealForm() {
   }, [mealRecords])
 
   useEffect(() => {
-    setDailyCalories(sumDailyCalories)
+    setDailyCalories(roundToTwoDecimalPlaces(sumDailyCalories))
   }, [sumDailyCalories, setDailyCalories])
 
   useEffect(() => {
-    setDailyProtein(roundedDailyProtein)
-  }, [roundedDailyProtein, setDailyProtein])
+    setDailyProtein(roundToTwoDecimalPlaces(sumDailyProtein))
+  }, [sumDailyProtein, setDailyProtein])
 
   useEffect(() => {
-    setDailyFat(roundedDailyFat)
-  }, [roundedDailyFat, setDailyFat])
+    setDailyFat(roundToTwoDecimalPlaces(sumDailyFat))
+  }, [sumDailyFat, setDailyFat])
 
   useEffect(() => {
-    setDailyCarbohydrates(roundedDailyCarbohydrates)
-  }, [roundedDailyCarbohydrates, setDailyCarbohydrates])
+    setDailyCarbohydrates(roundToTwoDecimalPlaces(sumDailyCarbohydrates))
+  }, [sumDailyCarbohydrates, setDailyCarbohydrates])
 
   useEffect(() => {
     fetchMealRecords(currentDateString, setMealRecords)
