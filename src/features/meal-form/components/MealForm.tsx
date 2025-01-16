@@ -1,6 +1,5 @@
 import { Accordion, Box, Text } from '@mantine/core'
 import { useForm } from '@mantine/form'
-import { sum } from 'radash'
 import { useEffect } from 'react'
 
 import { MealCategoryName } from '@/API'
@@ -14,27 +13,25 @@ import { createInitialFormValues, createSumNutritionValues } from '../utils'
 import { MealFormAccordionItem } from './MealFormAccordionItem'
 
 export function MealForm() {
+  const { currentDate } = useCurrentDateStore()
+  const { mealRecords, setMealRecords } = useMealRecordsStore()
   const {
     setDailyCalories,
     setDailyProtein,
     setDailyFat,
     setDailyCarbohydrates,
   } = useNutritionNumbersStore()
-  const { mealRecords, setMealRecords } = useMealRecordsStore()
-  const { currentDate } = useCurrentDateStore()
-  const currentDateString = createStringFromDate(currentDate)
 
-  const forms: FormsType = useForm({})
+  const currentDateString = createStringFromDate(currentDate)
   const mealCategoryNames: string[] = Object.values(MealCategoryName)
 
-  const sumNutritionValues = createSumNutritionValues(forms)
-  const sumDailyCalories = sum(sumNutritionValues, (f) => f.sumCalories)
-  const sumDailyProtein = sum(sumNutritionValues, (f) => f.sumProtein)
-  const sumDailyFat = sum(sumNutritionValues, (f) => f.sumFat)
-  const sumDailyCarbohydrates = sum(
-    sumNutritionValues,
-    (f) => f.sumCarbohydrates
-  )
+  const forms: FormsType = useForm({})
+  const {
+    sumDailyCalories,
+    sumDailyProtein,
+    sumDailyFat,
+    sumDailyCarbohydrates,
+  } = createSumNutritionValues(forms)
 
   useEffect(() => {
     const initialFormValues = createInitialFormValues(mealRecords)
