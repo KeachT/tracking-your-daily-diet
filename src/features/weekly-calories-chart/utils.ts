@@ -110,20 +110,3 @@ export const determineYLimit = (
 
   return yLimit
 }
-
-/**
- * Generates an array of ticks for the y-axis of a calories chart.
- *
- * @param maxCalories - The maximum number of calories.
- * @param dailyGoalCalories - The daily goal number of calories.
- * @returns An array of ticks for the y-axis, sorted in ascending order.
- */
-export const generateYAxisTicks = (
-  maxCalories: number,
-  dailyGoalCalories: number
-) => {
-  const ticks = [maxCalories, dailyGoalCalories]
-  const sortedTicks = [...ticks].sort((a, b) => a - b)
-
-  return sortedTicks
-}
