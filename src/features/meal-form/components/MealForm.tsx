@@ -6,10 +6,13 @@ import { MealCategoryName } from '@/API'
 
 import { useCurrentDateStore, useNutritionNumbersStore } from '../../../stores'
 import { createStringFromDate, roundToTwoDecimalPlaces } from '../../../utils'
-import { fetchMealRecords } from '../api'
 import { useMealRecordsStore } from '../stores'
 import { FormsType } from '../types'
-import { createInitialFormValues, createSumNutritionValues } from '../utils'
+import {
+  createInitialFormValues,
+  createSumNutritionValues,
+  fetchAndSetMealRecords,
+} from '../utils'
 import { MealFormAccordionItem } from './MealFormAccordionItem'
 
 export function MealForm() {
@@ -56,7 +59,7 @@ export function MealForm() {
   }, [sumDailyCarbohydrates, setDailyCarbohydrates])
 
   useEffect(() => {
-    fetchMealRecords(currentDateString, setMealRecords)
+    fetchAndSetMealRecords(currentDateString, setMealRecords)
   }, [currentDateString, setMealRecords])
 
   return (
