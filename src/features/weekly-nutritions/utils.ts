@@ -1,7 +1,8 @@
 import { sum } from 'radash'
 
-import { MealCategoryName } from '@/API'
+import { MealCategoryName, MealRecord } from '@/API'
 
+import { fetchWeeklyMealRecords } from '../../api/meal-record'
 import { CurrentDateState, WeeklyMealRecordsState } from '../../stores'
 import {
   createPrevWeekDate,
@@ -113,4 +114,26 @@ export const createAvgWeekNutritionValues = (
     avgWeeklyFat: roundToTwoDecimalPlaces(avgWeeklyFat),
     avgWeeklyCarbohydrates: roundToTwoDecimalPlaces(avgWeeklyCarbohydrates),
   }
+}
+
+/**
+ * Fetches weekly meal records for the given date range and updates the state with the fetched records.
+ *
+ * @param currentDateString - The current date as a string in the format 'YYYY-MM-DD'.
+ * @param prevWeekDateString - The date string representing the start of the previous week in the format 'YYYY-MM-DD'.
+ * @param setWeeklyMealRecords - A function to update the state with the fetched meal records.
+ *
+ * @returns A promise that resolves when the meal records have been fetched and the state has been updated.
+ */
+export const fetchAndSetWeeklyMealRecords = async (
+  currentDateString: string,
+  prevWeekDateString: string,
+  setWeeklyMealRecords: WeeklyMealRecordsState['setWeeklyMealRecords']
+) => {
+  const mealRecordsWithFoods = await fetchWeeklyMealRecords(
+    currentDateString,
+    prevWeekDateString
+  )
+
+  setWeeklyMealRecords(mealRecordsWithFoods as MealRecord[])
 }

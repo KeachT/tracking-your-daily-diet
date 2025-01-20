@@ -3,9 +3,19 @@ import _differenceWith from 'lodash.differencewith'
 import _isEqual from 'lodash.isequal'
 import { sort, sum } from 'radash'
 
-import { MealCategoryName } from '@/API'
-
-import { addMealRecord, updMealRecord } from './api'
+import {
+  CreateMealRecordInput,
+  CreateMealRecordMutationVariables,
+  ListMealRecordsQueryVariables,
+  MealCategoryName,
+  UpdateMealRecordInput,
+  UpdateMealRecordMutationVariables,
+} from '../../API'
+import {
+  addMealRecord,
+  fetchMealRecords,
+  updMealRecord,
+} from '../../api/meal-record'
 import { MealRecordsState } from './stores'
 import { FormField, FormsType } from './types'
 
@@ -86,12 +96,14 @@ export const createSumNutritionValues = (forms: FormsType) => {
 }
 
 /**
- * Saves a meal record by either updating an existing record or creating a new one
+ * Saves a meal record by either updating an existing record or creating a new one.
  *
  * @param forms - The form data containing meal information.
  * @param mealCategoryName - The name of the meal category (e.g., breakfast, lunch, dinner).
  * @param currentDateString - The current date as a string.
- * @param mealRecords - The list of existing meal records.
+ * @param mealRecords - The current state of meal records.
+ *
+ * @returns A promise that resolves when the meal record has been saved.
  */
 export const saveMealRecord = async (
   forms: FormsType,
@@ -104,10 +116,84 @@ export const saveMealRecord = async (
   )
 
   if (mealRecord) {
-    await updMealRecord(forms, mealCategoryName, mealRecord)
+    const normalizedFoods = normalizeFoods(forms, mealCategoryName)
+
+    const updateMealRecordInput: UpdateMealRecordInput = {
+      id: mealRecord.id,
+      date: mealRecord.date,
+      category: mealRecord.category,
+      foods: normalizedFoods,
+      _version: mealRecord._version,
+    }
+
+    const variables: UpdateMealRecordMutationVariables = {
+      input: updateMealRecordInput,
+    }
+
+    updMealRecord(variables)
   }
 
   if (!mealRecord) {
-    await addMealRecord(forms, mealCategoryName, currentDateString)
+    const normalizedFoods = normalizeFoods(forms, mealCategoryName)
+
+    const createMealRecordInput: CreateMealRecordInput = {
+      id: randomId(),
+      date: currentDateString,
+      category: mealCategoryName as MealCategoryName,
+      foods: normalizedFoods,
+    }
+
+    const variables: CreateMealRecordMutationVariables = {
+      input: createMealRecordInput,
+    }
+
+    addMealRecord(variables)
   }
+}
+
+/**
+ * Normalizes the food items within a specific meal category from the given forms.
+ *
+ * @param {FormsType} forms - The forms object containing meal data.
+ * @param {string} mealCategoryName - The name of the meal category to normalize foods for.
+ * @returns {Array<{ id: string, name: string, calories: number, protein: number, carbohydrates: number, fat: number }>}
+ * An array of normalized food objects with numeric values for calories, protein, carbohydrates, and fat.
+ */
+const normalizeFoods = (forms: FormsType, mealCategoryName: string) => {
+  const foods = forms.values[mealCategoryName]
+
+  const normalizedFoods = foods.map((food) => {
+    const { id, name, calories, protein, carbohydrates, fat } = food
+    return {
+      id,
+      name,
+      calories: Number(calories || 0),
+      protein: Number(protein || 0),
+      carbohydrates: Number(carbohydrates || 0),
+      fat: Number(fat || 0),
+    }
+  })
+
+  return normalizedFoods
+}
+
+/**
+ * Fetches meal records for a given date and updates the state with the fetched records.
+ *
+ * @param currentDateString - The date string for which to fetch meal records.
+ * @param setMealRecords - The state setter function to update meal records.
+ * @returns A promise that resolves when the meal records have been fetched and the state has been updated.
+ */
+export const fetchAndSetMealRecords = async (
+  currentDateString: string,
+  setMealRecords: MealRecordsState['setMealRecords']
+) => {
+  const variables: ListMealRecordsQueryVariables = {
+    filter: {
+      date: { eq: currentDateString },
+    },
+  }
+
+  const uniqueMealRecordsWithFoods = await fetchMealRecords(variables)
+  setMealRecords(uniqueMealRecordsWithFoods as MealRecordsState['mealRecords'])
 }
