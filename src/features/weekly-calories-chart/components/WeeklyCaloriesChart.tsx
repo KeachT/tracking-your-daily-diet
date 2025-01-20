@@ -9,7 +9,6 @@ import {
 import {
   createWeeklyNutritionsData,
   determineYLimit,
-  generateYAxisTicks,
   getMaxCalories,
 } from '../utils'
 
@@ -25,7 +24,6 @@ export function WeeklyCaloriesChart() {
   )
   const maxCalories = getMaxCalories(weeklyNutritionsData)
   const yLimit = determineYLimit(maxCalories, dailyGoalCalories)
-  const ticks = generateYAxisTicks(maxCalories, dailyGoalCalories)
 
   return (
     <Box>
@@ -36,7 +34,10 @@ export function WeeklyCaloriesChart() {
       <ScrollArea maw={700} h={500} mb={50}>
         <BarChart width={700} height={400} data={weeklyNutritionsData}>
           <XAxis dataKey="name" />
-          <YAxis domain={[0, yLimit]} ticks={ticks} />
+          <YAxis
+            domain={[0, yLimit]}
+            ticks={[dailyGoalCalories, maxCalories]}
+          />
           <Tooltip />
           <ReferenceLine y={maxCalories} />
           <ReferenceLine y={dailyGoalCalories} stroke="red" />

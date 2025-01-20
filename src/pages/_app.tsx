@@ -13,7 +13,7 @@ import { useEffect } from 'react'
 import awsExports from '../aws-exports'
 import { LoadingIndicator } from '../components/LoadingIndicator'
 import { Path } from '../constants'
-import { fetchDailyGoals } from '../features/daily-goal/api'
+import { fetchAndSetDailyGoal } from '../features/daily-goal/utils'
 import { useDailyGoalStore } from '../stores'
 import { checkIsLoading } from '../utils'
 
@@ -38,15 +38,15 @@ function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     if (authStatus === 'unauthenticated') {
       router.push(Path.Landingpage)
+      return
     }
-    if (authStatus === 'authenticated') {
-      router.push(Path.Day)
-    }
-    // eslint-disable-next-line
-  }, [authStatus])
 
-  useEffect(() => {
-    authStatus === 'authenticated' && fetchDailyGoals(setDailyGoal)
+    if (authStatus === 'authenticated') {
+      fetchAndSetDailyGoal(setDailyGoal)
+      router.push(Path.Day)
+      return
+    }
+
     // eslint-disable-next-line
   }, [authStatus])
 
