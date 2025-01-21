@@ -96,20 +96,22 @@ export const createSumNutritionValues = (forms: FormsType) => {
 }
 
 /**
- * Saves a meal record by either updating an existing record or creating a new one.
+ * Saves and sets a meal record based on the provided forms, meal category name, and current date string.
  *
- * @param forms - The form data containing meal information.
+ * @param forms - The forms containing the meal data to be saved.
  * @param mealCategoryName - The name of the meal category (e.g., breakfast, lunch, dinner).
  * @param currentDateString - The current date as a string.
  * @param mealRecords - The current state of meal records.
+ * @param setMealRecords - The function to update the state of meal records.
  *
- * @returns A promise that resolves when the meal record has been saved.
+ * @returns A promise that resolves when the meal record has been saved and the state has been updated.
  */
-export const saveMealRecord = async (
+export const saveAndSetMealRecord = async (
   forms: FormsType,
   mealCategoryName: string,
   currentDateString: string,
-  mealRecords: MealRecordsState['mealRecords']
+  mealRecords: MealRecordsState['mealRecords'],
+  setMealRecords: MealRecordsState['setMealRecords']
 ) => {
   const mealRecord = mealRecords.find(
     (mealRecord) => mealRecord?.category === mealCategoryName
@@ -125,12 +127,16 @@ export const saveMealRecord = async (
       foods: normalizedFoods,
       _version: mealRecord._version,
     }
-
     const variables: UpdateMealRecordMutationVariables = {
       input: updateMealRecordInput,
     }
 
-    updMealRecord(variables)
+    const updatedMealRecord = await updMealRecord(variables)
+    const newMealRecords = mealRecords.map((mealRecord) =>
+      mealRecord?.category === mealCategoryName ? updatedMealRecord : mealRecord
+    )
+
+    setMealRecords(newMealRecords as MealRecordsState['mealRecords'])
   }
 
   if (!mealRecord) {
@@ -147,7 +153,10 @@ export const saveMealRecord = async (
       input: createMealRecordInput,
     }
 
-    addMealRecord(variables)
+    const newMealRecord = await addMealRecord(variables)
+    const newMealRecords = [...mealRecords, newMealRecord]
+
+    setMealRecords(newMealRecords as MealRecordsState['mealRecords'])
   }
 }
 
@@ -195,5 +204,6 @@ export const fetchAndSetMealRecords = async (
   }
 
   const uniqueMealRecordsWithFoods = await fetchMealRecords(variables)
+
   setMealRecords(uniqueMealRecordsWithFoods as MealRecordsState['mealRecords'])
 }
