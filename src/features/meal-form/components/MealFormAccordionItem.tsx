@@ -11,7 +11,7 @@ import { useCurrentDateStore } from '../../../stores'
 import { createStringFromDate } from '../../../utils'
 import { useMealRecordsStore } from '../stores'
 import { FormsType } from '../types'
-import { createFoodInitialValues, saveMealRecord } from '../utils'
+import { createFoodInitialValues, saveAndSetMealRecord } from '../utils'
 import { MealFormFields } from './MealFormFields'
 import { MealIcon } from './MealIcon'
 import { NoFoodText } from './NoFoodText'
@@ -26,7 +26,7 @@ export function MealFormAccordionItem({
   forms,
 }: MealFormAccordionItemProps) {
   const [isSaveButtonDisabled, setIsSaveButtonDisabled] = useState(false)
-  const { mealRecords } = useMealRecordsStore()
+  const { mealRecords, setMealRecords } = useMealRecordsStore()
   const { currentDate } = useCurrentDateStore()
   const currentDateString = createStringFromDate(currentDate)
 
@@ -36,11 +36,12 @@ export function MealFormAccordionItem({
   const handleSave = async () => {
     setIsSaveButtonDisabled(true)
     try {
-      await saveMealRecord(
+      await saveAndSetMealRecord(
         forms,
         mealCategoryName,
         currentDateString,
-        mealRecords
+        mealRecords,
+        setMealRecords
       )
       handleSuccess()
     } catch (err) {
