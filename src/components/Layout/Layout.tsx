@@ -22,7 +22,7 @@ export function Layout({ title = '', children }: LayoutProps) {
       <AppShell
         navbar={{
           width: 300,
-          breakpoint: 'sm',
+          breakpoint: 'md',
           collapsed: { mobile: !navbarOpened },
         }}
         header={{ height: 60 }}

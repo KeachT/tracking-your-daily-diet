@@ -18,7 +18,7 @@ export function LayoutHeader({
         opened={navbarOpened}
         onClick={() => setNavbarOpened((navbarOpened) => !navbarOpened)}
         size="sm"
-        hiddenFrom="sm"
+        hiddenFrom="md"
         color={theme.colors.gray[6]}
       />
       <Title order={3} w={800} fw={200} m="md">

@@ -25,9 +25,8 @@ export function MealForm() {
     setDailyCarbohydrates,
   } = useNutritionNumbersStore()
 
-  const currentDateString = createStringFromDate(currentDate)
   const mealCategoryNames: string[] = Object.values(MealCategoryName)
-
+  const currentDateString = createStringFromDate(currentDate)
   const forms: FormsType = useForm({})
   const {
     sumDailyCalories,
@@ -41,6 +40,10 @@ export function MealForm() {
     forms.setValues(initialFormValues)
     // eslint-disable-next-line
   }, [mealRecords])
+
+  useEffect(() => {
+    fetchAndSetMealRecords(currentDateString, setMealRecords)
+  }, [currentDateString, setMealRecords])
 
   useEffect(() => {
     setDailyCalories(roundToTwoDecimalPlaces(sumDailyCalories))
@@ -57,10 +60,6 @@ export function MealForm() {
   useEffect(() => {
     setDailyCarbohydrates(roundToTwoDecimalPlaces(sumDailyCarbohydrates))
   }, [sumDailyCarbohydrates, setDailyCarbohydrates])
-
-  useEffect(() => {
-    fetchAndSetMealRecords(currentDateString, setMealRecords)
-  }, [currentDateString, setMealRecords])
 
   return (
     <Box>
