@@ -12,6 +12,7 @@ import {
   createInitialFormValues,
   createSumNutritionValues,
   fetchAndSetMealRecords,
+  getDefaultCategory,
 } from '../utils'
 import { MealFormAccordionItem } from './MealFormAccordionItem'
 
@@ -27,6 +28,8 @@ export function MealForm() {
 
   const mealCategoryNames: string[] = Object.values(MealCategoryName)
   const currentDateString = createStringFromDate(currentDate)
+  const defaultCategory = getDefaultCategory()
+
   const forms: FormsType = useForm({})
   const {
     sumDailyCalories,
@@ -67,7 +70,7 @@ export function MealForm() {
         Daily Meals
       </Text>
 
-      <Accordion defaultValue={mealCategoryNames[0]} variant="separated">
+      <Accordion defaultValue={defaultCategory} variant="separated">
         {mealCategoryNames.map((mealCategoryName) => (
           <MealFormAccordionItem
             key={mealCategoryName}
