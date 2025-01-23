@@ -64,6 +64,34 @@ export const createInitialFormValues = (
 }
 
 /**
+ * Returns the default meal category based on the current hour of the day.
+ *
+ * - If the current hour is before 11 AM, it returns `MealCategoryName.BREAKFAST`.
+ * - If the current hour is between 11 AM and 2 PM, it returns `MealCategoryName.LUNCH`.
+ * - If the current hour is between 2 PM and 5 PM, it returns `MealCategoryName.SNACK`.
+ * - If the current hour is after 5 PM, it returns `MealCategoryName.DINNER`.
+ *
+ * @returns {MealCategoryName} The default meal category for the current time.
+ */
+export const getDefaultCategory = () => {
+  const currentHour = new Date().getHours()
+
+  if (currentHour < 11) {
+    return MealCategoryName.BREAKFAST
+  }
+
+  if (currentHour < 14) {
+    return MealCategoryName.LUNCH
+  }
+
+  if (currentHour < 17) {
+    return MealCategoryName.SNACK
+  }
+
+  return MealCategoryName.DINNER
+}
+
+/**
  * Calculates the sum of nutritional values (calories, protein, fat, and carbohydrates)
  * from a given set of forms.
  *
