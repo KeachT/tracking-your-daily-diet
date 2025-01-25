@@ -1,4 +1,4 @@
-import { AppShell, Box } from '@mantine/core'
+import { AppShell, Box, Container } from '@mantine/core'
 import Head from 'next/head'
 import { ReactNode, useState } from 'react'
 
@@ -39,7 +39,11 @@ export function Layout({ title = '', children }: LayoutProps) {
           <LayoutNavBar />
         </AppShell.Navbar>
 
-        <AppShell.Main>{children}</AppShell.Main>
+        <AppShell.Main>
+          <Container size="md" mx="auto">
+            {children}
+          </Container>
+        </AppShell.Main>
       </AppShell>
     </Box>
   )
