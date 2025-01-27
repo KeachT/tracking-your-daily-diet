@@ -1,0 +1,25 @@
+.title {
+  font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', sans-serif;
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 2rem;
+  }
+
+  .description {
+    font-size: 1rem;
+  }
+}
+
+.description {
+  margin-top: 24px;
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
