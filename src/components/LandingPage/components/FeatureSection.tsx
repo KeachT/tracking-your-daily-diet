@@ -4,7 +4,7 @@ import { IconChartBar, IconLeaf, IconUserCircle } from '@tabler/icons-react'
 const features = [
   {
     icon: <IconLeaf size={32} color="teal" />,
-    title: '簡単な食事記録',
+    title: '食事記録',
     description: '毎日の食事を簡単に記録',
   },
   {
@@ -13,9 +13,9 @@ const features = [
     description: '摂取カロリーや栄養素をグラフで可視化',
   },
   {
-    icon: <IconUserCircle size={32} color="green" />,
+    icon: <IconUserCircle size={32} color="orange" />,
     title: 'パーソナライズ',
-    description: '目標を設定し毎日、毎週の進捗を管理',
+    description: '目標を設定し毎日の進捗を管理',
   },
 ]
 

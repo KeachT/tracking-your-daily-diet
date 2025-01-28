@@ -13,7 +13,7 @@ export function LandingPage() {
   return (
     <div className={classes.wrapper}>
       <Container size="xl" className={classes.inner}>
-        <Stack gap={50}>
+        <Stack gap={30}>
           <HeroSection open={open} />
           <FeatureSection />
           <AlertMessage />
