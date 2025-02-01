@@ -16,13 +16,13 @@ export function HeroSection({ open }: HeroSectionProps) {
         className={classes.title}
         m={20}
       >
-        Tracking Your Daily Diet
+        健康的な食生活をサポート
       </Text>
 
       <Text className={classes.description} c="dimmed" ta="center">
-        食事管理をもっと簡単に。
+        食事管理を簡単に。
         <br />
-        カロリーと栄養素を可視化、健康的な生活をサポートします。
+        カロリーと栄養素を可視化、ダイエットをサポートします。
       </Text>
 
       <Button

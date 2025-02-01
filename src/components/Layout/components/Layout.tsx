@@ -8,9 +8,14 @@ import { LayoutHeader } from './LayoutHeader'
 type LayoutProps = {
   title: string
   children: ReactNode
+  showNavBar?: boolean
 }
 
-export function Layout({ title = '', children }: LayoutProps) {
+export function Layout({
+  title = '',
+  children,
+  showNavBar = true,
+}: LayoutProps) {
   const [navbarOpened, setNavbarOpened] = useState(false)
 
   return (
@@ -20,11 +25,15 @@ export function Layout({ title = '', children }: LayoutProps) {
       </Head>
 
       <AppShell
-        navbar={{
-          width: 300,
-          breakpoint: 'md',
-          collapsed: { mobile: !navbarOpened },
-        }}
+        navbar={
+          showNavBar
+            ? {
+                width: 300,
+                breakpoint: 'md',
+                collapsed: { mobile: !navbarOpened },
+              }
+            : undefined
+        }
         header={{ height: 60 }}
         padding="lg"
       >
@@ -35,9 +44,11 @@ export function Layout({ title = '', children }: LayoutProps) {
           />
         </AppShell.Header>
 
-        <AppShell.Navbar>
-          <LayoutNavBar />
-        </AppShell.Navbar>
+        {showNavBar && (
+          <AppShell.Navbar>
+            <LayoutNavBar />
+          </AppShell.Navbar>
+        )}
 
         <AppShell.Main>
           <Container size="md" mx="auto">
