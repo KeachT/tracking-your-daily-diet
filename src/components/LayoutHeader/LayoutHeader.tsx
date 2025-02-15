@@ -1,4 +1,4 @@
-import { Box, Burger, Title, useMantineTheme } from '@mantine/core'
+import { Box, Burger, Image, Title, useMantineTheme } from '@mantine/core'
 import { Dispatch, SetStateAction } from 'react'
 
 type LayoutHeaderProps = {
@@ -21,7 +21,11 @@ export function LayoutHeader({
         hiddenFrom="md"
         color={theme.colors.gray[6]}
       />
-      <Title order={3} w={800} fw={200} m="md">
+
+      <Box mt={4} ml={10} mr={8}>
+        <Image src="/favicon.ico" alt="App Icon" width={32} height={32} />
+      </Box>
+      <Title order={3} w={800} fw={200}>
         Tracking Your Daily Diet
       </Title>
     </Box>

@@ -2,8 +2,8 @@ import { AppShell, Box, Container } from '@mantine/core'
 import Head from 'next/head'
 import { ReactNode, useState } from 'react'
 
-import { LayoutNavBar } from '../../LayoutNavBar'
-import { LayoutHeader } from './LayoutHeader'
+import { LayoutHeader } from '../LayoutHeader'
+import { LayoutNavBar } from '../LayoutNavBar'
 
 type LayoutProps = {
   title: string
