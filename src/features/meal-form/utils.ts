@@ -1,4 +1,4 @@
-import { randomId } from '@mantine/hooks'
+import { createId } from '@paralleldrive/cuid2'
 import _differenceWith from 'lodash.differencewith'
 import _isEqual from 'lodash.isequal'
 import { sort, sum } from 'radash'
@@ -26,7 +26,7 @@ import { FormField, FormsType } from './types'
  */
 export const createFoodInitialValues = (): FormField => {
   return {
-    id: randomId(),
+    id: createId(),
     name: '',
     calories: '',
     protein: '',
@@ -171,7 +171,7 @@ export const saveAndSetMealRecord = async (
     const normalizedFoods = normalizeFoods(forms, mealCategoryName)
 
     const createMealRecordInput: CreateMealRecordInput = {
-      id: randomId(),
+      id: createId(),
       date: currentDateString,
       category: mealCategoryName as MealCategoryName,
       foods: normalizedFoods,

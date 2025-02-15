@@ -15,6 +15,7 @@
     "@mantine/form": "^7.9.1",
     "@mantine/hooks": "^7.9.1",
     "@mantine/notifications": "^7.10.1",
+    "@paralleldrive/cuid2": "^2.2.2",
     "@tabler/icons-react": "^3.5.0",
     "@types/node": "^20.14.0",
     "@types/react": "^18.3.3",
