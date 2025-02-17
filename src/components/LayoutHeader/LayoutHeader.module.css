@@ -1,0 +1,8 @@
+.iconContainer {
+  margin-top: 4px;
+  margin-left: 14px;
+  margin-right: 4px;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+}
