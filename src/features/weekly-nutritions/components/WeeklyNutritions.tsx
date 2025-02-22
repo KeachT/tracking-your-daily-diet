@@ -1,4 +1,3 @@
-import { Box, Text } from '@mantine/core'
 import { useEffect } from 'react'
 
 import { Nutritions } from '../../../features/nutritions'
@@ -34,17 +33,11 @@ export function WeeklyNutritions() {
   }, [currentDateString, prevWeekDateString, setWeeklyMealRecords])
 
   return (
-    <Box>
-      <Text fw={200} size="xl" mb={10}>
-        Weekly Nutritions
-      </Text>
-
-      <Nutritions
-        dailyCalories={avgWeeklyCalories}
-        dailyProtein={avgWeeklyProtein}
-        dailyFat={avgWeeklyFat}
-        dailyCarbohydrates={avgWeeklyCarbohydrates}
-      />
-    </Box>
+    <Nutritions
+      dailyCalories={avgWeeklyCalories}
+      dailyProtein={avgWeeklyProtein}
+      dailyFat={avgWeeklyFat}
+      dailyCarbohydrates={avgWeeklyCarbohydrates}
+    />
   )
 }
