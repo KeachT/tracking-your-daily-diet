@@ -1,4 +1,4 @@
-import { Accordion, Box, Text } from '@mantine/core'
+import { Accordion } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { useEffect } from 'react'
 
@@ -65,20 +65,14 @@ export function MealForm() {
   }, [sumDailyCarbohydrates, setDailyCarbohydrates])
 
   return (
-    <Box>
-      <Text fw={200} size="xl" mb={10}>
-        Daily Meals
-      </Text>
-
-      <Accordion defaultValue={defaultCategory} variant="separated">
-        {mealCategoryNames.map((mealCategoryName) => (
-          <MealFormAccordionItem
-            key={mealCategoryName}
-            mealCategoryName={mealCategoryName}
-            forms={forms}
-          />
-        ))}
-      </Accordion>
-    </Box>
+    <Accordion defaultValue={defaultCategory} variant="separated">
+      {mealCategoryNames.map((mealCategoryName) => (
+        <MealFormAccordionItem
+          key={mealCategoryName}
+          mealCategoryName={mealCategoryName}
+          forms={forms}
+        />
+      ))}
+    </Accordion>
   )
 }
