@@ -34,25 +34,25 @@ export const createNutritions = (
   dailyGoalCarbohydrates: number
 ): Nutrition[] => [
   {
-    name: 'Calories',
+    name: 'カロリー',
     color: 'violet',
     number: dailyCalories,
     percent: calcDailyPercent(dailyCalories, dailyGoalCalories),
   },
   {
-    name: 'Protein',
+    name: 'タンパク質',
     color: 'red',
     number: dailyProtein,
     percent: calcDailyPercent(dailyProtein, dailyGoalProtein),
   },
   {
-    name: 'Fat',
+    name: '脂質',
     color: 'yellow',
     number: dailyFat,
     percent: calcDailyPercent(dailyFat, dailyGoalFat),
   },
   {
-    name: `Carbonhydrates`,
+    name: '炭水化物',
     color: 'teal',
     number: dailyCarbohydrates,
     percent: calcDailyPercent(dailyCarbohydrates, dailyGoalCarbohydrates),

@@ -10,7 +10,7 @@ const features = [
   {
     icon: <IconChartBar size={32} color="blue" />,
     title: 'データ分析',
-    description: '摂取カロリーや栄養素をグラフで可視化',
+    description: 'カロリーと栄養素をグラフで表示',
   },
   {
     icon: <IconUserCircle size={32} color="orange" />,

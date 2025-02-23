@@ -4,11 +4,11 @@ import styles from '../style/NutritionRing.module.css'
 import { Nutrition } from '../types'
 
 export function NutritionRing({ name, number, percent, color }: Nutrition) {
-  const unit = name === 'Calories' ? 'Kcal' : 'g'
+  const unit = name === 'カロリー' ? 'Kcal' : 'g'
 
   return (
     <Grid.Col span={{ base: 6, md: 3 }} key={name}>
-      <Text fw={200} size="md">
+      <Text fw={200} size="sm">
         {name}
       </Text>
 
