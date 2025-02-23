@@ -25,11 +25,14 @@ export function DatePickerCard() {
     <Box>
       <Card radius="md" withBorder>
         <Grid align="baseline" justify="center" mt={10}>
-          <Text fw={200} size="md">
-            Current Date:
-          </Text>
           <Text fw={200} size="xl" ml={8}>
-            {currentDate?.toLocaleDateString()}
+            {currentDate?.toLocaleString('ja-JP', {
+              year: 'numeric',
+              month: '2-digit',
+              day: '2-digit',
+              hour: '2-digit',
+              minute: '2-digit',
+            })}
           </Text>
         </Grid>
 

@@ -3,12 +3,15 @@ import { Notifications, notifications } from '@mantine/notifications'
 import { IconCheck, IconX } from '@tabler/icons-react'
 import { useState } from 'react'
 
+import { MealCategoryName } from '@/API'
+
 import {
   NOTIFICATION_DISPLAY_DURATION_MS,
   SAVE_BUTTON_REENABLE_DELAY_MS,
 } from '../../../constants'
 import { useCurrentDateStore } from '../../../stores'
 import { createStringFromDate } from '../../../utils'
+import { MEAL_CATEGORY_LABELS } from '../constants'
 import { useMealRecordsStore } from '../stores'
 import { FormsType } from '../types'
 import { createFoodInitialValues, saveAndSetMealRecord } from '../utils'
@@ -17,7 +20,7 @@ import { MealIcon } from './MealIcon'
 import { NoFoodText } from './NoFoodText'
 
 type MealFormAccordionItemProps = {
-  mealCategoryName: string
+  mealCategoryName: MealCategoryName
   forms: FormsType
 }
 
@@ -80,7 +83,7 @@ export function MealFormAccordionItem({
       <Accordion.Control
         icon={<MealIcon mealCategoryName={mealCategoryName} />}
       >
-        {mealCategoryName}
+        {MEAL_CATEGORY_LABELS[mealCategoryName]}
       </Accordion.Control>
 
       <Accordion.Panel>

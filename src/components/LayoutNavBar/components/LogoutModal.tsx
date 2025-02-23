@@ -15,7 +15,7 @@ export function LogoutModal({ opened, close }: LogoutModalProps) {
       <Box p={20}>
         <Center>
           <Text mt={10} mb={30}>
-            Are you sure you want to log out?
+            ログアウトしてよろしいですか？
           </Text>
         </Center>
         <Center>

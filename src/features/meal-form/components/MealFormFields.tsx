@@ -21,13 +21,13 @@ export function MealFormFields({
       <Grid align="center">
         <Grid.Col span={{ base: 12, sm: 3 }}>
           <TextInput
-            placeholder="Food name"
+            placeholder="食品名"
             {...getFormItemProps(index, 'name')}
           />
         </Grid.Col>
         <Grid.Col span={{ base: 3, sm: 2 }}>
           <NumberInput
-            placeholder="Calories"
+            placeholder="カロリー"
             min={0}
             max={999999}
             hideControls
@@ -36,7 +36,7 @@ export function MealFormFields({
         </Grid.Col>
         <Grid.Col span={{ base: 3, sm: 2 }}>
           <NumberInput
-            placeholder="Protein"
+            placeholder="タンパク質"
             min={0}
             max={999999}
             hideControls
@@ -46,7 +46,7 @@ export function MealFormFields({
         </Grid.Col>
         <Grid.Col span={{ base: 3, sm: 2 }}>
           <NumberInput
-            placeholder="Fat"
+            placeholder="脂質"
             min={0}
             max={999999}
             hideControls
@@ -56,7 +56,7 @@ export function MealFormFields({
         </Grid.Col>
         <Grid.Col span={{ base: 3, sm: 2 }}>
           <NumberInput
-            placeholder="Carbo"
+            placeholder="炭水化物"
             min={0}
             max={999999}
             hideControls
