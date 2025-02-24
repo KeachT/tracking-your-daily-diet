@@ -26,10 +26,12 @@ export function MealForm() {
     setDailyCarbohydrates,
   } = useNutritionNumbersStore()
 
-  const mealCategoryNames: string[] = Object.values(MealCategoryName)
+  const mealCategoryNames = Object.values(
+    MealCategoryName
+  ) as MealCategoryName[]
+
   const currentDateString = createStringFromDate(currentDate)
   const defaultCategory = getDefaultCategory()
-
   const forms: FormsType = useForm({})
   const {
     sumDailyCalories,
