@@ -1,0 +1,9 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 250px;
+}
+
+.cardContent {
+  height: 100%;
+}

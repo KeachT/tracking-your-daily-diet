@@ -1,5 +1,7 @@
-import { Card, Center, Group, Stack, Text } from '@mantine/core'
+import { Card, Center, SimpleGrid, Stack, Text } from '@mantine/core'
 import { IconChartBar, IconLeaf, IconUserCircle } from '@tabler/icons-react'
+
+import styles from './FeatureSection.module.css'
 
 const features = [
   {
@@ -26,7 +28,7 @@ export function FeatureSection() {
         <Text size="xl">主な機能</Text>
       </Center>
 
-      <Group grow align="stretch">
+      <SimpleGrid cols={{ base: 1, sm: 3 }} spacing="md" verticalSpacing="md">
         {features.map((feature) => (
           <Card
             key={feature.title}
@@ -34,17 +36,25 @@ export function FeatureSection() {
             padding="xl"
             radius="md"
             withBorder
+            className={styles.card}
           >
-            <Stack align="center" gap="md">
+            <Stack
+              align="center"
+              gap="md"
+              justify="center"
+              className={styles.cardContent}
+            >
               {feature.icon}
-              <Text size="lg">{feature.title}</Text>
-              <Text size="sm" c="dimmed">
+              <Text size="lg" fw={500} ta="center">
+                {feature.title}
+              </Text>
+              <Text size="sm" c="dimmed" ta="center">
                 {feature.description}
               </Text>
             </Stack>
           </Card>
         ))}
-      </Group>
+      </SimpleGrid>
     </Stack>
   )
 }
