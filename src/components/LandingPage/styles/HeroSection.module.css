@@ -1,11 +1,16 @@
 .title {
   font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', sans-serif;
-  font-size: 3.5rem;
+  font-size: 3rem;
   font-weight: 800;
   line-height: 1.2;
   margin: 0;
   padding: 0;
   text-align: center;
+}
+
+.description {
+  font-size: 1.4rem;
+  line-height: 1.6;
 }
 
 @media (max-width: 768px) {
@@ -14,11 +19,24 @@
   }
 
   .description {
-    font-size: 0.5rem;
+    font-size: 1.2rem;
+    line-height: 1.4;
   }
 }
 
-.description {
-  font-size: 1.2rem;
-  line-height: 1.6;
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.8rem;
+  }
+  .description {
+    font-size: 1.1rem;
+    line-height: 1.2;
+  }
+}
+
+@media (max-width: 375px) {
+  .title {
+    font-size: 1.7rem;
+    line-height: 1;
+  }
 }

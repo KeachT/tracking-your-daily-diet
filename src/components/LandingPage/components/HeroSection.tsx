@@ -12,7 +12,6 @@ export function HeroSection({ open }: HeroSectionProps) {
       <Text
         variant="gradient"
         gradient={{ from: 'teal', to: 'blue', deg: 45 }}
-        inherit
         className={classes.title}
         m={20}
       >
