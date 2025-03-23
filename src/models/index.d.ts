@@ -96,3 +96,37 @@ export declare type MealRecord = LazyLoading extends LazyLoadingDisabled ? Eager
 export declare const MealRecord: (new (init: ModelInit<MealRecord>) => MealRecord) & {
   copyOf(source: MealRecord, mutator: (draft: MutableModel<MealRecord>) => MutableModel<MealRecord> | void): MealRecord;
 }
+
+type EagerUserMealPreset = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<UserMealPreset, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly breakfast?: (FoodItem | null)[] | null;
+  readonly lunch?: (FoodItem | null)[] | null;
+  readonly dinner?: (FoodItem | null)[] | null;
+  readonly snack?: (FoodItem | null)[] | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyUserMealPreset = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<UserMealPreset, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly breakfast?: (FoodItem | null)[] | null;
+  readonly lunch?: (FoodItem | null)[] | null;
+  readonly dinner?: (FoodItem | null)[] | null;
+  readonly snack?: (FoodItem | null)[] | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type UserMealPreset = LazyLoading extends LazyLoadingDisabled ? EagerUserMealPreset : LazyUserMealPreset
+
+export declare const UserMealPreset: (new (init: ModelInit<UserMealPreset>) => UserMealPreset) & {
+  copyOf(source: UserMealPreset, mutator: (draft: MutableModel<UserMealPreset>) => MutableModel<UserMealPreset> | void): UserMealPreset;
+}
