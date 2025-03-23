@@ -34,3 +34,15 @@ enum MealCategoryName {
   DINNER
   SNACK
 }
+
+"""
+Represents a user's meal preset that can be quickly applied to daily records.
+Each user has one preset configuration that they can customize.
+"""
+type UserMealPreset @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  breakfast: [FoodItem]
+  lunch: [FoodItem]
+  dinner: [FoodItem]
+  snack: [FoodItem]
+}
