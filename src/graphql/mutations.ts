@@ -167,3 +167,168 @@ export const deleteMealRecord = /* GraphQL */ `mutation DeleteMealRecord(
   APITypes.DeleteMealRecordMutationVariables,
   APITypes.DeleteMealRecordMutation
 >;
+export const createUserMealPreset = /* GraphQL */ `mutation CreateUserMealPreset(
+  $input: CreateUserMealPresetInput!
+  $condition: ModelUserMealPresetConditionInput
+) {
+  createUserMealPreset(input: $input, condition: $condition) {
+    id
+    breakfast {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    lunch {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    dinner {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    snack {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateUserMealPresetMutationVariables,
+  APITypes.CreateUserMealPresetMutation
+>;
+export const updateUserMealPreset = /* GraphQL */ `mutation UpdateUserMealPreset(
+  $input: UpdateUserMealPresetInput!
+  $condition: ModelUserMealPresetConditionInput
+) {
+  updateUserMealPreset(input: $input, condition: $condition) {
+    id
+    breakfast {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    lunch {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    dinner {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    snack {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateUserMealPresetMutationVariables,
+  APITypes.UpdateUserMealPresetMutation
+>;
+export const deleteUserMealPreset = /* GraphQL */ `mutation DeleteUserMealPreset(
+  $input: DeleteUserMealPresetInput!
+  $condition: ModelUserMealPresetConditionInput
+) {
+  deleteUserMealPreset(input: $input, condition: $condition) {
+    id
+    breakfast {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    lunch {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    dinner {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    snack {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteUserMealPresetMutationVariables,
+  APITypes.DeleteUserMealPresetMutation
+>;

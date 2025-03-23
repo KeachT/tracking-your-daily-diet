@@ -179,3 +179,111 @@ export const syncMealRecords = /* GraphQL */ `query SyncMealRecords(
   APITypes.SyncMealRecordsQueryVariables,
   APITypes.SyncMealRecordsQuery
 >;
+export const getUserMealPreset = /* GraphQL */ `query GetUserMealPreset($id: ID!) {
+  getUserMealPreset(id: $id) {
+    id
+    breakfast {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    lunch {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    dinner {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    snack {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetUserMealPresetQueryVariables,
+  APITypes.GetUserMealPresetQuery
+>;
+export const listUserMealPresets = /* GraphQL */ `query ListUserMealPresets(
+  $filter: ModelUserMealPresetFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listUserMealPresets(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+      __typename
+    }
+    nextToken
+    startedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListUserMealPresetsQueryVariables,
+  APITypes.ListUserMealPresetsQuery
+>;
+export const syncUserMealPresets = /* GraphQL */ `query SyncUserMealPresets(
+  $filter: ModelUserMealPresetFilterInput
+  $limit: Int
+  $nextToken: String
+  $lastSync: AWSTimestamp
+) {
+  syncUserMealPresets(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    lastSync: $lastSync
+  ) {
+    items {
+      id
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+      __typename
+    }
+    nextToken
+    startedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.SyncUserMealPresetsQueryVariables,
+  APITypes.SyncUserMealPresetsQuery
+>;

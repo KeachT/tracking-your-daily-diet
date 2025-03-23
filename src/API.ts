@@ -192,6 +192,54 @@ export type DeleteMealRecordInput = {
   _version?: number | null,
 };
 
+export type CreateUserMealPresetInput = {
+  id?: string | null,
+  breakfast?: Array< FoodItemInput | null > | null,
+  lunch?: Array< FoodItemInput | null > | null,
+  dinner?: Array< FoodItemInput | null > | null,
+  snack?: Array< FoodItemInput | null > | null,
+  _version?: number | null,
+};
+
+export type ModelUserMealPresetConditionInput = {
+  and?: Array< ModelUserMealPresetConditionInput | null > | null,
+  or?: Array< ModelUserMealPresetConditionInput | null > | null,
+  not?: ModelUserMealPresetConditionInput | null,
+  _deleted?: ModelBooleanInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  owner?: ModelStringInput | null,
+};
+
+export type UserMealPreset = {
+  __typename: "UserMealPreset",
+  id: string,
+  breakfast?:  Array<FoodItem | null > | null,
+  lunch?:  Array<FoodItem | null > | null,
+  dinner?:  Array<FoodItem | null > | null,
+  snack?:  Array<FoodItem | null > | null,
+  createdAt: string,
+  updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
+  owner?: string | null,
+};
+
+export type UpdateUserMealPresetInput = {
+  id: string,
+  breakfast?: Array< FoodItemInput | null > | null,
+  lunch?: Array< FoodItemInput | null > | null,
+  dinner?: Array< FoodItemInput | null > | null,
+  snack?: Array< FoodItemInput | null > | null,
+  _version?: number | null,
+};
+
+export type DeleteUserMealPresetInput = {
+  id: string,
+  _version?: number | null,
+};
+
 export type ModelDailyGoalFilterInput = {
   id?: ModelIDInput | null,
   calories?: ModelFloatInput | null,
@@ -246,6 +294,24 @@ export type ModelMealRecordFilterInput = {
 export type ModelMealRecordConnection = {
   __typename: "ModelMealRecordConnection",
   items:  Array<MealRecord | null >,
+  nextToken?: string | null,
+  startedAt?: number | null,
+};
+
+export type ModelUserMealPresetFilterInput = {
+  id?: ModelIDInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelUserMealPresetFilterInput | null > | null,
+  or?: Array< ModelUserMealPresetFilterInput | null > | null,
+  not?: ModelUserMealPresetFilterInput | null,
+  _deleted?: ModelBooleanInput | null,
+  owner?: ModelStringInput | null,
+};
+
+export type ModelUserMealPresetConnection = {
+  __typename: "ModelUserMealPresetConnection",
+  items:  Array<UserMealPreset | null >,
   nextToken?: string | null,
   startedAt?: number | null,
 };
@@ -314,6 +380,16 @@ export type ModelSubscriptionMealRecordFilterInput = {
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionMealRecordFilterInput | null > | null,
   or?: Array< ModelSubscriptionMealRecordFilterInput | null > | null,
+  _deleted?: ModelBooleanInput | null,
+  owner?: ModelStringInput | null,
+};
+
+export type ModelSubscriptionUserMealPresetFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionUserMealPresetFilterInput | null > | null,
+  or?: Array< ModelSubscriptionUserMealPresetFilterInput | null > | null,
   _deleted?: ModelBooleanInput | null,
   owner?: ModelStringInput | null,
 };
@@ -454,6 +530,168 @@ export type DeleteMealRecordMutation = {
     date: string,
     category: MealCategoryName,
     foods?:  Array< {
+      __typename: "FoodItem",
+      id: string,
+      name: string,
+      calories?: number | null,
+      protein?: number | null,
+      carbohydrates?: number | null,
+      fat?: number | null,
+    } | null > | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    owner?: string | null,
+  } | null,
+};
+
+export type CreateUserMealPresetMutationVariables = {
+  input: CreateUserMealPresetInput,
+  condition?: ModelUserMealPresetConditionInput | null,
+};
+
+export type CreateUserMealPresetMutation = {
+  createUserMealPreset?:  {
+    __typename: "UserMealPreset",
+    id: string,
+    breakfast?:  Array< {
+      __typename: "FoodItem",
+      id: string,
+      name: string,
+      calories?: number | null,
+      protein?: number | null,
+      carbohydrates?: number | null,
+      fat?: number | null,
+    } | null > | null,
+    lunch?:  Array< {
+      __typename: "FoodItem",
+      id: string,
+      name: string,
+      calories?: number | null,
+      protein?: number | null,
+      carbohydrates?: number | null,
+      fat?: number | null,
+    } | null > | null,
+    dinner?:  Array< {
+      __typename: "FoodItem",
+      id: string,
+      name: string,
+      calories?: number | null,
+      protein?: number | null,
+      carbohydrates?: number | null,
+      fat?: number | null,
+    } | null > | null,
+    snack?:  Array< {
+      __typename: "FoodItem",
+      id: string,
+      name: string,
+      calories?: number | null,
+      protein?: number | null,
+      carbohydrates?: number | null,
+      fat?: number | null,
+    } | null > | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    owner?: string | null,
+  } | null,
+};
+
+export type UpdateUserMealPresetMutationVariables = {
+  input: UpdateUserMealPresetInput,
+  condition?: ModelUserMealPresetConditionInput | null,
+};
+
+export type UpdateUserMealPresetMutation = {
+  updateUserMealPreset?:  {
+    __typename: "UserMealPreset",
+    id: string,
+    breakfast?:  Array< {
+      __typename: "FoodItem",
+      id: string,
+      name: string,
+      calories?: number | null,
+      protein?: number | null,
+      carbohydrates?: number | null,
+      fat?: number | null,
+    } | null > | null,
+    lunch?:  Array< {
+      __typename: "FoodItem",
+      id: string,
+      name: string,
+      calories?: number | null,
+      protein?: number | null,
+      carbohydrates?: number | null,
+      fat?: number | null,
+    } | null > | null,
+    dinner?:  Array< {
+      __typename: "FoodItem",
+      id: string,
+      name: string,
+      calories?: number | null,
+      protein?: number | null,
+      carbohydrates?: number | null,
+      fat?: number | null,
+    } | null > | null,
+    snack?:  Array< {
+      __typename: "FoodItem",
+      id: string,
+      name: string,
+      calories?: number | null,
+      protein?: number | null,
+      carbohydrates?: number | null,
+      fat?: number | null,
+    } | null > | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    owner?: string | null,
+  } | null,
+};
+
+export type DeleteUserMealPresetMutationVariables = {
+  input: DeleteUserMealPresetInput,
+  condition?: ModelUserMealPresetConditionInput | null,
+};
+
+export type DeleteUserMealPresetMutation = {
+  deleteUserMealPreset?:  {
+    __typename: "UserMealPreset",
+    id: string,
+    breakfast?:  Array< {
+      __typename: "FoodItem",
+      id: string,
+      name: string,
+      calories?: number | null,
+      protein?: number | null,
+      carbohydrates?: number | null,
+      fat?: number | null,
+    } | null > | null,
+    lunch?:  Array< {
+      __typename: "FoodItem",
+      id: string,
+      name: string,
+      calories?: number | null,
+      protein?: number | null,
+      carbohydrates?: number | null,
+      fat?: number | null,
+    } | null > | null,
+    dinner?:  Array< {
+      __typename: "FoodItem",
+      id: string,
+      name: string,
+      calories?: number | null,
+      protein?: number | null,
+      carbohydrates?: number | null,
+      fat?: number | null,
+    } | null > | null,
+    snack?:  Array< {
       __typename: "FoodItem",
       id: string,
       name: string,
@@ -630,6 +868,108 @@ export type SyncMealRecordsQuery = {
   } | null,
 };
 
+export type GetUserMealPresetQueryVariables = {
+  id: string,
+};
+
+export type GetUserMealPresetQuery = {
+  getUserMealPreset?:  {
+    __typename: "UserMealPreset",
+    id: string,
+    breakfast?:  Array< {
+      __typename: "FoodItem",
+      id: string,
+      name: string,
+      calories?: number | null,
+      protein?: number | null,
+      carbohydrates?: number | null,
+      fat?: number | null,
+    } | null > | null,
+    lunch?:  Array< {
+      __typename: "FoodItem",
+      id: string,
+      name: string,
+      calories?: number | null,
+      protein?: number | null,
+      carbohydrates?: number | null,
+      fat?: number | null,
+    } | null > | null,
+    dinner?:  Array< {
+      __typename: "FoodItem",
+      id: string,
+      name: string,
+      calories?: number | null,
+      protein?: number | null,
+      carbohydrates?: number | null,
+      fat?: number | null,
+    } | null > | null,
+    snack?:  Array< {
+      __typename: "FoodItem",
+      id: string,
+      name: string,
+      calories?: number | null,
+      protein?: number | null,
+      carbohydrates?: number | null,
+      fat?: number | null,
+    } | null > | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    owner?: string | null,
+  } | null,
+};
+
+export type ListUserMealPresetsQueryVariables = {
+  filter?: ModelUserMealPresetFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListUserMealPresetsQuery = {
+  listUserMealPresets?:  {
+    __typename: "ModelUserMealPresetConnection",
+    items:  Array< {
+      __typename: "UserMealPreset",
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncUserMealPresetsQueryVariables = {
+  filter?: ModelUserMealPresetFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncUserMealPresetsQuery = {
+  syncUserMealPresets?:  {
+    __typename: "ModelUserMealPresetConnection",
+    items:  Array< {
+      __typename: "UserMealPreset",
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
 export type OnCreateDailyGoalSubscriptionVariables = {
   filter?: ModelSubscriptionDailyGoalFilterInput | null,
   owner?: string | null,
@@ -766,6 +1106,168 @@ export type OnDeleteMealRecordSubscription = {
     date: string,
     category: MealCategoryName,
     foods?:  Array< {
+      __typename: "FoodItem",
+      id: string,
+      name: string,
+      calories?: number | null,
+      protein?: number | null,
+      carbohydrates?: number | null,
+      fat?: number | null,
+    } | null > | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnCreateUserMealPresetSubscriptionVariables = {
+  filter?: ModelSubscriptionUserMealPresetFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnCreateUserMealPresetSubscription = {
+  onCreateUserMealPreset?:  {
+    __typename: "UserMealPreset",
+    id: string,
+    breakfast?:  Array< {
+      __typename: "FoodItem",
+      id: string,
+      name: string,
+      calories?: number | null,
+      protein?: number | null,
+      carbohydrates?: number | null,
+      fat?: number | null,
+    } | null > | null,
+    lunch?:  Array< {
+      __typename: "FoodItem",
+      id: string,
+      name: string,
+      calories?: number | null,
+      protein?: number | null,
+      carbohydrates?: number | null,
+      fat?: number | null,
+    } | null > | null,
+    dinner?:  Array< {
+      __typename: "FoodItem",
+      id: string,
+      name: string,
+      calories?: number | null,
+      protein?: number | null,
+      carbohydrates?: number | null,
+      fat?: number | null,
+    } | null > | null,
+    snack?:  Array< {
+      __typename: "FoodItem",
+      id: string,
+      name: string,
+      calories?: number | null,
+      protein?: number | null,
+      carbohydrates?: number | null,
+      fat?: number | null,
+    } | null > | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnUpdateUserMealPresetSubscriptionVariables = {
+  filter?: ModelSubscriptionUserMealPresetFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnUpdateUserMealPresetSubscription = {
+  onUpdateUserMealPreset?:  {
+    __typename: "UserMealPreset",
+    id: string,
+    breakfast?:  Array< {
+      __typename: "FoodItem",
+      id: string,
+      name: string,
+      calories?: number | null,
+      protein?: number | null,
+      carbohydrates?: number | null,
+      fat?: number | null,
+    } | null > | null,
+    lunch?:  Array< {
+      __typename: "FoodItem",
+      id: string,
+      name: string,
+      calories?: number | null,
+      protein?: number | null,
+      carbohydrates?: number | null,
+      fat?: number | null,
+    } | null > | null,
+    dinner?:  Array< {
+      __typename: "FoodItem",
+      id: string,
+      name: string,
+      calories?: number | null,
+      protein?: number | null,
+      carbohydrates?: number | null,
+      fat?: number | null,
+    } | null > | null,
+    snack?:  Array< {
+      __typename: "FoodItem",
+      id: string,
+      name: string,
+      calories?: number | null,
+      protein?: number | null,
+      carbohydrates?: number | null,
+      fat?: number | null,
+    } | null > | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnDeleteUserMealPresetSubscriptionVariables = {
+  filter?: ModelSubscriptionUserMealPresetFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnDeleteUserMealPresetSubscription = {
+  onDeleteUserMealPreset?:  {
+    __typename: "UserMealPreset",
+    id: string,
+    breakfast?:  Array< {
+      __typename: "FoodItem",
+      id: string,
+      name: string,
+      calories?: number | null,
+      protein?: number | null,
+      carbohydrates?: number | null,
+      fat?: number | null,
+    } | null > | null,
+    lunch?:  Array< {
+      __typename: "FoodItem",
+      id: string,
+      name: string,
+      calories?: number | null,
+      protein?: number | null,
+      carbohydrates?: number | null,
+      fat?: number | null,
+    } | null > | null,
+    dinner?:  Array< {
+      __typename: "FoodItem",
+      id: string,
+      name: string,
+      calories?: number | null,
+      protein?: number | null,
+      carbohydrates?: number | null,
+      fat?: number | null,
+    } | null > | null,
+    snack?:  Array< {
       __typename: "FoodItem",
       id: string,
       name: string,

@@ -167,3 +167,168 @@ export const onDeleteMealRecord = /* GraphQL */ `subscription OnDeleteMealRecord
   APITypes.OnDeleteMealRecordSubscriptionVariables,
   APITypes.OnDeleteMealRecordSubscription
 >;
+export const onCreateUserMealPreset = /* GraphQL */ `subscription OnCreateUserMealPreset(
+  $filter: ModelSubscriptionUserMealPresetFilterInput
+  $owner: String
+) {
+  onCreateUserMealPreset(filter: $filter, owner: $owner) {
+    id
+    breakfast {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    lunch {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    dinner {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    snack {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateUserMealPresetSubscriptionVariables,
+  APITypes.OnCreateUserMealPresetSubscription
+>;
+export const onUpdateUserMealPreset = /* GraphQL */ `subscription OnUpdateUserMealPreset(
+  $filter: ModelSubscriptionUserMealPresetFilterInput
+  $owner: String
+) {
+  onUpdateUserMealPreset(filter: $filter, owner: $owner) {
+    id
+    breakfast {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    lunch {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    dinner {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    snack {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateUserMealPresetSubscriptionVariables,
+  APITypes.OnUpdateUserMealPresetSubscription
+>;
+export const onDeleteUserMealPreset = /* GraphQL */ `subscription OnDeleteUserMealPreset(
+  $filter: ModelSubscriptionUserMealPresetFilterInput
+  $owner: String
+) {
+  onDeleteUserMealPreset(filter: $filter, owner: $owner) {
+    id
+    breakfast {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    lunch {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    dinner {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    snack {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteUserMealPresetSubscriptionVariables,
+  APITypes.OnDeleteUserMealPresetSubscription
+>;

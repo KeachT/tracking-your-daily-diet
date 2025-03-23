@@ -163,6 +163,101 @@ export const schema = {
                     }
                 }
             ]
+        },
+        "UserMealPreset": {
+            "name": "UserMealPreset",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "breakfast": {
+                    "name": "breakfast",
+                    "isArray": true,
+                    "type": {
+                        "nonModel": "FoodItem"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
+                },
+                "lunch": {
+                    "name": "lunch",
+                    "isArray": true,
+                    "type": {
+                        "nonModel": "FoodItem"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
+                },
+                "dinner": {
+                    "name": "dinner",
+                    "isArray": true,
+                    "type": {
+                        "nonModel": "FoodItem"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
+                },
+                "snack": {
+                    "name": "snack",
+                    "isArray": true,
+                    "type": {
+                        "nonModel": "FoodItem"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                }
+            },
+            "syncable": true,
+            "pluralName": "UserMealPresets",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "provider": "userPools",
+                                "ownerField": "owner",
+                                "allow": "owner",
+                                "identityClaim": "cognito:username",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
         }
     },
     "enums": {
@@ -226,5 +321,5 @@ export const schema = {
         }
     },
     "codegenVersion": "3.4.4",
-    "version": "bdb68beb848dc9ed6ef7b71fb26596f7"
+    "version": "2c2dce308c1b2c43966a125ec0b3077d"
 };
