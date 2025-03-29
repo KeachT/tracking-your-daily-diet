@@ -1,9 +1,9 @@
 import { Box } from '@mantine/core'
 
 import { Layout } from '../components/Layout'
+import { MealForm } from '../features/daily-meal-form'
 import { DailyNutritions } from '../features/daily-nutritions'
 import { DatePickerCard } from '../features/date-picker-card'
-import { MealForm } from '../features/meal-form'
 
 export default function Day() {
   return (
