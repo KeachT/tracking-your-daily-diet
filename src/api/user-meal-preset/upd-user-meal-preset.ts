@@ -29,7 +29,7 @@ export const updUserMealPreset = async (
     const updatedUserMealPreset = data?.updateUserMealPreset as UserMealPreset
 
     if (!updatedUserMealPreset) {
-      console.warn('Failed to update user meal preset')
+      throw new Error('Failed to update user meal preset')
     }
 
     return updatedUserMealPreset
