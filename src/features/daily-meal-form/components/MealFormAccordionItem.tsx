@@ -5,6 +5,8 @@ import { useState } from 'react'
 
 import { MealCategoryName } from '@/API'
 
+import { MealIcon } from '../../../components/MealIcon'
+import { NoFoodText } from '../../../components/NoFoodText'
 import {
   NOTIFICATION_DISPLAY_DURATION_MS,
   SAVE_BUTTON_REENABLE_DELAY_MS,
@@ -16,8 +18,6 @@ import { useMealRecordsStore } from '../stores'
 import { FormsType } from '../types'
 import { createFoodInitialValues, saveAndSetMealRecord } from '../utils'
 import { MealFormFields } from './MealFormFields'
-import { MealIcon } from './MealIcon'
-import { NoFoodText } from './NoFoodText'
 
 type MealFormAccordionItemProps = {
   mealCategoryName: MealCategoryName
@@ -94,14 +94,14 @@ export function MealFormAccordionItem({
         )}
         <Center mt="xl">
           <Button mr="md" onClick={handleAdd}>
-            Add
+            追加
           </Button>
           <Button
             color="teal"
             onClick={handleSave}
             disabled={isSaveButtonDisabled}
           >
-            Save
+            保存
           </Button>
         </Center>
       </Accordion.Panel>

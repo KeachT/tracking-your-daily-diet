@@ -1,6 +1,6 @@
 import { Text } from '@mantine/core'
 
-import styles from '../styles/NoFoodText.module.css'
+import styles from './NoFoodText.module.css'
 
 export function NoFoodText() {
   return (

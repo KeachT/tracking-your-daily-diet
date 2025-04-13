@@ -21,7 +21,7 @@ export function Layout({
   return (
     <Box>
       <Head>
-        <title>{`Tracking Your Daily Diet - ${title}`}</title>
+        <title>{title}</title>
       </Head>
 
       <AppShell

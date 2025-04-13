@@ -97,7 +97,7 @@ export function DailyGoal() {
         onClick={handleSave}
         disabled={isSaveButtonDisabled}
       >
-        Save
+        保存
       </Button>
 
       <Notifications limit={10} autoClose={NOTIFICATION_DISPLAY_DURATION_MS} />
