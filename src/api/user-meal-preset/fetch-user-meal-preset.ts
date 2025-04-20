@@ -7,6 +7,7 @@ import {
   UserMealPreset,
 } from '../../API'
 import { listUserMealPresets } from '../../graphql/queries'
+import { fetchUserMealPresetWithFood } from './fetch-user-meal-preset-with-food'
 
 /**
  * Fetches the user meal preset data.
@@ -27,13 +28,21 @@ export const fetchUserMealPreset = async (
 
     const userMealPresets = data?.listUserMealPresets?.items || []
     const userMealPreset = userMealPresets[0] as UserMealPreset
-
     if (!userMealPreset) {
       console.warn('No user meal preset found')
       return null
     }
 
-    return userMealPreset
+    // Fetch the user meal preset with food details
+    const userMealPresetWithFood = await fetchUserMealPresetWithFood(
+      userMealPreset.id
+    )
+    if (!userMealPresetWithFood) {
+      console.warn('No user meal preset found')
+      return null
+    }
+
+    return userMealPresetWithFood
   } catch (error) {
     console.error('Error fetching user meal preset:', error)
     throw error
