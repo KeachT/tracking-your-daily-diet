@@ -30,7 +30,7 @@ export const fetchUserMealPresetWithFood = async (userMealPresetId: string) => {
     return userMealPresetWithFood
   } catch (err) {
     if (process.env.NODE_ENV !== 'production') {
-      console.error('Error fetching MealRecord:', err)
+      console.error('Error fetching user meal preset with food details:', err)
     }
   }
 }
