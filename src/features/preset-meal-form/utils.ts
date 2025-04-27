@@ -78,9 +78,10 @@ export const createInitialFormValuesFromPreset = (
     (formValues, mealCategoryName) => {
       const categoryKey = mealCategoryName.toLowerCase() as keyof UserMealPreset
 
-      const foods = Array.isArray(userMealPreset?.[categoryKey])
-        ? (userMealPreset[categoryKey] as FoodItem[])
-        : []
+      const foods =
+        userMealPreset && Array.isArray(userMealPreset[categoryKey])
+          ? (userMealPreset[categoryKey] as FoodItem[])
+          : []
 
       const sortedFoods = sort([...foods], (f) => f?.calories || 0, true)
 
