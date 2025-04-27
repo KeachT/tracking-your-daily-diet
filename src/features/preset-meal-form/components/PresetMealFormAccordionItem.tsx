@@ -5,6 +5,7 @@ import { useState } from 'react'
 
 import { MealCategoryName } from '@/API'
 
+import { LoadingSkeleton } from '../../../components/LoadingSkeleton'
 import { MealIcon } from '../../../components/MealIcon'
 import { NoFoodText } from '../../../components/NoFoodText'
 import {
@@ -85,8 +86,7 @@ export function PresetMealFormAccordionItem({
 
       <Accordion.Panel>
         {isLoading ? (
-          // TODO 共通コンポーネントにしたい、MealFormでも使用したいため
-          <Skeleton height={50} />
+          <LoadingSkeleton height={100} />
         ) : forms.values[mealCategoryName]?.length > 0 ? (
           <PresetMealFormFields
             form={forms}
@@ -95,6 +95,7 @@ export function PresetMealFormAccordionItem({
         ) : (
           <NoFoodText />
         )}
+
         <Center mt="xl">
           <Button mr="md" onClick={handleAdd} disabled={isLoading}>
             追加
