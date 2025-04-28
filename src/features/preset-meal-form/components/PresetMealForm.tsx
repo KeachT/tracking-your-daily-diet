@@ -10,8 +10,8 @@ import { createInitialFormValuesFromPreset, loadUserMealPreset } from '../utils'
 import { PresetMealFormAccordionItem } from './PresetMealFormAccordionItem'
 
 export function PresetMealForm() {
-  const { userMealPreset, setUserMealPreset } = useUserMealPresetStore()
   const [isLoading, setIsLoading] = useState(true)
+  const { userMealPreset, setUserMealPreset } = useUserMealPresetStore()
 
   const mealCategoryNames = Object.values(
     MealCategoryName

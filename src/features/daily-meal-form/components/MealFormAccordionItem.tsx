@@ -5,6 +5,7 @@ import { useState } from 'react'
 
 import { MealCategoryName } from '@/API'
 
+import { LoadingSkeleton } from '../../../components/LoadingSkeleton'
 import { MealIcon } from '../../../components/MealIcon'
 import { NoFoodText } from '../../../components/NoFoodText'
 import {
@@ -22,11 +23,13 @@ import { MealFormFields } from './MealFormFields'
 type MealFormAccordionItemProps = {
   mealCategoryName: MealCategoryName
   forms: FormsType
+  isLoading?: boolean
 }
 
 export function MealFormAccordionItem({
   mealCategoryName,
   forms,
+  isLoading = true,
 }: MealFormAccordionItemProps) {
   const [isSaveButtonDisabled, setIsSaveButtonDisabled] = useState(false)
   const { mealRecords, setMealRecords } = useMealRecordsStore()
@@ -54,8 +57,8 @@ export function MealFormAccordionItem({
 
   const handleSuccess = () => {
     notifications.show({
-      title: 'Saved!',
-      message: 'Day',
+      title: 'Day',
+      message: `${MEAL_CATEGORY_LABELS[mealCategoryName]}を保存しました。`,
       color: 'green',
       icon: <IconCheck />,
     })
@@ -67,8 +70,8 @@ export function MealFormAccordionItem({
 
   const handleError = () => {
     notifications.show({
-      title: 'Error!',
-      message: 'Day',
+      title: 'Day',
+      message: `${MEAL_CATEGORY_LABELS[mealCategoryName]}の保存に失敗しました。`,
       color: 'red',
       icon: <IconX />,
     })
@@ -87,7 +90,9 @@ export function MealFormAccordionItem({
       </Accordion.Control>
 
       <Accordion.Panel>
-        {forms.values[mealCategoryName]?.length > 0 ? (
+        {isLoading ? (
+          <LoadingSkeleton height={100} />
+        ) : forms.values[mealCategoryName]?.length > 0 ? (
           <MealFormFields form={forms} mealCategoryName={mealCategoryName} />
         ) : (
           <NoFoodText />

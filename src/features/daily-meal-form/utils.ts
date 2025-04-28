@@ -2,6 +2,7 @@ import { createId } from '@paralleldrive/cuid2'
 import _differenceWith from 'lodash.differencewith'
 import _isEqual from 'lodash.isequal'
 import { sort, sum } from 'radash'
+import { Dispatch, SetStateAction } from 'react'
 
 import {
   CreateMealRecordInput,
@@ -147,7 +148,6 @@ export const saveAndSetMealRecord = async (
 
   if (mealRecord) {
     const normalizedFoods = normalizeFoods(forms, mealCategoryName)
-
     const updateMealRecordInput: UpdateMealRecordInput = {
       id: mealRecord.id,
       date: mealRecord.date,
@@ -158,32 +158,26 @@ export const saveAndSetMealRecord = async (
     const variables: UpdateMealRecordMutationVariables = {
       input: updateMealRecordInput,
     }
-
     const updatedMealRecord = await updMealRecord(variables)
     const newMealRecords = mealRecords.map((mealRecord) =>
       mealRecord?.category === mealCategoryName ? updatedMealRecord : mealRecord
     )
-
     setMealRecords(newMealRecords as MealRecordsState['mealRecords'])
   }
 
   if (!mealRecord) {
     const normalizedFoods = normalizeFoods(forms, mealCategoryName)
-
     const createMealRecordInput: CreateMealRecordInput = {
       id: createId(),
       date: currentDateString,
       category: mealCategoryName as MealCategoryName,
       foods: normalizedFoods,
     }
-
     const variables: CreateMealRecordMutationVariables = {
       input: createMealRecordInput,
     }
-
     const newMealRecord = await addMealRecord(variables)
     const newMealRecords = [...mealRecords, newMealRecord]
-
     setMealRecords(newMealRecords as MealRecordsState['mealRecords'])
   }
 }
@@ -198,7 +192,6 @@ export const saveAndSetMealRecord = async (
  */
 const normalizeFoods = (forms: FormsType, mealCategoryName: string) => {
   const foods = forms.values[mealCategoryName]
-
   const normalizedFoods = foods.map((food) => {
     const { id, name, calories, protein, carbohydrates, fat } = food
     return {
@@ -210,8 +203,30 @@ const normalizeFoods = (forms: FormsType, mealCategoryName: string) => {
       fat: Number(fat || 0),
     }
   })
-
   return normalizedFoods
+}
+
+/**
+ * Loads meal records for a given date and updates the state.
+ *
+ * @param currentDateString - The date string for which to fetch meal records.
+ * @param setMealRecords - The state setter function to update meal records.
+ * @param setIsLoading - The function to update the loading state.
+ * @returns A promise that resolves when the meal records have been loaded.
+ */
+export const loadMealRecords = async (
+  currentDateString: string,
+  setMealRecords: MealRecordsState['setMealRecords'],
+  setIsLoading: Dispatch<SetStateAction<boolean>>
+) => {
+  setIsLoading(true)
+  try {
+    await fetchAndSetMealRecords(currentDateString, setMealRecords)
+  } catch (error) {
+    console.error('Failed to load meal records:', error)
+  } finally {
+    setIsLoading(false)
+  }
 }
 
 /**
@@ -221,7 +236,7 @@ const normalizeFoods = (forms: FormsType, mealCategoryName: string) => {
  * @param setMealRecords - The state setter function to update meal records.
  * @returns A promise that resolves when the meal records have been fetched and the state has been updated.
  */
-export const fetchAndSetMealRecords = async (
+const fetchAndSetMealRecords = async (
   currentDateString: string,
   setMealRecords: MealRecordsState['setMealRecords']
 ) => {
@@ -230,8 +245,6 @@ export const fetchAndSetMealRecords = async (
       date: { eq: currentDateString },
     },
   }
-
   const uniqueMealRecordsWithFoods = await fetchMealRecords(variables)
-
   setMealRecords(uniqueMealRecordsWithFoods as MealRecordsState['mealRecords'])
 }

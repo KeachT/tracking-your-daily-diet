@@ -53,7 +53,7 @@ export function PresetMealFormAccordionItem({
   const handleSuccess = () => {
     notifications.show({
       title: 'プリセット',
-      message: `${MEAL_CATEGORY_LABELS[mealCategoryName]}のプリセットを保存しました。`,
+      message: `${MEAL_CATEGORY_LABELS[mealCategoryName]}を保存しました`,
       color: 'green',
       icon: <IconCheck />,
     })
@@ -66,7 +66,7 @@ export function PresetMealFormAccordionItem({
   const handleError = () => {
     notifications.show({
       title: 'プリセット',
-      message: 'プリセットの保存に失敗しました。',
+      message: `${MEAL_CATEGORY_LABELS[mealCategoryName]}の保存に失敗しました`,
       color: 'red',
       icon: <IconX />,
     })
