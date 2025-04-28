@@ -1,6 +1,6 @@
 import { Accordion } from '@mantine/core'
 import { useForm } from '@mantine/form'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import { MealCategoryName } from '@/API'
 
@@ -11,12 +11,13 @@ import { FormsType } from '../types'
 import {
   createInitialFormValues,
   createSumNutritionValues,
-  fetchAndSetMealRecords,
   getDefaultCategory,
+  loadMealRecords,
 } from '../utils'
 import { MealFormAccordionItem } from './MealFormAccordionItem'
 
 export function MealForm() {
+  const [isLoading, setIsLoading] = useState(true)
   const { currentDate } = useCurrentDateStore()
   const { mealRecords, setMealRecords } = useMealRecordsStore()
   const {
@@ -47,7 +48,7 @@ export function MealForm() {
   }, [mealRecords])
 
   useEffect(() => {
-    fetchAndSetMealRecords(currentDateString, setMealRecords)
+    loadMealRecords(currentDateString, setMealRecords, setIsLoading)
   }, [currentDateString, setMealRecords])
 
   useEffect(() => {
@@ -73,6 +74,7 @@ export function MealForm() {
           key={mealCategoryName}
           mealCategoryName={mealCategoryName}
           forms={forms}
+          isLoading={isLoading}
         />
       ))}
     </Accordion>

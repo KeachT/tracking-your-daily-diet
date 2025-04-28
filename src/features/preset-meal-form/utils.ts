@@ -171,7 +171,7 @@ export const loadUserMealPreset = async (
  * @param setUserMealPreset - The function to update the user meal preset state.
  * @returns A promise that resolves when the user meal preset has been fetched.
  */
-export const fetchAndSetUserMealPreset = async (
+const fetchAndSetUserMealPreset = async (
   setUserMealPreset: UserMealPresetState['setUserMealPreset']
 ) => {
   try {
