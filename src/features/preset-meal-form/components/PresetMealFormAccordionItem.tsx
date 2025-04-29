@@ -1,19 +1,18 @@
-import { Accordion, Button, Center } from '@mantine/core'
+import { Accordion } from '@mantine/core'
 import { Notifications } from '@mantine/notifications'
 import { useState } from 'react'
 
 import { MealCategoryName } from '@/API'
 
-import { LoadingSkeleton } from '../../../components/LoadingSkeleton'
+import { MealFormButtons } from '../../../components/MealFormButtons'
 import { MealIcon } from '../../../components/MealIcon'
-import { NoFoodText } from '../../../components/NoFoodText'
 import { NOTIFICATION_DISPLAY_DURATION_MS } from '../../../constants'
 import { showNotification } from '../../../utils'
 import { MEAL_CATEGORY_LABELS } from '../constants'
 import { useUserMealPresetStore } from '../stores'
 import { FormsType } from '../types'
 import { createFoodInitialValues, saveUserMealPreset } from '../utils'
-import { PresetMealFormFields } from './PresetMealFormFields'
+import { PresetMealFormContent } from './PresetMealFormContent'
 
 type PresetMealFormAccordionItemProps = {
   mealCategoryName: MealCategoryName
@@ -66,29 +65,16 @@ export function PresetMealFormAccordionItem({
       </Accordion.Control>
 
       <Accordion.Panel>
-        {isLoading ? (
-          <LoadingSkeleton height={100} />
-        ) : forms.values[mealCategoryName]?.length > 0 ? (
-          <PresetMealFormFields
-            form={forms}
-            mealCategoryName={mealCategoryName}
-          />
-        ) : (
-          <NoFoodText />
-        )}
-
-        <Center mt="xl">
-          <Button mr="md" onClick={handleAdd} disabled={isLoading}>
-            追加
-          </Button>
-          <Button
-            color="teal"
-            onClick={handleSave}
-            disabled={isSaveButtonDisabled || isLoading}
-          >
-            保存
-          </Button>
-        </Center>
+        <PresetMealFormContent
+          mealCategoryName={mealCategoryName}
+          forms={forms}
+          isLoading={isLoading}
+        />
+        <MealFormButtons
+          onAdd={handleAdd}
+          onSave={handleSave}
+          isSaveButtonDisabled={isSaveButtonDisabled}
+        />
       </Accordion.Panel>
 
       <Notifications limit={10} autoClose={NOTIFICATION_DISPLAY_DURATION_MS} />
