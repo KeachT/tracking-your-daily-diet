@@ -1,6 +1,5 @@
 import { Accordion, Button, Center } from '@mantine/core'
-import { Notifications, notifications } from '@mantine/notifications'
-import { IconCheck, IconX } from '@tabler/icons-react'
+import { Notifications } from '@mantine/notifications'
 import { useState } from 'react'
 
 import { MealCategoryName } from '@/API'
@@ -8,12 +7,9 @@ import { MealCategoryName } from '@/API'
 import { LoadingSkeleton } from '../../../components/LoadingSkeleton'
 import { MealIcon } from '../../../components/MealIcon'
 import { NoFoodText } from '../../../components/NoFoodText'
-import {
-  NOTIFICATION_DISPLAY_DURATION_MS,
-  SAVE_BUTTON_REENABLE_DELAY_MS,
-} from '../../../constants'
+import { NOTIFICATION_DISPLAY_DURATION_MS } from '../../../constants'
 import { useCurrentDateStore } from '../../../stores'
-import { createStringFromDate } from '../../../utils'
+import { createStringFromDate, showNotification } from '../../../utils'
 import { MEAL_CATEGORY_LABELS } from '../constants'
 import { useMealRecordsStore } from '../stores'
 import { FormsType } from '../types'
@@ -49,36 +45,20 @@ export function MealFormAccordionItem({
         mealRecords,
         setMealRecords
       )
-      handleSuccess()
+      showNotification(
+        'Day',
+        `${MEAL_CATEGORY_LABELS[mealCategoryName]}を保存しました`,
+        'success',
+        setIsSaveButtonDisabled
+      )
     } catch (err) {
-      handleError()
+      showNotification(
+        'Day',
+        `${MEAL_CATEGORY_LABELS[mealCategoryName]}の保存に失敗しました`,
+        'error',
+        setIsSaveButtonDisabled
+      )
     }
-  }
-
-  const handleSuccess = () => {
-    notifications.show({
-      title: 'Day',
-      message: `${MEAL_CATEGORY_LABELS[mealCategoryName]}を保存しました。`,
-      color: 'green',
-      icon: <IconCheck />,
-    })
-    setTimeout(
-      () => setIsSaveButtonDisabled(false),
-      SAVE_BUTTON_REENABLE_DELAY_MS
-    )
-  }
-
-  const handleError = () => {
-    notifications.show({
-      title: 'Day',
-      message: `${MEAL_CATEGORY_LABELS[mealCategoryName]}の保存に失敗しました。`,
-      color: 'red',
-      icon: <IconX />,
-    })
-    setTimeout(
-      () => setIsSaveButtonDisabled(false),
-      SAVE_BUTTON_REENABLE_DELAY_MS
-    )
   }
 
   return (
