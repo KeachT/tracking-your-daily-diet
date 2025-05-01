@@ -1,4 +1,5 @@
 import { sum } from 'radash'
+import { Dispatch, SetStateAction } from 'react'
 
 import { MealCategoryName, MealRecord } from '@/API'
 
@@ -117,23 +118,28 @@ export const createAvgWeekNutritionValues = (
 }
 
 /**
- * Fetches weekly meal records for the given date range and updates the state with the fetched records.
+ * Loads the weekly meal records for the given date range and updates the state accordingly.
  *
  * @param currentDateString - The current date as a string in the format 'YYYY-MM-DD'.
  * @param prevWeekDateString - The date string representing the start of the previous week in the format 'YYYY-MM-DD'.
  * @param setWeeklyMealRecords - A function to update the state with the fetched meal records.
- *
- * @returns A promise that resolves when the meal records have been fetched and the state has been updated.
+ * @param setIsLoading - The function to update the loading state.
+ * @returns A promise that resolves when the meal records have been loaded.
  */
-export const fetchAndSetWeeklyMealRecords = async (
+export const loadWeeklyMealRecords = async (
   currentDateString: string,
   prevWeekDateString: string,
-  setWeeklyMealRecords: WeeklyMealRecordsState['setWeeklyMealRecords']
+  setWeeklyMealRecords: WeeklyMealRecordsState['setWeeklyMealRecords'],
+  setIsLoading: Dispatch<SetStateAction<boolean>>
 ) => {
-  const mealRecordsWithFoods = await fetchWeeklyMealRecords(
-    currentDateString,
-    prevWeekDateString
-  )
-
-  setWeeklyMealRecords(mealRecordsWithFoods as MealRecord[])
+  setIsLoading(true)
+  try {
+    const mealRecordsWithFoods = await fetchWeeklyMealRecords(
+      currentDateString,
+      prevWeekDateString
+    )
+    setWeeklyMealRecords(mealRecordsWithFoods as MealRecord[])
+  } finally {
+    setIsLoading(false)
+  }
 }

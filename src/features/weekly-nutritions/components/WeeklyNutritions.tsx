@@ -1,15 +1,17 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
+import { LoadingSkeleton } from '../../../components/LoadingSkeleton'
 import { Nutritions } from '../../../features/nutritions'
 import { useCurrentDateStore, useWeeklyMealRecordsStore } from '../../../stores'
 import {
   countWeeklyDateWithFoods,
   createAvgWeekNutritionValues,
   createWeekDateString,
-  fetchAndSetWeeklyMealRecords,
+  loadWeeklyMealRecords,
 } from '../utils'
 
 export function WeeklyNutritions() {
+  const [isLoading, setIsLoading] = useState(true)
   const { currentDate } = useCurrentDateStore()
   const { weeklyMealRecords, setWeeklyMealRecords } =
     useWeeklyMealRecordsStore()
@@ -25,14 +27,17 @@ export function WeeklyNutritions() {
     createWeekDateString(currentDate)
 
   useEffect(() => {
-    fetchAndSetWeeklyMealRecords(
+    loadWeeklyMealRecords(
       currentDateString,
       prevWeekDateString,
-      setWeeklyMealRecords
+      setWeeklyMealRecords,
+      setIsLoading
     )
   }, [currentDateString, prevWeekDateString, setWeeklyMealRecords])
 
-  return (
+  return isLoading ? (
+    <LoadingSkeleton height={200} />
+  ) : (
     <Nutritions
       dailyCalories={avgWeeklyCalories}
       dailyProtein={avgWeeklyProtein}
