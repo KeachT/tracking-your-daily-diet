@@ -157,31 +157,11 @@ export const loadUserMealPreset = async (
 ) => {
   setIsLoading(true)
   try {
-    await fetchAndSetUserMealPreset(setUserMealPreset)
-  } catch (error) {
-    console.error('Failed to load user meal preset:', error)
-  } finally {
-    setIsLoading(false)
-  }
-}
-
-/**
- * Fetches and sets the user meal preset.
- *
- * @param setUserMealPreset - The function to update the user meal preset state.
- * @returns A promise that resolves when the user meal preset has been fetched.
- */
-const fetchAndSetUserMealPreset = async (
-  setUserMealPreset: UserMealPresetState['setUserMealPreset']
-) => {
-  try {
     const userMealPreset = await fetchUserMealPreset()
     if (userMealPreset) {
       setUserMealPreset(userMealPreset)
     }
-    return userMealPreset
-  } catch (error) {
-    console.error('Error fetching user meal preset:', error)
-    throw error
+  } finally {
+    setIsLoading(false)
   }
 }
