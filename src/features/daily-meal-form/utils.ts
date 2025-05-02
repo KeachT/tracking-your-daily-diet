@@ -221,30 +221,16 @@ export const loadMealRecords = async (
 ) => {
   setIsLoading(true)
   try {
-    await fetchAndSetMealRecords(currentDateString, setMealRecords)
-  } catch (error) {
-    console.error('Failed to load meal records:', error)
+    const variables: ListMealRecordsQueryVariables = {
+      filter: {
+        date: { eq: currentDateString },
+      },
+    }
+    const uniqueMealRecordsWithFoods = await fetchMealRecords(variables)
+    setMealRecords(
+      uniqueMealRecordsWithFoods as MealRecordsState['mealRecords']
+    )
   } finally {
     setIsLoading(false)
   }
-}
-
-/**
- * Fetches meal records for a given date and updates the state with the fetched records.
- *
- * @param currentDateString - The date string for which to fetch meal records.
- * @param setMealRecords - The state setter function to update meal records.
- * @returns A promise that resolves when the meal records have been fetched and the state has been updated.
- */
-const fetchAndSetMealRecords = async (
-  currentDateString: string,
-  setMealRecords: MealRecordsState['setMealRecords']
-) => {
-  const variables: ListMealRecordsQueryVariables = {
-    filter: {
-      date: { eq: currentDateString },
-    },
-  }
-  const uniqueMealRecordsWithFoods = await fetchMealRecords(variables)
-  setMealRecords(uniqueMealRecordsWithFoods as MealRecordsState['mealRecords'])
 }
