@@ -51,7 +51,7 @@ export function Layout({
         )}
 
         <AppShell.Main>
-          <Container size="md" mx="auto">
+          <Container size="md" m="md">
             {children}
           </Container>
         </AppShell.Main>

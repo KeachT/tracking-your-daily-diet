@@ -18,13 +18,11 @@ import { MealFormContent } from './MealFormContent'
 type MealFormAccordionItemProps = {
   mealCategoryName: MealCategoryName
   forms: FormsType
-  isLoading?: boolean
 }
 
 export function MealFormAccordionItem({
   mealCategoryName,
   forms,
-  isLoading = true,
 }: MealFormAccordionItemProps) {
   const [isSaveButtonDisabled, setIsSaveButtonDisabled] = useState(false)
   const { mealRecords, setMealRecords } = useMealRecordsStore()
@@ -69,11 +67,7 @@ export function MealFormAccordionItem({
       </Accordion.Control>
 
       <Accordion.Panel>
-        <MealFormContent
-          mealCategoryName={mealCategoryName}
-          forms={forms}
-          isLoading={isLoading}
-        />
+        <MealFormContent mealCategoryName={mealCategoryName} forms={forms} />
         <MealFormButtons
           onAdd={handleAdd}
           onSave={handleSave}
