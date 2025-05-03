@@ -49,7 +49,7 @@ export const fetchWeeklyMealRecords = async (
     return mealRecordsWithFoods as MealRecord[]
   } catch (error) {
     if (process.env.NODE_ENV !== 'production') {
-      console.error('Error fetching MealDates:', error)
+      console.error('Error fetching weekly meal records:', error)
     }
     throw error
   }
