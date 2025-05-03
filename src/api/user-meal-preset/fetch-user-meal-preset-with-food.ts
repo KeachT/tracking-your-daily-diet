@@ -25,12 +25,15 @@ export const fetchUserMealPresetWithFood = async (userMealPresetId: string) => {
       variables,
       authMode: 'AMAZON_COGNITO_USER_POOLS',
     })
+
     const userMealPresetWithFood =
       data?.getUserMealPreset as UserMealPreset | null
+
     return userMealPresetWithFood
-  } catch (err) {
+  } catch (error) {
     if (process.env.NODE_ENV !== 'production') {
-      console.error('Error fetching user meal preset with food details:', err)
+      console.error('Error fetching user meal preset with food details:', error)
     }
+    throw error
   }
 }

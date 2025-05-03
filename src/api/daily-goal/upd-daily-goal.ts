@@ -17,11 +17,17 @@ export const updDailyGoal = async (
       variables,
       authMode: 'AMAZON_COGNITO_USER_POOLS',
     })
+
     const dailyGoal = data?.updateDailyGoal as DailyGoalState['dailyGoal']
-    return dailyGoal
-  } catch (err) {
-    if (process.env.NODE_ENV !== 'production') {
-      console.error('Error updating DailyGoal:', err)
+    if (!dailyGoal) {
+      throw new Error('Failed to update daily goal')
     }
+
+    return dailyGoal
+  } catch (error) {
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Error updating DailyGoal:', error)
+    }
+    throw error
   }
 }
