@@ -2,21 +2,22 @@ import { MealCategoryName } from '@/API'
 
 import { LoadingSkeleton } from '../../../components/LoadingSkeleton'
 import { NoFoodText } from '../../../components/NoFoodText'
+import { useLoadingStateStore } from '../../../stores'
 import { FormsType } from '../types'
 import { MealFormFields } from './MealFormFields'
 
 type MealFormContentProps = {
   mealCategoryName: MealCategoryName
   forms: FormsType
-  isLoading: boolean
 }
 
 export function MealFormContent({
   mealCategoryName,
   forms,
-  isLoading,
 }: MealFormContentProps) {
-  if (isLoading) {
+  const { isDataLoading } = useLoadingStateStore()
+
+  if (isDataLoading) {
     return <LoadingSkeleton height={100} />
   }
 

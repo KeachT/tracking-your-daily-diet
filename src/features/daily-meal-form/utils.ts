@@ -2,7 +2,6 @@ import { createId } from '@paralleldrive/cuid2'
 import _differenceWith from 'lodash.differencewith'
 import _isEqual from 'lodash.isequal'
 import { sort, sum } from 'radash'
-import { Dispatch, SetStateAction } from 'react'
 
 import {
   CreateMealRecordInput,
@@ -17,6 +16,7 @@ import {
   fetchMealRecords,
   updMealRecord,
 } from '../../api/meal-record'
+import { LoadingState } from '../../stores/loadingState'
 import { MealRecordsState } from './stores'
 import { FormField, FormsType } from './types'
 
@@ -207,19 +207,24 @@ const normalizeFoods = (forms: FormsType, mealCategoryName: string) => {
 }
 
 /**
- * Loads meal records for a given date and updates the state.
+ * Asynchronously loads meal records for a specific date.
  *
- * @param currentDateString - The date string for which to fetch meal records.
- * @param setMealRecords - The state setter function to update meal records.
- * @param setIsLoading - The function to update the loading state.
- * @returns A promise that resolves when the meal records have been loaded.
+ * @param currentDateString - The date string to filter meal records by
+ * @param setMealRecords - Function to update the meal records in state
+ * @param setIsDataLoading - Function to update the loading state
+ *
+ * @remarks
+ * This function handles the loading state by setting it to true before fetching
+ * and resetting it to false after the operation completes (whether successful or not).
+ *
+ * @returns A Promise that resolves when the meal records have been loaded and state updated
  */
 export const loadMealRecords = async (
   currentDateString: string,
   setMealRecords: MealRecordsState['setMealRecords'],
-  setIsLoading: Dispatch<SetStateAction<boolean>>
+  setIsDataLoading: LoadingState['setIsDataLoading']
 ) => {
-  setIsLoading(true)
+  setIsDataLoading(true)
   try {
     const variables: ListMealRecordsQueryVariables = {
       filter: {
@@ -231,6 +236,6 @@ export const loadMealRecords = async (
       uniqueMealRecordsWithFoods as MealRecordsState['mealRecords']
     )
   } finally {
-    setIsLoading(false)
+    setIsDataLoading(false)
   }
 }

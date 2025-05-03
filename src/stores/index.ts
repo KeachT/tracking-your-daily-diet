@@ -1,4 +1,5 @@
 export * from './currentDate'
 export * from './dailyGoal'
+export * from './loadingState'
 export * from './nutritionNumbers'
 export * from './weeklyMealRecords'

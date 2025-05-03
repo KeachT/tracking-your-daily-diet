@@ -1,10 +1,14 @@
 import { Accordion } from '@mantine/core'
 import { useForm } from '@mantine/form'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 import { MealCategoryName } from '@/API'
 
-import { useCurrentDateStore, useNutritionNumbersStore } from '../../../stores'
+import {
+  useCurrentDateStore,
+  useLoadingStateStore,
+  useNutritionNumbersStore,
+} from '../../../stores'
 import { createStringFromDate, roundToTwoDecimalPlaces } from '../../../utils'
 import { useMealRecordsStore } from '../stores'
 import { FormsType } from '../types'
@@ -17,8 +21,8 @@ import {
 import { MealFormAccordionItem } from './MealFormAccordionItem'
 
 export function MealForm() {
-  const [isLoading, setIsLoading] = useState(true)
   const { currentDate } = useCurrentDateStore()
+  const { setIsDataLoading } = useLoadingStateStore()
   const { mealRecords, setMealRecords } = useMealRecordsStore()
   const {
     setDailyCalories,
@@ -48,8 +52,8 @@ export function MealForm() {
   }, [mealRecords])
 
   useEffect(() => {
-    loadMealRecords(currentDateString, setMealRecords, setIsLoading)
-  }, [currentDateString, setMealRecords])
+    loadMealRecords(currentDateString, setMealRecords, setIsDataLoading)
+  }, [currentDateString, setMealRecords, setIsDataLoading])
 
   useEffect(() => {
     setDailyCalories(roundToTwoDecimalPlaces(sumDailyCalories))
@@ -74,7 +78,6 @@ export function MealForm() {
           key={mealCategoryName}
           mealCategoryName={mealCategoryName}
           forms={forms}
-          isLoading={isLoading}
         />
       ))}
     </Accordion>
