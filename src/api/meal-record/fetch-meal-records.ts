@@ -39,7 +39,7 @@ export const fetchMealRecords = async (
     return uniqueMealRecordsWithFoods as MealRecord[]
   } catch (error) {
     if (process.env.NODE_ENV !== 'production') {
-      console.error('Error fetching MealDates:', error)
+      console.error('Error fetching meal records:', error)
     }
     throw error
   }
