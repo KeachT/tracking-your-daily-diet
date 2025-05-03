@@ -28,9 +28,10 @@ export const fetchMealRecordWithFoods = async (mealRecordId: string) => {
       foods: uniqueFoods,
     }
     return mealRecordWithUniqueFoods
-  } catch (err) {
+  } catch (error) {
     if (process.env.NODE_ENV !== 'production') {
-      console.error('Error fetching MealRecord:', err)
+      console.error('Error fetching MealRecord:', error)
     }
+    throw error
   }
 }

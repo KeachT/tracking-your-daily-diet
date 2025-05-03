@@ -27,14 +27,15 @@ export const addUserMealPreset = async (
     })
 
     const newUserMealPreset = data?.createUserMealPreset as UserMealPreset
-
     if (!newUserMealPreset) {
       throw new Error('Failed to create user meal preset')
     }
 
     return newUserMealPreset
   } catch (error) {
-    console.error('Error creating user meal preset:', error)
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Error creating user meal preset:', error)
+    }
     throw error
   }
 }

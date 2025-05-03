@@ -17,11 +17,17 @@ export const updMealRecord = async (
       variables: variables,
       authMode: 'AMAZON_COGNITO_USER_POOLS',
     })
+
     const updatedMealRecord = data?.updateMealRecord as MealRecord
-    return updatedMealRecord
-  } catch (err) {
-    if (process.env.NODE_ENV !== 'production') {
-      console.error('Error updating meal record:', err)
+    if (!updatedMealRecord) {
+      throw new Error('Failed to update meal record')
     }
+
+    return updatedMealRecord
+  } catch (error) {
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Error updating meal record:', error)
+    }
+    throw error
   }
 }

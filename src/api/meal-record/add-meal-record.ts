@@ -17,11 +17,17 @@ export const addMealRecord = async (
       variables,
       authMode: 'AMAZON_COGNITO_USER_POOLS',
     })
+
     const newMealRecord = data?.createMealRecord as MealRecord
-    return newMealRecord
-  } catch (err) {
-    if (process.env.NODE_ENV !== 'production') {
-      console.error('Error creating meal record:', err)
+    if (!newMealRecord) {
+      throw new Error('Failed to create meal record')
     }
+
+    return newMealRecord
+  } catch (error) {
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Error creating meal record:', error)
+    }
+    throw error
   }
 }

@@ -27,14 +27,15 @@ export const updUserMealPreset = async (
     })
 
     const updatedUserMealPreset = data?.updateUserMealPreset as UserMealPreset
-
     if (!updatedUserMealPreset) {
       throw new Error('Failed to update user meal preset')
     }
 
     return updatedUserMealPreset
   } catch (error) {
-    console.error('Error updating user meal preset:', error)
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Error updating user meal preset:', error)
+    }
     throw error
   }
 }

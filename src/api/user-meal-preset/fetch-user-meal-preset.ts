@@ -37,6 +37,7 @@ export const fetchUserMealPreset = async (
     const userMealPresetWithFood = await fetchUserMealPresetWithFood(
       userMealPreset.id
     )
+
     if (!userMealPresetWithFood) {
       console.warn('No user meal preset found')
       return null
@@ -44,7 +45,9 @@ export const fetchUserMealPreset = async (
 
     return userMealPresetWithFood
   } catch (error) {
-    console.error('Error fetching user meal preset:', error)
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Error fetching user meal preset:', error)
+    }
     throw error
   }
 }
