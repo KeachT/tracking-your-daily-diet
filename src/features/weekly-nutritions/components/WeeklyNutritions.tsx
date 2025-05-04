@@ -1,8 +1,12 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 import { LoadingSkeleton } from '../../../components/LoadingSkeleton'
 import { Nutritions } from '../../../features/nutritions'
-import { useCurrentDateStore, useWeeklyMealRecordsStore } from '../../../stores'
+import {
+  useCurrentDateStore,
+  useLoadingStateStore,
+  useWeeklyMealRecordsStore,
+} from '../../../stores'
 import {
   countWeeklyDateWithFoods,
   createAvgWeekNutritionValues,
@@ -11,8 +15,8 @@ import {
 } from '../utils'
 
 export function WeeklyNutritions() {
-  const [isLoading, setIsLoading] = useState(true)
   const { currentDate } = useCurrentDateStore()
+  const { isDataLoading, setIsDataLoading } = useLoadingStateStore()
   const { weeklyMealRecords, setWeeklyMealRecords } =
     useWeeklyMealRecordsStore()
 
@@ -31,13 +35,20 @@ export function WeeklyNutritions() {
       currentDateString,
       prevWeekDateString,
       setWeeklyMealRecords,
-      setIsLoading
+      setIsDataLoading
     )
-  }, [currentDateString, prevWeekDateString, setWeeklyMealRecords])
+  }, [
+    currentDateString,
+    prevWeekDateString,
+    setWeeklyMealRecords,
+    setIsDataLoading,
+  ])
 
-  return isLoading ? (
-    <LoadingSkeleton height={200} />
-  ) : (
+  if (isDataLoading) {
+    return <LoadingSkeleton height={200} />
+  }
+
+  return (
     <Nutritions
       dailyCalories={avgWeeklyCalories}
       dailyProtein={avgWeeklyProtein}

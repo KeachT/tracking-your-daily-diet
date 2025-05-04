@@ -1,10 +1,13 @@
 import { sum } from 'radash'
-import { Dispatch, SetStateAction } from 'react'
 
 import { MealCategoryName, MealRecord } from '@/API'
 
 import { fetchWeeklyMealRecords } from '../../api/meal-record'
-import { CurrentDateState, WeeklyMealRecordsState } from '../../stores'
+import {
+  CurrentDateState,
+  LoadingState,
+  WeeklyMealRecordsState,
+} from '../../stores'
 import {
   createPrevWeekDate,
   createStringFromDate,
@@ -118,21 +121,26 @@ export const createAvgWeekNutritionValues = (
 }
 
 /**
- * Loads the weekly meal records for the given date range and updates the state accordingly.
+ * Asynchronously loads weekly meal records between two dates.
  *
- * @param currentDateString - The current date as a string in the format 'YYYY-MM-DD'.
- * @param prevWeekDateString - The date string representing the start of the previous week in the format 'YYYY-MM-DD'.
- * @param setWeeklyMealRecords - A function to update the state with the fetched meal records.
- * @param setIsLoading - The function to update the loading state.
- * @returns A promise that resolves when the meal records have been loaded.
+ * This function manages the loading state while fetching meal records data.
+ * It sets the loading state to true before fetching data and sets it back
+ * to false when the operation completes (regardless of success or failure).
+ *
+ * @param currentDateString - String representation of the current date
+ * @param prevWeekDateString - String representation of the date from previous week
+ * @param setWeeklyMealRecords - State setter function to update the weekly meal records
+ * @param setIsDataLoading - State setter function to update the loading indicator
+ *
+ * @returns A promise that resolves when the operation completes
  */
 export const loadWeeklyMealRecords = async (
   currentDateString: string,
   prevWeekDateString: string,
   setWeeklyMealRecords: WeeklyMealRecordsState['setWeeklyMealRecords'],
-  setIsLoading: Dispatch<SetStateAction<boolean>>
+  setIsDataLoading: LoadingState['setIsDataLoading']
 ) => {
-  setIsLoading(true)
+  setIsDataLoading(true)
   try {
     const mealRecordsWithFoods = await fetchWeeklyMealRecords(
       currentDateString,
@@ -140,6 +148,6 @@ export const loadWeeklyMealRecords = async (
     )
     setWeeklyMealRecords(mealRecordsWithFoods as MealRecord[])
   } finally {
-    setIsLoading(false)
+    setIsDataLoading(false)
   }
 }
