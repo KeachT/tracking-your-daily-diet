@@ -1,9 +1,11 @@
 import { ScrollArea } from '@mantine/core'
 import { Bar, BarChart, ReferenceLine, Tooltip, XAxis, YAxis } from 'recharts'
 
+import { LoadingSkeleton } from '../../../components/LoadingSkeleton'
 import {
   useCurrentDateStore,
   useDailyGoalStore,
+  useLoadingStateStore,
   useWeeklyMealRecordsStore,
 } from '../../../stores'
 import {
@@ -13,6 +15,7 @@ import {
 } from '../utils'
 
 export function WeeklyCaloriesChart() {
+  const { isDataLoading } = useLoadingStateStore()
   const { dailyGoal } = useDailyGoalStore()
   const { currentDate } = useCurrentDateStore()
   const { weeklyMealRecords } = useWeeklyMealRecordsStore()
@@ -24,6 +27,10 @@ export function WeeklyCaloriesChart() {
   )
   const maxCalories = getMaxCalories(weeklyNutritionsData)
   const yLimit = determineYLimit(maxCalories, dailyGoalCalories)
+
+  if (isDataLoading) {
+    return <LoadingSkeleton height={400} />
+  }
 
   return (
     <ScrollArea maw={700} h={500} mb={50}>
