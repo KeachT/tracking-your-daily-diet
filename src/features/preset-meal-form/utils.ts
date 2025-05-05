@@ -1,8 +1,7 @@
 import { createId } from '@paralleldrive/cuid2'
 import _differenceWith from 'lodash.differencewith'
 import _isEqual from 'lodash.isequal'
-import { sort } from 'radash'
-import { Dispatch, SetStateAction } from 'react'
+import { sort, sum } from 'radash'
 
 import {
   CreateUserMealPresetInput,
@@ -18,6 +17,7 @@ import {
   fetchUserMealPreset,
   updUserMealPreset,
 } from '../../api/user-meal-preset'
+import { LoadingState } from '../../stores'
 import { UserMealPresetState } from './stores'
 import { FormField, FormsType } from './types'
 
@@ -77,20 +77,43 @@ export const createInitialFormValuesFromPreset = (
   const initialFormValues = mealCategoryNames.reduce(
     (formValues, mealCategoryName) => {
       const categoryKey = mealCategoryName.toLowerCase() as keyof UserMealPreset
-
       const foods =
         userMealPreset && Array.isArray(userMealPreset[categoryKey])
           ? (userMealPreset[categoryKey] as FoodItem[])
           : []
-
       const sortedFoods = sort([...foods], (f) => f?.calories || 0, true)
-
       return { ...formValues, [mealCategoryName]: sortedFoods }
     },
     {}
   )
 
   return initialFormValues
+}
+
+/**
+ * Calculates the sum of nutritional values from all foods in the forms object.
+ *
+ * @param forms - The forms object containing food items with nutritional information.
+ * @returns An object with the following properties:
+ *   - sumCalories - The sum of calories across all foods.
+ *   - sumProtein - The sum of protein across all foods.
+ *   - sumFat - The sum of fat across all foods.
+ *   - sumCarbohydrates - The sum of carbohydrates across all foods.
+ */
+export const createSumNutritionValues = (forms: FormsType) => {
+  const allFoods = Object.values(forms.values).flat()
+
+  const sumCalories = sum(allFoods, (f) => Number(f?.calories || 0))
+  const sumProtein = sum(allFoods, (f) => Number(f?.protein || 0))
+  const sumFat = sum(allFoods, (f) => Number(f?.fat || 0))
+  const sumCarbohydrates = sum(allFoods, (f) => Number(f?.carbohydrates || 0))
+
+  return {
+    sumCalories,
+    sumProtein,
+    sumFat,
+    sumCarbohydrates,
+  }
 }
 
 /**
@@ -148,20 +171,20 @@ export const saveUserMealPreset = async (
  * Loads the user meal preset and sets it in the state.
  *
  * @param setUserMealPreset - The function to update the user meal preset state.
- * @param setIsLoading - The function to update the loading state.
+ * @param setIsDataLoading - Function to update the loading state
  * @returns A promise that resolves when the user meal preset has been loaded.
  */
 export const loadUserMealPreset = async (
   setUserMealPreset: UserMealPresetState['setUserMealPreset'],
-  setIsLoading: Dispatch<SetStateAction<boolean>>
+  setIsDataLoading: LoadingState['setIsDataLoading']
 ) => {
-  setIsLoading(true)
+  setIsDataLoading(true)
   try {
     const userMealPreset = await fetchUserMealPreset()
     if (userMealPreset) {
       setUserMealPreset(userMealPreset)
     }
   } finally {
-    setIsLoading(false)
+    setIsDataLoading(false)
   }
 }

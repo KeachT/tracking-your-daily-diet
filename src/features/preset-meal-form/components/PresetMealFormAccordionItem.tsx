@@ -17,13 +17,11 @@ import { PresetMealFormContent } from './PresetMealFormContent'
 type PresetMealFormAccordionItemProps = {
   mealCategoryName: MealCategoryName
   forms: FormsType
-  isLoading?: boolean
 }
 
 export function PresetMealFormAccordionItem({
   mealCategoryName,
   forms,
-  isLoading = true,
 }: PresetMealFormAccordionItemProps) {
   const [isSaveButtonDisabled, setIsSaveButtonDisabled] = useState(false)
   const { userMealPreset, setUserMealPreset } = useUserMealPresetStore()
@@ -68,7 +66,6 @@ export function PresetMealFormAccordionItem({
         <PresetMealFormContent
           mealCategoryName={mealCategoryName}
           forms={forms}
-          isLoading={isLoading}
         />
         <MealFormButtons
           onAdd={handleAdd}

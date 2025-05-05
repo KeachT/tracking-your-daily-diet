@@ -31,19 +31,15 @@ export function MealForm() {
     setDailyCarbohydrates,
   } = useNutritionNumbersStore()
 
+  const forms: FormsType = useForm({})
   const mealCategoryNames = Object.values(
     MealCategoryName
   ) as MealCategoryName[]
 
   const currentDateString = createStringFromDate(currentDate)
   const defaultCategory = getDefaultCategory()
-  const forms: FormsType = useForm({})
-  const {
-    sumDailyCalories,
-    sumDailyProtein,
-    sumDailyFat,
-    sumDailyCarbohydrates,
-  } = createSumNutritionValues(forms)
+  const { sumCalories, sumProtein, sumFat, sumCarbohydrates } =
+    createSumNutritionValues(forms)
 
   useEffect(() => {
     const initialFormValues = createInitialFormValues(mealRecords)
@@ -56,20 +52,12 @@ export function MealForm() {
   }, [currentDateString, setMealRecords, setIsDataLoading])
 
   useEffect(() => {
-    setDailyCalories(roundToTwoDecimalPlaces(sumDailyCalories))
-  }, [sumDailyCalories, setDailyCalories])
-
-  useEffect(() => {
-    setDailyProtein(roundToTwoDecimalPlaces(sumDailyProtein))
-  }, [sumDailyProtein, setDailyProtein])
-
-  useEffect(() => {
-    setDailyFat(roundToTwoDecimalPlaces(sumDailyFat))
-  }, [sumDailyFat, setDailyFat])
-
-  useEffect(() => {
-    setDailyCarbohydrates(roundToTwoDecimalPlaces(sumDailyCarbohydrates))
-  }, [sumDailyCarbohydrates, setDailyCarbohydrates])
+    setDailyCalories(roundToTwoDecimalPlaces(sumCalories))
+    setDailyProtein(roundToTwoDecimalPlaces(sumProtein))
+    setDailyFat(roundToTwoDecimalPlaces(sumFat))
+    setDailyCarbohydrates(roundToTwoDecimalPlaces(sumCarbohydrates))
+    // eslint-disable-next-line
+  }, [sumCalories, sumProtein, sumFat, sumCarbohydrates])
 
   return (
     <Accordion defaultValue={defaultCategory} variant="separated">
