@@ -98,15 +98,12 @@ export const getDefaultCategory = () => {
  * - `sumCarbohydrates`: Total carbohydrates from all food entries.
  */
 export const createSumNutritionValues = (forms: FormsType) => {
-  const FoodsByCategory = Object.values(forms.values)
-  const Foods = FoodsByCategory.flat()
+  const allFoods = Object.values(forms.values).flat()
 
-  const sumCalories = sum(Foods.flat(), (f) => Number(f.calories || 0))
-  const sumProtein = sum(Foods.flat(), (f) => Number(f.protein || 0))
-  const sumFat = sum(Foods.flat(), (f) => Number(f.fat || 0))
-  const sumCarbohydrates = sum(Foods.flat(), (f) =>
-    Number(f.carbohydrates || 0)
-  )
+  const sumCalories = sum(allFoods, (f) => Number(f.calories || 0))
+  const sumProtein = sum(allFoods, (f) => Number(f.protein || 0))
+  const sumFat = sum(allFoods, (f) => Number(f.fat || 0))
+  const sumCarbohydrates = sum(allFoods, (f) => Number(f.carbohydrates || 0))
 
   return {
     sumCalories,
