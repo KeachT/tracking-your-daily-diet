@@ -16,7 +16,7 @@ import {
   fetchMealRecords,
   updMealRecord,
 } from '../../api/meal-record'
-import { LoadingState } from '../../stores/loadingState'
+import { LoadingState } from '../../stores'
 import { MealRecordsState } from './stores'
 import { FormField, FormsType } from './types'
 
@@ -52,10 +52,8 @@ export const createInitialFormValues = (
       const mealRecord = mealRecords.find(
         (mealRecord) => mealRecord?.category === mealCategoryName
       )
-
       const foods = mealRecord?.foods || []
       const sortedFoods = sort([...foods], (f) => f?.calories || 0, true)
-
       return { ...formValues, [mealCategoryName]: sortedFoods }
     },
     {}
@@ -76,19 +74,15 @@ export const createInitialFormValues = (
  */
 export const getDefaultCategory = () => {
   const currentHour = new Date().getHours()
-
   if (currentHour < 11) {
     return MealCategoryName.BREAKFAST
   }
-
   if (currentHour < 14) {
     return MealCategoryName.LUNCH
   }
-
   if (currentHour < 17) {
     return MealCategoryName.SNACK
   }
-
   return MealCategoryName.DINNER
 }
 
@@ -96,31 +90,26 @@ export const getDefaultCategory = () => {
  * Calculates the sum of nutritional values (calories, protein, fat, and carbohydrates)
  * from a given set of forms.
  *
- * @param {FormsType} forms - The forms containing daily food entries categorized by type.
+ * @param {FormsType} forms - The forms containing food entries categorized by type.
  * @returns {Object} An object containing the summed nutritional values:
- * - `sumDailyCalories`: Total calories from all food entries.
- * - `sumDailyProtein`: Total protein from all food entries.
- * - `sumDailyFat`: Total fat from all food entries.
- * - `sumDailyCarbohydrates`: Total carbohydrates from all food entries.
+ * - `sumCalories`: Total calories from all food entries.
+ * - `sumProtein`: Total protein from all food entries.
+ * - `sumFat`: Total fat from all food entries.
+ * - `sumCarbohydrates`: Total carbohydrates from all food entries.
  */
 export const createSumNutritionValues = (forms: FormsType) => {
-  const dailyFoodsByCategory = Object.values(forms.values)
-  const dailyFoods = dailyFoodsByCategory.flat()
+  const allFoods = Object.values(forms.values).flat()
 
-  const sumDailyCalories = sum(dailyFoods.flat(), (f) =>
-    Number(f.calories || 0)
-  )
-  const sumDailyProtein = sum(dailyFoods.flat(), (f) => Number(f.protein || 0))
-  const sumDailyFat = sum(dailyFoods.flat(), (f) => Number(f.fat || 0))
-  const sumDailyCarbohydrates = sum(dailyFoods.flat(), (f) =>
-    Number(f.carbohydrates || 0)
-  )
+  const sumCalories = sum(allFoods, (f) => Number(f.calories || 0))
+  const sumProtein = sum(allFoods, (f) => Number(f.protein || 0))
+  const sumFat = sum(allFoods, (f) => Number(f.fat || 0))
+  const sumCarbohydrates = sum(allFoods, (f) => Number(f.carbohydrates || 0))
 
   return {
-    sumDailyCalories,
-    sumDailyProtein,
-    sumDailyFat,
-    sumDailyCarbohydrates,
+    sumCalories,
+    sumProtein,
+    sumFat,
+    sumCarbohydrates,
   }
 }
 
@@ -192,6 +181,7 @@ export const saveAndSetMealRecord = async (
  */
 const normalizeFoods = (forms: FormsType, mealCategoryName: string) => {
   const foods = forms.values[mealCategoryName]
+
   const normalizedFoods = foods.map((food) => {
     const { id, name, calories, protein, carbohydrates, fat } = food
     return {
@@ -203,6 +193,7 @@ const normalizeFoods = (forms: FormsType, mealCategoryName: string) => {
       fat: Number(fat || 0),
     }
   })
+
   return normalizedFoods
 }
 
