@@ -2,7 +2,7 @@ export enum Path {
   Index = '/',
   Day = '/day',
   Week = '/week',
-  Month = '/month',
+  Preset = '/preset',
   Settings = '/settings',
   Landingpage = '/landingpage',
 }
