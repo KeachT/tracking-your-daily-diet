@@ -29,7 +29,7 @@ export const fetchUserMealPreset = async (
     const userMealPresets = data?.listUserMealPresets?.items || []
     const userMealPreset = userMealPresets[0] as UserMealPreset
     if (!userMealPreset) {
-      console.warn('No user meal preset found')
+      console.info('No user meal preset found')
       return null
     }
 
@@ -39,7 +39,7 @@ export const fetchUserMealPreset = async (
     )
 
     if (!userMealPresetWithFood) {
-      console.warn('No user meal preset found')
+      console.info('No user meal preset found')
       return null
     }
 

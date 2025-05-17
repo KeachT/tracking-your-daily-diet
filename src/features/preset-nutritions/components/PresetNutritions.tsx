@@ -1,9 +1,9 @@
 import { LoadingSkeleton } from '../../../components/LoadingSkeleton'
+import { Nutritions } from '../../../components/nutritions'
 import {
   useLoadingStateStore,
   usePresetNutritionNumbersStore,
 } from '../../../stores'
-import { Nutritions } from '../../nutritions'
 
 export function PresetNutritions() {
   const { isDataLoading } = useLoadingStateStore()
@@ -16,10 +16,10 @@ export function PresetNutritions() {
 
   return (
     <Nutritions
-      dailyCalories={presetCalories}
-      dailyProtein={presetProtein}
-      dailyFat={presetFat}
-      dailyCarbohydrates={presetCarbohydrates}
+      calories={presetCalories}
+      protein={presetProtein}
+      fat={presetFat}
+      carbohydrates={presetCarbohydrates}
     />
   )
 }

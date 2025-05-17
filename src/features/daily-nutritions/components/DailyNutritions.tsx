@@ -1,6 +1,6 @@
 import { LoadingSkeleton } from '../../../components/LoadingSkeleton'
+import { Nutritions } from '../../../components/nutritions'
 import { useLoadingStateStore, useNutritionNumbersStore } from '../../../stores'
-import { Nutritions } from '../../nutritions'
 
 export function DailyNutritions() {
   const { isDataLoading } = useLoadingStateStore()
@@ -13,10 +13,10 @@ export function DailyNutritions() {
 
   return (
     <Nutritions
-      dailyCalories={dailyCalories}
-      dailyProtein={dailyProtein}
-      dailyFat={dailyFat}
-      dailyCarbohydrates={dailyCarbohydrates}
+      calories={dailyCalories}
+      protein={dailyProtein}
+      fat={dailyFat}
+      carbohydrates={dailyCarbohydrates}
     />
   )
 }
