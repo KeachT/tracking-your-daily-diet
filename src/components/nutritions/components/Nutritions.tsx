@@ -1,6 +1,6 @@
 import { Grid, Paper } from '@mantine/core'
 
-import { NutritionNumbersState, useDailyGoalStore } from '../../../stores'
+import { useDailyGoalStore } from '../../../stores'
 import { createNutritions } from '../utils'
 import { NutritionRing } from './NutritionRing'
 

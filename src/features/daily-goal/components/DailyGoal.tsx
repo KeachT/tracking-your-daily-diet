@@ -1,4 +1,4 @@
-import { Box, Button, Text } from '@mantine/core'
+import { Box, Button } from '@mantine/core'
 import { Notifications, notifications } from '@mantine/notifications'
 import { IconCheck, IconX } from '@tabler/icons-react'
 import { useState } from 'react'
