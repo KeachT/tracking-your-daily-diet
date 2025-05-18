@@ -1,0 +1,7 @@
+/* filepath: /Users/main/Dev/project/tracking-your-daily-diet/src/components/Layout/Layout.module.css */
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}

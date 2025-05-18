@@ -4,17 +4,20 @@ import { ReactNode, useState } from 'react'
 
 import { LayoutHeader } from '../LayoutHeader'
 import { LayoutNavBar } from '../LayoutNavBar'
+import classes from './Layout.module.css'
 
 type LayoutProps = {
   title: string
   children: ReactNode
   showNavBar?: boolean
+  centerContent?: boolean
 }
 
 export function Layout({
   title = '',
   children,
   showNavBar = true,
+  centerContent = false,
 }: LayoutProps) {
   const [navbarOpened, setNavbarOpened] = useState(false)
 
@@ -35,7 +38,7 @@ export function Layout({
             : undefined
         }
         header={{ height: 60 }}
-        padding="lg"
+        mt={20}
       >
         <AppShell.Header>
           <LayoutHeader
@@ -50,7 +53,7 @@ export function Layout({
           </AppShell.Navbar>
         )}
 
-        <AppShell.Main>
+        <AppShell.Main className={centerContent ? classes.center : undefined}>
           <Container size="md" m="md">
             {children}
           </Container>
