@@ -3,7 +3,7 @@ import { Layout } from '../components/Layout'
 
 export default function Lp() {
   return (
-    <Layout title="LandingPage" showNavBar={false}>
+    <Layout title="LandingPage" showNavBar={false} centerContent={true}>
       <LandingPage />
     </Layout>
   )
