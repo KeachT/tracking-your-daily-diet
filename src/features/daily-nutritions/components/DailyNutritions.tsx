@@ -1,5 +1,5 @@
 import { LoadingSkeleton } from '../../../components/LoadingSkeleton'
-import { Nutritions } from '../../../components/Nutritions'
+import { Nutritions } from '../../../components/nutritions'
 import { useLoadingStateStore, useNutritionNumbersStore } from '../../../stores'
 
 export function DailyNutritions() {
