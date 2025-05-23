@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 
 import { LoadingSkeleton } from '../../../components/LoadingSkeleton'
-import { Nutritions } from '../../../components/nutritions'
+import { Nutritions } from '../../../components/Nutritions'
 import {
   useCurrentDateStore,
   useLoadingStateStore,
