@@ -4,19 +4,19 @@ import { useDailyGoalStore } from '../../../stores'
 import { createNutritions } from '../utils'
 import { NutritionRing } from './NutritionRing'
 
-type NutritionsProps = {
+type NutritionSummaryProps = {
   calories: number
   protein: number
   fat: number
   carbohydrates: number
 }
 
-export function Nutritions({
+export function NutritionSummary({
   calories,
   protein,
   fat,
   carbohydrates,
-}: NutritionsProps) {
+}: NutritionSummaryProps) {
   const { dailyGoal } = useDailyGoalStore()
 
   const nutritions = createNutritions(
