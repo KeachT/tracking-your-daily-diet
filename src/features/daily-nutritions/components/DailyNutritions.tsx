@@ -1,5 +1,5 @@
 import { LoadingSkeleton } from '../../../components/LoadingSkeleton'
-import { Nutritions } from '../../../components/Nutritions'
+import { NutritionSummary } from '../../../components/NutritionSummary'
 import { useLoadingStateStore, useNutritionNumbersStore } from '../../../stores'
 
 export function DailyNutritions() {
@@ -12,7 +12,7 @@ export function DailyNutritions() {
   }
 
   return (
-    <Nutritions
+    <NutritionSummary
       calories={dailyCalories}
       protein={dailyProtein}
       fat={dailyFat}

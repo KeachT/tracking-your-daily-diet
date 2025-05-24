@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 
 import { LoadingSkeleton } from '../../../components/LoadingSkeleton'
-import { Nutritions } from '../../../components/Nutritions'
+import { NutritionSummary } from '../../../components/NutritionSummary'
 import {
   useCurrentDateStore,
   useLoadingStateStore,
@@ -49,7 +49,7 @@ export function WeeklyNutritions() {
   }
 
   return (
-    <Nutritions
+    <NutritionSummary
       calories={avgWeeklyCalories}
       protein={avgWeeklyProtein}
       fat={avgWeeklyFat}
