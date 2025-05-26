@@ -77,6 +77,174 @@ export const deleteDailyGoal = /* GraphQL */ `mutation DeleteDailyGoal(
   APITypes.DeleteDailyGoalMutationVariables,
   APITypes.DeleteDailyGoalMutation
 >;
+export const createDailyMealRecord = /* GraphQL */ `mutation CreateDailyMealRecord(
+  $input: CreateDailyMealRecordInput!
+  $condition: ModelDailyMealRecordConditionInput
+) {
+  createDailyMealRecord(input: $input, condition: $condition) {
+    id
+    date
+    breakfast {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    lunch {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    dinner {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    snack {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateDailyMealRecordMutationVariables,
+  APITypes.CreateDailyMealRecordMutation
+>;
+export const updateDailyMealRecord = /* GraphQL */ `mutation UpdateDailyMealRecord(
+  $input: UpdateDailyMealRecordInput!
+  $condition: ModelDailyMealRecordConditionInput
+) {
+  updateDailyMealRecord(input: $input, condition: $condition) {
+    id
+    date
+    breakfast {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    lunch {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    dinner {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    snack {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateDailyMealRecordMutationVariables,
+  APITypes.UpdateDailyMealRecordMutation
+>;
+export const deleteDailyMealRecord = /* GraphQL */ `mutation DeleteDailyMealRecord(
+  $input: DeleteDailyMealRecordInput!
+  $condition: ModelDailyMealRecordConditionInput
+) {
+  deleteDailyMealRecord(input: $input, condition: $condition) {
+    id
+    date
+    breakfast {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    lunch {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    dinner {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    snack {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteDailyMealRecordMutationVariables,
+  APITypes.DeleteDailyMealRecordMutation
+>;
 export const createMealRecord = /* GraphQL */ `mutation CreateMealRecord(
   $input: CreateMealRecordInput!
   $condition: ModelMealRecordConditionInput

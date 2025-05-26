@@ -10,6 +10,18 @@ type DailyGoal @model @auth(rules: [{ allow: owner }]) {
 }
 
 """
+Represents a user's daily meal record, which includes meals for breakfast, lunch, dinner, and snacks.
+"""
+type DailyMealRecord @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  date: AWSDate!
+  breakfast: [FoodItem]
+  lunch: [FoodItem]
+  dinner: [FoodItem]
+  snack: [FoodItem]
+}
+
+"""
 Definition of Denormalized Data Models
 """
 type MealRecord @model @auth(rules: [{ allow: owner }]) {
