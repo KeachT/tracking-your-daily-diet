@@ -92,6 +92,117 @@ export const syncDailyGoals = /* GraphQL */ `query SyncDailyGoals(
   APITypes.SyncDailyGoalsQueryVariables,
   APITypes.SyncDailyGoalsQuery
 >;
+export const getDailyMealRecord = /* GraphQL */ `query GetDailyMealRecord($id: ID!) {
+  getDailyMealRecord(id: $id) {
+    id
+    date
+    breakfast {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    lunch {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    dinner {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    snack {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetDailyMealRecordQueryVariables,
+  APITypes.GetDailyMealRecordQuery
+>;
+export const listDailyMealRecords = /* GraphQL */ `query ListDailyMealRecords(
+  $filter: ModelDailyMealRecordFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listDailyMealRecords(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      date
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+      __typename
+    }
+    nextToken
+    startedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListDailyMealRecordsQueryVariables,
+  APITypes.ListDailyMealRecordsQuery
+>;
+export const syncDailyMealRecords = /* GraphQL */ `query SyncDailyMealRecords(
+  $filter: ModelDailyMealRecordFilterInput
+  $limit: Int
+  $nextToken: String
+  $lastSync: AWSTimestamp
+) {
+  syncDailyMealRecords(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    lastSync: $lastSync
+  ) {
+    items {
+      id
+      date
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+      __typename
+    }
+    nextToken
+    startedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.SyncDailyMealRecordsQueryVariables,
+  APITypes.SyncDailyMealRecordsQuery
+>;
 export const getMealRecord = /* GraphQL */ `query GetMealRecord($id: ID!) {
   getMealRecord(id: $id) {
     id

@@ -77,6 +77,174 @@ export const onDeleteDailyGoal = /* GraphQL */ `subscription OnDeleteDailyGoal(
   APITypes.OnDeleteDailyGoalSubscriptionVariables,
   APITypes.OnDeleteDailyGoalSubscription
 >;
+export const onCreateDailyMealRecord = /* GraphQL */ `subscription OnCreateDailyMealRecord(
+  $filter: ModelSubscriptionDailyMealRecordFilterInput
+  $owner: String
+) {
+  onCreateDailyMealRecord(filter: $filter, owner: $owner) {
+    id
+    date
+    breakfast {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    lunch {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    dinner {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    snack {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateDailyMealRecordSubscriptionVariables,
+  APITypes.OnCreateDailyMealRecordSubscription
+>;
+export const onUpdateDailyMealRecord = /* GraphQL */ `subscription OnUpdateDailyMealRecord(
+  $filter: ModelSubscriptionDailyMealRecordFilterInput
+  $owner: String
+) {
+  onUpdateDailyMealRecord(filter: $filter, owner: $owner) {
+    id
+    date
+    breakfast {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    lunch {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    dinner {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    snack {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateDailyMealRecordSubscriptionVariables,
+  APITypes.OnUpdateDailyMealRecordSubscription
+>;
+export const onDeleteDailyMealRecord = /* GraphQL */ `subscription OnDeleteDailyMealRecord(
+  $filter: ModelSubscriptionDailyMealRecordFilterInput
+  $owner: String
+) {
+  onDeleteDailyMealRecord(filter: $filter, owner: $owner) {
+    id
+    date
+    breakfast {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    lunch {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    dinner {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    snack {
+      id
+      name
+      calories
+      protein
+      carbohydrates
+      fat
+      __typename
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteDailyMealRecordSubscriptionVariables,
+  APITypes.OnDeleteDailyMealRecordSubscription
+>;
 export const onCreateMealRecord = /* GraphQL */ `subscription OnCreateMealRecord(
   $filter: ModelSubscriptionMealRecordFilterInput
   $owner: String
