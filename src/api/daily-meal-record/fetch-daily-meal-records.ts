@@ -32,7 +32,7 @@ export const fetchDailyMealRecords = async (
     // Remove null entries and fetch detailed records
     const validDailyMealRecordIds = dailyMealRecords
       .filter((record) => record !== null)
-      .map((record) => record?.id)
+      .map((record) => record!.id)
 
     const dailyMealRecordsWithFoods = await Promise.all(
       validDailyMealRecordIds.map((id) => fetchDailyMealRecordWithFoods(id))
