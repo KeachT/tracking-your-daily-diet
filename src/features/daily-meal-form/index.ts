@@ -1,1 +1,1 @@
-export * from './components/MealForm'
+export * from './components/DailyMealForm'

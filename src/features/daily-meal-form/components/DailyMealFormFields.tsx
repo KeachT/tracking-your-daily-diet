@@ -9,7 +9,7 @@ type MealFormFieldsProps = {
   mealCategoryName: string
 }
 
-export function MealFormFields({
+export function DailyMealFormFields({
   form,
   mealCategoryName,
 }: MealFormFieldsProps) {

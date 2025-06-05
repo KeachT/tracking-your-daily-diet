@@ -13,14 +13,14 @@ import { MEAL_CATEGORY_LABELS } from '../constants'
 import { useMealRecordsStore } from '../stores'
 import { FormsType } from '../types'
 import { createFoodInitialValues, saveAndSetMealRecord } from '../utils'
-import { MealFormContent } from './MealFormContent'
+import { DailyMealFormContent } from './DailyMealFormContent'
 
 type MealFormAccordionItemProps = {
   mealCategoryName: MealCategoryName
   forms: FormsType
 }
 
-export function MealFormAccordionItem({
+export function DailyMealFormAccordionItem({
   mealCategoryName,
   forms,
 }: MealFormAccordionItemProps) {
@@ -67,7 +67,10 @@ export function MealFormAccordionItem({
       </Accordion.Control>
 
       <Accordion.Panel>
-        <MealFormContent mealCategoryName={mealCategoryName} forms={forms} />
+        <DailyMealFormContent
+          mealCategoryName={mealCategoryName}
+          forms={forms}
+        />
         <MealFormButtons
           onAdd={handleAdd}
           onSave={handleSave}

@@ -10,20 +10,22 @@ import {
   useNutritionNumbersStore,
 } from '../../../stores'
 import { createStringFromDate, roundToTwoDecimalPlaces } from '../../../utils'
-import { useMealRecordsStore } from '../stores'
+import { useDailyMealRecordsStore, useMealRecordsStore } from '../stores'
 import { FormsType } from '../types'
 import {
   createInitialFormValues,
   createSumNutritionValues,
   getDefaultCategory,
+  loadDailyMealRecords,
   loadMealRecords,
 } from '../utils'
-import { MealFormAccordionItem } from './MealFormAccordionItem'
+import { DailyMealFormAccordionItem } from './DailyMealFormAccordionItem'
 
-export function MealForm() {
+export function DailyMealForm() {
   const { currentDate } = useCurrentDateStore()
   const { setIsDataLoading } = useLoadingStateStore()
   const { mealRecords, setMealRecords } = useMealRecordsStore()
+  const { dailyMealRecords, setDailyMealRecords } = useDailyMealRecordsStore()
   const {
     setDailyCalories,
     setDailyProtein,
@@ -52,6 +54,14 @@ export function MealForm() {
   }, [currentDateString, setMealRecords, setIsDataLoading])
 
   useEffect(() => {
+    loadDailyMealRecords(
+      currentDateString,
+      setDailyMealRecords,
+      setIsDataLoading
+    )
+  }, [currentDateString, setDailyMealRecords, setIsDataLoading])
+
+  useEffect(() => {
     setDailyCalories(roundToTwoDecimalPlaces(sumCalories))
     setDailyProtein(roundToTwoDecimalPlaces(sumProtein))
     setDailyFat(roundToTwoDecimalPlaces(sumFat))
@@ -62,7 +72,7 @@ export function MealForm() {
   return (
     <Accordion defaultValue={defaultCategory} variant="separated">
       {mealCategoryNames.map((mealCategoryName) => (
-        <MealFormAccordionItem
+        <DailyMealFormAccordionItem
           key={mealCategoryName}
           mealCategoryName={mealCategoryName}
           forms={forms}
