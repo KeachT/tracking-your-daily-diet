@@ -242,8 +242,6 @@ export const loadMealRecords = async (
   }
 }
 
-// TODO --- utils for DailyMealRecord belows ---
-
 /**
  * Asynchronously loads daily meal records for a specific date.
  *
@@ -262,8 +260,6 @@ export const loadDailyMealRecords = async (
   setDailyMealRecords: DailyMealRecordsState['setDailyMealRecords'],
   setIsDataLoading: LoadingState['setIsDataLoading']
 ) => {
-  console.log('loadDailyMealRecords')
-
   setIsDataLoading(true)
   try {
     const variables: ListDailyMealRecordsQueryVariables = {
