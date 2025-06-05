@@ -2,13 +2,25 @@ import { createId } from '@paralleldrive/cuid2'
 import { sort, sum } from 'radash'
 
 import {
+  CreateDailyMealRecordInput,
+  CreateDailyMealRecordMutationVariables,
   CreateMealRecordInput,
   CreateMealRecordMutationVariables,
+  DailyMealRecord,
+  FoodItem,
+  ListDailyMealRecordsQueryVariables,
   ListMealRecordsQueryVariables,
   MealCategoryName,
+  UpdateDailyMealRecordInput,
+  UpdateDailyMealRecordMutationVariables,
   UpdateMealRecordInput,
   UpdateMealRecordMutationVariables,
 } from '../../API'
+import {
+  addDailyMealRecord,
+  fetchDailyMealRecords,
+  updDailyMealRecord,
+} from '../../api/daily-meal-record'
 import {
   addMealRecord,
   fetchMealRecords,
@@ -16,6 +28,7 @@ import {
 } from '../../api/meal-record'
 import { LoadingState } from '../../stores'
 import { MealRecordsState } from './stores'
+import { DailyMealRecordsState } from './stores/dailyMealRecords'
 import { FormField, FormsType } from './types'
 
 /**
@@ -227,4 +240,235 @@ export const loadMealRecords = async (
   } finally {
     setIsDataLoading(false)
   }
+}
+
+// TODO --- utils for DailyMealRecord belows ---
+
+/**
+ * Asynchronously loads daily meal records for a specific date.
+ *
+ * @param currentDateString - The date string to filter daily meal records by
+ * @param setDailyMealRecords - Function to update the daily meal records in state
+ * @param setIsDataLoading - Function to update the loading state
+ *
+ * @remarks
+ * This function handles the loading state by setting it to true before fetching
+ * and resetting it to false after the operation completes (whether successful or not).
+ *
+ * @returns A Promise that resolves when the daily meal records have been loaded and state updated
+ */
+export const loadDailyMealRecords = async (
+  currentDateString: string,
+  setDailyMealRecords: DailyMealRecordsState['setDailyMealRecords'],
+  setIsDataLoading: LoadingState['setIsDataLoading']
+) => {
+  console.log('loadDailyMealRecords')
+
+  setIsDataLoading(true)
+  try {
+    const variables: ListDailyMealRecordsQueryVariables = {
+      filter: {
+        date: { eq: currentDateString },
+      },
+    }
+    const uniqueDailyMealRecordsWithFoods = await fetchDailyMealRecords(
+      variables
+    )
+    setDailyMealRecords(
+      uniqueDailyMealRecordsWithFoods as DailyMealRecordsState['dailyMealRecords']
+    )
+  } finally {
+    setIsDataLoading(false)
+  }
+}
+
+/**
+ * Creates initial values for a DailyMealRecord form.
+ *
+ * @param dailyMealRecord - Optional existing daily meal record to populate values.
+ * @returns The initial form values for DailyMealRecord.
+ */
+export const createDailyMealRecordInitialValues = (
+  dailyMealRecord?: DailyMealRecord | null
+) => {
+  const mealCategoryNames: string[] = ['breakfast', 'lunch', 'dinner', 'snack']
+
+  const initialFormValues = mealCategoryNames.reduce(
+    (formValues, mealCategoryName) => {
+      const foods =
+        (dailyMealRecord?.[
+          mealCategoryName as keyof DailyMealRecord
+        ] as FoodItem[]) || []
+      const sortedFoods = sort([...foods], (f) => f?.calories || 0, true)
+      return { ...formValues, [mealCategoryName]: sortedFoods }
+    },
+    {}
+  )
+
+  return initialFormValues
+}
+
+/**
+ * Saves and sets a DailyMealRecord based on the provided forms and current date string.
+ *
+ * @param forms - The forms containing the meal data to be saved.
+ * @param currentDateString - The current date as a string.
+ * @param dailyMealRecord - The existing daily meal record (if any).
+ * @param setDailyMealRecord - The function to update the state of daily meal record.
+ *
+ * @returns A promise that resolves when the daily meal record has been saved and the state has been updated.
+ */
+export const saveAndSetDailyMealRecord = async (
+  forms: FormsType,
+  currentDateString: string,
+  dailyMealRecord: DailyMealRecord | null,
+  setDailyMealRecord: (dailyMealRecord: DailyMealRecord) => void
+) => {
+  const normalizedFoods = normalizeDailyMealRecordFoods(forms)
+
+  if (dailyMealRecord) {
+    const updateDailyMealRecordInput: UpdateDailyMealRecordInput = {
+      id: dailyMealRecord.id,
+      date: dailyMealRecord.date,
+      breakfast: normalizedFoods.breakfast,
+      lunch: normalizedFoods.lunch,
+      dinner: normalizedFoods.dinner,
+      snack: normalizedFoods.snack,
+      _version: dailyMealRecord._version,
+    }
+    const variables: UpdateDailyMealRecordMutationVariables = {
+      input: updateDailyMealRecordInput,
+    }
+    const updatedDailyMealRecord = await updDailyMealRecord(variables)
+    setDailyMealRecord(updatedDailyMealRecord)
+  } else {
+    const createDailyMealRecordInput: CreateDailyMealRecordInput = {
+      id: createId(),
+      date: currentDateString,
+      breakfast: normalizedFoods.breakfast,
+      lunch: normalizedFoods.lunch,
+      dinner: normalizedFoods.dinner,
+      snack: normalizedFoods.snack,
+    }
+    const variables: CreateDailyMealRecordMutationVariables = {
+      input: createDailyMealRecordInput,
+    }
+    const newDailyMealRecord = await addDailyMealRecord(variables)
+    setDailyMealRecord(newDailyMealRecord)
+  }
+}
+
+/**
+ * Normalizes the food items from all meal categories in the given forms.
+ *
+ * @param {FormsType} forms - The forms object containing meal data.
+ * @returns An object with normalized food arrays for each meal category.
+ */
+const normalizeDailyMealRecordFoods = (forms: FormsType) => {
+  const normalizeCategory = (categoryName: string) => {
+    const foods = forms.values[categoryName] || []
+    return foods.map((food) => {
+      const { id, name, calories, protein, carbohydrates, fat } = food
+      return {
+        id,
+        name,
+        calories: Number(calories || 0),
+        protein: Number(protein || 0),
+        carbohydrates: Number(carbohydrates || 0),
+        fat: Number(fat || 0),
+      }
+    })
+  }
+
+  return {
+    breakfast: normalizeCategory('BREAKFAST'),
+    lunch: normalizeCategory('LUNCH'),
+    dinner: normalizeCategory('DINNER'),
+    snack: normalizeCategory('SNACK'),
+  }
+}
+
+/**
+ * Asynchronously loads daily meal record for a specific date.
+ *
+ * @param currentDateString - The date string to filter daily meal records by
+ * @param setDailyMealRecord - Function to update the daily meal record in state
+ * @param setIsDataLoading - Function to update the loading state
+ *
+ * @returns A Promise that resolves when the daily meal record has been loaded and state updated
+ */
+export const loadDailyMealRecord = async (
+  currentDateString: string,
+  setDailyMealRecord: (dailyMealRecord: DailyMealRecord | null) => void,
+  setIsDataLoading: LoadingState['setIsDataLoading']
+) => {
+  setIsDataLoading(true)
+  try {
+    const variables: ListDailyMealRecordsQueryVariables = {
+      filter: {
+        date: { eq: currentDateString },
+      },
+    }
+    const dailyMealRecords = await fetchDailyMealRecords(variables)
+    const dailyMealRecord =
+      dailyMealRecords.length > 0 ? dailyMealRecords[0] : null
+    setDailyMealRecord(dailyMealRecord)
+  } finally {
+    setIsDataLoading(false)
+  }
+}
+
+/**
+ * Converts multiple MealRecords to a single DailyMealRecord format.
+ *
+ * @param mealRecords - Array of MealRecord objects to convert.
+ * @param currentDateString - The date string for the daily meal record.
+ * @returns A DailyMealRecord object with all meals consolidated.
+ */
+export const convertMealRecordsToDailyMealRecord = (
+  mealRecords: MealRecordsState['mealRecords'],
+  currentDateString: string
+): Omit<
+  DailyMealRecord,
+  | 'id'
+  | '__typename'
+  | 'createdAt'
+  | 'updatedAt'
+  | '_version'
+  | '_deleted'
+  | '_lastChangedAt'
+  | 'owner'
+> => {
+  const dailyMealRecord = {
+    date: currentDateString,
+    breakfast: [] as FoodItem[],
+    lunch: [] as FoodItem[],
+    dinner: [] as FoodItem[],
+    snack: [] as FoodItem[],
+  }
+
+  mealRecords.forEach((mealRecord) => {
+    if (!mealRecord?.foods) {
+      return
+    }
+
+    const foods = mealRecord.foods.filter(
+      (food): food is FoodItem => food !== null
+    )
+
+    if (mealRecord.category === MealCategoryName.BREAKFAST) {
+      dailyMealRecord.breakfast = foods
+    }
+    if (mealRecord.category === MealCategoryName.LUNCH) {
+      dailyMealRecord.lunch = foods
+    }
+    if (mealRecord.category === MealCategoryName.DINNER) {
+      dailyMealRecord.dinner = foods
+    }
+    if (mealRecord.category === MealCategoryName.SNACK) {
+      dailyMealRecord.snack = foods
+    }
+  })
+
+  return dailyMealRecord
 }

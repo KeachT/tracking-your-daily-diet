@@ -4,14 +4,14 @@ import { LoadingSkeleton } from '../../../components/LoadingSkeleton'
 import { NoFoodText } from '../../../components/NoFoodText'
 import { useLoadingStateStore } from '../../../stores'
 import { FormsType } from '../types'
-import { MealFormFields } from './MealFormFields'
+import { DailyMealFormFields } from './DailyMealFormFields'
 
 type MealFormContentProps = {
   mealCategoryName: MealCategoryName
   forms: FormsType
 }
 
-export function MealFormContent({
+export function DailyMealFormContent({
   mealCategoryName,
   forms,
 }: MealFormContentProps) {
@@ -22,7 +22,9 @@ export function MealFormContent({
   }
 
   if (forms.values[mealCategoryName]?.length > 0) {
-    return <MealFormFields form={forms} mealCategoryName={mealCategoryName} />
+    return (
+      <DailyMealFormFields form={forms} mealCategoryName={mealCategoryName} />
+    )
   }
 
   return <NoFoodText />
