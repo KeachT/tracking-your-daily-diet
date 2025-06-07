@@ -1,6 +1,6 @@
 import { sum } from 'radash'
 
-import { DailyMealRecord, MealCategoryName, MealRecord } from '@/API'
+import { MealCategoryName, MealRecord } from '@/API'
 
 import { fetchWeeklyDailyMealRecords } from '../../api/daily-meal-record'
 import { fetchWeeklyMealRecords } from '../../api/meal-record'
