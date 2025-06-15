@@ -10,21 +10,19 @@ import {
   useNutritionNumbersStore,
 } from '../../../stores'
 import { createStringFromDate, roundToTwoDecimalPlaces } from '../../../utils'
-import { useDailyMealRecordsStore, useMealRecordsStore } from '../stores'
+import { useDailyMealRecordsStore } from '../stores'
 import { FormsType } from '../types'
 import {
-  createInitialFormValues,
+  createDailyMealRecordInitialValues,
   createSumNutritionValues,
   getDefaultCategory,
   loadDailyMealRecords,
-  loadMealRecords,
 } from '../utils'
 import { DailyMealFormAccordionItem } from './DailyMealFormAccordionItem'
 
 export function DailyMealForm() {
   const { currentDate } = useCurrentDateStore()
   const { setIsDataLoading } = useLoadingStateStore()
-  const { mealRecords, setMealRecords } = useMealRecordsStore()
   const { dailyMealRecords, setDailyMealRecords } = useDailyMealRecordsStore()
   const {
     setDailyCalories,
@@ -37,23 +35,25 @@ export function DailyMealForm() {
   const mealCategoryNames = Object.values(
     MealCategoryName
   ) as MealCategoryName[]
-
   const currentDateString = createStringFromDate(currentDate)
   const defaultCategory = getDefaultCategory()
   const { sumCalories, sumProtein, sumFat, sumCarbohydrates } =
     createSumNutritionValues(forms)
 
   useEffect(() => {
-    const initialFormValues = createInitialFormValues(mealRecords)
+    // initialize the form values with the current daily meal record
+    const currentDailyMealRecord = dailyMealRecords.find(
+      (record) => record.date === currentDateString
+    )
+    const initialFormValues = createDailyMealRecordInitialValues(
+      currentDailyMealRecord
+    )
     forms.setValues(initialFormValues)
     // eslint-disable-next-line
-  }, [mealRecords])
+  }, [dailyMealRecords, currentDateString])
 
   useEffect(() => {
-    loadMealRecords(currentDateString, setMealRecords, setIsDataLoading)
-  }, [currentDateString, setMealRecords, setIsDataLoading])
-
-  useEffect(() => {
+    // Load daily meal records when the component mounts or when the current date changes
     loadDailyMealRecords(
       currentDateString,
       setDailyMealRecords,

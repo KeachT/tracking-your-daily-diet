@@ -6,10 +6,10 @@ import {
   useCurrentDateStore,
   useDailyGoalStore,
   useLoadingStateStore,
-  useWeeklyMealRecordsStore,
+  useWeeklyDailyMealRecordsStore,
 } from '../../../stores'
 import {
-  createWeeklyNutritionsData,
+  createWeeklyNutritionsDataFromDailyMealRecords,
   determineYLimit,
   getMaxCalories,
 } from '../utils'
@@ -18,13 +18,13 @@ export function WeeklyCaloriesChart() {
   const { isDataLoading } = useLoadingStateStore()
   const { dailyGoal } = useDailyGoalStore()
   const { currentDate } = useCurrentDateStore()
-  const { weeklyMealRecords } = useWeeklyMealRecordsStore()
+  const { weeklyDailyMealRecords } = useWeeklyDailyMealRecordsStore()
 
-  const dailyGoalCalories = dailyGoal?.calories || 0
-  const weeklyNutritionsData = createWeeklyNutritionsData(
-    weeklyMealRecords,
+  const weeklyNutritionsData = createWeeklyNutritionsDataFromDailyMealRecords(
+    weeklyDailyMealRecords,
     currentDate
   )
+  const dailyGoalCalories = dailyGoal?.calories || 0
   const maxCalories = getMaxCalories(weeklyNutritionsData)
   const yLimit = determineYLimit(maxCalories, dailyGoalCalories)
 

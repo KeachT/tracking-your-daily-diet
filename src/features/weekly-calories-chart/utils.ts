@@ -1,64 +1,12 @@
 import { max, sum } from 'radash'
 
-import {
-  CurrentDateState,
-  WeeklyDailyMealRecordsState,
-  WeeklyMealRecordsState,
-} from '../../stores'
+import { CurrentDateState, WeeklyDailyMealRecordsState } from '../../stores'
 import {
   createPrevWeekDate,
   createStringFromDate,
   roundToTwoDecimalPlaces,
 } from '../../utils'
 import { WeeklyNutritionsData } from './types'
-
-/**
- * Generates an array of weekly nutrition data based on the provided meal records and current date.
- *
- * @param weeklyMealRecords - An array of meal records for the week.
- * @param currentDate - The current date used to generate the week day strings.
- * @returns An array of objects representing the nutrition data for each day of the week.
- *
- * Each object in the returned array contains the following properties:
- * - `name`: A string representing the month and day (formatted as MM/DD).
- * - `calories`: The total number of calories consumed on that day.
- * - `protein`: The total amount of protein consumed on that day.
- * - `fat`: The total amount of fat consumed on that day.
- * - `carbohydrates`: The total amount of carbohydrates consumed on that day.
- */
-export const createWeeklyNutritionsData = (
-  weeklyMealRecords: WeeklyMealRecordsState['weeklyMealRecords'],
-  currentDate: CurrentDateState['currentDate']
-): WeeklyNutritionsData[] => {
-  const weekDayStrings = createWeekDayStrings(currentDate)
-
-  const weeklyNutritionsData = weekDayStrings.map((dayString: string) => {
-    const mealRecords = weeklyMealRecords.filter(
-      (mealRecord) => mealRecord.date === dayString
-    )
-
-    const [_year, month, day] = dayString.split('-')
-
-    const dailyFoods = mealRecords?.flatMap((mealRecord) => mealRecord.foods)
-    const dailyCalories = sum(dailyFoods, (food: any) => food?.calories || 0)
-    const dailyProtein = sum(dailyFoods, (food: any) => food?.protein || 0)
-    const dailyFat = sum(dailyFoods, (food: any) => food?.fat || 0)
-    const dailyCarbohydrates = sum(
-      dailyFoods,
-      (food: any) => food?.carbohydrates || 0
-    )
-
-    return {
-      name: `${month}/${day}`,
-      calories: roundToTwoDecimalPlaces(dailyCalories),
-      protein: roundToTwoDecimalPlaces(dailyProtein),
-      fat: roundToTwoDecimalPlaces(dailyFat),
-      carbohydrates: roundToTwoDecimalPlaces(dailyCarbohydrates),
-    }
-  })
-
-  return weeklyNutritionsData
-}
 
 /**
  * Generates an array of weekly nutrition data based on the provided DailyMealRecord and current date.

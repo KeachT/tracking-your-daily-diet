@@ -10,9 +10,12 @@ import { NOTIFICATION_DISPLAY_DURATION_MS } from '../../../constants'
 import { useCurrentDateStore } from '../../../stores'
 import { createStringFromDate, showNotification } from '../../../utils'
 import { MEAL_CATEGORY_LABELS } from '../constants'
-import { useMealRecordsStore } from '../stores'
+import { useDailyMealRecordsStore } from '../stores'
 import { FormsType } from '../types'
-import { createFoodInitialValues, saveAndSetMealRecord } from '../utils'
+import {
+  createFoodInitialValues,
+  saveAndSetDailyMealRecordsArray,
+} from '../utils'
 import { DailyMealFormContent } from './DailyMealFormContent'
 
 type MealFormAccordionItemProps = {
@@ -25,7 +28,7 @@ export function DailyMealFormAccordionItem({
   forms,
 }: MealFormAccordionItemProps) {
   const [isSaveButtonDisabled, setIsSaveButtonDisabled] = useState(false)
-  const { mealRecords, setMealRecords } = useMealRecordsStore()
+  const { dailyMealRecords, setDailyMealRecords } = useDailyMealRecordsStore()
   const { currentDate } = useCurrentDateStore()
   const currentDateString = createStringFromDate(currentDate)
 
@@ -35,23 +38,26 @@ export function DailyMealFormAccordionItem({
   const handleSave = async () => {
     setIsSaveButtonDisabled(true)
     try {
-      await saveAndSetMealRecord(
+      const currentDailyMealRecord = dailyMealRecords.find(
+        (record) => record.date === currentDateString
+      )
+      await saveAndSetDailyMealRecordsArray(
         forms,
-        mealCategoryName,
         currentDateString,
-        mealRecords,
-        setMealRecords
+        currentDailyMealRecord || null,
+        setDailyMealRecords,
+        dailyMealRecords
       )
       showNotification(
         'Day',
-        `${MEAL_CATEGORY_LABELS[mealCategoryName]}を保存しました`,
+        `保存しました`,
         'success',
         setIsSaveButtonDisabled
       )
     } catch (err) {
       showNotification(
         'Day',
-        `${MEAL_CATEGORY_LABELS[mealCategoryName]}の保存に失敗しました`,
+        `保存に失敗しました`,
         'error',
         setIsSaveButtonDisabled
       )

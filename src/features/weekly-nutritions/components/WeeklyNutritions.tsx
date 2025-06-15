@@ -5,42 +5,48 @@ import { NutritionSummary } from '../../../components/NutritionSummary'
 import {
   useCurrentDateStore,
   useLoadingStateStore,
-  useWeeklyMealRecordsStore,
+  useWeeklyDailyMealRecordsStore,
 } from '../../../stores'
 import {
-  countWeeklyDateWithFoods,
-  createAvgWeekNutritionValues,
+  countWeeklyDateWithFoodsFromDailyMealRecords,
+  createAvgWeekNutritionValuesFromDailyMealRecords,
   createWeekDateString,
-  loadWeeklyMealRecords,
+  loadWeeklyDailyMealRecords,
 } from '../utils'
 
 export function WeeklyNutritions() {
   const { currentDate } = useCurrentDateStore()
   const { isDataLoading, setIsDataLoading } = useLoadingStateStore()
-  const { weeklyMealRecords, setWeeklyMealRecords } =
-    useWeeklyMealRecordsStore()
+  const { weeklyDailyMealRecords, setWeeklyDailyMealRecords } =
+    useWeeklyDailyMealRecordsStore()
 
-  const weeklyDateWithFoodsCount = countWeeklyDateWithFoods(weeklyMealRecords)
+  const { currentDateString, prevWeekDateString } =
+    createWeekDateString(currentDate)
+  const weeklyDateWithFoodsCount = countWeeklyDateWithFoodsFromDailyMealRecords(
+    weeklyDailyMealRecords
+  )
   const {
     avgWeeklyCalories,
     avgWeeklyProtein,
     avgWeeklyFat,
     avgWeeklyCarbohydrates,
-  } = createAvgWeekNutritionValues(weeklyMealRecords, weeklyDateWithFoodsCount)
-  const { currentDateString, prevWeekDateString } =
-    createWeekDateString(currentDate)
+  } = createAvgWeekNutritionValuesFromDailyMealRecords(
+    weeklyDailyMealRecords,
+    weeklyDateWithFoodsCount
+  )
 
   useEffect(() => {
-    loadWeeklyMealRecords(
+    // Load weekly daily meal records when the component mounts or when the current date changes
+    loadWeeklyDailyMealRecords(
       currentDateString,
       prevWeekDateString,
-      setWeeklyMealRecords,
+      setWeeklyDailyMealRecords,
       setIsDataLoading
     )
   }, [
     currentDateString,
     prevWeekDateString,
-    setWeeklyMealRecords,
+    setWeeklyDailyMealRecords,
     setIsDataLoading,
   ])
 
