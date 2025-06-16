@@ -17,7 +17,6 @@ import {
   updDailyMealRecord,
 } from '../../api/daily-meal-record'
 import { LoadingState } from '../../stores'
-import { MealRecordsState } from './stores'
 import { DailyMealRecordsState } from './stores/dailyMealRecords'
 import { FormField, FormsType } from './types'
 
@@ -35,32 +34,6 @@ export const createFoodInitialValues = (): FormField => {
     carbohydrates: '',
     fat: '',
   }
-}
-
-/**
- * The createInitialFormValues function generates initial form values based on the given mealCategoryNames and mealRecords.
- *
- * @param mealRecords - The meal records array.
- * @returns The initial form values.
- */
-export const createInitialFormValues = (
-  mealRecords: MealRecordsState['mealRecords']
-) => {
-  const mealCategoryNames: string[] = Object.values(MealCategoryName)
-
-  const initialFormValues = mealCategoryNames.reduce(
-    (formValues, mealCategoryName) => {
-      const mealRecord = mealRecords.find(
-        (mealRecord) => mealRecord?.category === mealCategoryName
-      )
-      const foods = mealRecord?.foods || []
-      const sortedFoods = sort([...foods], (f) => f?.calories || 0, true)
-      return { ...formValues, [mealCategoryName]: sortedFoods }
-    },
-    {}
-  )
-
-  return initialFormValues
 }
 
 /**
@@ -293,61 +266,6 @@ export const loadDailyMealRecord = async (
   } finally {
     setIsDataLoading(false)
   }
-}
-
-/**
- * Converts multiple MealRecords to a single DailyMealRecord format.
- *
- * @param mealRecords - Array of MealRecord objects to convert.
- * @param currentDateString - The date string for the daily meal record.
- * @returns A DailyMealRecord object with all meals consolidated.
- */
-export const convertMealRecordsToDailyMealRecord = (
-  mealRecords: MealRecordsState['mealRecords'],
-  currentDateString: string
-): Omit<
-  DailyMealRecord,
-  | 'id'
-  | '__typename'
-  | 'createdAt'
-  | 'updatedAt'
-  | '_version'
-  | '_deleted'
-  | '_lastChangedAt'
-  | 'owner'
-> => {
-  const dailyMealRecord = {
-    date: currentDateString,
-    breakfast: [] as FoodItem[],
-    lunch: [] as FoodItem[],
-    dinner: [] as FoodItem[],
-    snack: [] as FoodItem[],
-  }
-
-  mealRecords.forEach((mealRecord) => {
-    if (!mealRecord?.foods) {
-      return
-    }
-
-    const foods = mealRecord.foods.filter(
-      (food): food is FoodItem => food !== null
-    )
-
-    if (mealRecord.category === MealCategoryName.BREAKFAST) {
-      dailyMealRecord.breakfast = foods
-    }
-    if (mealRecord.category === MealCategoryName.LUNCH) {
-      dailyMealRecord.lunch = foods
-    }
-    if (mealRecord.category === MealCategoryName.DINNER) {
-      dailyMealRecord.dinner = foods
-    }
-    if (mealRecord.category === MealCategoryName.SNACK) {
-      dailyMealRecord.snack = foods
-    }
-  })
-
-  return dailyMealRecord
 }
 
 /**
