@@ -1,4 +1,4 @@
-import { MealCategoryName } from '@/API'
+import { MealCategoryName } from '../../models'
 
 export const MEAL_CATEGORY_LABELS: { [key in MealCategoryName]: string } = {
   [MealCategoryName.BREAKFAST]: '朝食',

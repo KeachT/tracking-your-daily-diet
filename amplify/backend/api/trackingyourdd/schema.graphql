@@ -21,16 +21,6 @@ type DailyMealRecord @model @auth(rules: [{ allow: owner }]) {
   snack: [FoodItem]
 }
 
-"""
-Definition of Denormalized Data Models
-"""
-type MealRecord @model @auth(rules: [{ allow: owner }]) {
-  id: ID!
-  date: AWSDate!
-  category: MealCategoryName!
-  foods: [FoodItem]
-}
-
 type FoodItem {
   id: ID!
   name: String!

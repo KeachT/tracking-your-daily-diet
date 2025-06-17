@@ -101,38 +101,6 @@ export declare const DailyMealRecord: (new (init: ModelInit<DailyMealRecord>) =>
   copyOf(source: DailyMealRecord, mutator: (draft: MutableModel<DailyMealRecord>) => MutableModel<DailyMealRecord> | void): DailyMealRecord;
 }
 
-type EagerMealRecord = {
-  readonly [__modelMeta__]: {
-    identifier: ManagedIdentifier<MealRecord, 'id'>;
-    readOnlyFields: 'createdAt' | 'updatedAt';
-  };
-  readonly id: string;
-  readonly date: string;
-  readonly category: MealCategoryName | keyof typeof MealCategoryName;
-  readonly foods?: (FoodItem | null)[] | null;
-  readonly createdAt?: string | null;
-  readonly updatedAt?: string | null;
-}
-
-type LazyMealRecord = {
-  readonly [__modelMeta__]: {
-    identifier: ManagedIdentifier<MealRecord, 'id'>;
-    readOnlyFields: 'createdAt' | 'updatedAt';
-  };
-  readonly id: string;
-  readonly date: string;
-  readonly category: MealCategoryName | keyof typeof MealCategoryName;
-  readonly foods?: (FoodItem | null)[] | null;
-  readonly createdAt?: string | null;
-  readonly updatedAt?: string | null;
-}
-
-export declare type MealRecord = LazyLoading extends LazyLoadingDisabled ? EagerMealRecord : LazyMealRecord
-
-export declare const MealRecord: (new (init: ModelInit<MealRecord>) => MealRecord) & {
-  copyOf(source: MealRecord, mutator: (draft: MutableModel<MealRecord>) => MutableModel<MealRecord> | void): MealRecord;
-}
-
 type EagerUserMealPreset = {
   readonly [__modelMeta__]: {
     identifier: ManagedIdentifier<UserMealPreset, 'id'>;

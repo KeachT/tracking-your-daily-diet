@@ -9,12 +9,11 @@ const MealCategoryName = {
   "SNACK": "SNACK"
 };
 
-const { DailyGoal, DailyMealRecord, MealRecord, UserMealPreset, FoodItem } = initSchema(schema);
+const { DailyGoal, DailyMealRecord, UserMealPreset, FoodItem } = initSchema(schema);
 
 export {
   DailyGoal,
   DailyMealRecord,
-  MealRecord,
   UserMealPreset,
   MealCategoryName,
   FoodItem

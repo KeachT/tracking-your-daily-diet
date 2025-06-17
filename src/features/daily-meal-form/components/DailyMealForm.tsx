@@ -2,8 +2,7 @@ import { Accordion } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { useEffect } from 'react'
 
-import { MealCategoryName } from '@/API'
-
+import { MealCategoryName } from '../../../models'
 import {
   useCurrentDateStore,
   useLoadingStateStore,

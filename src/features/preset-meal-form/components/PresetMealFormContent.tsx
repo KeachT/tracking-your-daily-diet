@@ -1,7 +1,6 @@
-import { MealCategoryName } from '@/API'
-
 import { LoadingSkeleton } from '../../../components/LoadingSkeleton'
 import { NoFoodText } from '../../../components/NoFoodText'
+import { MealCategoryName } from '../../../models'
 import { useLoadingStateStore } from '../../../stores'
 import { FormsType } from '../types'
 import { PresetMealFormFields } from './PresetMealFormFields'
