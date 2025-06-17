@@ -185,87 +185,6 @@ export const schema = {
                 }
             ]
         },
-        "MealRecord": {
-            "name": "MealRecord",
-            "fields": {
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "date": {
-                    "name": "date",
-                    "isArray": false,
-                    "type": "AWSDate",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "category": {
-                    "name": "category",
-                    "isArray": false,
-                    "type": {
-                        "enum": "MealCategoryName"
-                    },
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "foods": {
-                    "name": "foods",
-                    "isArray": true,
-                    "type": {
-                        "nonModel": "FoodItem"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true
-                },
-                "createdAt": {
-                    "name": "createdAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                },
-                "updatedAt": {
-                    "name": "updatedAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                }
-            },
-            "syncable": true,
-            "pluralName": "MealRecords",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {}
-                },
-                {
-                    "type": "auth",
-                    "properties": {
-                        "rules": [
-                            {
-                                "provider": "userPools",
-                                "ownerField": "owner",
-                                "allow": "owner",
-                                "identityClaim": "cognito:username",
-                                "operations": [
-                                    "create",
-                                    "update",
-                                    "delete",
-                                    "read"
-                                ]
-                            }
-                        ]
-                    }
-                }
-            ]
-        },
         "UserMealPreset": {
             "name": "UserMealPreset",
             "fields": {
@@ -423,5 +342,5 @@ export const schema = {
         }
     },
     "codegenVersion": "3.4.4",
-    "version": "953d5f7ef9cd2975d12b8f415a83d9ed"
+    "version": "ac764a9d3b59381b80f279936f675953"
 };

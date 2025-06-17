@@ -7,7 +7,6 @@ import {
   DailyMealRecord,
   FoodItem,
   ListDailyMealRecordsQueryVariables,
-  MealCategoryName,
   UpdateDailyMealRecordInput,
   UpdateDailyMealRecordMutationVariables,
 } from '../../API'
@@ -16,6 +15,7 @@ import {
   fetchDailyMealRecords,
   updDailyMealRecord,
 } from '../../api/daily-meal-record'
+import { MealCategoryName } from '../../models'
 import { LoadingState } from '../../stores'
 import { DailyMealRecordsState } from './stores/dailyMealRecords'
 import { FormField, FormsType } from './types'

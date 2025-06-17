@@ -184,66 +184,6 @@ export type DeleteDailyMealRecordInput = {
   _version?: number | null,
 };
 
-export type CreateMealRecordInput = {
-  id?: string | null,
-  date: string,
-  category: MealCategoryName,
-  foods?: Array< FoodItemInput | null > | null,
-  _version?: number | null,
-};
-
-export enum MealCategoryName {
-  BREAKFAST = "BREAKFAST",
-  LUNCH = "LUNCH",
-  DINNER = "DINNER",
-  SNACK = "SNACK",
-}
-
-
-export type ModelMealRecordConditionInput = {
-  date?: ModelStringInput | null,
-  category?: ModelMealCategoryNameInput | null,
-  and?: Array< ModelMealRecordConditionInput | null > | null,
-  or?: Array< ModelMealRecordConditionInput | null > | null,
-  not?: ModelMealRecordConditionInput | null,
-  _deleted?: ModelBooleanInput | null,
-  createdAt?: ModelStringInput | null,
-  updatedAt?: ModelStringInput | null,
-  owner?: ModelStringInput | null,
-};
-
-export type ModelMealCategoryNameInput = {
-  eq?: MealCategoryName | null,
-  ne?: MealCategoryName | null,
-};
-
-export type MealRecord = {
-  __typename: "MealRecord",
-  id: string,
-  date: string,
-  category: MealCategoryName,
-  foods?:  Array<FoodItem | null > | null,
-  createdAt: string,
-  updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
-  owner?: string | null,
-};
-
-export type UpdateMealRecordInput = {
-  id: string,
-  date?: string | null,
-  category?: MealCategoryName | null,
-  foods?: Array< FoodItemInput | null > | null,
-  _version?: number | null,
-};
-
-export type DeleteMealRecordInput = {
-  id: string,
-  _version?: number | null,
-};
-
 export type CreateUserMealPresetInput = {
   id?: string | null,
   breakfast?: Array< FoodItemInput | null > | null,
@@ -349,26 +289,6 @@ export type ModelDailyMealRecordConnection = {
   startedAt?: number | null,
 };
 
-export type ModelMealRecordFilterInput = {
-  id?: ModelIDInput | null,
-  date?: ModelStringInput | null,
-  category?: ModelMealCategoryNameInput | null,
-  createdAt?: ModelStringInput | null,
-  updatedAt?: ModelStringInput | null,
-  and?: Array< ModelMealRecordFilterInput | null > | null,
-  or?: Array< ModelMealRecordFilterInput | null > | null,
-  not?: ModelMealRecordFilterInput | null,
-  _deleted?: ModelBooleanInput | null,
-  owner?: ModelStringInput | null,
-};
-
-export type ModelMealRecordConnection = {
-  __typename: "ModelMealRecordConnection",
-  items:  Array<MealRecord | null >,
-  nextToken?: string | null,
-  startedAt?: number | null,
-};
-
 export type ModelUserMealPresetFilterInput = {
   id?: ModelIDInput | null,
   createdAt?: ModelStringInput | null,
@@ -450,18 +370,6 @@ export type ModelSubscriptionDailyMealRecordFilterInput = {
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionDailyMealRecordFilterInput | null > | null,
   or?: Array< ModelSubscriptionDailyMealRecordFilterInput | null > | null,
-  _deleted?: ModelBooleanInput | null,
-  owner?: ModelStringInput | null,
-};
-
-export type ModelSubscriptionMealRecordFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  date?: ModelSubscriptionStringInput | null,
-  category?: ModelSubscriptionStringInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  updatedAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionMealRecordFilterInput | null > | null,
-  or?: Array< ModelSubscriptionMealRecordFilterInput | null > | null,
   _deleted?: ModelBooleanInput | null,
   owner?: ModelStringInput | null,
 };
@@ -690,93 +598,6 @@ export type DeleteDailyMealRecordMutation = {
       fat?: number | null,
     } | null > | null,
     snack?:  Array< {
-      __typename: "FoodItem",
-      id: string,
-      name: string,
-      calories?: number | null,
-      protein?: number | null,
-      carbohydrates?: number | null,
-      fat?: number | null,
-    } | null > | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    owner?: string | null,
-  } | null,
-};
-
-export type CreateMealRecordMutationVariables = {
-  input: CreateMealRecordInput,
-  condition?: ModelMealRecordConditionInput | null,
-};
-
-export type CreateMealRecordMutation = {
-  createMealRecord?:  {
-    __typename: "MealRecord",
-    id: string,
-    date: string,
-    category: MealCategoryName,
-    foods?:  Array< {
-      __typename: "FoodItem",
-      id: string,
-      name: string,
-      calories?: number | null,
-      protein?: number | null,
-      carbohydrates?: number | null,
-      fat?: number | null,
-    } | null > | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    owner?: string | null,
-  } | null,
-};
-
-export type UpdateMealRecordMutationVariables = {
-  input: UpdateMealRecordInput,
-  condition?: ModelMealRecordConditionInput | null,
-};
-
-export type UpdateMealRecordMutation = {
-  updateMealRecord?:  {
-    __typename: "MealRecord",
-    id: string,
-    date: string,
-    category: MealCategoryName,
-    foods?:  Array< {
-      __typename: "FoodItem",
-      id: string,
-      name: string,
-      calories?: number | null,
-      protein?: number | null,
-      carbohydrates?: number | null,
-      fat?: number | null,
-    } | null > | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    owner?: string | null,
-  } | null,
-};
-
-export type DeleteMealRecordMutationVariables = {
-  input: DeleteMealRecordInput,
-  condition?: ModelMealRecordConditionInput | null,
-};
-
-export type DeleteMealRecordMutation = {
-  deleteMealRecord?:  {
-    __typename: "MealRecord",
-    id: string,
-    date: string,
-    category: MealCategoryName,
-    foods?:  Array< {
       __typename: "FoodItem",
       id: string,
       name: string,
@@ -1139,87 +960,6 @@ export type SyncDailyMealRecordsQuery = {
   } | null,
 };
 
-export type GetMealRecordQueryVariables = {
-  id: string,
-};
-
-export type GetMealRecordQuery = {
-  getMealRecord?:  {
-    __typename: "MealRecord",
-    id: string,
-    date: string,
-    category: MealCategoryName,
-    foods?:  Array< {
-      __typename: "FoodItem",
-      id: string,
-      name: string,
-      calories?: number | null,
-      protein?: number | null,
-      carbohydrates?: number | null,
-      fat?: number | null,
-    } | null > | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    owner?: string | null,
-  } | null,
-};
-
-export type ListMealRecordsQueryVariables = {
-  filter?: ModelMealRecordFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListMealRecordsQuery = {
-  listMealRecords?:  {
-    __typename: "ModelMealRecordConnection",
-    items:  Array< {
-      __typename: "MealRecord",
-      id: string,
-      date: string,
-      category: MealCategoryName,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      owner?: string | null,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type SyncMealRecordsQueryVariables = {
-  filter?: ModelMealRecordFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncMealRecordsQuery = {
-  syncMealRecords?:  {
-    __typename: "ModelMealRecordConnection",
-    items:  Array< {
-      __typename: "MealRecord",
-      id: string,
-      date: string,
-      category: MealCategoryName,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      owner?: string | null,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
 export type GetUserMealPresetQueryVariables = {
   id: string,
 };
@@ -1536,93 +1276,6 @@ export type OnDeleteDailyMealRecordSubscription = {
       fat?: number | null,
     } | null > | null,
     snack?:  Array< {
-      __typename: "FoodItem",
-      id: string,
-      name: string,
-      calories?: number | null,
-      protein?: number | null,
-      carbohydrates?: number | null,
-      fat?: number | null,
-    } | null > | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    owner?: string | null,
-  } | null,
-};
-
-export type OnCreateMealRecordSubscriptionVariables = {
-  filter?: ModelSubscriptionMealRecordFilterInput | null,
-  owner?: string | null,
-};
-
-export type OnCreateMealRecordSubscription = {
-  onCreateMealRecord?:  {
-    __typename: "MealRecord",
-    id: string,
-    date: string,
-    category: MealCategoryName,
-    foods?:  Array< {
-      __typename: "FoodItem",
-      id: string,
-      name: string,
-      calories?: number | null,
-      protein?: number | null,
-      carbohydrates?: number | null,
-      fat?: number | null,
-    } | null > | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    owner?: string | null,
-  } | null,
-};
-
-export type OnUpdateMealRecordSubscriptionVariables = {
-  filter?: ModelSubscriptionMealRecordFilterInput | null,
-  owner?: string | null,
-};
-
-export type OnUpdateMealRecordSubscription = {
-  onUpdateMealRecord?:  {
-    __typename: "MealRecord",
-    id: string,
-    date: string,
-    category: MealCategoryName,
-    foods?:  Array< {
-      __typename: "FoodItem",
-      id: string,
-      name: string,
-      calories?: number | null,
-      protein?: number | null,
-      carbohydrates?: number | null,
-      fat?: number | null,
-    } | null > | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    owner?: string | null,
-  } | null,
-};
-
-export type OnDeleteMealRecordSubscriptionVariables = {
-  filter?: ModelSubscriptionMealRecordFilterInput | null,
-  owner?: string | null,
-};
-
-export type OnDeleteMealRecordSubscription = {
-  onDeleteMealRecord?:  {
-    __typename: "MealRecord",
-    id: string,
-    date: string,
-    category: MealCategoryName,
-    foods?:  Array< {
       __typename: "FoodItem",
       id: string,
       name: string,

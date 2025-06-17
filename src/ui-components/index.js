@@ -8,8 +8,6 @@ export { default as DailyGoalCreateForm } from "./DailyGoalCreateForm";
 export { default as DailyGoalUpdateForm } from "./DailyGoalUpdateForm";
 export { default as DailyMealRecordCreateForm } from "./DailyMealRecordCreateForm";
 export { default as DailyMealRecordUpdateForm } from "./DailyMealRecordUpdateForm";
-export { default as MealRecordCreateForm } from "./MealRecordCreateForm";
-export { default as MealRecordUpdateForm } from "./MealRecordUpdateForm";
 export { default as UserMealPresetCreateForm } from "./UserMealPresetCreateForm";
 export { default as UserMealPresetUpdateForm } from "./UserMealPresetUpdateForm";
 export { default as studioTheme } from "./studioTheme";

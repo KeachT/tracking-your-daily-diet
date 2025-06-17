@@ -6,7 +6,7 @@ import {
   IconSunHigh,
 } from '@tabler/icons-react'
 
-import { MealCategoryName } from '@/API'
+import { MealCategoryName } from '../../models'
 
 type CategoryIcons = {
   [key: string]: JSX.Element

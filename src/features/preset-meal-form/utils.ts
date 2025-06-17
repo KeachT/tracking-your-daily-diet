@@ -7,7 +7,6 @@ import {
   CreateUserMealPresetInput,
   CreateUserMealPresetMutationVariables,
   FoodItem,
-  MealCategoryName,
   UpdateUserMealPresetInput,
   UpdateUserMealPresetMutationVariables,
   UserMealPreset,
@@ -17,6 +16,7 @@ import {
   fetchUserMealPreset,
   updUserMealPreset,
 } from '../../api/user-meal-preset'
+import { MealCategoryName } from '../../models'
 import { LoadingState } from '../../stores'
 import { UserMealPresetState } from './stores'
 import { FormField, FormsType } from './types'
