@@ -17,20 +17,18 @@ import { getDailyMealRecord } from '../../graphql/queries'
 export const fetchDailyMealRecordWithFoods = async (
   dailyMealRecordId: string
 ): Promise<DailyMealRecord | null> => {
-  const variables: GetDailyMealRecordQueryVariables = {
-    id: dailyMealRecordId,
-  }
-
   try {
+    const variables: GetDailyMealRecordQueryVariables = {
+      id: dailyMealRecordId,
+    }
+
     const { data } = await API.graphql<GraphQLQuery<GetDailyMealRecordQuery>>({
       query: getDailyMealRecord,
       variables,
       authMode: 'AMAZON_COGNITO_USER_POOLS',
     })
 
-    const dailyMealRecord = data?.getDailyMealRecord as DailyMealRecord | null
-
-    return dailyMealRecord
+    return data?.getDailyMealRecord as DailyMealRecord | null
   } catch (error) {
     if (process.env.NODE_ENV !== 'production') {
       console.error('Error fetching daily meal record:', error)

@@ -9,20 +9,20 @@ import {
   useNutritionNumbersStore,
 } from '../../../stores'
 import { createStringFromDate, roundToTwoDecimalPlaces } from '../../../utils'
-import { useDailyMealRecordsStore } from '../stores'
+import { useDailyMealRecordStore } from '../stores'
 import { FormsType } from '../types'
 import {
   createDailyMealRecordInitialValues,
   createSumNutritionValues,
   getDefaultCategory,
-  loadDailyMealRecords,
+  loadDailyMealRecord,
 } from '../utils'
 import { DailyMealFormAccordionItem } from './DailyMealFormAccordionItem'
 
 export function DailyMealForm() {
   const { currentDate } = useCurrentDateStore()
   const { setIsDataLoading } = useLoadingStateStore()
-  const { dailyMealRecords, setDailyMealRecords } = useDailyMealRecordsStore()
+  const { dailyMealRecord, setDailyMealRecord } = useDailyMealRecordStore()
   const {
     setDailyCalories,
     setDailyProtein,
@@ -41,24 +41,16 @@ export function DailyMealForm() {
 
   useEffect(() => {
     // initialize the form values with the current daily meal record
-    const currentDailyMealRecord = dailyMealRecords.find(
-      (record) => record.date === currentDateString
-    )
-    const initialFormValues = createDailyMealRecordInitialValues(
-      currentDailyMealRecord
-    )
+    const initialFormValues =
+      createDailyMealRecordInitialValues(dailyMealRecord)
     forms.setValues(initialFormValues)
     // eslint-disable-next-line
-  }, [dailyMealRecords, currentDateString])
+  }, [dailyMealRecord, currentDateString])
 
   useEffect(() => {
     // Load daily meal records when the component mounts or when the current date changes
-    loadDailyMealRecords(
-      currentDateString,
-      setDailyMealRecords,
-      setIsDataLoading
-    )
-  }, [currentDateString, setDailyMealRecords, setIsDataLoading])
+    loadDailyMealRecord(currentDateString, setDailyMealRecord, setIsDataLoading)
+  }, [currentDateString, setDailyMealRecord, setIsDataLoading])
 
   useEffect(() => {
     setDailyCalories(roundToTwoDecimalPlaces(sumCalories))

@@ -9,12 +9,9 @@ import { MealCategoryName } from '../../../models'
 import { useCurrentDateStore } from '../../../stores'
 import { createStringFromDate, showNotification } from '../../../utils'
 import { MEAL_CATEGORY_LABELS } from '../constants'
-import { useDailyMealRecordsStore } from '../stores'
+import { useDailyMealRecordStore } from '../stores'
 import { FormsType } from '../types'
-import {
-  createFoodInitialValues,
-  saveAndSetDailyMealRecordsArray,
-} from '../utils'
+import { createFoodInitialValues, saveAndSetDailyMealRecord } from '../utils'
 import { DailyMealFormContent } from './DailyMealFormContent'
 
 type MealFormAccordionItemProps = {
@@ -27,7 +24,7 @@ export function DailyMealFormAccordionItem({
   forms,
 }: MealFormAccordionItemProps) {
   const [isSaveButtonDisabled, setIsSaveButtonDisabled] = useState(false)
-  const { dailyMealRecords, setDailyMealRecords } = useDailyMealRecordsStore()
+  const { dailyMealRecord, setDailyMealRecord } = useDailyMealRecordStore()
   const { currentDate } = useCurrentDateStore()
   const currentDateString = createStringFromDate(currentDate)
 
@@ -37,15 +34,11 @@ export function DailyMealFormAccordionItem({
   const handleSave = async () => {
     setIsSaveButtonDisabled(true)
     try {
-      const currentDailyMealRecord = dailyMealRecords.find(
-        (record) => record.date === currentDateString
-      )
-      await saveAndSetDailyMealRecordsArray(
+      await saveAndSetDailyMealRecord(
         forms,
         currentDateString,
-        currentDailyMealRecord || null,
-        setDailyMealRecords,
-        dailyMealRecords
+        dailyMealRecord || null,
+        setDailyMealRecord
       )
       showNotification(
         'Day',

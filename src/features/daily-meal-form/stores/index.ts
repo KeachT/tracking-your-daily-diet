@@ -1,1 +1,1 @@
-export * from './dailyMealRecords'
+export * from './dailyMealRecord'
