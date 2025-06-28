@@ -29,11 +29,17 @@ export const fetchDailyMealRecords = async (
 
     const dailyMealRecords = data?.listDailyMealRecords?.items || []
 
-    // Remove null entries and fetch detailed records
+    // Filter out null records and map to their IDs
     const validDailyMealRecordIds = dailyMealRecords
       .filter((record) => record !== null)
       .map((record) => record!.id)
 
+    // If no valid daily meal record IDs, return an empty array
+    if (validDailyMealRecordIds.length === 0) {
+      return []
+    }
+
+    // Fetch each daily meal record with its foods
     const dailyMealRecordsWithFoods = await Promise.all(
       validDailyMealRecordIds.map((id) => fetchDailyMealRecordWithFoods(id))
     )
