@@ -143,9 +143,9 @@ export const loadDailyMealRecord = async (
         date: { eq: currentDateString },
       },
     }
+    // This assumes that there is only one record per date.
     const dailyMealRecords = await fetchDailyMealRecords(variables)
-    const dailyMealRecord =
-      dailyMealRecords.length > 0 ? dailyMealRecords[0] : null
+    const dailyMealRecord = dailyMealRecords[0] || null
     setDailyMealRecord(dailyMealRecord)
   } finally {
     setIsDataLoading(false)
