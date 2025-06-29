@@ -1,5 +1,6 @@
 import { sum } from 'radash'
 
+import { FoodItem } from '../../API'
 import { fetchWeeklyDailyMealRecords } from '../../api/daily-meal-record'
 import {
   CurrentDateState,
@@ -11,6 +12,7 @@ import {
   createStringFromDate,
   roundToTwoDecimalPlaces,
 } from '../../utils'
+import { extractFoodsFromDailyRecord } from '../weekly-calories-chart/utils'
 
 /**
  * Generates the current date and the date of the previous week.
@@ -42,7 +44,7 @@ export const countWeeklyDateWithFoodsFromDailyMealRecords = (
     const hasLunch = record.lunch && record.lunch.length > 0
     const hasDinner = record.dinner && record.dinner.length > 0
     const hasSnack = record.snack && record.snack.length > 0
-
+    // Check if any meal category has food items
     return hasBreakfast || hasLunch || hasDinner || hasSnack
   })
 
@@ -60,19 +62,17 @@ export const createAvgWeekNutritionValuesFromDailyMealRecords = (
   weeklyDailyMealRecords: WeeklyDailyMealRecordsState['weeklyDailyMealRecords'],
   weeklyDateWithFoodsCount: number
 ) => {
-  const allFoods = weeklyDailyMealRecords.flatMap((record) => [
-    ...(record.breakfast || []),
-    ...(record.lunch || []),
-    ...(record.dinner || []),
-    ...(record.snack || []),
-  ])
+  // Extract all food items from the daily meal record
+  const allFoods = weeklyDailyMealRecords
+    .map((dailyMealRecord) => extractFoodsFromDailyRecord(dailyMealRecord))
+    .flat()
 
-  const weeklyCalories = sum(allFoods, (food: any) => food?.calories || 0)
-  const weeklyProtein = sum(allFoods, (food: any) => food?.protein || 0)
-  const weeklyFat = sum(allFoods, (food: any) => food?.fat || 0)
+  const weeklyCalories = sum(allFoods, (food: FoodItem) => food?.calories || 0)
+  const weeklyProtein = sum(allFoods, (food: FoodItem) => food?.protein || 0)
+  const weeklyFat = sum(allFoods, (food: FoodItem) => food?.fat || 0)
   const weeklyCarbohydrates = sum(
     allFoods,
-    (food: any) => food?.carbohydrates || 0
+    (food: FoodItem) => food?.carbohydrates || 0
   )
 
   const avgWeeklyCalories = weeklyCalories / weeklyDateWithFoodsCount

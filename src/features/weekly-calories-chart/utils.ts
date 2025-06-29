@@ -1,5 +1,6 @@
 import { max, sum } from 'radash'
 
+import { DailyMealRecord, FoodItem } from '../../API'
 import { CurrentDateState, WeeklyDailyMealRecordsState } from '../../stores'
 import {
   createPrevWeekDate,
@@ -31,25 +32,25 @@ export const createWeeklyNutritionsDataFromDailyMealRecords = (
   const weeklyNutritionsData = weekDayStrings.map((dayString: string) => {
     const [_year, month, day] = dayString.split('-')
 
+    // Find the daily meal record for the target day
     const dailyMealRecord = weeklyDailyMealRecords.find(
       (record) => record.date === dayString
     )
 
+    // Extract all food items from the daily meal record
     const dailyFoods = dailyMealRecord
-      ? [
-          ...(dailyMealRecord.breakfast || []),
-          ...(dailyMealRecord.lunch || []),
-          ...(dailyMealRecord.dinner || []),
-          ...(dailyMealRecord.snack || []),
-        ]
+      ? extractFoodsFromDailyRecord(dailyMealRecord)
       : []
 
-    const dailyCalories = sum(dailyFoods, (food: any) => food?.calories || 0)
-    const dailyProtein = sum(dailyFoods, (food: any) => food?.protein || 0)
-    const dailyFat = sum(dailyFoods, (food: any) => food?.fat || 0)
+    const dailyCalories = sum(
+      dailyFoods,
+      (food: FoodItem) => food?.calories || 0
+    )
+    const dailyProtein = sum(dailyFoods, (food: FoodItem) => food?.protein || 0)
+    const dailyFat = sum(dailyFoods, (food: FoodItem) => food?.fat || 0)
     const dailyCarbohydrates = sum(
       dailyFoods,
-      (food: any) => food?.carbohydrates || 0
+      (food: FoodItem) => food?.carbohydrates || 0
     )
 
     return {
@@ -62,6 +63,25 @@ export const createWeeklyNutritionsDataFromDailyMealRecords = (
   })
 
   return weeklyNutritionsData
+}
+
+/**
+ * Extracts all food items from a daily meal record.
+ *
+ * @param mealRecord - The daily meal record containing breakfast, lunch, dinner, and snack.
+ * @returns An array of all food items from the meal record.
+ */
+export const extractFoodsFromDailyRecord = (
+  dailyMealRecord: DailyMealRecord
+): FoodItem[] => {
+  const allMeals = [
+    ...(dailyMealRecord.breakfast || []),
+    ...(dailyMealRecord.lunch || []),
+    ...(dailyMealRecord.dinner || []),
+    ...(dailyMealRecord.snack || []),
+  ]
+
+  return allMeals.filter((food): food is FoodItem => food !== null)
 }
 
 /**
