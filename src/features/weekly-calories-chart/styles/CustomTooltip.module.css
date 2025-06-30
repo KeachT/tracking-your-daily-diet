@@ -1,0 +1,12 @@
+.tooltip {
+  background-color: white;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tooltipItem {
+  margin: 4px 0;
+  font-size: 14px;
+}

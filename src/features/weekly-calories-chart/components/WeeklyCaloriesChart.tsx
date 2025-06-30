@@ -13,6 +13,7 @@ import {
   determineYLimit,
   getMaxCalories,
 } from '../utils'
+import { CustomTooltip } from './CustomTooltip'
 
 export function WeeklyCaloriesChart() {
   const { isDataLoading } = useLoadingStateStore()
@@ -37,7 +38,7 @@ export function WeeklyCaloriesChart() {
       <BarChart width={700} height={400} data={weeklyNutritionsData}>
         <XAxis dataKey="name" />
         <YAxis domain={[0, yLimit]} ticks={[dailyGoalCalories, maxCalories]} />
-        <Tooltip />
+        <Tooltip content={<CustomTooltip />} />
         <ReferenceLine y={maxCalories} />
         <ReferenceLine y={dailyGoalCalories} stroke="red" />
         <Bar dataKey="calories" fill="#845ef7" barSize={30} />
