@@ -11,7 +11,7 @@ export function LogoutLink({ open }: LogoutLinkProps) {
   return (
     <Box className={classes.link} onClick={open}>
       <IconLogout className={classes.linkIcon} stroke={1.5} />
-      <span>Log out</span>
+      <span>ログアウト</span>
     </Box>
   )
 }

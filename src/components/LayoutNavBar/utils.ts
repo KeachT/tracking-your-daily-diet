@@ -8,8 +8,8 @@ import {
 import { Path } from '../../constants'
 
 export const createLinkItems = () => [
-  { path: Path.Day, label: 'Day', icon: IconClockHour9 },
-  { path: Path.Week, label: 'Week', icon: IconBoxMultiple7 },
-  { path: Path.Preset, label: 'Preset', icon: IconAlbum },
-  { path: Path.Settings, label: 'Settings', icon: IconAdjustmentsHorizontal },
+  { path: Path.Day, label: '日別記録', icon: IconClockHour9 },
+  { path: Path.Week, label: '週間レポート', icon: IconBoxMultiple7 },
+  { path: Path.Preset, label: 'プリセット', icon: IconAlbum },
+  { path: Path.Settings, label: '目標設定', icon: IconAdjustmentsHorizontal },
 ]
