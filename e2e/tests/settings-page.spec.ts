@@ -8,7 +8,7 @@ test.describe('Settings Page Tests', () => {
   })
 
   test('should save settings correctly', async ({ page }) => {
-    await page.getByRole('link', { name: 'Settings' }).click()
+    await page.getByRole('link', { name: '目標設定' }).click()
     await expect(page).toHaveURL(/\/settings/)
 
     await page.getByPlaceholder('Calories').fill('2000')
@@ -18,7 +18,7 @@ test.describe('Settings Page Tests', () => {
     await page.getByRole('button', { name: 'Save' }).click()
 
     await page.reload()
-    await page.getByRole('link', { name: 'Settings' }).click()
+    await page.getByRole('link', { name: '目標設定' }).click()
 
     await expect(page).toHaveURL(/\/settings/)
     await expect(page.getByPlaceholder('Calories')).toHaveValue('2000')
