@@ -6,7 +6,7 @@ import { PresetNutritions } from '../features/preset-nutritions'
 
 export default function Preset() {
   return (
-    <Layout title="Preset">
+    <Layout title="プリセット">
       <Box maw={700} mb={30}>
         <PresetNutritions />
       </Box>

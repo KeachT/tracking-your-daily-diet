@@ -7,7 +7,7 @@ import { DatePickerCard } from '../features/date-picker-card'
 
 export default function Day() {
   return (
-    <Layout title="Day">
+    <Layout title="日別">
       <Box maw={300} mb={30}>
         <DatePickerCard />
       </Box>

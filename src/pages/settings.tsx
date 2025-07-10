@@ -5,7 +5,7 @@ import { DailyGoal } from '../features/daily-goal'
 
 export default function Settings() {
   return (
-    <Layout title="Settings">
+    <Layout title="目標設定">
       <Box maw={400} mb={20}>
         <DailyGoal />
       </Box>
