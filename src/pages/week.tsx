@@ -7,7 +7,7 @@ import { WeeklyNutritions } from '../features/weekly-nutritions'
 
 export default function Week() {
   return (
-    <Layout title="Week">
+    <Layout title="週間">
       <Box maw={300} mb={30}>
         <DatePickerCard />
       </Box>
