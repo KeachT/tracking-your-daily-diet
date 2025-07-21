@@ -9,6 +9,7 @@ import {
   ListDailyMealRecordsQueryVariables,
   UpdateDailyMealRecordInput,
   UpdateDailyMealRecordMutationVariables,
+  UserMealPreset,
 } from '../../API'
 import {
   addDailyMealRecord,
@@ -231,4 +232,47 @@ const normalizeDailyMealRecordFoods = (forms: FormsType) => {
     dinner: normalizeCategory(MealCategoryName.DINNER),
     snack: normalizeCategory(MealCategoryName.SNACK),
   }
+}
+
+/**
+ * Converts preset food items to form field format.
+ *
+ * @param presetFoods - The preset food items to convert.
+ * @returns The converted form field data.
+ */
+export const convertPresetToFormData = (
+  presetFoods: FoodItem[]
+): FormField[] => {
+  return presetFoods.map((presetFood) => ({
+    id: createId(),
+    name: presetFood.name,
+    calories: presetFood.calories?.toString() || '',
+    protein: presetFood.protein?.toString() || '',
+    carbohydrates: presetFood.carbohydrates?.toString() || '',
+    fat: presetFood.fat?.toString() || '',
+  }))
+}
+
+/**
+ * Gets preset foods for a specific meal category.
+ *
+ * @param userMealPreset - The user meal preset object.
+ * @param mealCategoryName - The meal category name.
+ * @returns The preset foods for the category or empty array.
+ */
+export const getPresetFoodsForCategory = (
+  userMealPreset: UserMealPreset | null,
+  mealCategoryName: MealCategoryName
+): FoodItem[] => {
+  if (!userMealPreset) {
+    return []
+  }
+
+  const categoryKey = mealCategoryName.toLowerCase() as keyof Pick<
+    UserMealPreset,
+    'breakfast' | 'lunch' | 'dinner' | 'snack'
+  >
+  const presetFoods = userMealPreset[categoryKey] as FoodItem[] | null
+
+  return presetFoods || []
 }
