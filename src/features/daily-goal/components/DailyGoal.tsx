@@ -35,8 +35,8 @@ export function DailyGoal() {
 
   const handleSuccess = () => {
     notifications.show({
-      title: 'Saved!',
-      message: 'Settings',
+      title: '目標設定',
+      message: '保存しました',
       color: 'green',
       icon: <IconCheck />,
     })
@@ -48,8 +48,8 @@ export function DailyGoal() {
 
   const handleError = () => {
     notifications.show({
-      title: 'Error!',
-      message: 'Settings',
+      title: '目標設定',
+      message: '保存に失敗しました',
       color: 'red',
       icon: <IconX />,
     })
