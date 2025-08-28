@@ -1,6 +1,8 @@
 import { Box, Burger, Image, Title, useMantineTheme } from '@mantine/core'
+import Link from 'next/link'
 import { Dispatch, SetStateAction } from 'react'
 
+import { Path } from '../../constants'
 import styles from './LayoutHeader.module.css'
 
 type LayoutHeaderProps = {
@@ -27,9 +29,11 @@ export function LayoutHeader({
       <Box className={styles.iconContainer}>
         <Image src="/favicon.ico" alt="App Icon" />
       </Box>
-      <Title order={3} w={800} fw={200}>
-        Tracking Your Daily Diet
-      </Title>
+      <Link href={Path.Day} className={styles.title}>
+        <Title order={3} w={800} fw={200}>
+          Tracking Your Daily Diet
+        </Title>
+      </Link>
     </Box>
   )
 }
