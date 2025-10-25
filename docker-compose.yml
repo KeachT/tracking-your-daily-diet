@@ -1,0 +1,35 @@
+services:
+  nextjs:
+    build:
+      context: .
+      dockerfile: docker/nextjs/Dockerfile
+    user: node
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app:ro
+      - node_modules:/app/node_modules
+      - next-cache:/app/.next
+      - ./package.json:/app/package.json
+      - ./package-lock.json:/app/package-lock.json
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      - NODE_ENV=development
+    command: npm run dev
+
+  amplify:
+    build:
+      context: .
+      dockerfile: docker/amplify/Dockerfile
+    user: node
+    volumes:
+      - .:/app
+      - ~/.aws:/home/node/.aws:ro
+    security_opt:
+      - no-new-privileges:true
+    command: amplify --help
+
+volumes:
+  node_modules:
+  next-cache:
