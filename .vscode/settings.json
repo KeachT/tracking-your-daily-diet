@@ -8,6 +8,11 @@
     "amplify/backend/amplify-meta.json": true,
     "amplify/backend/awscloudformation": true
   },
+  "workbench.colorCustomizations": {
+      "titleBar.activeBackground": "#004309",
+      "titleBar.inactiveBackground": "#004309",
+      "statusBar.background": "#002305",
+  },
   "cSpell.words": [
     "mantine",
     "mealcategory",
