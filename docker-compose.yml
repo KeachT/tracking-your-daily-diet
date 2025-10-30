@@ -8,15 +8,15 @@ services:
       - "3000:3000"
     volumes:
       - .:/app:ro
-      - ./node_modules:/app/node_modules
       - ./package.json:/app/package.json
       - ./package-lock.json:/app/package-lock.json
       - next-cache:/app/.next
+      - node_modules:/app/node_modules
     security_opt:
       - no-new-privileges:true
     environment:
       - NODE_ENV=development
-    command: sh -c "npm ci && npm run dev"
+    command: npm run dev
 
   amplify:
     build:
@@ -32,3 +32,4 @@ services:
 
 volumes:
   next-cache:
+  node_modules:

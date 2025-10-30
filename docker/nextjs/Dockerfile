@@ -15,7 +15,7 @@ RUN npm ci --ignore-scripts
 COPY --chown=node:node . .
 
 # Ensure writable cache directory exists (mirrors named volume in docker-compose).
-RUN mkdir -p /app/.next
+RUN mkdir -p /app/.next /app/node_modules
 
 # Expose the port the Next.js dev server uses by default.
 EXPOSE 3000
