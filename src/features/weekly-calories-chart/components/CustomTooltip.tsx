@@ -25,7 +25,7 @@ export function CustomTooltip({ active, payload }: CustomTooltipProps) {
                 color: entry.color,
               }}
             >
-              {`${label}: ${entry.value}${unit}`}
+              {`${label} ${entry.value}${unit}`}
             </p>
           )
         })}
