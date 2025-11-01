@@ -38,7 +38,6 @@ export function Layout({
             : undefined
         }
         header={{ height: 60 }}
-        mt={20}
       >
         <AppShell.Header>
           <LayoutHeader
