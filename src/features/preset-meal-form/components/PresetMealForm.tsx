@@ -6,9 +6,9 @@ import { MealCategoryName } from '../../../models'
 import {
   useLoadingStateStore,
   usePresetNutritionNumbersStore,
+  useUserMealPresetStore,
 } from '../../../stores'
 import { roundToTwoDecimalPlaces } from '../../../utils'
-import { useUserMealPresetStore } from '../stores'
 import { FormsType } from '../types'
 import {
   createInitialFormValuesFromPreset,

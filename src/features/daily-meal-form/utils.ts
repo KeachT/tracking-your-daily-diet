@@ -16,8 +16,9 @@ import {
   fetchDailyMealRecords,
   updDailyMealRecord,
 } from '../../api/daily-meal-record'
+import { fetchUserMealPreset } from '../../api/user-meal-preset'
 import { MealCategoryName } from '../../models'
-import { LoadingState } from '../../stores'
+import { UserMealPresetState } from '../../stores'
 import { DailyMealRecordState } from './stores/dailyMealRecord'
 import { FormField, FormsType } from './types'
 
@@ -45,7 +46,7 @@ export const createFoodInitialValues = (): FormField => {
  * - If the current hour is between 2 PM and 5 PM, it returns `MealCategoryName.SNACK`.
  * - If the current hour is after 5 PM, it returns `MealCategoryName.DINNER`.
  *
- * @returns {MealCategoryName} The default meal category for the current time.
+ * @returns The default meal category for the current time.
  */
 export const getDefaultCategory = () => {
   const currentHour = new Date().getHours()
@@ -65,8 +66,8 @@ export const getDefaultCategory = () => {
  * Calculates the sum of nutritional values (calories, protein, fat, and carbohydrates)
  * from a given set of forms.
  *
- * @param {FormsType} forms - The forms containing food entries categorized by type.
- * @returns {Object} An object containing the summed nutritional values:
+ * @param forms - The forms containing food entries categorized by type.
+ * @returns An object containing the summed nutritional values:
  * - `sumCalories`: Total calories from all food entries.
  * - `sumProtein`: Total protein from all food entries.
  * - `sumFat`: Total fat from all food entries.
@@ -124,33 +125,40 @@ export const createDailyMealRecordInitialValues = (
 }
 
 /**
- * Asynchronously loads daily meal record for a specific date.
+ * Asynchronously loads daily meal record for a specific date
+ * and updates the global dailyMealRecord store state.
  *
- * @param currentDateString - The date string to filter daily meal records by
- * @param setDailyMealRecord - Function to update the daily meal record in state
- * @param setIsDataLoading - Function to update the loading state
- *
- * @returns A Promise that resolves when the daily meal record has been loaded and state updated
+ * @param currentDateString - The date string to filter daily meal records by.
+ * @param setDailyMealRecord - Function to update the daily meal record in state.
+ * @returns A Promise that resolves when the daily meal record has been loaded and state updated.
  */
 export const loadDailyMealRecord = async (
   currentDateString: string,
-  setDailyMealRecord: (dailyMealRecord: DailyMealRecord | null) => void,
-  setIsDataLoading: LoadingState['setIsDataLoading']
+  setDailyMealRecord: (dailyMealRecord: DailyMealRecord | null) => void
 ) => {
-  setIsDataLoading(true)
-  try {
-    const variables: ListDailyMealRecordsQueryVariables = {
-      filter: {
-        date: { eq: currentDateString },
-      },
-    }
-    // This assumes that there is only one record per date.
-    const dailyMealRecords = await fetchDailyMealRecords(variables)
-    const dailyMealRecord = dailyMealRecords[0] || null
-    setDailyMealRecord(dailyMealRecord)
-  } finally {
-    setIsDataLoading(false)
+  const variables: ListDailyMealRecordsQueryVariables = {
+    filter: {
+      date: { eq: currentDateString },
+    },
   }
+  // This assumes that there is only one record per date.
+  const dailyMealRecords = await fetchDailyMealRecords(variables)
+  const dailyMealRecord = dailyMealRecords[0] || null
+  setDailyMealRecord(dailyMealRecord)
+}
+
+/**
+ * Asynchronously loads the user meal preset for the day
+ * and updates the global userMealPreset store state.
+ *
+ * @param setUserMealPreset - Function to update the user meal preset in state.
+ * @returns A Promise that resolves when the user meal preset has been loaded and state updated.
+ */
+export const loadUserMealPresetForDay = async (
+  setUserMealPreset: UserMealPresetState['setUserMealPreset']
+) => {
+  const userMealPreset = await fetchUserMealPreset()
+  setUserMealPreset(userMealPreset)
 }
 
 /**
@@ -160,7 +168,6 @@ export const loadDailyMealRecord = async (
  * @param currentDateString - The current date as a string.
  * @param dailyMealRecord - The existing daily meal record (if any).
  * @param setDailyMealRecord - The function to update the state of daily meal record.
- *
  * @returns A promise that resolves when the daily meal record has been saved and the state has been updated.
  */
 export const saveAndSetDailyMealRecord = async (
@@ -206,7 +213,7 @@ export const saveAndSetDailyMealRecord = async (
 /**
  * Normalizes the food items from all meal categories in the given forms.
  *
- * @param {FormsType} forms - The forms object containing meal data.
+ * @param forms - The forms object containing meal data.
  * @returns An object with normalized food arrays for each meal category.
  */
 const normalizeDailyMealRecordFoods = (forms: FormsType) => {
