@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "NODE_ENV=production next build",
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "npx eslint --fix ./src/api/ ./src/components/ ./src/constants/ ./src/features/ ./src/pages/ ./src/stores/ ./src/utils/"

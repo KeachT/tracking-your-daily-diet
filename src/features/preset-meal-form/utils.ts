@@ -17,8 +17,7 @@ import {
   updUserMealPreset,
 } from '../../api/user-meal-preset'
 import { MealCategoryName } from '../../models'
-import { LoadingState } from '../../stores'
-import { UserMealPresetState } from './stores'
+import { LoadingState, UserMealPresetState } from '../../stores'
 import { FormField, FormsType } from './types'
 
 /**

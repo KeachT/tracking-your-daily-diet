@@ -7,6 +7,7 @@ import {
   useCurrentDateStore,
   useLoadingStateStore,
   useNutritionNumbersStore,
+  useUserMealPresetStore,
 } from '../../../stores'
 import { createStringFromDate, roundToTwoDecimalPlaces } from '../../../utils'
 import { useDailyMealRecordStore } from '../stores'
@@ -16,6 +17,7 @@ import {
   createSumNutritionValues,
   getDefaultCategory,
   loadDailyMealRecord,
+  loadUserMealPresetForDay,
 } from '../utils'
 import { DailyMealFormAccordionItem } from './DailyMealFormAccordionItem'
 
@@ -23,6 +25,7 @@ export function DailyMealForm() {
   const { currentDate } = useCurrentDateStore()
   const { setIsDataLoading } = useLoadingStateStore()
   const { dailyMealRecord, setDailyMealRecord } = useDailyMealRecordStore()
+  const { setUserMealPreset } = useUserMealPresetStore()
   const {
     setDailyCalories,
     setDailyProtein,
@@ -40,7 +43,6 @@ export function DailyMealForm() {
     createSumNutritionValues(forms)
 
   useEffect(() => {
-    // initialize the form values with the current daily meal record
     const initialFormValues =
       createDailyMealRecordInitialValues(dailyMealRecord)
     forms.setValues(initialFormValues)
@@ -48,9 +50,24 @@ export function DailyMealForm() {
   }, [dailyMealRecord, currentDateString])
 
   useEffect(() => {
-    // Load daily meal records when the component mounts or when the current date changes
-    loadDailyMealRecord(currentDateString, setDailyMealRecord, setIsDataLoading)
-  }, [currentDateString, setDailyMealRecord, setIsDataLoading])
+    const loadAll = async () => {
+      setIsDataLoading(true)
+      try {
+        await Promise.all([
+          loadDailyMealRecord(currentDateString, setDailyMealRecord),
+          loadUserMealPresetForDay(setUserMealPreset),
+        ])
+      } finally {
+        setIsDataLoading(false)
+      }
+    }
+    loadAll()
+  }, [
+    currentDateString,
+    setDailyMealRecord,
+    setUserMealPreset,
+    setIsDataLoading,
+  ])
 
   useEffect(() => {
     setDailyCalories(roundToTwoDecimalPlaces(sumCalories))
