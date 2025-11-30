@@ -219,7 +219,6 @@ export const saveAndSetDailyMealRecord = async (
 const normalizeDailyMealRecordFoods = (forms: FormsType) => {
   const normalizeCategory = (categoryName: string) => {
     const foods = forms.values[categoryName] || []
-
     return foods.map((food) => {
       const { id, name, calories, protein, carbohydrates, fat } = food
       return {
@@ -282,4 +281,28 @@ export const getPresetFoodsForCategory = (
   const presetFoods = userMealPreset[categoryKey] as FoodItem[] | null
 
   return presetFoods || []
+}
+
+/**
+ * Applies preset foods to every meal category in the given forms instance.
+ * Existing form values are overwritten regardless of whether a category
+ * has preset foods or not.
+ *
+ * @param userMealPreset - The loaded preset data for the user.
+ * @param forms - The Mantine forms instance for the Day screen.
+ */
+export const applyPresetToAllCategories = (
+  userMealPreset: UserMealPreset | null,
+  forms: FormsType
+) => {
+  if (!userMealPreset) {
+    return
+  }
+
+  const categoryNames = Object.values(MealCategoryName) as MealCategoryName[]
+  for (const category of categoryNames) {
+    const presetFoods = getPresetFoodsForCategory(userMealPreset, category)
+    const formData = convertPresetToFormData(presetFoods)
+    forms.setFieldValue(category, formData)
+  }
 }
