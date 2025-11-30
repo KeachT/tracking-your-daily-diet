@@ -1,4 +1,4 @@
-import { Button, Center } from '@mantine/core'
+import { Button } from '@mantine/core'
 import { useState } from 'react'
 
 import { useUserMealPresetStore } from '../../../stores'
@@ -37,15 +37,13 @@ export function DailyMealFormBulkApplyButton({
   }
 
   return (
-    <Center mt="xl">
-      <Button
-        variant="outline"
-        color="blue"
-        onClick={handleApplyPresetToAll}
-        disabled={isApplyingPreset || !userMealPreset}
-      >
-        プリセット適用
-      </Button>
-    </Center>
+    <Button
+      variant="outline"
+      color="blue"
+      onClick={handleApplyPresetToAll}
+      disabled={isApplyingPreset || !userMealPreset}
+    >
+      プリセット適用
+    </Button>
   )
 }

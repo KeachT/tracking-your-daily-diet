@@ -1,4 +1,4 @@
-import { Accordion } from '@mantine/core'
+import { Accordion, Box, Center } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { useEffect } from 'react'
 
@@ -79,7 +79,7 @@ export function DailyMealForm() {
   }, [sumCalories, sumProtein, sumFat, sumCarbohydrates])
 
   return (
-    <>
+    <Box>
       <Accordion defaultValue={defaultCategory} variant="separated">
         {mealCategoryNames.map((mealCategoryName) => (
           <DailyMealFormAccordionItem
@@ -90,7 +90,9 @@ export function DailyMealForm() {
         ))}
       </Accordion>
 
-      <DailyMealFormBulkApplyButton forms={forms} />
-    </>
+      <Center mt="xl">
+        <DailyMealFormBulkApplyButton forms={forms} />
+      </Center>
+    </Box>
   )
 }
