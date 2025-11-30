@@ -20,6 +20,7 @@ import {
   loadUserMealPresetForDay,
 } from '../utils'
 import { DailyMealFormAccordionItem } from './DailyMealFormAccordionItem'
+import { DailyMealFormBulkApplyButton } from './DailyMealFormBulkApplyButton'
 
 export function DailyMealForm() {
   const { currentDate } = useCurrentDateStore()
@@ -78,14 +79,18 @@ export function DailyMealForm() {
   }, [sumCalories, sumProtein, sumFat, sumCarbohydrates])
 
   return (
-    <Accordion defaultValue={defaultCategory} variant="separated">
-      {mealCategoryNames.map((mealCategoryName) => (
-        <DailyMealFormAccordionItem
-          key={mealCategoryName}
-          mealCategoryName={mealCategoryName}
-          forms={forms}
-        />
-      ))}
-    </Accordion>
+    <>
+      <Accordion defaultValue={defaultCategory} variant="separated">
+        {mealCategoryNames.map((mealCategoryName) => (
+          <DailyMealFormAccordionItem
+            key={mealCategoryName}
+            mealCategoryName={mealCategoryName}
+            forms={forms}
+          />
+        ))}
+      </Accordion>
+
+      <DailyMealFormBulkApplyButton forms={forms} />
+    </>
   )
 }

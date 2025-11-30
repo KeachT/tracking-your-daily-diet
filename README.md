@@ -20,6 +20,8 @@ https://www.tracking-your-daily-diet.com
 
 ## Docker Development
 
-- Before the first `docker compose up`, create a local `node_modules` directory with `mkdir -p node_modules`. This keeps the subsequent volume syncs and tooling access consistent.
+- Before the first `docker compose up`, create empty cache directories with `mkdir -p .next node_modules`.
+  This guarantees Docker has mountpoints ready for the named volumes and keeps IDE tooling access consistent.
 - Run `docker compose up nextjs` to start the Next.js development server.
-- Dependencies are installed in the `node_modules` named volume. When IDE tooling (e.g., Cursor or Prettier) needs access on the host, execute `./scripts/sync-node-modules.sh` to copy the volume contents locally without installing Node.js on the host machine.
+- Dependencies are installed in the `node_modules` named volume.
+  When IDE tooling (e.g., Cursor or Prettier) needs access on the host, execute `./scripts/sync-node-modules.sh` to copy the volume contents locally without installing Node.js on the host machine.

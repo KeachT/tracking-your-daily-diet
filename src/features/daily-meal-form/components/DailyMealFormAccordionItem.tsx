@@ -6,17 +6,12 @@ import { MealFormButtons } from '../../../components/MealFormButtons'
 import { MealIcon } from '../../../components/MealIcon'
 import { NOTIFICATION_DISPLAY_DURATION_MS } from '../../../constants'
 import { MealCategoryName } from '../../../models'
-import { useCurrentDateStore, useUserMealPresetStore } from '../../../stores'
+import { useCurrentDateStore } from '../../../stores'
 import { createStringFromDate, showNotification } from '../../../utils'
 import { MEAL_CATEGORY_LABELS } from '../constants'
 import { useDailyMealRecordStore } from '../stores'
 import { FormsType } from '../types'
-import {
-  convertPresetToFormData,
-  createFoodInitialValues,
-  getPresetFoodsForCategory,
-  saveAndSetDailyMealRecord,
-} from '../utils'
+import { createFoodInitialValues, saveAndSetDailyMealRecord } from '../utils'
 import { DailyMealFormContent } from './DailyMealFormContent'
 
 type MealFormAccordionItemProps = {
@@ -29,11 +24,8 @@ export function DailyMealFormAccordionItem({
   forms,
 }: MealFormAccordionItemProps) {
   const [isSaveButtonDisabled, setIsSaveButtonDisabled] = useState(false)
-  const [isApplyPresetButtonDisabled, setIsApplyPresetButtonDisabled] =
-    useState(false)
   const { dailyMealRecord, setDailyMealRecord } = useDailyMealRecordStore()
   const { currentDate } = useCurrentDateStore()
-  const { userMealPreset } = useUserMealPresetStore()
   const currentDateString = createStringFromDate(currentDate)
 
   const handleAdd = () =>
@@ -64,40 +56,6 @@ export function DailyMealFormAccordionItem({
     }
   }
 
-  const handleApplyPreset = async () => {
-    setIsApplyPresetButtonDisabled(true)
-    if (!userMealPreset) {
-      showNotification(
-        'Day',
-        'プリセットが読み込めませんでした',
-        'error',
-        setIsApplyPresetButtonDisabled
-      )
-      return
-    }
-    const presetFoods = getPresetFoodsForCategory(
-      userMealPreset,
-      mealCategoryName
-    )
-    if (presetFoods.length === 0) {
-      showNotification(
-        'Day',
-        `${MEAL_CATEGORY_LABELS[mealCategoryName]}のプリセットが見つかりませんでした`,
-        'error',
-        setIsApplyPresetButtonDisabled
-      )
-      return
-    }
-    const formData = convertPresetToFormData(presetFoods)
-    forms.setFieldValue(mealCategoryName, formData)
-    showNotification(
-      'Day',
-      `${MEAL_CATEGORY_LABELS[mealCategoryName]}のプリセットを適用しました`,
-      'success',
-      setIsApplyPresetButtonDisabled
-    )
-  }
-
   return (
     <Accordion.Item value={mealCategoryName}>
       <Accordion.Control
@@ -114,9 +72,7 @@ export function DailyMealFormAccordionItem({
         <MealFormButtons
           onAdd={handleAdd}
           onSave={handleSave}
-          onApplyPreset={handleApplyPreset}
           isSaveButtonDisabled={isSaveButtonDisabled}
-          isApplyPresetButtonDisabled={isApplyPresetButtonDisabled}
         />
       </Accordion.Panel>
 
