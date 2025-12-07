@@ -1,16 +1,11 @@
 import { Accordion } from '@mantine/core'
-import { Notifications } from '@mantine/notifications'
-import { useState } from 'react'
 
 import { MealFormButtons } from '../../../components/MealFormButtons'
 import { MealIcon } from '../../../components/MealIcon'
-import { NOTIFICATION_DISPLAY_DURATION_MS } from '../../../constants'
 import { MealCategoryName } from '../../../models'
-import { useUserMealPresetStore } from '../../../stores'
-import { showNotification } from '../../../utils'
 import { MEAL_CATEGORY_LABELS } from '../constants'
 import { FormsType } from '../types'
-import { createFoodInitialValues, saveUserMealPreset } from '../utils'
+import { createFoodInitialValues } from '../utils'
 import { PresetMealFormContent } from './PresetMealFormContent'
 
 type PresetMealFormAccordionItemProps = {
@@ -22,36 +17,8 @@ export function PresetMealFormAccordionItem({
   mealCategoryName,
   forms,
 }: PresetMealFormAccordionItemProps) {
-  const [isSaveButtonDisabled, setIsSaveButtonDisabled] = useState(false)
-  const { userMealPreset, setUserMealPreset } = useUserMealPresetStore()
-
   const handleAdd = () =>
     forms.insertListItem(`${mealCategoryName}`, createFoodInitialValues())
-
-  const handleSave = async () => {
-    setIsSaveButtonDisabled(true)
-    try {
-      await saveUserMealPreset(
-        forms,
-        mealCategoryName,
-        userMealPreset,
-        setUserMealPreset
-      )
-      showNotification(
-        'Preset',
-        `${MEAL_CATEGORY_LABELS[mealCategoryName]}を保存しました`,
-        'success',
-        setIsSaveButtonDisabled
-      )
-    } catch (err) {
-      showNotification(
-        'Preset',
-        `${MEAL_CATEGORY_LABELS[mealCategoryName]}の保存に失敗しました`,
-        'error',
-        setIsSaveButtonDisabled
-      )
-    }
-  }
 
   return (
     <Accordion.Item value={mealCategoryName}>
@@ -66,14 +33,8 @@ export function PresetMealFormAccordionItem({
           mealCategoryName={mealCategoryName}
           forms={forms}
         />
-        <MealFormButtons
-          onAdd={handleAdd}
-          onSave={handleSave}
-          isSaveButtonDisabled={isSaveButtonDisabled}
-        />
+        <MealFormButtons onAdd={handleAdd} />
       </Accordion.Panel>
-
-      <Notifications limit={10} autoClose={NOTIFICATION_DISPLAY_DURATION_MS} />
     </Accordion.Item>
   )
 }

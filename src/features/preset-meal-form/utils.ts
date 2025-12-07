@@ -1,6 +1,4 @@
 import { createId } from '@paralleldrive/cuid2'
-import _differenceWith from 'lodash.differencewith'
-import _isEqual from 'lodash.isequal'
 import { sort, sum } from 'radash'
 
 import {
@@ -19,6 +17,8 @@ import {
 import { MealCategoryName } from '../../models'
 import { LoadingState, UserMealPresetState } from '../../stores'
 import { FormField, FormsType } from './types'
+
+type MealPresetFieldName = Lowercase<`${MealCategoryName}`>
 
 /**
  * Creates initial values for a food form.
@@ -45,7 +45,7 @@ export const createFoodInitialValues = (): FormField => {
  * An array of normalized food objects with numeric values for calories, protein, carbohydrates, and fat.
  */
 const normalizeFoods = (forms: FormsType, mealCategoryName: string) => {
-  const foods = forms.values[mealCategoryName]
+  const foods = forms.values[mealCategoryName] || []
 
   const normalizedFoods = foods.map((food) => {
     const { id, name, calories, protein, carbohydrates, fat } = food
@@ -60,6 +60,30 @@ const normalizeFoods = (forms: FormsType, mealCategoryName: string) => {
   })
 
   return normalizedFoods
+}
+
+/**
+ * Normalizes all meal categories from the form into API-compatible data.
+ *
+ * @param forms - The forms containing meal data organized by category
+ * @returns An object keyed by lowercase meal category, each holding normalized foods
+ */
+const normalizeAllMealCategories = (
+  forms: FormsType
+): Record<MealPresetFieldName, ReturnType<typeof normalizeFoods>> => {
+  const mealCategoryNames = Object.values(MealCategoryName)
+
+  const normalizedEntries = mealCategoryNames.map((mealCategoryName) => {
+    const categoryKey = mealCategoryName.toLowerCase() as MealPresetFieldName
+    const foods = normalizeFoods(forms, mealCategoryName)
+    return [categoryKey, foods]
+  })
+
+  const normalizedPresetByCategory = Object.fromEntries(
+    normalizedEntries
+  ) as Record<MealPresetFieldName, ReturnType<typeof normalizeFoods>>
+
+  return normalizedPresetByCategory
 }
 
 /**
@@ -116,54 +140,45 @@ export const createSumNutritionValues = (forms: FormsType) => {
 }
 
 /**
- * Saves a user meal preset for a specific category
+ * Saves all meal categories for the current user preset at once.
  *
- * @param forms - The forms containing the meal preset data
- * @param mealCategoryName - The name of the meal category to save
- * @param userMealPreset - The current user meal preset object
- * @param setUserMealPreset - The function to update the user meal preset
+ * @param forms - The forms containing the meal preset data for every category
+ * @param userMealPreset - The existing user meal preset object (null when creating)
+ * @param setUserMealPreset - The function to update the local user meal preset state
  *
- * @returns A promise that resolves when the preset has been saved
+ * @returns A promise that resolves to true when the preset has been saved
  */
-export const saveUserMealPreset = async (
+export const saveAllUserMealPreset = async (
   forms: FormsType,
-  mealCategoryName: string,
   userMealPreset: UserMealPreset | null,
   setUserMealPreset: (userMealPreset: UserMealPreset) => void
 ) => {
-  const normalizedFoods = normalizeFoods(forms, mealCategoryName)
-  const categoryKey = mealCategoryName.toLowerCase()
+  const normalizedPreset = normalizeAllMealCategories(forms)
 
-  try {
-    // Check if the userMealPreset exists
-    if (userMealPreset) {
-      const updateUserMealPresetInput: UpdateUserMealPresetInput = {
-        id: userMealPreset.id,
-        [categoryKey]: normalizedFoods,
-        _version: userMealPreset._version,
-      }
-      const variables: UpdateUserMealPresetMutationVariables = {
-        input: updateUserMealPresetInput,
-      }
-      const updatedPreset = await updUserMealPreset(variables)
-      setUserMealPreset(updatedPreset)
-      return true
-    } else {
-      const createUserMealPresetInput: CreateUserMealPresetInput = {
-        id: createId(),
-        [categoryKey]: normalizedFoods,
-      }
-      const variables: CreateUserMealPresetMutationVariables = {
-        input: createUserMealPresetInput,
-      }
-      const newPreset = await addUserMealPreset(variables)
-      setUserMealPreset(newPreset)
-      return true
+  if (userMealPreset) {
+    const updateUserMealPresetInput: UpdateUserMealPresetInput = {
+      id: userMealPreset.id,
+      _version: userMealPreset._version,
+      ...normalizedPreset,
     }
-  } catch (error) {
-    console.error('Error saving user meal preset:', error)
-    throw error
+    const variables: UpdateUserMealPresetMutationVariables = {
+      input: updateUserMealPresetInput,
+    }
+    const updatedPreset = await updUserMealPreset(variables)
+    setUserMealPreset(updatedPreset)
+    return true
   }
+
+  const createUserMealPresetInput: CreateUserMealPresetInput = {
+    id: createId(),
+    ...normalizedPreset,
+  }
+  const variables: CreateUserMealPresetMutationVariables = {
+    input: createUserMealPresetInput,
+  }
+  const newPreset = await addUserMealPreset(variables)
+  setUserMealPreset(newPreset)
+  return true
 }
 
 /**

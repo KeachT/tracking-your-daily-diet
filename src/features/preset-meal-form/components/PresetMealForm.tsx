@@ -1,7 +1,9 @@
-import { Accordion } from '@mantine/core'
+import { Accordion, Box, Center } from '@mantine/core'
 import { useForm } from '@mantine/form'
+import { Notifications } from '@mantine/notifications'
 import { useEffect } from 'react'
 
+import { NOTIFICATION_DISPLAY_DURATION_MS } from '../../../constants'
 import { MealCategoryName } from '../../../models'
 import {
   useLoadingStateStore,
@@ -16,6 +18,7 @@ import {
   loadUserMealPreset,
 } from '../utils'
 import { PresetMealFormAccordionItem } from './PresetMealFormAccordionItem'
+import { PresetMealFormBulkSaveButton } from './PresetMealFormBulkSaveButton'
 
 export function PresetMealForm() {
   const { setIsDataLoading } = useLoadingStateStore()
@@ -55,14 +58,26 @@ export function PresetMealForm() {
   }, [sumCalories, sumProtein, sumFat, sumCarbohydrates])
 
   return (
-    <Accordion defaultValue={defaultCategory} variant="separated">
-      {mealCategoryNames.map((mealCategoryName) => (
-        <PresetMealFormAccordionItem
-          key={mealCategoryName}
-          mealCategoryName={mealCategoryName}
+    <Box>
+      <Accordion defaultValue={defaultCategory} variant="separated">
+        {mealCategoryNames.map((mealCategoryName) => (
+          <PresetMealFormAccordionItem
+            key={mealCategoryName}
+            mealCategoryName={mealCategoryName}
+            forms={forms}
+          />
+        ))}
+      </Accordion>
+
+      <Center mt="xl">
+        <PresetMealFormBulkSaveButton
           forms={forms}
+          userMealPreset={userMealPreset}
+          setUserMealPreset={setUserMealPreset}
         />
-      ))}
-    </Accordion>
+      </Center>
+
+      <Notifications limit={10} autoClose={NOTIFICATION_DISPLAY_DURATION_MS} />
+    </Box>
   )
 }
