@@ -2,8 +2,8 @@ import { Button, Center } from '@mantine/core'
 
 type MealFormButtonsProps = {
   onAdd: () => void
-  onSave: () => Promise<void>
-  isSaveButtonDisabled: boolean
+  onSave?: () => Promise<void>
+  isSaveButtonDisabled?: boolean
 }
 
 export function MealFormButtons({
@@ -16,14 +16,16 @@ export function MealFormButtons({
       <Button mr="md" onClick={onAdd}>
         追加
       </Button>
-      <Button
-        mr="md"
-        color="teal"
-        onClick={onSave}
-        disabled={isSaveButtonDisabled}
-      >
-        保存
-      </Button>
+      {onSave && (
+        <Button
+          mr="md"
+          color="teal"
+          onClick={onSave}
+          disabled={Boolean(isSaveButtonDisabled)}
+        >
+          保存
+        </Button>
+      )}
     </Center>
   )
 }
