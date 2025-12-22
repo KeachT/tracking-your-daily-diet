@@ -16,7 +16,7 @@ import {
 } from '../../api/user-meal-preset'
 import { MealCategoryName } from '../../models'
 import { LoadingState, UserMealPresetState } from '../../stores'
-import { FormField, FormsType } from './types'
+import { FormData, FormField, FormsType } from './types'
 
 type MealPresetFieldName = Lowercase<`${MealCategoryName}`>
 
@@ -44,8 +44,8 @@ export const createFoodInitialValues = (): FormField => {
  * @returns {Array<{ id: string, name: string, calories: number, protein: number, carbohydrates: number, fat: number }>}
  * An array of normalized food objects with numeric values for calories, protein, carbohydrates, and fat.
  */
-const normalizeFoods = (forms: FormsType, mealCategoryName: string) => {
-  const foods = forms.values[mealCategoryName] || []
+const normalizeFoods = (values: FormData, mealCategoryName: string) => {
+  const foods = values[mealCategoryName] || []
 
   const normalizedFoods = foods.map((food) => {
     const { id, name, calories, protein, carbohydrates, fat } = food
@@ -71,11 +71,12 @@ const normalizeFoods = (forms: FormsType, mealCategoryName: string) => {
 const normalizeAllMealCategories = (
   forms: FormsType
 ): Record<MealPresetFieldName, ReturnType<typeof normalizeFoods>> => {
+  const currentValues = forms.getValues()
   const mealCategoryNames = Object.values(MealCategoryName)
 
   const normalizedEntries = mealCategoryNames.map((mealCategoryName) => {
     const categoryKey = mealCategoryName.toLowerCase() as MealPresetFieldName
-    const foods = normalizeFoods(forms, mealCategoryName)
+    const foods = normalizeFoods(currentValues, mealCategoryName)
     return [categoryKey, foods]
   })
 
@@ -124,7 +125,8 @@ export const createInitialFormValuesFromPreset = (
  *   - sumCarbohydrates - The sum of carbohydrates across all foods.
  */
 export const createSumNutritionValues = (forms: FormsType) => {
-  const allFoods = Object.values(forms.values).flat()
+  const currentValues = forms.getValues()
+  const allFoods = Object.values(currentValues).flat()
 
   const sumCalories = sum(allFoods, (f) => Number(f?.calories || 0))
   const sumProtein = sum(allFoods, (f) => Number(f?.protein || 0))

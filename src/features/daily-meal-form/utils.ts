@@ -20,7 +20,7 @@ import { fetchUserMealPreset } from '../../api/user-meal-preset'
 import { MealCategoryName } from '../../models'
 import { UserMealPresetState } from '../../stores'
 import { DailyMealRecordState } from './stores/dailyMealRecord'
-import { FormField, FormsType } from './types'
+import { FormData, FormField, FormsType } from './types'
 
 /**
  * Creates initial values for a food form.
@@ -176,7 +176,8 @@ export const saveAndSetDailyMealRecord = async (
   dailyMealRecord: DailyMealRecord | null,
   setDailyMealRecord: DailyMealRecordState['setDailyMealRecord']
 ) => {
-  const normalizedFoods = normalizeDailyMealRecordFoods(forms)
+  const currentValues = forms.getValues()
+  const normalizedFoods = normalizeDailyMealRecordFoods(currentValues)
 
   if (dailyMealRecord) {
     const updateDailyMealRecordInput: UpdateDailyMealRecordInput = {
@@ -211,14 +212,14 @@ export const saveAndSetDailyMealRecord = async (
 }
 
 /**
- * Normalizes the food items from all meal categories in the given forms.
+ * Normalizes the food items from all meal categories in the given form values.
  *
- * @param forms - The forms object containing meal data.
+ * @param values - The form values object containing meal data.
  * @returns An object with normalized food arrays for each meal category.
  */
-const normalizeDailyMealRecordFoods = (forms: FormsType) => {
+const normalizeDailyMealRecordFoods = (values: FormData) => {
   const normalizeCategory = (categoryName: string) => {
-    const foods = forms.values[categoryName] || []
+    const foods = values[categoryName] || []
     return foods.map((food) => {
       const { id, name, calories, protein, carbohydrates, fat } = food
       return {
@@ -284,25 +285,27 @@ export const getPresetFoodsForCategory = (
 }
 
 /**
- * Applies preset foods to every meal category in the given forms instance.
- * Existing form values are overwritten regardless of whether a category
- * has preset foods or not.
+ * Creates form values that apply the preset foods to every meal category.
+ * Existing values should be overwritten regardless of whether a category
+ * has preset foods or not (empty categories become empty arrays).
  *
  * @param userMealPreset - The loaded preset data for the user.
- * @param forms - The Mantine forms instance for the Day screen.
+ * @returns Form values for all categories, or null if no preset exists.
  */
-export const applyPresetToAllCategories = (
-  userMealPreset: UserMealPreset | null,
-  forms: FormsType
-) => {
+export const createAppliedPresetValues = (
+  userMealPreset: UserMealPreset | null
+): FormData | null => {
   if (!userMealPreset) {
-    return
+    return null
   }
 
   const categoryNames = Object.values(MealCategoryName) as MealCategoryName[]
+  const appliedValues: FormData = {}
   for (const category of categoryNames) {
     const presetFoods = getPresetFoodsForCategory(userMealPreset, category)
     const formData = convertPresetToFormData(presetFoods)
-    forms.setFieldValue(category, formData)
+    appliedValues[category] = formData
   }
+
+  return appliedValues
 }
