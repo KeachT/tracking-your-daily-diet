@@ -22,7 +22,7 @@ import {
   loadUserMealPresetForDay,
 } from '../utils'
 import { DailyMealFormAccordionItem } from './DailyMealFormAccordionItem'
-import { DailyMealFormBulkApplyButton } from './DailyMealFormBulkApplyButton'
+import { DailyMealFormApplyPresetToAllCategoriesButton } from './DailyMealFormApplyPresetToAllCategoriesButton'
 
 export function DailyMealForm() {
   const { currentDate } = useCurrentDateStore()
@@ -93,7 +93,7 @@ export function DailyMealForm() {
       </Accordion>
 
       <Center mt="xl">
-        <DailyMealFormBulkApplyButton forms={forms} />
+        <DailyMealFormApplyPresetToAllCategoriesButton forms={forms} />
       </Center>
 
       <Notifications limit={10} autoClose={NOTIFICATION_DISPLAY_DURATION_MS} />
