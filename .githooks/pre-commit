@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Guardrail: prevent direct commits to protected branches.
+
+current_branch="$(git symbolic-ref --quiet --short HEAD 2>/dev/null || true)"
+if [[ -z "${current_branch}" ]]; then
+  exit 0
+fi
+
+if [[ "${SKIP_BRANCH_CHECK:-}" == "1" ]]; then
+  exit 0
+fi
+
+case "${current_branch}" in
+  dev* | main*)
+    cat >&2 <<'EOF'
+Direct commits to the main or dev branch are not allowed.
+Please create a separate branch and commit there.
+EOF
+    exit 1
+    ;;
+esac

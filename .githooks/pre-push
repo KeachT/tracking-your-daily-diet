@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Run lint before push (using the docker compose dev container).
+
+if ! docker compose run --rm --no-deps nextjs npm run lint; then
+  cat >&2 <<'EOF'
+Lint failed.
+Please fix the issues before pushing.
+You can run it manually with:
+docker compose run --rm --no-deps nextjs npm run lint
+EOF
+  exit 1
+fi

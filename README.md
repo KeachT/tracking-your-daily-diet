@@ -25,3 +25,11 @@ https://www.tracking-your-daily-diet.com
 - Run `docker compose up nextjs` to start the Next.js development server.
 - Dependencies are installed in the `node_modules` named volume.
   When IDE tooling (e.g., Cursor or Prettier) needs access on the host, execute `./scripts/sync-node-modules.sh` to copy the volume contents locally without installing Node.js on the host machine.
+
+## Git Hooks
+
+This repo uses Git hooks (via `core.hooksPath`) to run checks locally.
+
+- Install: `./scripts/install-git-hooks.sh`
+- Skip the protected-branch check for one commit: `SKIP_BRANCH_CHECK=1 git commit ...`
+- `pre-push` runs `npm run lint` inside the `nextjs` Docker Compose service (Docker/Compose required).
