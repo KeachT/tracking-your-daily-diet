@@ -13,7 +13,7 @@ import { useEffect } from 'react'
 import awsExports from '../aws-exports'
 import { LoadingIndicator } from '../components/LoadingIndicator'
 import { Path } from '../constants'
-import { fetchAndSetDailyGoal } from '../features/daily-goal/utils'
+import { fetchAndSetDailyGoal } from '../features/daily-goal'
 import { useDailyGoalStore } from '../stores'
 import { checkIsLoading } from '../utils'
 

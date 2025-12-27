@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 
 import { DailyGoal } from '../API'
-import { createDailyGoalInitialValues } from '../features/daily-goal/utils'
+import { createDailyGoalInitialValues } from '../features/daily-goal'
 
 export type DailyGoalState = {
   dailyGoal: DailyGoal

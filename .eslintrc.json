@@ -11,6 +11,17 @@
     "sourceType": "module"
   },
   "rules": {
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": [
+          {
+            "group": ["**/features/*/*/**"],
+            "message": "Please don’t import/export files directly from under features; always go through index.ts."
+          }
+        ]
+      }
+    ],
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
     "complexity": ["error", 10]
