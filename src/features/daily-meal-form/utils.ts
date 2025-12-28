@@ -22,21 +22,7 @@ import { UserMealPresetState } from '../../stores'
 import { DailyMealRecordState } from './stores/dailyMealRecord'
 import { FormData, FormField, FormsType } from './types'
 
-/**
- * Creates initial values for a food form.
- *
- * @returns The initial values object with empty name and zero values for calories, protein, carbohydrates, fat, and a randomly generated key.
- */
-export const createFoodInitialValues = (): FormField => {
-  return {
-    id: createId(),
-    name: '',
-    calories: '',
-    protein: '',
-    carbohydrates: '',
-    fat: '',
-  }
-}
+export { createFoodInitialValues } from '../../utils/createFoodInitialValues'
 
 /**
  * Returns the default meal category based on the current hour of the day.

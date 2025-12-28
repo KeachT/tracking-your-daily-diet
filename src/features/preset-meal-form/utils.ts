@@ -16,25 +16,11 @@ import {
 } from '../../api/user-meal-preset'
 import { MealCategoryName } from '../../models'
 import { LoadingState, UserMealPresetState } from '../../stores'
-import { FormData, FormField, FormsType } from './types'
+import { FormData, FormsType } from './types'
 
 type MealPresetFieldName = Lowercase<`${MealCategoryName}`>
 
-/**
- * Creates initial values for a food form.
- *
- * @returns The initial values object with empty name and zero values for calories, protein, carbohydrates, fat, and a randomly generated key.
- */
-export const createFoodInitialValues = (): FormField => {
-  return {
-    id: createId(),
-    name: '',
-    calories: '',
-    protein: '',
-    carbohydrates: '',
-    fat: '',
-  }
-}
+export { createFoodInitialValues } from '../../utils/createFoodInitialValues'
 
 /**
  * Normalizes the food items within a specific meal category from the given forms.
