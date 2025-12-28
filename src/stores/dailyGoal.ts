@@ -1,7 +1,19 @@
 import { create } from 'zustand'
 
 import { DailyGoal } from '../API'
-import { createDailyGoalInitialValues } from '../features/daily-goal'
+
+export const createDailyGoalInitialValues = (): DailyGoal => ({
+  __typename: 'DailyGoal',
+  id: '',
+  calories: 0,
+  protein: 0,
+  carbohydrates: 0,
+  fat: 0,
+  createdAt: '',
+  updatedAt: '',
+  _version: 1,
+  _lastChangedAt: 1,
+})
 
 export type DailyGoalState = {
   dailyGoal: DailyGoal

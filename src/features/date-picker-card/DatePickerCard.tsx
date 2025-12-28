@@ -5,8 +5,8 @@ import {
   IconDots,
 } from '@tabler/icons-react'
 
-import { useCurrentDateStore } from '../../../stores'
-import classes from '../DatePickerCard.module.css'
+import { useCurrentDateStore } from '../../stores'
+import classes from './DatePickerCard.module.css'
 
 export function DatePickerCard() {
   const { currentDate, setCurrentDate } = useCurrentDateStore()

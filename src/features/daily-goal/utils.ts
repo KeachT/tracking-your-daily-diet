@@ -1,38 +1,11 @@
 import {
   CreateDailyGoalInput,
   CreateDailyGoalMutationVariables,
-  DailyGoal,
   UpdateDailyGoalInput,
   UpdateDailyGoalMutationVariables,
 } from '../../API'
-import {
-  addDailyGoal,
-  fetchDailyGoal,
-  updDailyGoal,
-} from '../../api/daily-goal'
+import { addDailyGoal, updDailyGoal } from '../../api/daily-goal'
 import { DailyGoalState } from '../../stores'
-
-/**
- * Create initial values for a daily goal.
- *
- * @returns {DailyGoal} The initial daily goal object.
- */
-export const createDailyGoalInitialValues = (): DailyGoal => {
-  const dailyGoal: DailyGoal = {
-    __typename: 'DailyGoal',
-    id: '',
-    calories: 0,
-    protein: 0,
-    carbohydrates: 0,
-    fat: 0,
-    createdAt: '',
-    updatedAt: '',
-    _version: 1,
-    _lastChangedAt: 1,
-  }
-
-  return dailyGoal
-}
 
 /**
  * Saves the daily goal by either updating an existing goal or creating a new one.
@@ -62,7 +35,7 @@ export const saveDailyGoal = async (
     }
 
     const updatedDailyGoal = await updDailyGoal(variables)
-    setDailyGoal(updatedDailyGoal as DailyGoal)
+    setDailyGoal(updatedDailyGoal as DailyGoalState['dailyGoal'])
   }
 
   if (!dailyGoalId) {
@@ -78,19 +51,6 @@ export const saveDailyGoal = async (
     }
 
     const newDailyGoal = await addDailyGoal(variables)
-    setDailyGoal(newDailyGoal as DailyGoal)
+    setDailyGoal(newDailyGoal as DailyGoalState['dailyGoal'])
   }
-}
-
-/**
- * Fetches the daily goal from the server and sets it in the state.
- *
- * @param setDailyGoal - A function to update the daily goal state.
- * @returns A promise that resolves when the daily goal has been fetched and set.
- */
-export const fetchAndSetDailyGoal = async (
-  setDailyGoal: DailyGoalState['setDailyGoal']
-) => {
-  const dailyGoal = await fetchDailyGoal()
-  setDailyGoal(dailyGoal as DailyGoal)
 }

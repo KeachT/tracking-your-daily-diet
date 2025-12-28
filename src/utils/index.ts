@@ -1,5 +1,7 @@
 export * from './checkIsLoading'
+export * from './createFoodInitialValues'
 export * from './createPrevWeekDate'
 export * from './createStringFromDate'
+export * from './fetchAndSetDailyGoal'
 export * from './roundToTwoDecimalPlaces'
 export * from './showNotification'

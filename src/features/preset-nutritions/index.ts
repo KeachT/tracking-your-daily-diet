@@ -1,1 +1,1 @@
-export { PresetNutritions } from './components/PresetNutritions'
+export { PresetNutritions } from './PresetNutritions'

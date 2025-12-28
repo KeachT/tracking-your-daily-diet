@@ -1,9 +1,9 @@
-import { LoadingSkeleton } from '../../../components/LoadingSkeleton'
-import { NutritionSummary } from '../../../components/NutritionSummary'
+import { LoadingSkeleton } from '../../components/LoadingSkeleton'
+import { NutritionSummary } from '../../components/NutritionSummary'
 import {
   useLoadingStateStore,
   usePresetNutritionNumbersStore,
-} from '../../../stores'
+} from '../../stores'
 
 export function PresetNutritions() {
   const { isDataLoading } = useLoadingStateStore()
