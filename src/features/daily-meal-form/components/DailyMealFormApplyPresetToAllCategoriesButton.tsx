@@ -19,10 +19,13 @@ export function DailyMealFormApplyPresetToAllCategoriesButton({
   forms,
 }: DailyMealFormApplyPresetToAllCategoriesButtonProps) {
   const [isApplyingPreset, setIsApplyingPreset] = useState(false)
-  const { currentDate } = useCurrentDateStore()
-  const { isDataLoading } = useLoadingStateStore()
-  const { dailyMealRecord, setDailyMealRecord } = useDailyMealRecordStore()
-  const { userMealPreset } = useUserMealPresetStore()
+  const currentDate = useCurrentDateStore((state) => state.currentDate)
+  const isDataLoading = useLoadingStateStore((state) => state.isDataLoading)
+  const dailyMealRecord = useDailyMealRecordStore((state) => state.dailyMealRecord)
+  const setDailyMealRecord = useDailyMealRecordStore(
+    (state) => state.setDailyMealRecord
+  )
+  const userMealPreset = useUserMealPresetStore((state) => state.userMealPreset)
   const currentDateString = createStringFromDate(currentDate)
 
   const handleApplyPresetToAllCategories = async () => {

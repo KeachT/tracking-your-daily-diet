@@ -16,10 +16,12 @@ import {
 import { CustomTooltip } from './CustomTooltip'
 
 export function WeeklyCaloriesChart() {
-  const { isDataLoading } = useLoadingStateStore()
-  const { dailyGoal } = useDailyGoalStore()
-  const { currentDate } = useCurrentDateStore()
-  const { weeklyDailyMealRecords } = useWeeklyDailyMealRecordsStore()
+  const isDataLoading = useLoadingStateStore((state) => state.isDataLoading)
+  const dailyGoal = useDailyGoalStore((state) => state.dailyGoal)
+  const currentDate = useCurrentDateStore((state) => state.currentDate)
+  const weeklyDailyMealRecords = useWeeklyDailyMealRecordsStore(
+    (state) => state.weeklyDailyMealRecords
+  )
 
   const weeklyNutritionsData = createWeeklyNutritionsDataFromDailyMealRecords(
     weeklyDailyMealRecords,

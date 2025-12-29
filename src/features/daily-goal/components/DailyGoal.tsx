@@ -13,7 +13,8 @@ import { DailyGoalNumberInput } from './DailyGoalNumberInput'
 
 export function DailyGoal() {
   const [isSaveButtonDisabled, setIsSaveButtonDisabled] = useState(false)
-  const { dailyGoal, setDailyGoal } = useDailyGoalStore()
+  const dailyGoal = useDailyGoalStore((state) => state.dailyGoal)
+  const setDailyGoal = useDailyGoalStore((state) => state.setDailyGoal)
 
   const setNutritionValues = (
     value: number | string,

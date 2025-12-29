@@ -17,7 +17,7 @@ export function NutritionSummary({
   fat,
   carbohydrates,
 }: NutritionSummaryProps) {
-  const { dailyGoal } = useDailyGoalStore()
+  const dailyGoal = useDailyGoalStore((state) => state.dailyGoal)
 
   const nutritions = createNutritions(
     calories,
