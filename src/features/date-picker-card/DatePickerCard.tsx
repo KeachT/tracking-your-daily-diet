@@ -9,7 +9,8 @@ import { useCurrentDateStore } from '../../stores'
 import classes from './DatePickerCard.module.css'
 
 export function DatePickerCard() {
-  const { currentDate, setCurrentDate } = useCurrentDateStore()
+  const currentDate = useCurrentDateStore((state) => state.currentDate)
+  const setCurrentDate = useCurrentDateStore((state) => state.setCurrentDate)
 
   const changeCurrentDate = (amount: number | 'today') => {
     if (amount === 'today') {

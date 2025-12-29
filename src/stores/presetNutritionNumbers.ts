@@ -18,10 +18,10 @@ export const usePresetNutritionNumbersStore =
     presetFat: 0,
     presetCarbohydrates: 0,
     setPresetCalories: (newPresetCalories) =>
-      set(() => ({ presetCalories: newPresetCalories })),
+      set({ presetCalories: newPresetCalories }),
     setPresetProtein: (newPresetProtein) =>
-      set(() => ({ presetProtein: newPresetProtein })),
-    setPresetFat: (newPresetFat) => set(() => ({ presetFat: newPresetFat })),
+      set({ presetProtein: newPresetProtein }),
+    setPresetFat: (newPresetFat) => set({ presetFat: newPresetFat }),
     setPresetCarbohydrates: (newPresetCarbohydrates) =>
-      set(() => ({ presetCarbohydrates: newPresetCarbohydrates })),
+      set({ presetCarbohydrates: newPresetCarbohydrates }),
   }))

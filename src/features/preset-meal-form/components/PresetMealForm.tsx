@@ -21,14 +21,21 @@ import { PresetMealFormAccordionItem } from './PresetMealFormAccordionItem'
 import { PresetMealFormBulkSaveButton } from './PresetMealFormBulkSaveButton'
 
 export function PresetMealForm() {
-  const { setIsDataLoading } = useLoadingStateStore()
-  const { userMealPreset, setUserMealPreset } = useUserMealPresetStore()
-  const {
-    setPresetCalories,
-    setPresetProtein,
-    setPresetFat,
-    setPresetCarbohydrates,
-  } = usePresetNutritionNumbersStore()
+  const setIsDataLoading = useLoadingStateStore((state) => state.setIsDataLoading)
+  const userMealPreset = useUserMealPresetStore((state) => state.userMealPreset)
+  const setUserMealPreset = useUserMealPresetStore(
+    (state) => state.setUserMealPreset
+  )
+  const setPresetCalories = usePresetNutritionNumbersStore(
+    (state) => state.setPresetCalories
+  )
+  const setPresetProtein = usePresetNutritionNumbersStore(
+    (state) => state.setPresetProtein
+  )
+  const setPresetFat = usePresetNutritionNumbersStore((state) => state.setPresetFat)
+  const setPresetCarbohydrates = usePresetNutritionNumbersStore(
+    (state) => state.setPresetCarbohydrates
+  )
 
   const forms: FormsType = useForm({})
   const mealCategoryNames = Object.values(

@@ -15,10 +15,15 @@ import {
 } from '../utils'
 
 export function WeeklyNutritions() {
-  const { currentDate } = useCurrentDateStore()
-  const { isDataLoading, setIsDataLoading } = useLoadingStateStore()
-  const { weeklyDailyMealRecords, setWeeklyDailyMealRecords } =
-    useWeeklyDailyMealRecordsStore()
+  const currentDate = useCurrentDateStore((state) => state.currentDate)
+  const isDataLoading = useLoadingStateStore((state) => state.isDataLoading)
+  const setIsDataLoading = useLoadingStateStore((state) => state.setIsDataLoading)
+  const weeklyDailyMealRecords = useWeeklyDailyMealRecordsStore(
+    (state) => state.weeklyDailyMealRecords
+  )
+  const setWeeklyDailyMealRecords = useWeeklyDailyMealRecordsStore(
+    (state) => state.setWeeklyDailyMealRecords
+  )
 
   const { currentDateString, prevWeekDateString } =
     createWeekDateString(currentDate)

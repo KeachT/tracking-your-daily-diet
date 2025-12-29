@@ -18,11 +18,11 @@ export const useNutritionNumbersStore = create<NutritionNumbersState>()(
     dailyFat: 0,
     dailyCarbohydrates: 0,
     setDailyCalories: (newDailyCalories) =>
-      set(() => ({ dailyCalories: newDailyCalories })),
+      set({ dailyCalories: newDailyCalories }),
     setDailyProtein: (newDailyProtein) =>
-      set(() => ({ dailyProtein: newDailyProtein })),
-    setDailyFat: (newDailyFat) => set(() => ({ dailyFat: newDailyFat })),
+      set({ dailyProtein: newDailyProtein }),
+    setDailyFat: (newDailyFat) => set({ dailyFat: newDailyFat }),
     setDailyCarbohydrates: (newDailyCarbohydrates) =>
-      set(() => ({ dailyCarbohydrates: newDailyCarbohydrates })),
+      set({ dailyCarbohydrates: newDailyCarbohydrates }),
   })
 )

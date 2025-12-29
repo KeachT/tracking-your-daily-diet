@@ -10,5 +10,5 @@ export type DailyMealRecordState = {
 export const useDailyMealRecordStore = create<DailyMealRecordState>((set) => ({
   dailyMealRecord: null,
   setDailyMealRecord: (newDailyMealRecord) =>
-    set(() => ({ dailyMealRecord: newDailyMealRecord })),
+    set({ dailyMealRecord: newDailyMealRecord }),
 }))

@@ -22,8 +22,11 @@ export function DailyMealFormAccordionItem({
   forms,
 }: MealFormAccordionItemProps) {
   const [isSaveButtonDisabled, setIsSaveButtonDisabled] = useState(false)
-  const { dailyMealRecord, setDailyMealRecord } = useDailyMealRecordStore()
-  const { currentDate } = useCurrentDateStore()
+  const dailyMealRecord = useDailyMealRecordStore((state) => state.dailyMealRecord)
+  const setDailyMealRecord = useDailyMealRecordStore(
+    (state) => state.setDailyMealRecord
+  )
+  const currentDate = useCurrentDateStore((state) => state.currentDate)
   const currentDateString = createStringFromDate(currentDate)
 
   const handleAdd = () =>

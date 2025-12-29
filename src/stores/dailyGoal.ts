@@ -2,7 +2,7 @@ import { create } from 'zustand'
 
 import { DailyGoal } from '../API'
 
-export const createDailyGoalInitialValues = (): DailyGoal => ({
+const initialDailyGoal: DailyGoal = {
   __typename: 'DailyGoal',
   id: '',
   calories: 0,
@@ -13,7 +13,7 @@ export const createDailyGoalInitialValues = (): DailyGoal => ({
   updatedAt: '',
   _version: 1,
   _lastChangedAt: 1,
-})
+}
 
 export type DailyGoalState = {
   dailyGoal: DailyGoal
@@ -21,6 +21,6 @@ export type DailyGoalState = {
 }
 
 export const useDailyGoalStore = create<DailyGoalState>()((set) => ({
-  dailyGoal: createDailyGoalInitialValues(),
-  setDailyGoal: (newDailyGoal) => set(() => ({ dailyGoal: newDailyGoal })),
+  dailyGoal: { ...initialDailyGoal },
+  setDailyGoal: (newDailyGoal) => set({ dailyGoal: newDailyGoal }),
 }))

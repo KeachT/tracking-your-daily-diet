@@ -30,7 +30,7 @@ export default function App(props: AppProps) {
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { authStatus } = useAuthenticator((context) => [context.authStatus])
-  const { setDailyGoal } = useDailyGoalStore()
+  const setDailyGoal = useDailyGoalStore((state) => state.setDailyGoal)
   const router = useRouter()
   const isLoading = checkIsLoading(authStatus, router.pathname)
 

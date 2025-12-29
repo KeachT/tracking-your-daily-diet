@@ -11,5 +11,5 @@ export const useWeeklyDailyMealRecordsStore =
   create<WeeklyDailyMealRecordsState>((set) => ({
     weeklyDailyMealRecords: [],
     setWeeklyDailyMealRecords: (newWeeklyDailyMealRecords) =>
-      set(() => ({ weeklyDailyMealRecords: newWeeklyDailyMealRecords })),
+      set({ weeklyDailyMealRecords: newWeeklyDailyMealRecords }),
   }))

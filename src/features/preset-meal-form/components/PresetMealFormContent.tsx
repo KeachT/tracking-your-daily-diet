@@ -14,7 +14,7 @@ export function PresetMealFormContent({
   mealCategoryName,
   forms,
 }: MealFormContentProps) {
-  const { isDataLoading } = useLoadingStateStore()
+  const isDataLoading = useLoadingStateStore((state) => state.isDataLoading)
 
   if (isDataLoading) {
     return <LoadingSkeleton height={100} />

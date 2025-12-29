@@ -25,16 +25,21 @@ import { DailyMealFormAccordionItem } from './DailyMealFormAccordionItem'
 import { DailyMealFormApplyPresetToAllCategoriesButton } from './DailyMealFormApplyPresetToAllCategoriesButton'
 
 export function DailyMealForm() {
-  const { currentDate } = useCurrentDateStore()
-  const { setIsDataLoading } = useLoadingStateStore()
-  const { dailyMealRecord, setDailyMealRecord } = useDailyMealRecordStore()
-  const { setUserMealPreset } = useUserMealPresetStore()
-  const {
-    setDailyCalories,
-    setDailyProtein,
-    setDailyFat,
-    setDailyCarbohydrates,
-  } = useNutritionNumbersStore()
+  const currentDate = useCurrentDateStore((state) => state.currentDate)
+  const setIsDataLoading = useLoadingStateStore((state) => state.setIsDataLoading)
+  const dailyMealRecord = useDailyMealRecordStore((state) => state.dailyMealRecord)
+  const setDailyMealRecord = useDailyMealRecordStore(
+    (state) => state.setDailyMealRecord
+  )
+  const setUserMealPreset = useUserMealPresetStore(
+    (state) => state.setUserMealPreset
+  )
+  const setDailyCalories = useNutritionNumbersStore((state) => state.setDailyCalories)
+  const setDailyProtein = useNutritionNumbersStore((state) => state.setDailyProtein)
+  const setDailyFat = useNutritionNumbersStore((state) => state.setDailyFat)
+  const setDailyCarbohydrates = useNutritionNumbersStore(
+    (state) => state.setDailyCarbohydrates
+  )
 
   const forms: FormsType = useForm({})
   const mealCategoryNames = Object.values(
