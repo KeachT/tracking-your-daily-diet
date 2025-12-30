@@ -12,9 +12,7 @@ export const createPrevWeekDate = (
   const currentDateString = createStringFromDate(currentDate)
 
   const prevWeekDate = new Date(currentDateString)
-  const nowDate = new Date()
-
-  prevWeekDate.setDate((currentDate || nowDate).getDate() - 6)
+  prevWeekDate.setDate(prevWeekDate.getDate() - 6)
 
   return prevWeekDate
 }

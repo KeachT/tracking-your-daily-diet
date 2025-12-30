@@ -7,13 +7,19 @@ import { DateValue } from '@mantine/dates'
  * @returns {string} The date string in the "YYYY-MM-DD" format.
  */
 export const createStringFromDate = (date: DateValue) => {
-  const nowDate = new Date()
+  let resolvedDate: Date
+  if (date == null) {
+    resolvedDate = new Date()
+  } else if (typeof date === 'string') {
+    resolvedDate = new Date(date)
+  } else {
+    resolvedDate = date
+  }
 
-  const year = (date || nowDate).getFullYear()
-  const month = String((date || nowDate).getMonth() + 1).padStart(2, '0')
-  const day = String((date || nowDate).getDate()).padStart(2, '0')
+  const year = resolvedDate.getFullYear()
+  const month = String(resolvedDate.getMonth() + 1).padStart(2, '0')
+  const day = String(resolvedDate.getDate()).padStart(2, '0')
 
   const dateString = `${year}-${month}-${day}`
-
   return dateString
 }
