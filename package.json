@@ -6,8 +6,8 @@
     "dev": "next dev",
     "build": "NODE_ENV=production next build",
     "start": "next start",
-    "lint": "next lint",
-    "lint:fix": "npx eslint --fix ./src/api/ ./src/components/ ./src/constants/ ./src/features/ ./src/pages/ ./src/stores/ ./src/utils/"
+    "lint": "eslint ./src/api/ ./src/components/ ./src/constants/ ./src/features/ ./src/pages/ ./src/stores/ ./src/utils/",
+    "lint:fix": "eslint --fix ./src/api/ ./src/components/ ./src/constants/ ./src/features/ ./src/pages/ ./src/stores/ ./src/utils/"
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^4.6.4",
@@ -23,9 +23,9 @@
     "@types/react-dom": "^18.3.0",
     "aws-amplify": "^5.3.12",
     "dayjs": "^1.11.8",
-    "eslint": "8.42.0",
-    "eslint-config-next": "13.4.4",
-    "next": "^14.2.35",
+    "eslint": "9.39.2",
+    "eslint-config-next": "16.1.4",
+    "next": "^16.1.4",
     "radash": "^12.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
