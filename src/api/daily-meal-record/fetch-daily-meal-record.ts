@@ -1,5 +1,4 @@
 import { GraphQLQuery } from '@aws-amplify/api'
-import { API } from 'aws-amplify'
 
 import {
   DailyMealRecord,
@@ -7,6 +6,7 @@ import {
   GetDailyMealRecordQueryVariables,
 } from '../../API'
 import { getDailyMealRecord } from '../../graphql/queries'
+import { client } from '../amplifyClient'
 
 /**
  * Fetches a daily meal record by its ID, including food details.
@@ -22,10 +22,10 @@ export const fetchDailyMealRecordWithFoods = async (
       id: dailyMealRecordId,
     }
 
-    const { data } = await API.graphql<GraphQLQuery<GetDailyMealRecordQuery>>({
+    const { data } = await client.graphql<GraphQLQuery<GetDailyMealRecordQuery>>({
       query: getDailyMealRecord,
       variables,
-      authMode: 'AMAZON_COGNITO_USER_POOLS',
+      authMode: 'userPool',
     })
 
     return data?.getDailyMealRecord as DailyMealRecord | null

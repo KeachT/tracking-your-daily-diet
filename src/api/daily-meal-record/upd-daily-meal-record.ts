@@ -1,5 +1,4 @@
 import { GraphQLQuery } from '@aws-amplify/api'
-import { API } from 'aws-amplify'
 
 import {
   DailyMealRecord,
@@ -7,6 +6,7 @@ import {
   UpdateDailyMealRecordMutationVariables,
 } from '../../API'
 import { updateDailyMealRecord } from '../../graphql/mutations'
+import { client } from '../amplifyClient'
 
 /**
  * Updates an existing daily meal record.
@@ -18,12 +18,12 @@ export const updDailyMealRecord = async (
   variables: UpdateDailyMealRecordMutationVariables
 ): Promise<DailyMealRecord> => {
   try {
-    const { data } = await API.graphql<
+    const { data } = await client.graphql<
       GraphQLQuery<UpdateDailyMealRecordMutation>
     >({
       query: updateDailyMealRecord,
       variables,
-      authMode: 'AMAZON_COGNITO_USER_POOLS',
+      authMode: 'userPool',
     })
 
     const updatedDailyMealRecord =

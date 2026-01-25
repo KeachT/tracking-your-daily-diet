@@ -1,6 +1,8 @@
 import { createId } from '@paralleldrive/cuid2'
 import { sort, sum } from 'radash'
 
+import { MealCategoryName } from '@/constants'
+
 import {
   CreateDailyMealRecordInput,
   CreateDailyMealRecordMutationVariables,
@@ -17,7 +19,6 @@ import {
   updDailyMealRecord,
 } from '../../api/daily-meal-record'
 import { fetchUserMealPreset } from '../../api/user-meal-preset'
-import { MealCategoryName } from '../../models'
 import { UserMealPresetState } from '../../stores'
 import { DailyMealRecordState } from './stores/dailyMealRecord'
 import { FormData, FormField, FormsType } from './types'

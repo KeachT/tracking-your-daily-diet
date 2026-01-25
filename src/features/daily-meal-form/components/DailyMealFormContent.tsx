@@ -1,6 +1,7 @@
+import { MealCategoryName } from '@/constants'
+
 import { LoadingSkeleton } from '../../../components/LoadingSkeleton'
 import { NoFoodText } from '../../../components/NoFoodText'
-import { MealCategoryName } from '../../../models'
 import { useLoadingStateStore } from '../../../stores'
 import { FormsType } from '../types'
 import { DailyMealFormFields } from './DailyMealFormFields'

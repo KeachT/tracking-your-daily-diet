@@ -1,9 +1,10 @@
 import { Accordion } from '@mantine/core'
 import { useState } from 'react'
 
+import { MealCategoryName } from '@/constants'
+
 import { MealFormButtons } from '../../../components/MealFormButtons'
 import { MealIcon } from '../../../components/MealIcon'
-import { MealCategoryName } from '../../../models'
 import { useCurrentDateStore } from '../../../stores'
 import { createStringFromDate, showNotification } from '../../../utils'
 import { MEAL_CATEGORY_LABELS } from '../constants'

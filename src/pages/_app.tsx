@@ -1,3 +1,4 @@
+import '@/amplify/configure'
 import '@/styles/globals.css'
 import '@aws-amplify/ui-react/styles.css'
 import '@mantine/core/styles.css'
@@ -5,18 +6,14 @@ import '@mantine/notifications/styles.css'
 
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react'
 import { MantineProvider } from '@mantine/core'
-import { Amplify } from 'aws-amplify'
 import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 
-import awsExports from '../aws-exports'
 import { LoadingIndicator } from '../components/LoadingIndicator'
 import { Path } from '../constants'
 import { useDailyGoalStore } from '../stores'
 import { checkIsLoading, fetchAndSetDailyGoal } from '../utils'
-
-Amplify.configure(awsExports)
 
 export default function App(props: AppProps) {
   return (
