@@ -6,7 +6,7 @@ import {
   UpdateDailyMealRecordMutationVariables,
 } from '../../API'
 import { updateDailyMealRecord } from '../../graphql/mutations'
-import { client } from '../amplifyClient'
+import { client } from '../../utils/amplifyClient'
 
 /**
  * Updates an existing daily meal record.
@@ -15,7 +15,7 @@ import { client } from '../amplifyClient'
  * @returns The updated daily meal record.
  */
 export const updDailyMealRecord = async (
-  variables: UpdateDailyMealRecordMutationVariables
+  variables: UpdateDailyMealRecordMutationVariables,
 ): Promise<DailyMealRecord> => {
   try {
     const { data } = await client.graphql<

@@ -1,6 +1,6 @@
 import { generateClient } from 'aws-amplify/api'
 
-import { ensureAmplifyConfigured } from '@/amplify/configure'
+import { ensureAmplifyConfigured } from './ensureAmplifyConfigured'
 
 ensureAmplifyConfigured()
 

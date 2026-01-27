@@ -2,7 +2,7 @@ import { GraphQLQuery } from '@aws-amplify/api'
 
 import { ListDailyGoalsQuery } from '../../API'
 import { listDailyGoals } from '../../graphql/queries'
-import { client } from '../amplifyClient'
+import { client } from '../../utils/amplifyClient'
 
 export const fetchDailyGoal = async () => {
   try {

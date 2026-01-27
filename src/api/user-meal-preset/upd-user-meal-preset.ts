@@ -6,7 +6,7 @@ import {
   UserMealPreset,
 } from '../../API'
 import { updateUserMealPreset } from '../../graphql/mutations'
-import { client } from '../amplifyClient'
+import { client } from '../../utils/amplifyClient'
 
 /**
  * Updates an existing user meal preset.
@@ -15,7 +15,7 @@ import { client } from '../amplifyClient'
  * @returns The updated user meal preset.
  */
 export const updUserMealPreset = async (
-  variables: UpdateUserMealPresetMutationVariables
+  variables: UpdateUserMealPresetMutationVariables,
 ): Promise<UserMealPreset> => {
   try {
     const { data } = await client.graphql<

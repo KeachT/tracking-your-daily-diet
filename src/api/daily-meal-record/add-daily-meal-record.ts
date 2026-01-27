@@ -6,7 +6,7 @@ import {
   DailyMealRecord,
 } from '../../API'
 import { createDailyMealRecord } from '../../graphql/mutations'
-import { client } from '../amplifyClient'
+import { client } from '../../utils/amplifyClient'
 
 /**
  * Creates a new daily meal record.
@@ -15,7 +15,7 @@ import { client } from '../amplifyClient'
  * @returns The newly created daily meal record.
  */
 export const addDailyMealRecord = async (
-  variables: CreateDailyMealRecordMutationVariables
+  variables: CreateDailyMealRecordMutationVariables,
 ): Promise<DailyMealRecord> => {
   try {
     const { data } = await client.graphql<

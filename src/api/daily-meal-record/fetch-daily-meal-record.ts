@@ -6,7 +6,7 @@ import {
   GetDailyMealRecordQueryVariables,
 } from '../../API'
 import { getDailyMealRecord } from '../../graphql/queries'
-import { client } from '../amplifyClient'
+import { client } from '../../utils/amplifyClient'
 
 /**
  * Fetches a daily meal record by its ID, including food details.
@@ -15,14 +15,16 @@ import { client } from '../amplifyClient'
  * @returns The daily meal record with food details or null if not found.
  */
 export const fetchDailyMealRecordWithFoods = async (
-  dailyMealRecordId: string
+  dailyMealRecordId: string,
 ): Promise<DailyMealRecord | null> => {
   try {
     const variables: GetDailyMealRecordQueryVariables = {
       id: dailyMealRecordId,
     }
 
-    const { data } = await client.graphql<GraphQLQuery<GetDailyMealRecordQuery>>({
+    const { data } = await client.graphql<
+      GraphQLQuery<GetDailyMealRecordQuery>
+    >({
       query: getDailyMealRecord,
       variables,
       authMode: 'userPool',

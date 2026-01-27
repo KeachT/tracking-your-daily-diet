@@ -6,7 +6,7 @@ import {
   ListDailyMealRecordsQueryVariables,
 } from '../../API'
 import { listDailyMealRecords } from '../../graphql/queries'
-import { client } from '../amplifyClient'
+import { client } from '../../utils/amplifyClient'
 import { fetchDailyMealRecordWithFoods } from './fetch-daily-meal-record'
 
 /**
@@ -18,7 +18,7 @@ import { fetchDailyMealRecordWithFoods } from './fetch-daily-meal-record'
  */
 export const fetchWeeklyDailyMealRecords = async (
   currentDateString: string,
-  prevWeekDateString: string
+  prevWeekDateString: string,
 ): Promise<DailyMealRecord[]> => {
   const variables: ListDailyMealRecordsQueryVariables = {
     filter: {
@@ -29,13 +29,11 @@ export const fetchWeeklyDailyMealRecords = async (
   try {
     const { data } = await client.graphql<
       GraphQLQuery<ListDailyMealRecordsQuery>
-    >(
-      {
-        query: listDailyMealRecords,
-        variables,
-        authMode: 'userPool',
-      }
-    )
+    >({
+      query: listDailyMealRecords,
+      variables,
+      authMode: 'userPool',
+    })
 
     const dailyMealRecords = data?.listDailyMealRecords?.items || []
 
@@ -45,12 +43,12 @@ export const fetchWeeklyDailyMealRecords = async (
       .map((record) => record!.id)
 
     const dailyMealRecordsWithFoods = await Promise.all(
-      validDailyMealRecordIds.map((id) => fetchDailyMealRecordWithFoods(id))
+      validDailyMealRecordIds.map((id) => fetchDailyMealRecordWithFoods(id)),
     )
 
     // Filter out null results
     return dailyMealRecordsWithFoods.filter(
-      (record): record is DailyMealRecord => record !== null
+      (record): record is DailyMealRecord => record !== null,
     )
   } catch (error) {
     if (process.env.NODE_ENV !== 'production') {

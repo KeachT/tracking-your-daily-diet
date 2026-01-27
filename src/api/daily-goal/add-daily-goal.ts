@@ -6,13 +6,15 @@ import {
 } from '../../API'
 import { createDailyGoal } from '../../graphql/mutations'
 import { DailyGoalState } from '../../stores'
-import { client } from '../amplifyClient'
+import { client } from '../../utils/amplifyClient'
 
 export const addDailyGoal = async (
-  variables: CreateDailyGoalMutationVariables
+  variables: CreateDailyGoalMutationVariables,
 ) => {
   try {
-    const { data } = await client.graphql<GraphQLQuery<CreateDailyGoalMutation>>({
+    const { data } = await client.graphql<
+      GraphQLQuery<CreateDailyGoalMutation>
+    >({
       query: createDailyGoal,
       variables,
       authMode: 'userPool',
