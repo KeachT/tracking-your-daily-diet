@@ -5,11 +5,12 @@ import {
   IconMoon,
   IconSunHigh,
 } from '@tabler/icons-react'
+import type { ReactElement } from 'react'
 
-import { MealCategoryName } from '../../models'
+import { MealCategoryName } from '@/constants'
 
 type CategoryIcons = {
-  [key: string]: JSX.Element
+  [key: string]: ReactElement
 }
 
 type MealIconProps = {

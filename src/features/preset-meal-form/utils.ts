@@ -1,6 +1,8 @@
 import { createId } from '@paralleldrive/cuid2'
 import { sort, sum } from 'radash'
 
+import { MealCategoryName } from '@/constants'
+
 import {
   CreateUserMealPresetInput,
   CreateUserMealPresetMutationVariables,
@@ -14,7 +16,6 @@ import {
   fetchUserMealPreset,
   updUserMealPreset,
 } from '../../api/user-meal-preset'
-import { MealCategoryName } from '../../models'
 import { LoadingState, UserMealPresetState } from '../../stores'
 import { FormData, FormsType } from './types'
 

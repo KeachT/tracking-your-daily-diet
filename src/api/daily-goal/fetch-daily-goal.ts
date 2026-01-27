@@ -1,14 +1,14 @@
 import { GraphQLQuery } from '@aws-amplify/api'
-import { API } from 'aws-amplify'
 
 import { ListDailyGoalsQuery } from '../../API'
 import { listDailyGoals } from '../../graphql/queries'
+import { client } from '../../utils/amplifyClient'
 
 export const fetchDailyGoal = async () => {
   try {
-    const { data } = await API.graphql<GraphQLQuery<ListDailyGoalsQuery>>({
+    const { data } = await client.graphql<GraphQLQuery<ListDailyGoalsQuery>>({
       query: listDailyGoals,
-      authMode: 'AMAZON_COGNITO_USER_POOLS',
+      authMode: 'userPool',
     })
 
     // Sort the daily goals by createdAt date and return the most recent one

@@ -3,8 +3,9 @@ import { useForm } from '@mantine/form'
 import { Notifications } from '@mantine/notifications'
 import { useEffect } from 'react'
 
+import { MealCategoryName } from '@/constants'
+
 import { NOTIFICATION_DISPLAY_DURATION_MS } from '../../../constants'
-import { MealCategoryName } from '../../../models'
 import {
   useCurrentDateStore,
   useLoadingStateStore,

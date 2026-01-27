@@ -1,5 +1,4 @@
 import { GraphQLQuery } from '@aws-amplify/api'
-import { API } from 'aws-amplify'
 
 import {
   ListUserMealPresetsQuery,
@@ -7,6 +6,7 @@ import {
   UserMealPreset,
 } from '../../API'
 import { listUserMealPresets } from '../../graphql/queries'
+import { client } from '../../utils/amplifyClient'
 import { fetchUserMealPresetWithFood } from './fetch-user-meal-preset-with-food'
 
 /**
@@ -17,13 +17,15 @@ import { fetchUserMealPresetWithFood } from './fetch-user-meal-preset-with-food'
  * @returns The user's meal preset or null if not found.
  */
 export const fetchUserMealPreset = async (
-  variables?: ListUserMealPresetsQueryVariables
+  variables?: ListUserMealPresetsQueryVariables,
 ): Promise<UserMealPreset | null> => {
   try {
-    const { data } = await API.graphql<GraphQLQuery<ListUserMealPresetsQuery>>({
+    const { data } = await client.graphql<
+      GraphQLQuery<ListUserMealPresetsQuery>
+    >({
       query: listUserMealPresets,
       variables,
-      authMode: 'AMAZON_COGNITO_USER_POOLS',
+      authMode: 'userPool',
     })
 
     const userMealPresets = data?.listUserMealPresets?.items || []
@@ -35,7 +37,7 @@ export const fetchUserMealPreset = async (
 
     // Fetch the user meal preset with food details
     const userMealPresetWithFood = await fetchUserMealPresetWithFood(
-      userMealPreset.id
+      userMealPreset.id,
     )
 
     if (!userMealPresetWithFood) {

@@ -1,3 +1,5 @@
+import '@/utils/ensureAmplifyConfigured'
+
 import { Authenticator } from '@aws-amplify/ui-react'
 import { Modal } from '@mantine/core'
 

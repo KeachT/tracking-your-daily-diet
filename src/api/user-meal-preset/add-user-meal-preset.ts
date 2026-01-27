@@ -1,5 +1,4 @@
 import { GraphQLQuery } from '@aws-amplify/api'
-import { API } from 'aws-amplify'
 
 import {
   CreateUserMealPresetMutation,
@@ -7,6 +6,7 @@ import {
   UserMealPreset,
 } from '../../API'
 import { createUserMealPreset } from '../../graphql/mutations'
+import { client } from '../../utils/amplifyClient'
 
 /**
  * Creates a new user meal preset.
@@ -15,15 +15,15 @@ import { createUserMealPreset } from '../../graphql/mutations'
  * @returns The newly created user meal preset.
  */
 export const addUserMealPreset = async (
-  variables: CreateUserMealPresetMutationVariables
+  variables: CreateUserMealPresetMutationVariables,
 ): Promise<UserMealPreset> => {
   try {
-    const { data } = await API.graphql<
+    const { data } = await client.graphql<
       GraphQLQuery<CreateUserMealPresetMutation>
     >({
       query: createUserMealPreset,
       variables,
-      authMode: 'AMAZON_COGNITO_USER_POOLS',
+      authMode: 'userPool',
     })
 
     const newUserMealPreset = data?.createUserMealPreset as UserMealPreset

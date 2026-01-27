@@ -1,5 +1,4 @@
 import { GraphQLQuery } from '@aws-amplify/api'
-import { API } from 'aws-amplify'
 
 import {
   UpdateDailyGoalMutation,
@@ -7,15 +6,18 @@ import {
 } from '../../API'
 import { updateDailyGoal } from '../../graphql/mutations'
 import { DailyGoalState } from '../../stores'
+import { client } from '../../utils/amplifyClient'
 
 export const updDailyGoal = async (
-  variables: UpdateDailyGoalMutationVariables
+  variables: UpdateDailyGoalMutationVariables,
 ) => {
   try {
-    const { data } = await API.graphql<GraphQLQuery<UpdateDailyGoalMutation>>({
+    const { data } = await client.graphql<
+      GraphQLQuery<UpdateDailyGoalMutation>
+    >({
       query: updateDailyGoal,
       variables,
-      authMode: 'AMAZON_COGNITO_USER_POOLS',
+      authMode: 'userPool',
     })
 
     const dailyGoal = data?.updateDailyGoal as DailyGoalState['dailyGoal']

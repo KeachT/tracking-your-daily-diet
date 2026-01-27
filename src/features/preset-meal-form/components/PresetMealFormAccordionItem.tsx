@@ -1,8 +1,9 @@
 import { Accordion } from '@mantine/core'
 
+import { MealCategoryName } from '@/constants'
+
 import { MealFormButtons } from '../../../components/MealFormButtons'
 import { MealIcon } from '../../../components/MealIcon'
-import { MealCategoryName } from '../../../models'
 import { MEAL_CATEGORY_LABELS } from '../constants'
 import { FormsType } from '../types'
 import { createFoodInitialValues } from '../utils'
