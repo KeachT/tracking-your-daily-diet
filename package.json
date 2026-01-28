@@ -7,7 +7,9 @@
     "build": "NODE_ENV=production next build",
     "start": "next start",
     "lint": "eslint ./src/api/ ./src/components/ ./src/constants/ ./src/features/ ./src/pages/ ./src/stores/ ./src/utils/",
-    "lint:fix": "eslint --fix ./src/api/ ./src/components/ ./src/constants/ ./src/features/ ./src/pages/ ./src/stores/ ./src/utils/"
+    "postlint": "node -e \"console.log('✔ ESLint: OK (no errors)')\"",
+    "lint:fix": "eslint --fix ./src/api/ ./src/components/ ./src/constants/ ./src/features/ ./src/pages/ ./src/stores/ ./src/utils/",
+    "postlint:fix": "node -e \"console.log('✔ ESLint (fix): OK')\""
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^6.13.2",
