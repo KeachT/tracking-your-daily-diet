@@ -5,12 +5,6 @@ RUN mkdir -p /app && chown node:node /app
 WORKDIR /app
 USER node
 
-# Copy dependency manifests separately to leverage Docker layer caching.
-COPY --chown=node:node package*.json ./
-
-# Install dependencies without executing lifecycle scripts to mitigate supply-chain attacks.
-RUN npm ci --ignore-scripts
-
 # Copy the rest of the application source (overridden at runtime by the bind mount).
 COPY --chown=node:node . .
 
@@ -20,5 +14,8 @@ RUN mkdir -p /app/.next /app/node_modules
 # Expose the port the Next.js dev server uses by default.
 EXPOSE 3000
 
-# Run the Next.js dev server; override this when needed (e.g. npm run build && npm run start).
+# Ensure dependencies exist in the named volume before running the requested command.
+ENTRYPOINT ["sh", "/app/docker/nextjs/entrypoint.sh"]
+
+# Run the Next.js dev server; override via docker-compose `command`.
 CMD ["npm", "run", "dev"]
