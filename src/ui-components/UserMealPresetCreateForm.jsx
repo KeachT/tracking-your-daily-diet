@@ -9,7 +9,7 @@ import * as React from "react";
 import { Button, Flex, Grid } from "@aws-amplify/ui-react";
 import { UserMealPreset } from "../models";
 import { fetchByPath, getOverrideProps, validateField } from "./utils";
-import { DataStore } from "aws-amplify";
+import { DataStore } from "aws-amplify/datastore";
 export default function UserMealPresetCreateForm(props) {
   const {
     clearOnSuccess = true,
