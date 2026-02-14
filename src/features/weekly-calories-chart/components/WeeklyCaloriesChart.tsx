@@ -1,5 +1,5 @@
+import { BarChart } from '@mantine/charts'
 import { ScrollArea } from '@mantine/core'
-import { Bar, BarChart, ReferenceLine, Tooltip, XAxis, YAxis } from 'recharts'
 
 import { LoadingSkeleton } from '../../../components/LoadingSkeleton'
 import {
@@ -9,50 +9,69 @@ import {
   useWeeklyDailyMealRecordsStore,
 } from '../../../stores'
 import {
+  createWeeklyCaloriesChartReferenceLines,
+  createWeeklyCaloriesChartYAxisTicks,
   createWeeklyNutritionsDataFromDailyMealRecords,
   determineYLimit,
   getMaxCalories,
+  WEEKLY_CALORIES_CHART,
+  WEEKLY_CALORIES_CHART_SCROLL_AREA,
+  weeklyCaloriesSeries,
 } from '../utils'
 import { CustomTooltip } from './CustomTooltip'
+import { HoverCursor } from './HoverCursor'
 
 export function WeeklyCaloriesChart() {
   const isDataLoading = useLoadingStateStore((state) => state.isDataLoading)
   const dailyGoal = useDailyGoalStore((state) => state.dailyGoal)
   const currentDate = useCurrentDateStore((state) => state.currentDate)
   const weeklyDailyMealRecords = useWeeklyDailyMealRecordsStore(
-    (state) => state.weeklyDailyMealRecords
+    (state) => state.weeklyDailyMealRecords,
   )
 
   const weeklyNutritionsData = createWeeklyNutritionsDataFromDailyMealRecords(
     weeklyDailyMealRecords,
-    currentDate
+    currentDate,
   )
   const dailyGoalCalories = dailyGoal?.calories || 0
   const maxCalories = getMaxCalories(weeklyNutritionsData)
   const yLimit = determineYLimit(maxCalories, dailyGoalCalories)
+  const yAxisTicks = createWeeklyCaloriesChartYAxisTicks(
+    dailyGoalCalories,
+    maxCalories,
+  )
+  const referenceLines = createWeeklyCaloriesChartReferenceLines(
+    dailyGoalCalories,
+    maxCalories,
+  )
 
   if (isDataLoading) {
     return <LoadingSkeleton height={400} />
   }
 
   return (
-    <ScrollArea maw={700} h={500} mb={50}>
-      <BarChart width={700} height={400} data={weeklyNutritionsData}>
-        <XAxis dataKey="name" />
-        <YAxis domain={[0, yLimit]} ticks={[dailyGoalCalories, maxCalories]} />
-        <Tooltip content={<CustomTooltip />} />
-        <ReferenceLine y={maxCalories} />
-        <ReferenceLine y={dailyGoalCalories} stroke="red" />
-        <Bar dataKey="calories" fill="#845ef7" barSize={30} />
-        <Bar dataKey="protein" fill="#ff6b6b" activeBar={false} barSize={0} />
-        <Bar dataKey="fat" fill="#fcc419" activeBar={false} barSize={0} />
-        <Bar
-          dataKey="carbohydrates"
-          fill="#20c997"
-          activeBar={false}
-          barSize={0}
-        />
-      </BarChart>
+    <ScrollArea
+      maw={WEEKLY_CALORIES_CHART_SCROLL_AREA.maxWidth}
+      h={WEEKLY_CALORIES_CHART_SCROLL_AREA.height}
+      mb={WEEKLY_CALORIES_CHART_SCROLL_AREA.marginBottom}
+    >
+      <BarChart
+        w={WEEKLY_CALORIES_CHART.width}
+        h={WEEKLY_CALORIES_CHART.height}
+        data={weeklyNutritionsData}
+        dataKey="name"
+        series={weeklyCaloriesSeries}
+        barProps={{ barSize: WEEKLY_CALORIES_CHART.barSize }}
+        yAxisProps={{
+          domain: [0, yLimit],
+          ticks: yAxisTicks,
+        }}
+        tooltipProps={{
+          content: <CustomTooltip />,
+          cursor: <HoverCursor barSize={WEEKLY_CALORIES_CHART.barSize} />,
+        }}
+        referenceLines={referenceLines}
+      />
     </ScrollArea>
   )
 }

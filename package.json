@@ -13,11 +13,12 @@
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^6.13.2",
-    "@mantine/core": "^8.3.10",
-    "@mantine/dates": "^8.3.10",
-    "@mantine/form": "^8.3.10",
-    "@mantine/hooks": "^8.3.10",
-    "@mantine/notifications": "^8.3.10",
+    "@mantine/charts": "^8.3.14",
+    "@mantine/core": "^8.3.14",
+    "@mantine/dates": "^8.3.14",
+    "@mantine/form": "^8.3.14",
+    "@mantine/hooks": "^8.3.14",
+    "@mantine/notifications": "^8.3.14",
     "@paralleldrive/cuid2": "^3.0.6",
     "@tabler/icons-react": "^3.5.0",
     "aws-amplify": "^6.16.0",
@@ -25,7 +26,6 @@
     "radash": "^12.1.0",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "recharts": "^2.7.2",
     "zustand": "^5.0.9"
   },
   "devDependencies": {
