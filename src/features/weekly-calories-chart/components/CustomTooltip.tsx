@@ -1,37 +1,37 @@
-import { TooltipProps } from 'recharts'
+import { useMantineTheme } from '@mantine/core'
 
 import styles from '../styles/CustomTooltip.module.css'
+import { WeeklyNutritionsData } from '../types'
+import {
+  formatWeeklyNutritionValue,
+  resolveWeeklyNutritionTooltipColor,
+  weeklyNutritionTooltipItems,
+} from '../utils'
 
-type CustomTooltipProps = TooltipProps<number, string>
+type CustomTooltipProps = {
+  active?: boolean
+  payload?: Array<{ payload?: WeeklyNutritionsData }>
+}
 
 export function CustomTooltip({ active, payload }: CustomTooltipProps) {
-  if (active && payload && payload.length) {
-    const nutritionLabels: { [key: string]: string } = {
-      calories: 'カロリー',
-      protein: 'タンパク質',
-      fat: '脂質',
-      carbohydrates: '炭水化物',
-    }
-    return (
-      <div className={styles.tooltip}>
-        {payload.map((entry: any, index: number) => {
-          const unit = entry.dataKey === 'calories' ? 'Kcal' : 'g'
-          const label = nutritionLabels[entry.dataKey] || entry.dataKey
-          return (
-            <p
-              key={index}
-              className={styles.tooltipItem}
-              style={{
-                color: entry.color,
-              }}
-            >
-              {`${label} ${entry.value}${unit}`}
-            </p>
-          )
-        })}
-      </div>
-    )
-  } else {
-    return null
-  }
+  const theme = useMantineTheme()
+  const data = payload?.[0]?.payload
+
+  if (!active || !data) return null
+
+  return (
+    <div className={styles.tooltip}>
+      {weeklyNutritionTooltipItems.map((item) => (
+        <p
+          key={item.key}
+          className={styles.tooltipItem}
+          style={{
+            color: resolveWeeklyNutritionTooltipColor(theme, item),
+          }}
+        >
+          {`${item.label} ${formatWeeklyNutritionValue(data[item.key])}${item.unit}`}
+        </p>
+      ))}
+    </div>
+  )
 }

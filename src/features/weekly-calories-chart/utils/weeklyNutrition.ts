@@ -1,13 +1,13 @@
 import { max, sum } from 'radash'
 
-import { DailyMealRecord, FoodItem } from '../../API'
-import { CurrentDateState, WeeklyDailyMealRecordsState } from '../../stores'
+import { DailyMealRecord, FoodItem } from '../../../API'
+import { CurrentDateState, WeeklyDailyMealRecordsState } from '../../../stores'
 import {
   createPrevWeekDate,
   createStringFromDate,
   roundToTwoDecimalPlaces,
-} from '../../utils'
-import { WeeklyNutritionsData } from './types'
+} from '../../../utils'
+import { WeeklyNutritionsData } from '../types'
 
 /**
  * Generates an array of weekly nutrition data based on the provided DailyMealRecord and current date.
@@ -25,34 +25,28 @@ import { WeeklyNutritionsData } from './types'
  */
 export const createWeeklyNutritionsDataFromDailyMealRecords = (
   weeklyDailyMealRecords: WeeklyDailyMealRecordsState['weeklyDailyMealRecords'],
-  currentDate: CurrentDateState['currentDate']
+  currentDate: CurrentDateState['currentDate'],
 ): WeeklyNutritionsData[] => {
   const weekDayStrings = createWeekDayStrings(currentDate)
 
   const weeklyNutritionsData = weekDayStrings.map((dayString: string) => {
     const [_year, month, day] = dayString.split('-')
-
-    // Find the daily meal record for the target day
     const dailyMealRecord = weeklyDailyMealRecords.find(
-      (record) => record.date === dayString
+      (record) => record.date === dayString,
     )
-
-    // Extract all food items from the daily meal record
     const dailyFoods = dailyMealRecord
       ? extractFoodsFromDailyRecord(dailyMealRecord)
       : []
-
     const dailyCalories = sum(
       dailyFoods,
-      (food: FoodItem) => food?.calories || 0
+      (food: FoodItem) => food?.calories || 0,
     )
     const dailyProtein = sum(dailyFoods, (food: FoodItem) => food?.protein || 0)
     const dailyFat = sum(dailyFoods, (food: FoodItem) => food?.fat || 0)
     const dailyCarbohydrates = sum(
       dailyFoods,
-      (food: FoodItem) => food?.carbohydrates || 0
+      (food: FoodItem) => food?.carbohydrates || 0,
     )
-
     return {
       name: `${month}/${day}`,
       calories: roundToTwoDecimalPlaces(dailyCalories),
@@ -72,7 +66,7 @@ export const createWeeklyNutritionsDataFromDailyMealRecords = (
  * @returns An array of all food items from the meal record.
  */
 export const extractFoodsFromDailyRecord = (
-  dailyMealRecord: DailyMealRecord
+  dailyMealRecord: DailyMealRecord,
 ): FoodItem[] => {
   const allMeals = [
     ...(dailyMealRecord.breakfast || []),
@@ -80,7 +74,6 @@ export const extractFoodsFromDailyRecord = (
     ...(dailyMealRecord.dinner || []),
     ...(dailyMealRecord.snack || []),
   ]
-
   return allMeals.filter((food): food is FoodItem => food !== null)
 }
 
@@ -92,14 +85,12 @@ export const extractFoodsFromDailyRecord = (
  */
 const createWeekDayStrings = (currentDate: CurrentDateState['currentDate']) => {
   const prevWeekDate = createPrevWeekDate(currentDate)
-  const weekDayStrings = []
-
+  const weekDayStrings: string[] = []
   for (let i = 0; i < 7; i++) {
     const dateString = createStringFromDate(prevWeekDate)
     weekDayStrings.push(dateString)
     prevWeekDate.setDate(prevWeekDate.getDate() + 1)
   }
-
   return weekDayStrings
 }
 
@@ -110,19 +101,18 @@ const createWeekDayStrings = (currentDate: CurrentDateState['currentDate']) => {
  * @returns The maximum number of calories found in the weekly nutrition data, or 0 if the array is empty.
  */
 export const getMaxCalories = (
-  weeklyNutritionsData: WeeklyNutritionsData[]
+  weeklyNutritionsData: WeeklyNutritionsData[],
 ): number => {
   const maxCalories =
     max(weeklyNutritionsData, (data: WeeklyNutritionsData) => data.calories)
       ?.calories || 0
-
   return maxCalories
 }
 
 /**
  * Determines the y-axis limit for the calories chart.
  * The y-axis limit is calculated as the maximum value between `maxCalories` and `dailyGoalCalories`,
- * with an additional 10% margin.
+ * with an additional 10% margin (falls back to `100` when both are `0`).
  *
  * @param maxCalories - The maximum calories value.
  * @param dailyGoalCalories - The daily goal calories value.
@@ -130,11 +120,9 @@ export const getMaxCalories = (
  */
 export const determineYLimit = (
   maxCalories: number,
-  dailyGoalCalories: number
+  dailyGoalCalories: number,
 ) => {
-  const maxValue =
-    maxCalories > dailyGoalCalories ? maxCalories : dailyGoalCalories
-  const yLimit = maxValue + maxValue * 0.1
-
-  return yLimit
+  const baseValue = Math.max(0, maxCalories, dailyGoalCalories)
+  if (baseValue === 0) return 100
+  return baseValue + baseValue * 0.1
 }
