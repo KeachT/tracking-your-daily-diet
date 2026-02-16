@@ -17,18 +17,20 @@ import {
 export function WeeklyNutritions() {
   const currentDate = useCurrentDateStore((state) => state.currentDate)
   const isDataLoading = useLoadingStateStore((state) => state.isDataLoading)
-  const setIsDataLoading = useLoadingStateStore((state) => state.setIsDataLoading)
+  const setIsDataLoading = useLoadingStateStore(
+    (state) => state.setIsDataLoading,
+  )
   const weeklyDailyMealRecords = useWeeklyDailyMealRecordsStore(
-    (state) => state.weeklyDailyMealRecords
+    (state) => state.weeklyDailyMealRecords,
   )
   const setWeeklyDailyMealRecords = useWeeklyDailyMealRecordsStore(
-    (state) => state.setWeeklyDailyMealRecords
+    (state) => state.setWeeklyDailyMealRecords,
   )
 
   const { currentDateString, prevWeekDateString } =
     createWeekDateString(currentDate)
   const weeklyDateWithFoodsCount = countWeeklyDateWithFoodsFromDailyMealRecords(
-    weeklyDailyMealRecords
+    weeklyDailyMealRecords,
   )
   const {
     avgWeeklyCalories,
@@ -37,7 +39,7 @@ export function WeeklyNutritions() {
     avgWeeklyCarbohydrates,
   } = createAvgWeekNutritionValuesFromDailyMealRecords(
     weeklyDailyMealRecords,
-    weeklyDateWithFoodsCount
+    weeklyDateWithFoodsCount,
   )
 
   useEffect(() => {
@@ -46,7 +48,7 @@ export function WeeklyNutritions() {
       currentDateString,
       prevWeekDateString,
       setWeeklyDailyMealRecords,
-      setIsDataLoading
+      setIsDataLoading,
     )
   }, [
     currentDateString,

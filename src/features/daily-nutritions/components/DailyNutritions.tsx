@@ -8,7 +8,7 @@ export function DailyNutritions() {
   const dailyProtein = useNutritionNumbersStore((state) => state.dailyProtein)
   const dailyFat = useNutritionNumbersStore((state) => state.dailyFat)
   const dailyCarbohydrates = useNutritionNumbersStore(
-    (state) => state.dailyCarbohydrates
+    (state) => state.dailyCarbohydrates,
   )
 
   if (isDataLoading) {

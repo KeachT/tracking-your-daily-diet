@@ -22,25 +22,29 @@ import { PresetMealFormAccordionItem } from './PresetMealFormAccordionItem'
 import { PresetMealFormBulkSaveButton } from './PresetMealFormBulkSaveButton'
 
 export function PresetMealForm() {
-  const setIsDataLoading = useLoadingStateStore((state) => state.setIsDataLoading)
+  const setIsDataLoading = useLoadingStateStore(
+    (state) => state.setIsDataLoading,
+  )
   const userMealPreset = useUserMealPresetStore((state) => state.userMealPreset)
   const setUserMealPreset = useUserMealPresetStore(
-    (state) => state.setUserMealPreset
+    (state) => state.setUserMealPreset,
   )
   const setPresetCalories = usePresetNutritionNumbersStore(
-    (state) => state.setPresetCalories
+    (state) => state.setPresetCalories,
   )
   const setPresetProtein = usePresetNutritionNumbersStore(
-    (state) => state.setPresetProtein
+    (state) => state.setPresetProtein,
   )
-  const setPresetFat = usePresetNutritionNumbersStore((state) => state.setPresetFat)
+  const setPresetFat = usePresetNutritionNumbersStore(
+    (state) => state.setPresetFat,
+  )
   const setPresetCarbohydrates = usePresetNutritionNumbersStore(
-    (state) => state.setPresetCarbohydrates
+    (state) => state.setPresetCarbohydrates,
   )
 
   const forms: FormsType = useForm({})
   const mealCategoryNames = Object.values(
-    MealCategoryName
+    MealCategoryName,
   ) as MealCategoryName[]
 
   const defaultCategory = MealCategoryName.BREAKFAST

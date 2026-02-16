@@ -8,7 +8,7 @@ import { DailyGoalState } from '../stores'
  * @returns A promise that resolves when the daily goal has been fetched and set.
  */
 export const fetchAndSetDailyGoal = async (
-  setDailyGoal: DailyGoalState['setDailyGoal']
+  setDailyGoal: DailyGoalState['setDailyGoal'],
 ) => {
   const dailyGoal = await fetchDailyGoal()
   setDailyGoal(dailyGoal as DailyGoalState['dailyGoal'])

@@ -23,9 +23,11 @@ export function DailyMealFormAccordionItem({
   forms,
 }: MealFormAccordionItemProps) {
   const [isSaveButtonDisabled, setIsSaveButtonDisabled] = useState(false)
-  const dailyMealRecord = useDailyMealRecordStore((state) => state.dailyMealRecord)
+  const dailyMealRecord = useDailyMealRecordStore(
+    (state) => state.dailyMealRecord,
+  )
   const setDailyMealRecord = useDailyMealRecordStore(
-    (state) => state.setDailyMealRecord
+    (state) => state.setDailyMealRecord,
   )
   const currentDate = useCurrentDateStore((state) => state.currentDate)
   const currentDateString = createStringFromDate(currentDate)
@@ -40,20 +42,20 @@ export function DailyMealFormAccordionItem({
         forms,
         currentDateString,
         dailyMealRecord || null,
-        setDailyMealRecord
+        setDailyMealRecord,
       )
       showNotification(
         'Day',
         `保存しました`,
         'success',
-        setIsSaveButtonDisabled
+        setIsSaveButtonDisabled,
       )
     } catch (err) {
       showNotification(
         'Day',
         `保存に失敗しました`,
         'error',
-        setIsSaveButtonDisabled
+        setIsSaveButtonDisabled,
       )
     }
   }

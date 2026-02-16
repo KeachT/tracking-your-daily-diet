@@ -18,7 +18,7 @@ export const showNotification = (
   title: string,
   message: string,
   type: 'success' | 'error',
-  setButtonDisabled?: Dispatch<SetStateAction<boolean>>
+  setButtonDisabled?: Dispatch<SetStateAction<boolean>>,
 ): void => {
   notifications.show({
     title,

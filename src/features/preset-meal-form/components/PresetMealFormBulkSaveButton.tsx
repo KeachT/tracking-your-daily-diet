@@ -27,14 +27,14 @@ export function PresetMealFormBulkSaveButton({
         'Preset',
         '全カテゴリのプリセットを保存しました',
         'success',
-        setIsSavingPreset
+        setIsSavingPreset,
       )
     } catch (err) {
       showNotification(
         'Preset',
         '全カテゴリのプリセットの保存に失敗しました',
         'error',
-        setIsSavingPreset
+        setIsSavingPreset,
       )
     }
   }

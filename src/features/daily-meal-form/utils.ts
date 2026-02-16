@@ -83,7 +83,7 @@ export const createSumNutritionValues = (forms: FormsType) => {
  * @returns The initial form values for DailyMealRecord.
  */
 export const createDailyMealRecordInitialValues = (
-  dailyMealRecord?: DailyMealRecord | null
+  dailyMealRecord?: DailyMealRecord | null,
 ) => {
   const mealCategoryMapping = {
     [MealCategoryName.BREAKFAST]: 'breakfast',
@@ -105,7 +105,7 @@ export const createDailyMealRecordInitialValues = (
       const sortedFoods = sort([...foods], (f) => f?.calories || 0, true)
       return { ...formValues, [mealCategoryName]: sortedFoods }
     },
-    {}
+    {},
   )
 
   return initialFormValues
@@ -121,7 +121,7 @@ export const createDailyMealRecordInitialValues = (
  */
 export const loadDailyMealRecord = async (
   currentDateString: string,
-  setDailyMealRecord: (dailyMealRecord: DailyMealRecord | null) => void
+  setDailyMealRecord: (dailyMealRecord: DailyMealRecord | null) => void,
 ) => {
   const variables: ListDailyMealRecordsQueryVariables = {
     filter: {
@@ -142,7 +142,7 @@ export const loadDailyMealRecord = async (
  * @returns A Promise that resolves when the user meal preset has been loaded and state updated.
  */
 export const loadUserMealPresetForDay = async (
-  setUserMealPreset: UserMealPresetState['setUserMealPreset']
+  setUserMealPreset: UserMealPresetState['setUserMealPreset'],
 ) => {
   const userMealPreset = await fetchUserMealPreset()
   setUserMealPreset(userMealPreset)
@@ -161,7 +161,7 @@ export const saveAndSetDailyMealRecord = async (
   forms: FormsType,
   currentDateString: string,
   dailyMealRecord: DailyMealRecord | null,
-  setDailyMealRecord: DailyMealRecordState['setDailyMealRecord']
+  setDailyMealRecord: DailyMealRecordState['setDailyMealRecord'],
 ) => {
   const currentValues = forms.getValues()
   const normalizedFoods = normalizeDailyMealRecordFoods(currentValues)
@@ -235,7 +235,7 @@ const normalizeDailyMealRecordFoods = (values: FormData) => {
  * @returns The converted form field data.
  */
 export const convertPresetToFormData = (
-  presetFoods: FoodItem[]
+  presetFoods: FoodItem[],
 ): FormField[] => {
   return presetFoods.map((presetFood) => ({
     id: createId(),
@@ -256,7 +256,7 @@ export const convertPresetToFormData = (
  */
 export const getPresetFoodsForCategory = (
   userMealPreset: UserMealPreset | null,
-  mealCategoryName: MealCategoryName
+  mealCategoryName: MealCategoryName,
 ): FoodItem[] => {
   if (!userMealPreset) {
     return []
@@ -280,7 +280,7 @@ export const getPresetFoodsForCategory = (
  * @returns Form values for all categories, or null if no preset exists.
  */
 export const createAppliedPresetValues = (
-  userMealPreset: UserMealPreset | null
+  userMealPreset: UserMealPreset | null,
 ): FormData | null => {
   if (!userMealPreset) {
     return null

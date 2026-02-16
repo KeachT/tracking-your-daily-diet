@@ -7,7 +7,7 @@ import { createStringFromDate } from './createStringFromDate'
  * @returns {Date} - The date object for the previous week.
  */
 export const createPrevWeekDate = (
-  currentDate: CurrentDateState['currentDate']
+  currentDate: CurrentDateState['currentDate'],
 ) => {
   const currentDateString = createStringFromDate(currentDate)
 
