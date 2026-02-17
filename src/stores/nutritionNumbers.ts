@@ -24,5 +24,5 @@ export const useNutritionNumbersStore = create<NutritionNumbersState>()(
     setDailyFat: (newDailyFat) => set({ dailyFat: newDailyFat }),
     setDailyCarbohydrates: (newDailyCarbohydrates) =>
       set({ dailyCarbohydrates: newDailyCarbohydrates }),
-  })
+  }),
 )

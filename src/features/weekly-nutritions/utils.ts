@@ -21,7 +21,7 @@ import { extractFoodsFromDailyRecord } from '../weekly-calories-chart/utils'
  * @returns {{ currentDateString: string, prevWeekDateString: string }} An object containing date strings.
  */
 export const createWeekDateString = (
-  currentDate: CurrentDateState['currentDate']
+  currentDate: CurrentDateState['currentDate'],
 ) => {
   const currentDateString = createStringFromDate(currentDate)
   const prevWeekDate = createPrevWeekDate(currentDate)
@@ -37,7 +37,7 @@ export const createWeekDateString = (
  * @returns The count of days that have at least one food item in any meal category.
  */
 export const countWeeklyDateWithFoodsFromDailyMealRecords = (
-  weeklyDailyMealRecords: WeeklyDailyMealRecordsState['weeklyDailyMealRecords']
+  weeklyDailyMealRecords: WeeklyDailyMealRecordsState['weeklyDailyMealRecords'],
 ) => {
   const daysWithFoods = weeklyDailyMealRecords.filter((record) => {
     const hasBreakfast = record.breakfast && record.breakfast.length > 0
@@ -60,7 +60,7 @@ export const countWeeklyDateWithFoodsFromDailyMealRecords = (
  */
 export const createAvgWeekNutritionValuesFromDailyMealRecords = (
   weeklyDailyMealRecords: WeeklyDailyMealRecordsState['weeklyDailyMealRecords'],
-  weeklyDateWithFoodsCount: number
+  weeklyDateWithFoodsCount: number,
 ) => {
   // Extract all food items from the daily meal record
   const allFoods = weeklyDailyMealRecords
@@ -72,7 +72,7 @@ export const createAvgWeekNutritionValuesFromDailyMealRecords = (
   const weeklyFat = sum(allFoods, (food: FoodItem) => food?.fat || 0)
   const weeklyCarbohydrates = sum(
     allFoods,
-    (food: FoodItem) => food?.carbohydrates || 0
+    (food: FoodItem) => food?.carbohydrates || 0,
   )
 
   const avgWeeklyCalories = weeklyCalories / weeklyDateWithFoodsCount
@@ -106,13 +106,13 @@ export const loadWeeklyDailyMealRecords = async (
   currentDateString: string,
   prevWeekDateString: string,
   setWeeklyDailyMealRecords: WeeklyDailyMealRecordsState['setWeeklyDailyMealRecords'],
-  setIsDataLoading: LoadingState['setIsDataLoading']
+  setIsDataLoading: LoadingState['setIsDataLoading'],
 ) => {
   setIsDataLoading(true)
   try {
     const dailyMealRecords = await fetchWeeklyDailyMealRecords(
       currentDateString,
-      prevWeekDateString
+      prevWeekDateString,
     )
     setWeeklyDailyMealRecords(dailyMealRecords)
   } finally {

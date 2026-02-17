@@ -16,7 +16,7 @@ import { DailyGoalState } from '../../stores'
  */
 export const saveDailyGoal = async (
   dailyGoal: DailyGoalState['dailyGoal'],
-  setDailyGoal: DailyGoalState['setDailyGoal']
+  setDailyGoal: DailyGoalState['setDailyGoal'],
 ) => {
   const dailyGoalId = dailyGoal.id
 

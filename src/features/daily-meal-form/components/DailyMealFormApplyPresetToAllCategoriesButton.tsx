@@ -21,9 +21,11 @@ export function DailyMealFormApplyPresetToAllCategoriesButton({
   const [isApplyingPreset, setIsApplyingPreset] = useState(false)
   const currentDate = useCurrentDateStore((state) => state.currentDate)
   const isDataLoading = useLoadingStateStore((state) => state.isDataLoading)
-  const dailyMealRecord = useDailyMealRecordStore((state) => state.dailyMealRecord)
+  const dailyMealRecord = useDailyMealRecordStore(
+    (state) => state.dailyMealRecord,
+  )
   const setDailyMealRecord = useDailyMealRecordStore(
-    (state) => state.setDailyMealRecord
+    (state) => state.setDailyMealRecord,
   )
   const userMealPreset = useUserMealPresetStore((state) => state.userMealPreset)
   const currentDateString = createStringFromDate(currentDate)
@@ -35,7 +37,7 @@ export function DailyMealFormApplyPresetToAllCategoriesButton({
         'Day',
         'プリセットが読み込めませんでした',
         'error',
-        setIsApplyingPreset
+        setIsApplyingPreset,
       )
       return
     }
@@ -49,20 +51,20 @@ export function DailyMealFormApplyPresetToAllCategoriesButton({
         forms,
         currentDateString,
         dailyMealRecord || null,
-        setDailyMealRecord
+        setDailyMealRecord,
       )
       showNotification(
         'Day',
         'プリセットを適用しました',
         'success',
-        setIsApplyingPreset
+        setIsApplyingPreset,
       )
     } catch (err) {
       showNotification(
         'Day',
         'プリセットの適用に失敗しました',
         'error',
-        setIsApplyingPreset
+        setIsApplyingPreset,
       )
     }
   }

@@ -27,24 +27,32 @@ import { DailyMealFormApplyPresetToAllCategoriesButton } from './DailyMealFormAp
 
 export function DailyMealForm() {
   const currentDate = useCurrentDateStore((state) => state.currentDate)
-  const setIsDataLoading = useLoadingStateStore((state) => state.setIsDataLoading)
-  const dailyMealRecord = useDailyMealRecordStore((state) => state.dailyMealRecord)
+  const setIsDataLoading = useLoadingStateStore(
+    (state) => state.setIsDataLoading,
+  )
+  const dailyMealRecord = useDailyMealRecordStore(
+    (state) => state.dailyMealRecord,
+  )
   const setDailyMealRecord = useDailyMealRecordStore(
-    (state) => state.setDailyMealRecord
+    (state) => state.setDailyMealRecord,
   )
   const setUserMealPreset = useUserMealPresetStore(
-    (state) => state.setUserMealPreset
+    (state) => state.setUserMealPreset,
   )
-  const setDailyCalories = useNutritionNumbersStore((state) => state.setDailyCalories)
-  const setDailyProtein = useNutritionNumbersStore((state) => state.setDailyProtein)
+  const setDailyCalories = useNutritionNumbersStore(
+    (state) => state.setDailyCalories,
+  )
+  const setDailyProtein = useNutritionNumbersStore(
+    (state) => state.setDailyProtein,
+  )
   const setDailyFat = useNutritionNumbersStore((state) => state.setDailyFat)
   const setDailyCarbohydrates = useNutritionNumbersStore(
-    (state) => state.setDailyCarbohydrates
+    (state) => state.setDailyCarbohydrates,
   )
 
   const forms: FormsType = useForm({})
   const mealCategoryNames = Object.values(
-    MealCategoryName
+    MealCategoryName,
   ) as MealCategoryName[]
   const currentDateString = createStringFromDate(currentDate)
   const defaultCategory = getDefaultCategory()

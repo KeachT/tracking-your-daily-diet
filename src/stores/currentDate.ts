@@ -8,6 +8,5 @@ export type CurrentDateState = {
 
 export const useCurrentDateStore = create<CurrentDateState>()((set) => ({
   currentDate: new Date(),
-  setCurrentDate: (newCurrentDate) =>
-    set({ currentDate: newCurrentDate }),
+  setCurrentDate: (newCurrentDate) => set({ currentDate: newCurrentDate }),
 }))

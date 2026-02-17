@@ -31,7 +31,7 @@ export const createNutritions = (
   dailyGoalCalories: number,
   dailyGoalProtein: number,
   dailyGoalFat: number,
-  dailyGoalCarbohydrates: number
+  dailyGoalCarbohydrates: number,
 ): Nutrition[] => [
   {
     name: 'カロリー',

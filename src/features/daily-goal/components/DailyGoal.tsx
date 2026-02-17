@@ -18,7 +18,7 @@ export function DailyGoal() {
 
   const setNutritionValues = (
     value: number | string,
-    nutritionName: string
+    nutritionName: string,
   ) => {
     const newDailyGoal = { ...dailyGoal, [nutritionName]: value }
     setDailyGoal(newDailyGoal)
@@ -43,7 +43,7 @@ export function DailyGoal() {
     })
     setTimeout(
       () => setIsSaveButtonDisabled(false),
-      SAVE_BUTTON_REENABLE_DELAY_MS
+      SAVE_BUTTON_REENABLE_DELAY_MS,
     )
   }
 
@@ -56,7 +56,7 @@ export function DailyGoal() {
     })
     setTimeout(
       () => setIsSaveButtonDisabled(false),
-      SAVE_BUTTON_REENABLE_DELAY_MS
+      SAVE_BUTTON_REENABLE_DELAY_MS,
     )
   }
 

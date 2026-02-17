@@ -56,7 +56,7 @@ const normalizeFoods = (values: FormData, mealCategoryName: string) => {
  * @returns An object keyed by lowercase meal category, each holding normalized foods
  */
 const normalizeAllMealCategories = (
-  forms: FormsType
+  forms: FormsType,
 ): Record<MealPresetFieldName, ReturnType<typeof normalizeFoods>> => {
   const currentValues = forms.getValues()
   const mealCategoryNames = Object.values(MealCategoryName)
@@ -68,7 +68,7 @@ const normalizeAllMealCategories = (
   })
 
   const normalizedPresetByCategory = Object.fromEntries(
-    normalizedEntries
+    normalizedEntries,
   ) as Record<MealPresetFieldName, ReturnType<typeof normalizeFoods>>
 
   return normalizedPresetByCategory
@@ -81,7 +81,7 @@ const normalizeAllMealCategories = (
  * @returns The initial form values with preset data
  */
 export const createInitialFormValuesFromPreset = (
-  userMealPreset: UserMealPreset | null
+  userMealPreset: UserMealPreset | null,
 ) => {
   const mealCategoryNames: string[] = Object.values(MealCategoryName)
 
@@ -95,7 +95,7 @@ export const createInitialFormValuesFromPreset = (
       const sortedFoods = sort([...foods], (f) => f?.calories || 0, true)
       return { ...formValues, [mealCategoryName]: sortedFoods }
     },
-    {}
+    {},
   )
 
   return initialFormValues
@@ -140,7 +140,7 @@ export const createSumNutritionValues = (forms: FormsType) => {
 export const saveAllUserMealPreset = async (
   forms: FormsType,
   userMealPreset: UserMealPreset | null,
-  setUserMealPreset: (userMealPreset: UserMealPreset) => void
+  setUserMealPreset: (userMealPreset: UserMealPreset) => void,
 ) => {
   const normalizedPreset = normalizeAllMealCategories(forms)
 
@@ -179,7 +179,7 @@ export const saveAllUserMealPreset = async (
  */
 export const loadUserMealPreset = async (
   setUserMealPreset: UserMealPresetState['setUserMealPreset'],
-  setIsDataLoading: LoadingState['setIsDataLoading']
+  setIsDataLoading: LoadingState['setIsDataLoading'],
 ) => {
   setIsDataLoading(true)
   try {

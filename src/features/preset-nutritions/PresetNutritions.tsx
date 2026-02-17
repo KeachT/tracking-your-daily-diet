@@ -8,14 +8,14 @@ import {
 export function PresetNutritions() {
   const isDataLoading = useLoadingStateStore((state) => state.isDataLoading)
   const presetCalories = usePresetNutritionNumbersStore(
-    (state) => state.presetCalories
+    (state) => state.presetCalories,
   )
   const presetProtein = usePresetNutritionNumbersStore(
-    (state) => state.presetProtein
+    (state) => state.presetProtein,
   )
   const presetFat = usePresetNutritionNumbersStore((state) => state.presetFat)
   const presetCarbohydrates = usePresetNutritionNumbersStore(
-    (state) => state.presetCarbohydrates
+    (state) => state.presetCarbohydrates,
   )
 
   if (isDataLoading) {
