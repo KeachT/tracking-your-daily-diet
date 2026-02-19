@@ -6,6 +6,7 @@ import classes from '../styles/LandingPage.module.css'
 import { AlertMessage } from './AlertMessage'
 import { FeatureSection } from './FeatureSection'
 import { HeroSection } from './HeroSection'
+import { LegalLinks } from './LegalLinks'
 
 export function LandingPage() {
   const [opened, { open, close }] = useDisclosure(false)
@@ -17,6 +18,7 @@ export function LandingPage() {
           <HeroSection open={open} />
           <FeatureSection />
           <AlertMessage />
+          <LegalLinks />
         </Stack>
       </Container>
 
