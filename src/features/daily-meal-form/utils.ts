@@ -1,5 +1,5 @@
 import { createId } from '@paralleldrive/cuid2'
-import { sort, sum } from 'radash'
+import { sort, sum } from 'radashi'
 
 import { MealCategoryName } from '@/constants'
 

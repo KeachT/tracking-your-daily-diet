@@ -1,4 +1,4 @@
-import { max, sum } from 'radash'
+import { max, sum } from 'radashi'
 
 import { DailyMealRecord, FoodItem } from '../../../API'
 import { CurrentDateState, WeeklyDailyMealRecordsState } from '../../../stores'

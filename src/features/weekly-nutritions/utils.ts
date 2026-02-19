@@ -1,4 +1,4 @@
-import { sum } from 'radash'
+import { sum } from 'radashi'
 
 import { FoodItem } from '../../API'
 import { fetchWeeklyDailyMealRecords } from '../../api/daily-meal-record'
