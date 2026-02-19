@@ -6,6 +6,10 @@ A simple and intuitive app to help you track your diet and achieve your goals.
 
 https://www.tracking-your-daily-diet.com
 
+## Documentation
+
+- [Project directory structure](docs/directory-structure.md)
+
 ## Features
 
 - Track your daily meals
