@@ -7,7 +7,12 @@ import styles from './LayoutFooter.module.css'
 export function LayoutFooter() {
   return (
     <Box className={styles.footer}>
-      <Group justify="space-between" wrap="wrap" gap="xs" className={styles.inner}>
+      <Group
+        justify="space-between"
+        wrap="wrap"
+        gap="xs"
+        className={styles.inner}
+      >
         <Text size="xs" c="dimmed">
           © 2025 Tracking Your Daily Diet
         </Text>
