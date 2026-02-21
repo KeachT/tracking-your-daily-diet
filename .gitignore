@@ -65,7 +65,8 @@ blob-report/
 playwright/.cache/
 
 # docs
-docs
+docs/knowledge
+!docs/directory-structure.md
 
 # allow committing sample env templates
 !.env.sample
