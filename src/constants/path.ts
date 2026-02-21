@@ -5,4 +5,6 @@ export enum Path {
   Preset = '/preset',
   Settings = '/settings',
   Landingpage = '/landingpage',
+  Terms = '/terms',
+  PrivacyPolicy = '/privacy-policy',
 }
