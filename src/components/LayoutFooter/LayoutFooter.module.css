@@ -1,0 +1,22 @@
+.footer {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.inner {
+  width: 100%;
+  margin: 0 var(--mantine-spacing-md);
+}
+
+.link {
+  color: light-dark(var(--mantine-color-gray-6), var(--mantine-color-dark-2));
+  text-decoration: none;
+  font-size: var(--mantine-font-size-xs);
+  cursor: pointer;
+}
+
+.link:hover {
+  color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+  text-decoration: underline;
+}

@@ -6,5 +6,5 @@ export enum Path {
   Settings = '/settings',
   Landingpage = '/landingpage',
   Terms = '/terms',
-  PrivacyPolicy = '/PrivacyPolicy',
+  PrivacyPolicy = '/privacy-policy',
 }
