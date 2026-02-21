@@ -25,7 +25,7 @@ const sections = [
   },
 ]
 
-export default function PrivacyPolicyPage() {
+export default function PrivacyPolicy() {
   return (
     <Layout title="プライバシーポリシー">
       <LegalDocumentMock

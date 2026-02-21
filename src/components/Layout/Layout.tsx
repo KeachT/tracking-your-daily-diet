@@ -2,6 +2,7 @@ import { AppShell, Box, Container } from '@mantine/core'
 import Head from 'next/head'
 import { ReactNode, useState } from 'react'
 
+import { LayoutFooter } from '../LayoutFooter'
 import { LayoutHeader } from '../LayoutHeader'
 import { LayoutNavBar } from '../LayoutNavBar'
 import classes from './Layout.module.css'
@@ -38,6 +39,7 @@ export function Layout({
             : undefined
         }
         header={{ height: 60 }}
+        footer={{ height: 30 }}
       >
         <AppShell.Header>
           <LayoutHeader
@@ -57,6 +59,10 @@ export function Layout({
             {children}
           </Container>
         </AppShell.Main>
+
+        <AppShell.Footer>
+          <LayoutFooter />
+        </AppShell.Footer>
       </AppShell>
     </Box>
   )
