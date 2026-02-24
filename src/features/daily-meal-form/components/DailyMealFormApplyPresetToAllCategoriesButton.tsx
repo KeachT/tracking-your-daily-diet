@@ -1,12 +1,14 @@
-import { Button } from '@mantine/core'
-import { useState } from 'react'
-
+import {
+  StatusButton,
+  useStatusButtonState,
+} from '../../../components/StatusButton'
+import { SAVE_BUTTON_REENABLE_DELAY_MS } from '../../../constants'
 import {
   useCurrentDateStore,
   useLoadingStateStore,
   useUserMealPresetStore,
 } from '../../../stores'
-import { createStringFromDate, showNotification } from '../../../utils'
+import { createStringFromDate } from '../../../utils'
 import { useDailyMealRecordStore } from '../stores'
 import { FormsType } from '../types'
 import { createAppliedPresetValues, saveAndSetDailyMealRecord } from '../utils'
@@ -18,7 +20,8 @@ type DailyMealFormApplyPresetToAllCategoriesButtonProps = {
 export function DailyMealFormApplyPresetToAllCategoriesButton({
   forms,
 }: DailyMealFormApplyPresetToAllCategoriesButtonProps) {
-  const [isApplyingPreset, setIsApplyingPreset] = useState(false)
+  const { saveStatus, startLoading, markSuccess, markError } =
+    useStatusButtonState(SAVE_BUTTON_REENABLE_DELAY_MS)
   const currentDate = useCurrentDateStore((state) => state.currentDate)
   const isDataLoading = useLoadingStateStore((state) => state.isDataLoading)
   const dailyMealRecord = useDailyMealRecordStore(
@@ -31,14 +34,9 @@ export function DailyMealFormApplyPresetToAllCategoriesButton({
   const currentDateString = createStringFromDate(currentDate)
 
   const handleApplyPresetToAllCategories = async () => {
-    setIsApplyingPreset(true)
+    startLoading()
     if (!userMealPreset) {
-      showNotification(
-        'Day',
-        'プリセットが読み込めませんでした',
-        'error',
-        setIsApplyingPreset,
-      )
+      markError()
       return
     }
     try {
@@ -53,30 +51,24 @@ export function DailyMealFormApplyPresetToAllCategoriesButton({
         dailyMealRecord || null,
         setDailyMealRecord,
       )
-      showNotification(
-        'Day',
-        'プリセットを適用しました',
-        'success',
-        setIsApplyingPreset,
-      )
-    } catch (err) {
-      showNotification(
-        'Day',
-        'プリセットの適用に失敗しました',
-        'error',
-        setIsApplyingPreset,
-      )
+      markSuccess()
+    } catch {
+      markError()
     }
   }
 
   return (
-    <Button
+    <StatusButton
       variant="outline"
       color="blue"
       onClick={handleApplyPresetToAllCategories}
-      disabled={isApplyingPreset || isDataLoading || !userMealPreset}
-    >
-      プリセット適用
-    </Button>
+      status={saveStatus}
+      label="プリセット適用"
+      statusLabels={{
+        success: 'プリセット適用成功',
+        error: 'プリセット適用失敗',
+      }}
+      disabled={isDataLoading || !userMealPreset}
+    />
   )
 }

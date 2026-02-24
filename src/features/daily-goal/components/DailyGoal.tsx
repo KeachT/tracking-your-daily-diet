@@ -1,18 +1,17 @@
-import { Box, Button } from '@mantine/core'
-import { Notifications, notifications } from '@mantine/notifications'
-import { IconCheck, IconX } from '@tabler/icons-react'
-import { useState } from 'react'
+import { Box } from '@mantine/core'
 
 import {
-  NOTIFICATION_DISPLAY_DURATION_MS,
-  SAVE_BUTTON_REENABLE_DELAY_MS,
-} from '../../../constants'
+  StatusButton,
+  useStatusButtonState,
+} from '../../../components/StatusButton'
+import { SAVE_BUTTON_REENABLE_DELAY_MS } from '../../../constants'
 import { useDailyGoalStore } from '../../../stores'
 import { saveDailyGoal } from '../utils'
 import { DailyGoalNumberInput } from './DailyGoalNumberInput'
 
 export function DailyGoal() {
-  const [isSaveButtonDisabled, setIsSaveButtonDisabled] = useState(false)
+  const { saveStatus, startLoading, markSuccess, markError } =
+    useStatusButtonState(SAVE_BUTTON_REENABLE_DELAY_MS)
   const dailyGoal = useDailyGoalStore((state) => state.dailyGoal)
   const setDailyGoal = useDailyGoalStore((state) => state.setDailyGoal)
 
@@ -24,40 +23,14 @@ export function DailyGoal() {
     setDailyGoal(newDailyGoal)
   }
 
-  const handleSave = () => {
-    setIsSaveButtonDisabled(true)
+  const handleSave = async () => {
+    startLoading()
     try {
-      saveDailyGoal(dailyGoal, setDailyGoal)
-      handleSuccess()
-    } catch (err) {
-      handleError()
+      await saveDailyGoal(dailyGoal, setDailyGoal)
+      markSuccess()
+    } catch {
+      markError()
     }
-  }
-
-  const handleSuccess = () => {
-    notifications.show({
-      title: '目標設定',
-      message: '保存しました',
-      color: 'green',
-      icon: <IconCheck />,
-    })
-    setTimeout(
-      () => setIsSaveButtonDisabled(false),
-      SAVE_BUTTON_REENABLE_DELAY_MS,
-    )
-  }
-
-  const handleError = () => {
-    notifications.show({
-      title: '目標設定',
-      message: '保存に失敗しました',
-      color: 'red',
-      icon: <IconX />,
-    })
-    setTimeout(
-      () => setIsSaveButtonDisabled(false),
-      SAVE_BUTTON_REENABLE_DELAY_MS,
-    )
   }
 
   return (
@@ -92,16 +65,14 @@ export function DailyGoal() {
         step={1}
       />
 
-      <Button
+      <StatusButton
         mr={50}
         color="teal"
         onClick={handleSave}
-        disabled={isSaveButtonDisabled}
-      >
-        保存
-      </Button>
-
-      <Notifications limit={10} autoClose={NOTIFICATION_DISPLAY_DURATION_MS} />
+        status={saveStatus}
+        label="保存"
+        statusLabels={{ success: '目標保存成功', error: '目標保存失敗' }}
+      />
     </Box>
   )
 }
