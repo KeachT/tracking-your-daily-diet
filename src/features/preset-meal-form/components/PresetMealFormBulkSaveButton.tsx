@@ -1,8 +1,9 @@
-import { Button } from '@mantine/core'
-import { useState } from 'react'
-
 import { UserMealPreset } from '../../../API'
-import { showNotification } from '../../../utils'
+import {
+  StatusButton,
+  useStatusButtonState,
+} from '../../../components/StatusButton'
+import { SAVE_BUTTON_REENABLE_DELAY_MS } from '../../../constants'
 import { FormsType } from '../types'
 import { saveAllUserMealPreset } from '../utils'
 
@@ -17,36 +18,30 @@ export function PresetMealFormBulkSaveButton({
   userMealPreset,
   setUserMealPreset,
 }: PresetMealFormBulkSaveButtonProps) {
-  const [isSavingPreset, setIsSavingPreset] = useState(false)
+  const { saveStatus, startLoading, markSuccess, markError } =
+    useStatusButtonState(SAVE_BUTTON_REENABLE_DELAY_MS)
 
   const handleSaveAllPreset = async () => {
-    setIsSavingPreset(true)
+    startLoading()
     try {
       await saveAllUserMealPreset(forms, userMealPreset, setUserMealPreset)
-      showNotification(
-        'Preset',
-        '全カテゴリのプリセットを保存しました',
-        'success',
-        setIsSavingPreset,
-      )
-    } catch (err) {
-      showNotification(
-        'Preset',
-        '全カテゴリのプリセットの保存に失敗しました',
-        'error',
-        setIsSavingPreset,
-      )
+      markSuccess()
+    } catch {
+      markError()
     }
   }
 
   return (
-    <Button
+    <StatusButton
       variant="outline"
       color="teal"
       onClick={handleSaveAllPreset}
-      disabled={isSavingPreset}
-    >
-      プリセット保存
-    </Button>
+      status={saveStatus}
+      label="プリセット保存"
+      statusLabels={{
+        success: 'プリセット保存成功',
+        error: 'プリセット保存失敗',
+      }}
+    />
   )
 }

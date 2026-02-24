@@ -1,11 +1,9 @@
 import { Accordion, Box, Center } from '@mantine/core'
 import { useForm } from '@mantine/form'
-import { Notifications } from '@mantine/notifications'
 import { useEffect } from 'react'
 
 import { MealCategoryName } from '@/constants'
 
-import { NOTIFICATION_DISPLAY_DURATION_MS } from '../../../constants'
 import {
   useLoadingStateStore,
   usePresetNutritionNumbersStore,
@@ -88,8 +86,6 @@ export function PresetMealForm() {
           setUserMealPreset={setUserMealPreset}
         />
       </Center>
-
-      <Notifications limit={10} autoClose={NOTIFICATION_DISPLAY_DURATION_MS} />
     </Box>
   )
 }

@@ -1,12 +1,13 @@
 import { Accordion } from '@mantine/core'
-import { useState } from 'react'
 
 import { MealCategoryName } from '@/constants'
 
 import { MealFormButtons } from '../../../components/MealFormButtons'
 import { MealIcon } from '../../../components/MealIcon'
+import { useStatusButtonState } from '../../../components/StatusButton'
+import { SAVE_BUTTON_REENABLE_DELAY_MS } from '../../../constants'
 import { useCurrentDateStore } from '../../../stores'
-import { createStringFromDate, showNotification } from '../../../utils'
+import { createStringFromDate } from '../../../utils'
 import { MEAL_CATEGORY_LABELS } from '../constants'
 import { useDailyMealRecordStore } from '../stores'
 import { FormsType } from '../types'
@@ -22,7 +23,8 @@ export function DailyMealFormAccordionItem({
   mealCategoryName,
   forms,
 }: MealFormAccordionItemProps) {
-  const [isSaveButtonDisabled, setIsSaveButtonDisabled] = useState(false)
+  const { saveStatus, startLoading, markSuccess, markError } =
+    useStatusButtonState(SAVE_BUTTON_REENABLE_DELAY_MS)
   const dailyMealRecord = useDailyMealRecordStore(
     (state) => state.dailyMealRecord,
   )
@@ -36,7 +38,7 @@ export function DailyMealFormAccordionItem({
     forms.insertListItem(`${mealCategoryName}`, createFoodInitialValues())
 
   const handleSave = async () => {
-    setIsSaveButtonDisabled(true)
+    startLoading()
     try {
       await saveAndSetDailyMealRecord(
         forms,
@@ -44,19 +46,9 @@ export function DailyMealFormAccordionItem({
         dailyMealRecord || null,
         setDailyMealRecord,
       )
-      showNotification(
-        'Day',
-        `保存しました`,
-        'success',
-        setIsSaveButtonDisabled,
-      )
-    } catch (err) {
-      showNotification(
-        'Day',
-        `保存に失敗しました`,
-        'error',
-        setIsSaveButtonDisabled,
-      )
+      markSuccess()
+    } catch {
+      markError()
     }
   }
 
@@ -76,7 +68,8 @@ export function DailyMealFormAccordionItem({
         <MealFormButtons
           onAdd={handleAdd}
           onSave={handleSave}
-          isSaveButtonDisabled={isSaveButtonDisabled}
+          isSaveButtonDisabled={saveStatus === 'loading'}
+          saveStatus={saveStatus}
         />
       </Accordion.Panel>
     </Accordion.Item>
