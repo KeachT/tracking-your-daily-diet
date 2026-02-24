@@ -63,7 +63,7 @@ This document summarizes the main directories in `tracking-your-daily-diet` and 
 
 ### `src/utils`
 
-- Common utility functions (date formatting, number rounding, notifications, and more).
+- Common utility functions (date formatting, number rounding, and more).
 
 ### `src/ui-components` / `src/models`
 
