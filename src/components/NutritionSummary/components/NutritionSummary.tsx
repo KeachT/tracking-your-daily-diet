@@ -32,7 +32,7 @@ export function NutritionSummary({
 
   return (
     <Paper withBorder radius="sm" p="md">
-      <Grid gutter={20}>
+      <Grid gutter={{ base: 8, sm: 20 }}>
         {nutritions.map((nutrition) => (
           <NutritionRing
             key={nutrition.name}
