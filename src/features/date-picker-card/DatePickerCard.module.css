@@ -6,3 +6,9 @@
   background-color: var(--mantine-color-gray-0);
   color: var(--mantine-color-black);
 }
+
+.weekDay {
+  background-color: var(--mantine-color-violet-0);
+  color: var(--mantine-color-violet-9);
+  font-weight: 600;
+}

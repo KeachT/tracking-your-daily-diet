@@ -9,7 +9,7 @@ export default function Week() {
   return (
     <Layout title="週間">
       <Box maw={300} mb={30}>
-        <DatePickerCard />
+        <DatePickerCard mode="week" />
       </Box>
 
       <Box maw={700} mb={30}>
