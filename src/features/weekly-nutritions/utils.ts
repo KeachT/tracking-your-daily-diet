@@ -4,6 +4,7 @@ import { FoodItem } from '../../API'
 import { fetchWeeklyDailyMealRecords } from '../../api/daily-meal-record'
 import {
   CurrentDateState,
+  DailyGoalState,
   LoadingState,
   WeeklyDailyMealRecordsState,
 } from '../../stores'
@@ -87,6 +88,47 @@ export const createAvgWeekNutritionValuesFromDailyMealRecords = (
     avgWeeklyCarbohydrates: roundToTwoDecimalPlaces(avgWeeklyCarbohydrates),
   }
 }
+
+type NutritionGoal = {
+  current: number
+  goal: number
+}
+
+/**
+ * Creates weekly nutrition goal pairs from weekly averages and the user's daily goal settings.
+ */
+export const createWeeklyNutritionGoals = (
+  avgWeeklyCalories: number,
+  avgWeeklyProtein: number,
+  avgWeeklyFat: number,
+  avgWeeklyCarbohydrates: number,
+  dailyGoal: DailyGoalState['dailyGoal'],
+): NutritionGoal[] => [
+  { current: avgWeeklyCalories, goal: dailyGoal.calories || 0 },
+  { current: avgWeeklyProtein, goal: dailyGoal.protein || 0 },
+  { current: avgWeeklyFat, goal: dailyGoal.fat || 0 },
+  { current: avgWeeklyCarbohydrates, goal: dailyGoal.carbohydrates || 0 },
+]
+
+/**
+ * Returns true when at least one goal is set and all set goals are not exceeded.
+ */
+export const isWeeklyNutritionGoalAchieved = (
+  nutritionGoals: NutritionGoal[],
+) => {
+  const activeNutritionGoals = nutritionGoals.filter(({ goal }) => goal > 0)
+  const hasGoal = activeNutritionGoals.length > 0
+  return (
+    hasGoal &&
+    activeNutritionGoals.every(({ current, goal }) => current <= goal)
+  )
+}
+
+/**
+ * Returns true when the given date is Saturday.
+ */
+export const isSaturday = (currentDate: CurrentDateState['currentDate']) =>
+  currentDate instanceof Date && currentDate.getDay() === 6
 
 /**
  * Asynchronously loads weekly DailyMealRecord between two dates.

@@ -1,9 +1,11 @@
+import { Badge, Stack } from '@mantine/core'
 import { useEffect } from 'react'
 
 import { LoadingSkeleton } from '../../../components/LoadingSkeleton'
 import { NutritionSummary } from '../../../components/NutritionSummary'
 import {
   useCurrentDateStore,
+  useDailyGoalStore,
   useLoadingStateStore,
   useWeeklyDailyMealRecordsStore,
 } from '../../../stores'
@@ -11,11 +13,15 @@ import {
   countWeeklyDateWithFoodsFromDailyMealRecords,
   createAvgWeekNutritionValuesFromDailyMealRecords,
   createWeekDateString,
+  createWeeklyNutritionGoals,
+  isSaturday,
+  isWeeklyNutritionGoalAchieved,
   loadWeeklyDailyMealRecords,
 } from '../utils'
 
 export function WeeklyNutritions() {
   const currentDate = useCurrentDateStore((state) => state.currentDate)
+  const dailyGoal = useDailyGoalStore((state) => state.dailyGoal)
   const isDataLoading = useLoadingStateStore((state) => state.isDataLoading)
   const setIsDataLoading = useLoadingStateStore(
     (state) => state.setIsDataLoading,
@@ -42,6 +48,16 @@ export function WeeklyNutritions() {
     weeklyDateWithFoodsCount,
   )
 
+  const nutritionGoals = createWeeklyNutritionGoals(
+    avgWeeklyCalories,
+    avgWeeklyProtein,
+    avgWeeklyFat,
+    avgWeeklyCarbohydrates,
+    dailyGoal,
+  )
+  const isWeeklyGoalAchieved = isWeeklyNutritionGoalAchieved(nutritionGoals)
+  const isSaturdayDay = isSaturday(currentDate)
+
   useEffect(() => {
     // Load weekly daily meal records when the component mounts or when the current date changes
     loadWeeklyDailyMealRecords(
@@ -62,11 +78,19 @@ export function WeeklyNutritions() {
   }
 
   return (
-    <NutritionSummary
-      calories={avgWeeklyCalories}
-      protein={avgWeeklyProtein}
-      fat={avgWeeklyFat}
-      carbohydrates={avgWeeklyCarbohydrates}
-    />
+    <Stack gap="sm">
+      {isWeeklyGoalAchieved && isSaturdayDay ? (
+        <Badge size="lg" variant="light" color="yellow" w="fit-content">
+          🎉 週間の目標達成！
+        </Badge>
+      ) : null}
+
+      <NutritionSummary
+        calories={avgWeeklyCalories}
+        protein={avgWeeklyProtein}
+        fat={avgWeeklyFat}
+        carbohydrates={avgWeeklyCarbohydrates}
+      />
+    </Stack>
   )
 }
