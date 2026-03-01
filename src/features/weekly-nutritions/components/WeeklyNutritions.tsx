@@ -13,6 +13,9 @@ import {
   countWeeklyDateWithFoodsFromDailyMealRecords,
   createAvgWeekNutritionValuesFromDailyMealRecords,
   createWeekDateString,
+  createWeeklyNutritionGoals,
+  isSaturday,
+  isWeeklyNutritionGoalAchieved,
   loadWeeklyDailyMealRecords,
 } from '../utils'
 
@@ -45,18 +48,15 @@ export function WeeklyNutritions() {
     weeklyDateWithFoodsCount,
   )
 
-  const nutritionGoals = [
-    { current: avgWeeklyCalories, goal: dailyGoal.calories || 0 },
-    { current: avgWeeklyProtein, goal: dailyGoal.protein || 0 },
-    { current: avgWeeklyFat, goal: dailyGoal.fat || 0 },
-    { current: avgWeeklyCarbohydrates, goal: dailyGoal.carbohydrates || 0 },
-  ]
-
-  const hasGoal = nutritionGoals.some(({ goal }) => goal > 0)
-  const isWeeklyGoalAchieved =
-    hasGoal &&
-    nutritionGoals.every(({ current, goal }) => goal <= 0 || current >= goal)
-  const isWeekLastDay = currentDate instanceof Date && currentDate.getDay() === 0
+  const nutritionGoals = createWeeklyNutritionGoals(
+    avgWeeklyCalories,
+    avgWeeklyProtein,
+    avgWeeklyFat,
+    avgWeeklyCarbohydrates,
+    dailyGoal,
+  )
+  const isWeeklyGoalAchieved = isWeeklyNutritionGoalAchieved(nutritionGoals)
+  const isSaturdayDay = isSaturday(currentDate)
 
   useEffect(() => {
     // Load weekly daily meal records when the component mounts or when the current date changes
@@ -79,7 +79,7 @@ export function WeeklyNutritions() {
 
   return (
     <Stack gap="sm">
-      {isWeeklyGoalAchieved && isWeekLastDay ? (
+      {isWeeklyGoalAchieved && isSaturdayDay ? (
         <Badge size="lg" variant="light" color="yellow" w="fit-content">
           🎉 週間の目標達成！
         </Badge>
