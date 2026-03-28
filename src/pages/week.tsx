@@ -9,7 +9,8 @@ export default function Week() {
   return (
     <Layout title="週間">
       <Box maw={300} mb={30}>
-        <DatePickerCard />
+        {/* TODO: Remove disableNavigation when paid feature is implemented */}
+        <DatePickerCard disableNavigation />
       </Box>
 
       <Box maw={700} mb={30}>
