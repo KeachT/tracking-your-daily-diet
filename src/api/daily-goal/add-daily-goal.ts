@@ -7,10 +7,14 @@ import {
 import { createDailyGoal } from '../../graphql/mutations'
 import { DailyGoalState } from '../../stores'
 import { client } from '../../utils/amplifyClient'
+import { guestAddDailyGoal } from '../guest/guest-storage'
+import { getGuestModeFlag } from '../guest/guestModeFlag'
 
 export const addDailyGoal = async (
   variables: CreateDailyGoalMutationVariables,
 ) => {
+  if (getGuestModeFlag()) return guestAddDailyGoal(variables)
+
   try {
     const { data } = await client.graphql<
       GraphQLQuery<CreateDailyGoalMutation>

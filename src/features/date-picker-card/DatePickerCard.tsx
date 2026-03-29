@@ -13,7 +13,7 @@ type DatePickerCardProps = {
 }
 
 export function DatePickerCard({
-  disableNavigation = true,
+  disableNavigation = false,
 }: DatePickerCardProps) {
   const currentDate = useCurrentDateStore((state) => state.currentDate)
   const setCurrentDate = useCurrentDateStore((state) => state.setCurrentDate)

@@ -1,6 +1,14 @@
 import { Path } from '../constants'
 
-export const checkIsLoading = (authStatus: string, pathname: string) =>
+export const checkIsLoading = (
+  authStatus: string,
+  pathname: string,
+  isGuestMode: boolean,
+) =>
   authStatus === 'configuring' ||
-  (authStatus !== 'unauthenticated' && pathname === Path.Landingpage) ||
-  (authStatus !== 'authenticated' && pathname !== Path.Landingpage)
+  (!isGuestMode &&
+    authStatus !== 'unauthenticated' &&
+    pathname === Path.Landingpage) ||
+  (!isGuestMode &&
+    authStatus !== 'authenticated' &&
+    pathname !== Path.Landingpage)

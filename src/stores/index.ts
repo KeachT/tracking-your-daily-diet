@@ -1,5 +1,6 @@
 export * from './currentDate'
 export * from './dailyGoal'
+export * from './guestMode'
 export * from './loadingState'
 export * from './nutritionNumbers'
 export * from './presetNutritionNumbers'

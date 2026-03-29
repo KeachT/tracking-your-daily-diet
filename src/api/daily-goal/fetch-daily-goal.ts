@@ -3,8 +3,12 @@ import { GraphQLQuery } from '@aws-amplify/api'
 import { ListDailyGoalsQuery } from '../../API'
 import { listDailyGoals } from '../../graphql/queries'
 import { client } from '../../utils/amplifyClient'
+import { guestFetchDailyGoal } from '../guest/guest-storage'
+import { getGuestModeFlag } from '../guest/guestModeFlag'
 
 export const fetchDailyGoal = async () => {
+  if (getGuestModeFlag()) return guestFetchDailyGoal()
+
   try {
     const { data } = await client.graphql<GraphQLQuery<ListDailyGoalsQuery>>({
       query: listDailyGoals,

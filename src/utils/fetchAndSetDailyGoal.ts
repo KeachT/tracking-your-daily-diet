@@ -11,5 +11,7 @@ export const fetchAndSetDailyGoal = async (
   setDailyGoal: DailyGoalState['setDailyGoal'],
 ) => {
   const dailyGoal = await fetchDailyGoal()
-  setDailyGoal(dailyGoal as DailyGoalState['dailyGoal'])
+  if (dailyGoal) {
+    setDailyGoal(dailyGoal as DailyGoalState['dailyGoal'])
+  }
 }

@@ -7,6 +7,8 @@ import {
 } from '../../API'
 import { listDailyMealRecords } from '../../graphql/queries'
 import { client } from '../../utils/amplifyClient'
+import { guestFetchDailyMealRecords } from '../guest/guest-storage'
+import { getGuestModeFlag } from '../guest/guestModeFlag'
 import { fetchDailyMealRecordWithFoods } from './fetch-daily-meal-record'
 
 /**
@@ -18,6 +20,8 @@ import { fetchDailyMealRecordWithFoods } from './fetch-daily-meal-record'
 export const fetchDailyMealRecords = async (
   variables?: ListDailyMealRecordsQueryVariables,
 ): Promise<DailyMealRecord[]> => {
+  if (getGuestModeFlag()) return guestFetchDailyMealRecords(variables)
+
   try {
     const { data } = await client.graphql<
       GraphQLQuery<ListDailyMealRecordsQuery>
