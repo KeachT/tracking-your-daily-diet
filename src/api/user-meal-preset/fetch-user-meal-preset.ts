@@ -7,6 +7,8 @@ import {
 } from '../../API'
 import { listUserMealPresets } from '../../graphql/queries'
 import { client } from '../../utils/amplifyClient'
+import { guestFetchUserMealPreset } from '../guest/guest-storage'
+import { getGuestModeFlag } from '../guest/guestModeFlag'
 import { fetchUserMealPresetWithFood } from './fetch-user-meal-preset-with-food'
 
 /**
@@ -19,6 +21,8 @@ import { fetchUserMealPresetWithFood } from './fetch-user-meal-preset-with-food'
 export const fetchUserMealPreset = async (
   variables?: ListUserMealPresetsQueryVariables,
 ): Promise<UserMealPreset | null> => {
+  if (getGuestModeFlag()) return guestFetchUserMealPreset()
+
   try {
     const { data } = await client.graphql<
       GraphQLQuery<ListUserMealPresetsQuery>

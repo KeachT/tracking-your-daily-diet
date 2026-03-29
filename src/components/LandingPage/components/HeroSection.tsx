@@ -4,9 +4,10 @@ import classes from '../styles/HeroSection.module.css'
 
 type HeroSectionProps = {
   open: () => void
+  onGuestLogin: () => void
 }
 
-export function HeroSection({ open }: HeroSectionProps) {
+export function HeroSection({ open, onGuestLogin }: HeroSectionProps) {
   return (
     <Stack align="center" gap="xl" m={20}>
       <Text
@@ -31,6 +32,10 @@ export function HeroSection({ open }: HeroSectionProps) {
         onClick={open}
       >
         無料で始める
+      </Button>
+
+      <Button size="md" variant="subtle" color="teal" onClick={onGuestLogin}>
+        ゲストとして試す
       </Button>
     </Stack>
   )

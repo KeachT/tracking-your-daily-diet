@@ -7,6 +7,8 @@ import {
 } from '../../API'
 import { createUserMealPreset } from '../../graphql/mutations'
 import { client } from '../../utils/amplifyClient'
+import { guestAddUserMealPreset } from '../guest/guest-storage'
+import { getGuestModeFlag } from '../guest/guestModeFlag'
 
 /**
  * Creates a new user meal preset.
@@ -17,6 +19,8 @@ import { client } from '../../utils/amplifyClient'
 export const addUserMealPreset = async (
   variables: CreateUserMealPresetMutationVariables,
 ): Promise<UserMealPreset> => {
+  if (getGuestModeFlag()) return guestAddUserMealPreset(variables)
+
   try {
     const { data } = await client.graphql<
       GraphQLQuery<CreateUserMealPresetMutation>

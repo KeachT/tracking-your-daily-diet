@@ -7,6 +7,8 @@ import {
 } from '../../API'
 import { createDailyMealRecord } from '../../graphql/mutations'
 import { client } from '../../utils/amplifyClient'
+import { guestAddDailyMealRecord } from '../guest/guest-storage'
+import { getGuestModeFlag } from '../guest/guestModeFlag'
 
 /**
  * Creates a new daily meal record.
@@ -17,6 +19,8 @@ import { client } from '../../utils/amplifyClient'
 export const addDailyMealRecord = async (
   variables: CreateDailyMealRecordMutationVariables,
 ): Promise<DailyMealRecord> => {
+  if (getGuestModeFlag()) return guestAddDailyMealRecord(variables)
+
   try {
     const { data } = await client.graphql<
       GraphQLQuery<CreateDailyMealRecordMutation>
