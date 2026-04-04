@@ -19,6 +19,7 @@ export function DatePickerCard({
   const setCurrentDate = useCurrentDateStore((state) => state.setCurrentDate)
 
   const changeCurrentDate = (amount: number | 'today') => {
+    if (disableNavigation) return
     if (amount === 'today') {
       setCurrentDate(new Date())
       return
@@ -43,33 +44,30 @@ export function DatePickerCard({
           </Text>
         </Grid>
 
-        {disableNavigation ? (
-          <Box mt={16} h={20} />
-        ) : (
-          <Grid align="baseline" justify="center" mt={16}>
-            <Box mr={12} onClick={() => changeCurrentDate(-1)}>
-              <IconChevronLeft
-                size={20}
-                strokeWidth={1}
-                className={classes.button}
-              />
-            </Box>
-            <Box mr={12} onClick={() => changeCurrentDate('today')}>
-              <IconDots
-                size={20}
-                strokeWidth={0.5}
-                className={classes.button}
-              />
-            </Box>
-            <Box onClick={() => changeCurrentDate(1)}>
-              <IconChevronRight
-                size={20}
-                strokeWidth={1}
-                className={classes.button}
-              />
-            </Box>
-          </Grid>
-        )}
+        <Grid
+          align="baseline"
+          justify="center"
+          mt={16}
+          className={disableNavigation ? classes.disabled : undefined}
+        >
+          <Box mr={12} onClick={() => changeCurrentDate(-1)}>
+            <IconChevronLeft
+              size={20}
+              strokeWidth={1}
+              className={classes.button}
+            />
+          </Box>
+          <Box mr={12} onClick={() => changeCurrentDate('today')}>
+            <IconDots size={20} strokeWidth={0.5} className={classes.button} />
+          </Box>
+          <Box onClick={() => changeCurrentDate(1)}>
+            <IconChevronRight
+              size={20}
+              strokeWidth={1}
+              className={classes.button}
+            />
+          </Box>
+        </Grid>
       </Card>
     </Box>
   )

@@ -6,3 +6,9 @@
   background-color: var(--mantine-color-gray-0);
   color: var(--mantine-color-black);
 }
+
+.disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  pointer-events: none;
+}
