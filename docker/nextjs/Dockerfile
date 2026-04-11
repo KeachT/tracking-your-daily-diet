@@ -1,4 +1,4 @@
-FROM node:20-alpine
+FROM node:24-alpine
 
 # Prepare application directory and drop root privileges early.
 RUN mkdir -p /app && chown node:node /app
