@@ -1,4 +1,4 @@
-FROM node:20-bullseye-slim
+FROM node:24-bookworm-slim
 
 # Install only the tooling Amplify CLI depends on.
 RUN apt-get update && apt-get install -y --no-install-recommends \
