@@ -92,6 +92,16 @@ export const guestFetchDailyMealRecords = async (
   return records.filter((r) => r.date === dateFilter)
 }
 
+export const guestFetchWeeklyDailyMealRecords = async (
+  currentDateString: string,
+  prevWeekDateString: string,
+): Promise<DailyMealRecord[]> => {
+  const records = loadMealRecords()
+  return records.filter(
+    (r) => r.date >= prevWeekDateString && r.date <= currentDateString,
+  )
+}
+
 export const guestAddDailyMealRecord = async (
   variables: CreateDailyMealRecordMutationVariables,
 ): Promise<DailyMealRecord> => {

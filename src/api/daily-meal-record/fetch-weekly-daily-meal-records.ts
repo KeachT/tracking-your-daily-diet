@@ -7,6 +7,8 @@ import {
 } from '../../API'
 import { listDailyMealRecords } from '../../graphql/queries'
 import { client } from '../../utils/amplifyClient'
+import { guestFetchWeeklyDailyMealRecords } from '../guest/guest-storage'
+import { getGuestModeFlag } from '../guest/guestModeFlag'
 import { fetchDailyMealRecordWithFoods } from './fetch-daily-meal-record'
 
 /**
@@ -20,6 +22,11 @@ export const fetchWeeklyDailyMealRecords = async (
   currentDateString: string,
   prevWeekDateString: string,
 ): Promise<DailyMealRecord[]> => {
+  if (getGuestModeFlag())
+    return guestFetchWeeklyDailyMealRecords(
+      currentDateString,
+      prevWeekDateString,
+    )
   const variables: ListDailyMealRecordsQueryVariables = {
     filter: {
       date: { between: [prevWeekDateString, currentDateString] },
