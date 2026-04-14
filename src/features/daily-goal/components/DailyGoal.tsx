@@ -1,4 +1,4 @@
-import { Box } from '@mantine/core'
+import { Box, Text, Title } from '@mantine/core'
 
 import {
   StatusButton,
@@ -35,6 +35,9 @@ export function DailyGoal() {
 
   return (
     <Box>
+      <Title order={4} fw={400} c="dimmed" mb="xs">
+        1日の栄養目標を設定
+      </Title>
       <DailyGoalNumberInput
         label="カロリー (Kcal)"
         placeholder="カロリー"
