@@ -1,0 +1,9 @@
+.wrapper {
+  background: linear-gradient(
+    135deg,
+    var(--mantine-color-teal-6),
+    var(--mantine-color-blue-6)
+  );
+  padding: 60px 24px;
+  border-radius: var(--mantine-radius-lg);
+}

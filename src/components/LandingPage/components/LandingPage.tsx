@@ -5,8 +5,12 @@ import { useGuestModeStore } from '../../../stores'
 import { AuthenticatorModal } from '../../AuthenticatorModal'
 import classes from '../styles/LandingPage.module.css'
 import { AlertMessage } from './AlertMessage'
+import { FAQSection } from './FAQSection'
 import { FeatureSection } from './FeatureSection'
+import { FinalCTASection } from './FinalCTASection'
 import { HeroSection } from './HeroSection'
+import { HowToSection } from './HowToSection'
+import { PainPointSection } from './PainPointSection'
 
 export function LandingPage() {
   const [opened, { open, close }] = useDisclosure(false)
@@ -15,10 +19,14 @@ export function LandingPage() {
   return (
     <div className={classes.wrapper}>
       <Container size="xl" className={classes.inner}>
-        <Stack gap={30}>
+        <Stack gap={60}>
           <HeroSection open={open} onGuestLogin={enterGuestMode} />
           <FeatureSection />
+          <PainPointSection />
+          <HowToSection />
+          <FAQSection />
           <AlertMessage />
+          <FinalCTASection open={open} onGuestLogin={enterGuestMode} />
         </Stack>
       </Container>
 
