@@ -10,7 +10,7 @@ export function NutritionRing({ name, number, percent, color }: Nutrition) {
   const isSmallMobile = useMediaQuery('(max-width: 30em)')
 
   return (
-    <Grid.Col span={{ base: 3, md: 3 }} key={name}>
+    <Grid.Col span={{ base: 6, sm: 3 }} key={name}>
       <Text fw={200} size={isSmallMobile ? 'xs' : 'sm'}>
         {name}
       </Text>
