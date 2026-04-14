@@ -1,3 +1,13 @@
+.heroWrapper {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 128, 128, 0.04) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  padding: 60px 0 40px;
+  border-radius: var(--mantine-radius-lg);
+}
+
 .title {
   font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', sans-serif;
   font-size: 3rem;
