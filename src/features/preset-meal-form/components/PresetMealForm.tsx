@@ -69,7 +69,7 @@ export function PresetMealForm() {
 
   return (
     <Box>
-      <Accordion defaultValue={defaultCategory} variant="separated">
+      <Accordion multiple defaultValue={[defaultCategory]} variant="separated">
         {mealCategoryNames.map((mealCategoryName) => (
           <PresetMealFormAccordionItem
             key={mealCategoryName}
