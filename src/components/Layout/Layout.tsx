@@ -12,6 +12,7 @@ type LayoutProps = {
   children: ReactNode
   showNavBar?: boolean
   centerContent?: boolean
+  fullWidth?: boolean
 }
 
 export function Layout({
@@ -19,6 +20,7 @@ export function Layout({
   children,
   showNavBar = true,
   centerContent = false,
+  fullWidth = false,
 }: LayoutProps) {
   const [navbarOpened, setNavbarOpened] = useState(false)
 
@@ -55,9 +57,13 @@ export function Layout({
         )}
 
         <AppShell.Main className={centerContent ? classes.center : undefined}>
-          <Container size="md" m="md">
-            {children}
-          </Container>
+          {fullWidth ? (
+            children
+          ) : (
+            <Container size="md" m="md">
+              {children}
+            </Container>
+          )}
         </AppShell.Main>
 
         <AppShell.Footer>
