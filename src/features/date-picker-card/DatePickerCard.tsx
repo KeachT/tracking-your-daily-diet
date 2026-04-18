@@ -1,8 +1,8 @@
-import { Box, Card, Grid, Text } from '@mantine/core'
+import { Box, Card, Grid, Text, Tooltip } from '@mantine/core'
 import {
+  IconCalendarDot,
   IconChevronLeft,
   IconChevronRight,
-  IconDots,
 } from '@tabler/icons-react'
 
 import { useCurrentDateStore } from '../../stores'
@@ -36,10 +36,9 @@ export function DatePickerCard({
           <Text fw={200} size="xl" ml={8}>
             {currentDate?.toLocaleString('ja-JP', {
               year: 'numeric',
-              month: '2-digit',
-              day: '2-digit',
-              hour: '2-digit',
-              minute: '2-digit',
+              month: 'long',
+              day: 'numeric',
+              weekday: 'short',
             })}
           </Text>
         </Grid>
@@ -57,9 +56,15 @@ export function DatePickerCard({
               className={classes.button}
             />
           </Box>
-          <Box mr={12} onClick={() => changeCurrentDate('today')}>
-            <IconDots size={20} strokeWidth={0.5} className={classes.button} />
-          </Box>
+          <Tooltip label="今日に移動">
+            <Box mr={12} onClick={() => changeCurrentDate('today')}>
+              <IconCalendarDot
+                size={20}
+                strokeWidth={1}
+                className={classes.button}
+              />
+            </Box>
+          </Tooltip>
           <Box onClick={() => changeCurrentDate(1)}>
             <IconChevronRight
               size={20}
