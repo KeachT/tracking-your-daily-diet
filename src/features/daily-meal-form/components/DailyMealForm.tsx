@@ -94,7 +94,7 @@ export function DailyMealForm() {
 
   return (
     <Box>
-      <Accordion defaultValue={defaultCategory} variant="separated">
+      <Accordion multiple defaultValue={[defaultCategory]} variant="separated">
         {mealCategoryNames.map((mealCategoryName) => (
           <DailyMealFormAccordionItem
             key={mealCategoryName}

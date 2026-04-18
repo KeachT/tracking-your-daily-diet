@@ -1,4 +1,5 @@
 import { Button, Center } from '@mantine/core'
+import { IconPlus } from '@tabler/icons-react'
 
 import { StatusButton } from '../StatusButton'
 
@@ -17,7 +18,12 @@ export function MealFormButtons({
 }: MealFormButtonsProps) {
   return (
     <Center mt="xl">
-      <Button mr="md" onClick={onAdd}>
+      <Button
+        mr="md"
+        variant="outline"
+        leftSection={<IconPlus size={16} />}
+        onClick={onAdd}
+      >
         追加
       </Button>
       {onSave && (
