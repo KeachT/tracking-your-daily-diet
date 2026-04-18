@@ -1,6 +1,9 @@
+import { Box } from '@mantine/core'
+
 import { MealCategoryName } from '@/constants'
 
 import { LoadingSkeleton } from '../../../components/LoadingSkeleton'
+import { MealFormFieldsHeader } from '../../../components/MealFormFieldsHeader'
 import { NoFoodText } from '../../../components/NoFoodText'
 import { useLoadingStateStore } from '../../../stores'
 import { FormsType } from '../types'
@@ -23,7 +26,10 @@ export function DailyMealFormContent({
 
   if (forms.values[mealCategoryName]?.length > 0) {
     return (
-      <DailyMealFormFields form={forms} mealCategoryName={mealCategoryName} />
+      <Box>
+        <MealFormFieldsHeader />
+        <DailyMealFormFields form={forms} mealCategoryName={mealCategoryName} />
+      </Box>
     )
   }
 
