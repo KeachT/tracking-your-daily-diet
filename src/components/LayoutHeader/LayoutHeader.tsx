@@ -1,4 +1,5 @@
 import { Box, Burger, Image, Title, useMantineTheme } from '@mantine/core'
+import { useWindowScroll } from '@mantine/hooks'
 import Link from 'next/link'
 import { Dispatch, SetStateAction } from 'react'
 
@@ -15,9 +16,18 @@ export function LayoutHeader({
   setNavbarOpened,
 }: LayoutHeaderProps) {
   const theme = useMantineTheme()
+  const [scroll] = useWindowScroll()
 
   return (
-    <Box style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
+    <Box
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        height: '100%',
+        boxShadow: scroll.y > 0 ? '0 1px 3px rgba(0, 0, 0, 0.1)' : 'none',
+        transition: 'box-shadow 200ms',
+      }}
+    >
       <Burger
         opened={navbarOpened}
         onClick={() => setNavbarOpened((navbarOpened) => !navbarOpened)}
