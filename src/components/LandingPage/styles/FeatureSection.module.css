@@ -1,7 +1,16 @@
 .card {
   display: flex;
   flex-direction: column;
-  height: 250px;
+  min-height: 280px;
+  height: auto;
+  transition:
+    transform 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--mantine-shadow-md);
 }
 
 .cardContent {

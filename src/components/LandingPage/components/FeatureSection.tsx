@@ -1,32 +1,38 @@
-import { Card, Center, SimpleGrid, Stack, Text } from '@mantine/core'
+import { Card, SimpleGrid, Stack, Text, ThemeIcon, Title } from '@mantine/core'
 import { IconChartBar, IconLeaf, IconUserCircle } from '@tabler/icons-react'
 
 import styles from '../styles/FeatureSection.module.css'
 
 const features = [
   {
-    icon: <IconLeaf size={32} color="teal" />,
+    icon: <IconLeaf size={48} />,
+    color: 'teal' as const,
     title: '食事記録',
-    description: '毎日の食事を簡単に記録',
+    description:
+      'メニューを選ぶだけで毎日の食事をカンタン記録。朝食・昼食・夕食・間食をまとめて管理できます。',
   },
   {
-    icon: <IconChartBar size={32} color="blue" />,
+    icon: <IconChartBar size={48} />,
+    color: 'blue' as const,
     title: 'データ分析',
-    description: 'カロリーと栄養素をグラフで表示',
+    description:
+      'カロリーと栄養素（タンパク質・炭水化物・脂質）をグラフで可視化。週間トレンドもひと目でチェック。',
   },
   {
-    icon: <IconUserCircle size={32} color="orange" />,
+    icon: <IconUserCircle size={48} />,
+    color: 'orange' as const,
     title: 'パーソナライズ',
-    description: '目標を設定し毎日の進捗を管理',
+    description:
+      'あなたの目標カロリーと栄養バランスを設定。毎日の進捗をチャートで確認できます。',
   },
 ]
 
 export function FeatureSection() {
   return (
     <Stack gap="xl" id="features">
-      <Center>
-        <Text size="xl">主な機能</Text>
-      </Center>
+      <Title order={2} size="xl" ta="center" c="dimmed">
+        主な機能
+      </Title>
 
       <SimpleGrid cols={{ base: 1, xs: 3 }} spacing="md" verticalSpacing="md">
         {features.map((feature) => (
@@ -44,10 +50,17 @@ export function FeatureSection() {
               justify="center"
               className={styles.cardContent}
             >
-              {feature.icon}
-              <Text size="lg" fw={500} ta="center">
+              <ThemeIcon
+                size={64}
+                radius="xl"
+                variant="light"
+                color={feature.color}
+              >
+                {feature.icon}
+              </ThemeIcon>
+              <Title order={3} size="lg" fw={500} ta="center">
                 {feature.title}
-              </Text>
+              </Title>
               <Text size="sm" c="dimmed" ta="center">
                 {feature.description}
               </Text>
