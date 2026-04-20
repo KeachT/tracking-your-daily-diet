@@ -28,7 +28,7 @@ export function LayoutNavBar() {
         {isGuestMode ? (
           <Box className={navLinkClasses.link} onClick={exitGuestMode}>
             <IconUserOff className={navLinkClasses.linkIcon} stroke={1.5} />
-            <span>ゲスト終了</span>
+            <span>ゲストモード終了</span>
           </Box>
         ) : (
           <LogoutLink open={open} />
