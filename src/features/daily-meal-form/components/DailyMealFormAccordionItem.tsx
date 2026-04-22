@@ -4,8 +4,6 @@ import { MealCategoryName } from '@/constants'
 
 import { MealFormButtons } from '../../../components/MealFormButtons'
 import { MealIcon } from '../../../components/MealIcon'
-import { useStatusButtonState } from '../../../components/StatusButton'
-import { SAVE_BUTTON_REENABLE_DELAY_MS } from '../../../constants'
 import { useCurrentDateStore } from '../../../stores'
 import { createStringFromDate } from '../../../utils'
 import { MEAL_CATEGORY_LABELS } from '../constants'
@@ -23,8 +21,6 @@ export function DailyMealFormAccordionItem({
   mealCategoryName,
   forms,
 }: MealFormAccordionItemProps) {
-  const { saveStatus, startLoading, markSuccess, markError } =
-    useStatusButtonState(SAVE_BUTTON_REENABLE_DELAY_MS)
   const dailyMealRecord = useDailyMealRecordStore(
     (state) => state.dailyMealRecord,
   )
@@ -37,20 +33,13 @@ export function DailyMealFormAccordionItem({
   const handleAdd = () =>
     forms.insertListItem(`${mealCategoryName}`, createFoodInitialValues())
 
-  const handleSave = async () => {
-    startLoading()
-    try {
-      await saveAndSetDailyMealRecord(
-        forms,
-        currentDateString,
-        dailyMealRecord || null,
-        setDailyMealRecord,
-      )
-      markSuccess()
-    } catch {
-      markError()
-    }
-  }
+  const handleSave = () =>
+    saveAndSetDailyMealRecord(
+      forms,
+      currentDateString,
+      dailyMealRecord || null,
+      setDailyMealRecord,
+    )
 
   return (
     <Accordion.Item value={mealCategoryName}>
@@ -65,12 +54,7 @@ export function DailyMealFormAccordionItem({
           mealCategoryName={mealCategoryName}
           forms={forms}
         />
-        <MealFormButtons
-          onAdd={handleAdd}
-          onSave={handleSave}
-          isSaveButtonDisabled={saveStatus === 'loading'}
-          saveStatus={saveStatus}
-        />
+        <MealFormButtons onAdd={handleAdd} onSave={handleSave} />
       </Accordion.Panel>
     </Accordion.Item>
   )

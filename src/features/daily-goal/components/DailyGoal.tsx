@@ -1,17 +1,11 @@
-import { Box, Text, Title } from '@mantine/core'
+import { Box, Title } from '@mantine/core'
 
-import {
-  StatusButton,
-  useStatusButtonState,
-} from '../../../components/StatusButton'
-import { SAVE_BUTTON_REENABLE_DELAY_MS } from '../../../constants'
+import { SaveButton } from '../../../components/SaveButton'
 import { useDailyGoalStore } from '../../../stores'
 import { saveDailyGoal } from '../utils'
 import { DailyGoalNumberInput } from './DailyGoalNumberInput'
 
 export function DailyGoal() {
-  const { saveStatus, startLoading, markSuccess, markError } =
-    useStatusButtonState(SAVE_BUTTON_REENABLE_DELAY_MS)
   const dailyGoal = useDailyGoalStore((state) => state.dailyGoal)
   const setDailyGoal = useDailyGoalStore((state) => state.setDailyGoal)
 
@@ -21,16 +15,6 @@ export function DailyGoal() {
   ) => {
     const newDailyGoal = { ...dailyGoal, [nutritionName]: value }
     setDailyGoal(newDailyGoal)
-  }
-
-  const handleSave = async () => {
-    startLoading()
-    try {
-      await saveDailyGoal(dailyGoal, setDailyGoal)
-      markSuccess()
-    } catch {
-      markError()
-    }
   }
 
   return (
@@ -68,12 +52,9 @@ export function DailyGoal() {
         step={1}
       />
 
-      <StatusButton
+      <SaveButton
         mr={50}
-        color="teal"
-        onClick={handleSave}
-        status={saveStatus}
-        label="保存"
+        onSave={() => saveDailyGoal(dailyGoal, setDailyGoal)}
         statusLabels={{ success: '目標保存成功', error: '目標保存失敗' }}
       />
     </Box>
