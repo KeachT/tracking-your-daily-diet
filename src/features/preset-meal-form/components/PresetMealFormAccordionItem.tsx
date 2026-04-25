@@ -4,9 +4,10 @@ import { MealCategoryName } from '@/constants'
 
 import { MealFormButtons } from '../../../components/MealFormButtons'
 import { MealIcon } from '../../../components/MealIcon'
+import { useUserMealPresetStore } from '../../../stores'
 import { MEAL_CATEGORY_LABELS } from '../constants'
 import { FormsType } from '../types'
-import { createFoodInitialValues } from '../utils'
+import { createFoodInitialValues, saveAllUserMealPreset } from '../utils'
 import { PresetMealFormContent } from './PresetMealFormContent'
 
 type PresetMealFormAccordionItemProps = {
@@ -18,8 +19,16 @@ export function PresetMealFormAccordionItem({
   mealCategoryName,
   forms,
 }: PresetMealFormAccordionItemProps) {
+  const userMealPreset = useUserMealPresetStore((state) => state.userMealPreset)
+  const setUserMealPreset = useUserMealPresetStore(
+    (state) => state.setUserMealPreset,
+  )
+
   const handleAdd = () =>
     forms.insertListItem(`${mealCategoryName}`, createFoodInitialValues())
+
+  const handleSave = () =>
+    saveAllUserMealPreset(forms, userMealPreset, setUserMealPreset)
 
   return (
     <Accordion.Item value={mealCategoryName}>
@@ -34,7 +43,7 @@ export function PresetMealFormAccordionItem({
           mealCategoryName={mealCategoryName}
           forms={forms}
         />
-        <MealFormButtons onAdd={handleAdd} />
+        <MealFormButtons onAdd={handleAdd} onSave={handleSave} />
       </Accordion.Panel>
     </Accordion.Item>
   )

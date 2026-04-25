@@ -3,7 +3,7 @@ import { Grid, Text } from '@mantine/core'
 export function MealFormFieldsHeader() {
   return (
     <Grid align="center" visibleFrom="sm" mt="xs">
-      <Grid.Col span={{ base: 12, sm: 3 }}>
+      <Grid.Col span={{ base: 12, sm: 2 }}>
         <Text size="sm" fw={500} c="dimmed">
           食品名
         </Text>
@@ -28,7 +28,7 @@ export function MealFormFieldsHeader() {
           炭水化物
         </Text>
       </Grid.Col>
-      <Grid.Col span={1} />
+      <Grid.Col span={2} />
     </Grid>
   )
 }

@@ -1,6 +1,7 @@
 import { ActionIcon, Grid, Group, NumberInput, TextInput } from '@mantine/core'
 import { UseFormReturnType } from '@mantine/form'
-import { IconTrash } from '@tabler/icons-react'
+import { createId } from '@paralleldrive/cuid2'
+import { IconCopy, IconTrash } from '@tabler/icons-react'
 
 import { FormData } from '../types'
 
@@ -16,10 +17,22 @@ export function PresetMealFormFields({
   const getFormItemProps = (index: number, fieldName: string) =>
     form.getInputProps(`${mealCategoryName}.${index}.${fieldName}`)
 
+  const handleCopy = (index: number) => {
+    const original = form.values[mealCategoryName][index]
+    form.insertListItem(
+      mealCategoryName,
+      { ...original, id: createId() },
+      index + 1,
+    )
+  }
+
+  const handleRemove = (index: number) =>
+    form.removeListItem(`${mealCategoryName}`, index)
+
   return form.values?.[mealCategoryName].map((item, index) => (
     <Group key={item.id} mt="xs">
       <Grid align="center">
-        <Grid.Col span={{ base: 12, sm: 3 }}>
+        <Grid.Col span={{ base: 12, sm: 2 }}>
           <TextInput
             placeholder="食品名"
             {...getFormItemProps(index, 'name')}
@@ -64,13 +77,15 @@ export function PresetMealFormFields({
             {...getFormItemProps(index, 'carbohydrates')}
           />
         </Grid.Col>
-        <Grid.Col span={1} mt={2}>
-          <ActionIcon
-            color="red"
-            onClick={() => form.removeListItem(`${mealCategoryName}`, index)}
-          >
-            <IconTrash size={18} />
-          </ActionIcon>
+        <Grid.Col span={2} mt={2}>
+          <Group gap="xs" wrap="nowrap">
+            <ActionIcon color="gray" onClick={() => handleCopy(index)}>
+              <IconCopy size={18} />
+            </ActionIcon>
+            <ActionIcon color="red" onClick={() => handleRemove(index)}>
+              <IconTrash size={18} />
+            </ActionIcon>
+          </Group>
         </Grid.Col>
       </Grid>
     </Group>

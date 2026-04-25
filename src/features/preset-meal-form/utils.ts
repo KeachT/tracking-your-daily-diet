@@ -134,8 +134,6 @@ export const createSumNutritionValues = (forms: FormsType) => {
  * @param forms - The forms containing the meal preset data for every category
  * @param userMealPreset - The existing user meal preset object (null when creating)
  * @param setUserMealPreset - The function to update the local user meal preset state
- *
- * @returns A promise that resolves to true when the preset has been saved
  */
 export const saveAllUserMealPreset = async (
   forms: FormsType,
@@ -155,7 +153,7 @@ export const saveAllUserMealPreset = async (
     }
     const updatedPreset = await updUserMealPreset(variables)
     setUserMealPreset(updatedPreset)
-    return true
+    return
   }
 
   const createUserMealPresetInput: CreateUserMealPresetInput = {
@@ -167,7 +165,6 @@ export const saveAllUserMealPreset = async (
   }
   const newPreset = await addUserMealPreset(variables)
   setUserMealPreset(newPreset)
-  return true
 }
 
 /**
