@@ -1,42 +1,18 @@
-import { Button, Center } from '@mantine/core'
-import { IconPlus } from '@tabler/icons-react'
+import { Center } from '@mantine/core'
 
-import { StatusButton } from '../StatusButton'
+import { AddButton } from '../AddButton'
+import { SaveButton } from '../SaveButton'
 
 type MealFormButtonsProps = {
   onAdd: () => void
   onSave?: () => Promise<void>
-  isSaveButtonDisabled?: boolean
-  saveStatus?: 'idle' | 'loading' | 'success' | 'error'
 }
 
-export function MealFormButtons({
-  onAdd,
-  onSave,
-  isSaveButtonDisabled,
-  saveStatus = 'idle',
-}: MealFormButtonsProps) {
+export function MealFormButtons({ onAdd, onSave }: MealFormButtonsProps) {
   return (
     <Center mt="xl">
-      <Button
-        mr="md"
-        variant="outline"
-        leftSection={<IconPlus size={16} />}
-        onClick={onAdd}
-      >
-        追加
-      </Button>
-      {onSave && (
-        <StatusButton
-          mr="md"
-          color="teal"
-          onClick={onSave}
-          status={saveStatus}
-          label="保存"
-          statusLabels={{ success: '保存成功', error: '保存失敗' }}
-          disabled={isSaveButtonDisabled}
-        />
-      )}
+      <AddButton mr="md" onClick={onAdd} />
+      {onSave && <SaveButton mr="md" onSave={onSave} />}
     </Center>
   )
 }
