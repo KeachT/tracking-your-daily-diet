@@ -68,6 +68,9 @@ Kebab-case directories that co-locate components, hooks, utils, types, constants
 - `weekly-calories-chart` — Mantine chart for weekly calorie visualization
 - `daily-nutritions` / `weekly-nutritions` / `preset-nutritions` — nutrition summary displays
 - `date-picker-card` — shared date navigation widget (supports `day` and `week` modes)
+- `preset-header` — section header for the preset page
+
+Internal structure varies by complexity: simple features keep a single component file at the root (e.g. `preset-nutritions/PresetNutritions.tsx`), while features with multiple components use a `components/` subdirectory (e.g. `preset-meal-form/components/`). The exported component name matches the feature name in PascalCase.
 
 ### Pages (`src/pages/`)
 
@@ -75,6 +78,14 @@ Kebab-case directories that co-locate components, hooks, utils, types, constants
 - `/week` — weekly calorie chart and nutrition summary
 - `/preset` — manage meal presets
 - `/settings` — set daily nutrition goals
+
+Pages are composition-only: they import feature components and arrange them. Page files should consist of component calls (e.g. `<PresetNutritions />`), not raw JSX with `Title`/`Text` etc. — if a page needs a section header or label, extract it as a feature.
+
+### Separation of Concerns
+
+- **Feature components own display logic only** — they should not wrap themselves in spacing/layout primitives like `<Box maw={...} mb={...}>`. Layout (max width, margins, gaps) is a page-level concern.
+- **Pages own layout and arrangement** — wrap feature components in `<Box>` with the appropriate `maw` / `mb` / `mt` so the feature stays reusable across different page layouts.
+- **When extracting a component, ask "whose responsibility is this?"** before deciding where it lives. A page-level section header belongs in its own feature (e.g. `preset-header`), not nested inside an unrelated feature like `preset-nutritions`.
 
 ## Conventions
 
