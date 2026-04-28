@@ -1,13 +1,14 @@
 import { Box } from '@mantine/core'
 
 import { Layout } from '../components/Layout'
+import { Robots } from '../constants'
 import { DatePickerCard } from '../features/date-picker-card'
 import { WeeklyCaloriesChart } from '../features/weekly-calories-chart'
 import { WeeklyNutritions } from '../features/weekly-nutritions'
 
 export default function Week() {
   return (
-    <Layout title="週間">
+    <Layout title="週間" robots={Robots.NoindexNofollow}>
       <Box maw={300} mb={30}>
         {/* TODO: Remove disableNavigation when paid feature is implemented */}
         <DatePickerCard disableNavigation />

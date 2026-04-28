@@ -1,5 +1,6 @@
 import { Layout } from '../components/Layout'
 import { LegalDocumentMock } from '../components/LegalDocumentMock'
+import { Robots } from '../constants'
 
 const sections = [
   {
@@ -27,7 +28,7 @@ const sections = [
 
 export default function TermsPage() {
   return (
-    <Layout title="利用規約">
+    <Layout title="利用規約" robots={Robots.NoindexFollow}>
       <LegalDocumentMock
         title="利用規約"
         effectiveDate="2026年1月1日"
