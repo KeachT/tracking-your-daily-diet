@@ -1,5 +1,6 @@
 import { Layout } from '../components/Layout'
 import { LegalDocumentMock } from '../components/LegalDocumentMock'
+import { Robots } from '../constants'
 
 const sections = [
   {
@@ -27,7 +28,7 @@ const sections = [
 
 export default function PrivacyPolicy() {
   return (
-    <Layout title="プライバシーポリシー">
+    <Layout title="プライバシーポリシー" robots={Robots.NoindexFollow}>
       <LegalDocumentMock
         title="プライバシーポリシー"
         effectiveDate="2026年1月1日"

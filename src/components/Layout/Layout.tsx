@@ -13,6 +13,7 @@ type LayoutProps = {
   showNavBar?: boolean
   centerContent?: boolean
   fullWidth?: boolean
+  robots?: string
 }
 
 export function Layout({
@@ -21,6 +22,7 @@ export function Layout({
   showNavBar = true,
   centerContent = false,
   fullWidth = false,
+  robots,
 }: LayoutProps) {
   const [navbarOpened, setNavbarOpened] = useState(false)
 
@@ -28,6 +30,7 @@ export function Layout({
     <Box>
       <Head>
         <title>{title}</title>
+        {robots && <meta name="robots" content={robots} />}
       </Head>
 
       <AppShell
