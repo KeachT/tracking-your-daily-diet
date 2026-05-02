@@ -30,6 +30,7 @@ export function HeroSection({ open, onGuestLogin }: HeroSectionProps) {
         <Stack gap={4} align="center">
           <Button
             size="lg"
+            w={220}
             variant="gradient"
             gradient={{ from: 'teal', to: 'blue', deg: 45 }}
             onClick={open}
@@ -44,6 +45,7 @@ export function HeroSection({ open, onGuestLogin }: HeroSectionProps) {
         <Stack gap={4} align="center">
           <Button
             size="lg"
+            w={220}
             variant="outline"
             color="teal"
             onClick={onGuestLogin}
