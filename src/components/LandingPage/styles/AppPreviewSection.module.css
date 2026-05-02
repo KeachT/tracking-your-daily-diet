@@ -1,0 +1,33 @@
+.previewList {
+  width: 100%;
+}
+
+.screenshot {
+  border-radius: var(--mantine-radius-md);
+  border: 1px solid var(--mantine-color-gray-3);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.desktopOnly {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.mobileOnly {
+  display: none;
+  width: 100%;
+  max-width: 360px;
+  height: auto;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .desktopOnly {
+    display: none;
+  }
+
+  .mobileOnly {
+    display: block;
+  }
+}

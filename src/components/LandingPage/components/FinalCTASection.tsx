@@ -21,12 +21,13 @@ export function FinalCTASection({ open, onGuestLogin }: FinalCTASectionProps) {
           あなたの健康的な食生活を今日からサポートします。
         </Text>
 
-        <Button size="lg" variant="white" color="teal" onClick={open}>
+        <Button size="lg" w={220} variant="white" color="teal" onClick={open}>
           無料で始める
         </Button>
 
         <Button
-          size="md"
+          size="lg"
+          w={220}
           variant="outline"
           color="white"
           onClick={onGuestLogin}
