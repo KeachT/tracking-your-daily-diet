@@ -1,0 +1,27 @@
+# Tracking Your Daily Diet
+
+> 食事のカロリーと栄養素（タンパク質・炭水化物・脂質）を日次・週次で記録・可視化する個人向け Web アプリケーション。
+
+ユーザーは日別に食事内容を登録し、目標値との差分や週単位のカロリー推移をグラフで把握できる。
+よく食べる食事はプリセットとして保存・再利用が可能。
+データは AWS Amplify（Cognito 認証 + GraphQL API）でユーザー単位に管理されており、他ユーザーからは閲覧不可。
+
+## 公開ページ
+
+- [ランディングページ](https://www.tracking-your-daily-diet.com/landingpage): サービス概要・主要機能・利用開始の導線
+- [利用規約](https://www.tracking-your-daily-diet.com/terms): 利用条件・禁止事項
+- [プライバシーポリシー](https://www.tracking-your-daily-diet.com/privacy-policy): 個人情報の取扱い
+
+## 主要機能（要ログイン）
+
+- 日別食事記録（朝食 / 昼食 / 夕食 / 間食）
+- 1 日のカロリー・栄養素サマリ表示
+- 週次のカロリー推移グラフ
+- ユーザーごとのプリセット食事テンプレート
+- 1 日の目標値（カロリー / タンパク質 / 炭水化物 / 脂質）の設定
+
+## 技術スタック
+
+- フロントエンド: Next.js (Pages Router) + Mantine UI + Tailwind CSS + Zustand
+- バックエンド: AWS Amplify (Cognito Auth + AppSync GraphQL)
+- ホスティング: AWS Amplify Hosting
