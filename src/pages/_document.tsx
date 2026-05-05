@@ -7,6 +7,10 @@ export default class _Document extends Document {
       <Html lang="ja">
         <Head>
           <ColorSchemeScript defaultColorScheme="light" />
+          <meta
+            name="google-site-verification"
+            content="wu5PnZMwqjjmlK2BE8AgE_L6Q988LZ_rqvb4jUtN484"
+          />
         </Head>
         <body>
           <Main />
