@@ -1,9 +1,12 @@
 import { Box, Group, Text } from '@mantine/core'
-import { IconBrandGithub } from '@tabler/icons-react'
 import Link from 'next/link'
 
 import { Path } from '../../constants'
 import styles from './LayoutFooter.module.css'
+
+const GITHUB_URL = 'https://github.com/KeachT/tracking-your-daily-diet'
+const CONTACT_FORM_URL =
+  'https://docs.google.com/forms/d/e/1FAIpQLSdyT66VkYqeusPGs_bSUZBo7kQ3YgWsAz8Wnd8TDbM7a38c0Q/viewform?usp=header'
 
 export function LayoutFooter() {
   return (
@@ -19,16 +22,21 @@ export function LayoutFooter() {
         </Text>
         <Group gap="sm" wrap="wrap">
           <a
-            href="https://github.com/KeachT/tracking-your-daily-diet"
+            href={GITHUB_URL}
             target="_blank"
             rel="noopener noreferrer"
             className={styles.link}
           >
-            <IconBrandGithub
-              size={14}
-              style={{ marginRight: 4, verticalAlign: 'middle' }}
-            />
             GitHub
+          </a>
+          <a
+            href={CONTACT_FORM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="お問い合わせフォームを開く（外部サイト）"
+            className={styles.link}
+          >
+            お問い合わせ
           </a>
           <Link href={Path.Terms} className={styles.link}>
             利用規約
