@@ -3,6 +3,7 @@ import { GraphQLQuery } from '@aws-amplify/api'
 import { ListDailyGoalsQuery } from '../../API'
 import { listDailyGoals } from '../../graphql/queries'
 import { client } from '../../utils/amplifyClient'
+import { reportError } from '../../utils/reportError'
 import { guestFetchDailyGoal } from '../guest/guest-storage'
 import { getGuestModeFlag } from '../guest/guestModeFlag'
 
@@ -26,9 +27,7 @@ export const fetchDailyGoal = async () => {
 
     return sortedDailyGoals[0]
   } catch (error) {
-    if (process.env.NODE_ENV !== 'production') {
-      console.error('Error fetching DailyGoals:', error)
-    }
+    reportError('Error fetching DailyGoals:', error)
     throw error
   }
 }
