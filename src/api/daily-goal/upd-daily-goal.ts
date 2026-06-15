@@ -7,7 +7,6 @@ import {
 import { updateDailyGoal } from '../../graphql/mutations'
 import { DailyGoalState } from '../../stores'
 import { client } from '../../utils/amplifyClient'
-import { reportError } from '../../utils/reportError'
 import { guestUpdDailyGoal } from '../guest/guest-storage'
 import { getGuestModeFlag } from '../guest/guestModeFlag'
 
@@ -32,7 +31,9 @@ export const updDailyGoal = async (
 
     return dailyGoal
   } catch (error) {
-    reportError('Error updating DailyGoal:', error)
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Error updating DailyGoal:', error)
+    }
     throw error
   }
 }

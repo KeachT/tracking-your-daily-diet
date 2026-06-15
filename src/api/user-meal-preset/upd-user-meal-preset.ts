@@ -7,7 +7,6 @@ import {
 } from '../../API'
 import { updateUserMealPreset } from '../../graphql/mutations'
 import { client } from '../../utils/amplifyClient'
-import { reportError } from '../../utils/reportError'
 import { guestUpdUserMealPreset } from '../guest/guest-storage'
 import { getGuestModeFlag } from '../guest/guestModeFlag'
 
@@ -38,7 +37,9 @@ export const updUserMealPreset = async (
 
     return updatedUserMealPreset
   } catch (error) {
-    reportError('Error updating user meal preset:', error)
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Error updating user meal preset:', error)
+    }
     throw error
   }
 }

@@ -7,7 +7,6 @@ import {
 } from '../../API'
 import { getUserMealPreset } from '../../graphql/queries'
 import { client } from '../../utils/amplifyClient'
-import { reportError } from '../../utils/reportError'
 
 /**
  * Fetches a user meal preset by its ID, including food details.
@@ -34,7 +33,9 @@ export const fetchUserMealPresetWithFood = async (userMealPresetId: string) => {
 
     return userMealPresetWithFood
   } catch (error) {
-    reportError('Error fetching user meal preset with food details:', error)
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Error fetching user meal preset with food details:', error)
+    }
     throw error
   }
 }

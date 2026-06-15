@@ -7,7 +7,6 @@ import {
 } from '../../API'
 import { updateDailyMealRecord } from '../../graphql/mutations'
 import { client } from '../../utils/amplifyClient'
-import { reportError } from '../../utils/reportError'
 import { guestUpdDailyMealRecord } from '../guest/guest-storage'
 import { getGuestModeFlag } from '../guest/guestModeFlag'
 
@@ -39,7 +38,9 @@ export const updDailyMealRecord = async (
 
     return updatedDailyMealRecord
   } catch (error) {
-    reportError('Error updating daily meal record:', error)
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Error updating daily meal record:', error)
+    }
     throw error
   }
 }

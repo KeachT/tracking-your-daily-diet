@@ -7,7 +7,6 @@ import {
 } from '../../API'
 import { listDailyMealRecords } from '../../graphql/queries'
 import { client } from '../../utils/amplifyClient'
-import { reportError } from '../../utils/reportError'
 import { guestFetchWeeklyDailyMealRecords } from '../guest/guest-storage'
 import { getGuestModeFlag } from '../guest/guestModeFlag'
 import { fetchDailyMealRecordWithFoods } from './fetch-daily-meal-record'
@@ -59,7 +58,9 @@ export const fetchWeeklyDailyMealRecords = async (
       (record): record is DailyMealRecord => record !== null,
     )
   } catch (error) {
-    reportError('Error fetching weekly daily meal records:', error)
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Error fetching weekly daily meal records:', error)
+    }
     throw error
   }
 }
