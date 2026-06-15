@@ -7,7 +7,6 @@ import {
 } from '../../API'
 import { listUserMealPresets } from '../../graphql/queries'
 import { client } from '../../utils/amplifyClient'
-import { reportError } from '../../utils/reportError'
 import { guestFetchUserMealPreset } from '../guest/guest-storage'
 import { getGuestModeFlag } from '../guest/guestModeFlag'
 import { fetchUserMealPresetWithFood } from './fetch-user-meal-preset-with-food'
@@ -52,7 +51,9 @@ export const fetchUserMealPreset = async (
 
     return userMealPresetWithFood
   } catch (error) {
-    reportError('Error fetching user meal preset:', error)
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Error fetching user meal preset:', error)
+    }
     throw error
   }
 }

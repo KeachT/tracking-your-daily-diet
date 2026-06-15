@@ -70,6 +70,3 @@ docs
 
 # allow committing sample env templates
 !.env.sample
-
-# Sentry Config File
-.env.sentry-build-plugin
