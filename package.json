@@ -30,12 +30,20 @@
     "zustand": "^5.0.9"
   },
   "devDependencies": {
+    "@aws-amplify/backend": "^1.18.0",
+    "@aws-amplify/backend-cli": "^1.8.0",
+    "@aws-amplify/backend-data": "^1.6.2",
     "@playwright/test": "^1.56.1",
-    "@types/node": "^22.0.0",
+    "@types/node": "*",
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.1",
     "autoprefixer": "^10.4.14",
+    "aws-cdk": "^2",
+    "aws-cdk-lib": "^2",
+    "ci-info": "^4.3.1",
+    "constructs": "^10.0.0",
     "dotenv": "^17.2.3",
+    "esbuild": "^0.27.0",
     "eslint": "9.39.2",
     "eslint-config-next": "16.1.4",
     "eslint-config-prettier": "^10.1.8",
@@ -46,6 +54,7 @@
     "prettier": "^3.7.4",
     "prettier-plugin-tailwindcss": "^0.3.0",
     "tailwindcss": "^4.1.18",
+    "tsx": "^4.20.6",
     "typescript": "5.1.3"
   }
 }
