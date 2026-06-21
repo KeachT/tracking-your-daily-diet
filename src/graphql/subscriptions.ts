@@ -20,9 +20,6 @@ export const onCreateDailyGoal = /* GraphQL */ `subscription OnCreateDailyGoal(
     fat
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     owner
     __typename
   }
@@ -43,9 +40,6 @@ export const onUpdateDailyGoal = /* GraphQL */ `subscription OnUpdateDailyGoal(
     fat
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     owner
     __typename
   }
@@ -66,9 +60,6 @@ export const onDeleteDailyGoal = /* GraphQL */ `subscription OnDeleteDailyGoal(
     fat
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     owner
     __typename
   }
@@ -122,9 +113,6 @@ export const onCreateDailyMealRecord = /* GraphQL */ `subscription OnCreateDaily
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     owner
     __typename
   }
@@ -178,9 +166,6 @@ export const onUpdateDailyMealRecord = /* GraphQL */ `subscription OnUpdateDaily
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     owner
     __typename
   }
@@ -234,9 +219,6 @@ export const onDeleteDailyMealRecord = /* GraphQL */ `subscription OnDeleteDaily
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     owner
     __typename
   }
@@ -289,9 +271,6 @@ export const onCreateUserMealPreset = /* GraphQL */ `subscription OnCreateUserMe
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     owner
     __typename
   }
@@ -344,9 +323,6 @@ export const onUpdateUserMealPreset = /* GraphQL */ `subscription OnUpdateUserMe
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     owner
     __typename
   }
@@ -399,9 +375,6 @@ export const onDeleteUserMealPreset = /* GraphQL */ `subscription OnDeleteUserMe
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     owner
     __typename
   }

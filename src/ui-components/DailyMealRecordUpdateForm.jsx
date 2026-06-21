@@ -7,9 +7,11 @@
 /* eslint-disable */
 import * as React from "react";
 import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
-import { DailyMealRecord } from "../models";
 import { fetchByPath, getOverrideProps, validateField } from "./utils";
-import { DataStore } from "aws-amplify/datastore";
+import { generateClient } from "aws-amplify/api";
+import { getDailyMealRecord } from "../graphql/queries";
+import { updateDailyMealRecord } from "../graphql/mutations";
+const client = generateClient();
 export default function DailyMealRecordUpdateForm(props) {
   const {
     id: idProp,
@@ -40,7 +42,12 @@ export default function DailyMealRecordUpdateForm(props) {
   React.useEffect(() => {
     const queryData = async () => {
       const record = idProp
-        ? await DataStore.query(DailyMealRecord, idProp)
+        ? (
+            await client.graphql({
+              query: getDailyMealRecord.replaceAll("__typename", ""),
+              variables: { id: idProp },
+            })
+          )?.data?.getDailyMealRecord
         : dailyMealRecordModelProp;
       setDailyMealRecordRecord(record);
     };
@@ -106,17 +113,22 @@ export default function DailyMealRecordUpdateForm(props) {
               modelFields[key] = null;
             }
           });
-          await DataStore.save(
-            DailyMealRecord.copyOf(dailyMealRecordRecord, (updated) => {
-              Object.assign(updated, modelFields);
-            })
-          );
+          await client.graphql({
+            query: updateDailyMealRecord.replaceAll("__typename", ""),
+            variables: {
+              input: {
+                id: dailyMealRecordRecord.id,
+                ...modelFields,
+              },
+            },
+          });
           if (onSuccess) {
             onSuccess(modelFields);
           }
         } catch (err) {
           if (onError) {
-            onError(modelFields, err.message);
+            const messages = err.errors.map((e) => e.message).join("\n");
+            onError(modelFields, messages);
           }
         }
       }}

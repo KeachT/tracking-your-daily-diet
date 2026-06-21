@@ -7,9 +7,11 @@
 /* eslint-disable */
 import * as React from "react";
 import { Button, Flex, Grid } from "@aws-amplify/ui-react";
-import { UserMealPreset } from "../models";
 import { fetchByPath, getOverrideProps, validateField } from "./utils";
-import { DataStore } from "aws-amplify/datastore";
+import { generateClient } from "aws-amplify/api";
+import { getUserMealPreset } from "../graphql/queries";
+import { updateUserMealPreset } from "../graphql/mutations";
+const client = generateClient();
 export default function UserMealPresetUpdateForm(props) {
   const {
     id: idProp,
@@ -36,7 +38,12 @@ export default function UserMealPresetUpdateForm(props) {
   React.useEffect(() => {
     const queryData = async () => {
       const record = idProp
-        ? await DataStore.query(UserMealPreset, idProp)
+        ? (
+            await client.graphql({
+              query: getUserMealPreset.replaceAll("__typename", ""),
+              variables: { id: idProp },
+            })
+          )?.data?.getUserMealPreset
         : userMealPresetModelProp;
       setUserMealPresetRecord(record);
     };
@@ -98,17 +105,22 @@ export default function UserMealPresetUpdateForm(props) {
               modelFields[key] = null;
             }
           });
-          await DataStore.save(
-            UserMealPreset.copyOf(userMealPresetRecord, (updated) => {
-              Object.assign(updated, modelFields);
-            })
-          );
+          await client.graphql({
+            query: updateUserMealPreset.replaceAll("__typename", ""),
+            variables: {
+              input: {
+                id: userMealPresetRecord.id,
+                ...modelFields,
+              },
+            },
+          });
           if (onSuccess) {
             onSuccess(modelFields);
           }
         } catch (err) {
           if (onError) {
-            onError(modelFields, err.message);
+            const messages = err.errors.map((e) => e.message).join("\n");
+            onError(modelFields, messages);
           }
         }
       }}

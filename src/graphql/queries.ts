@@ -17,9 +17,6 @@ export const getDailyGoal = /* GraphQL */ `query GetDailyGoal($id: ID!) {
     fat
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     owner
     __typename
   }
@@ -42,55 +39,16 @@ export const listDailyGoals = /* GraphQL */ `query ListDailyGoals(
       fat
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       owner
       __typename
     }
     nextToken
-    startedAt
     __typename
   }
 }
 ` as GeneratedQuery<
   APITypes.ListDailyGoalsQueryVariables,
   APITypes.ListDailyGoalsQuery
->;
-export const syncDailyGoals = /* GraphQL */ `query SyncDailyGoals(
-  $filter: ModelDailyGoalFilterInput
-  $limit: Int
-  $nextToken: String
-  $lastSync: AWSTimestamp
-) {
-  syncDailyGoals(
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-    lastSync: $lastSync
-  ) {
-    items {
-      id
-      calories
-      protein
-      carbohydrates
-      fat
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      owner
-      __typename
-    }
-    nextToken
-    startedAt
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.SyncDailyGoalsQueryVariables,
-  APITypes.SyncDailyGoalsQuery
 >;
 export const getDailyMealRecord = /* GraphQL */ `query GetDailyMealRecord($id: ID!) {
   getDailyMealRecord(id: $id) {
@@ -134,9 +92,6 @@ export const getDailyMealRecord = /* GraphQL */ `query GetDailyMealRecord($id: I
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     owner
     __typename
   }
@@ -156,52 +111,16 @@ export const listDailyMealRecords = /* GraphQL */ `query ListDailyMealRecords(
       date
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       owner
       __typename
     }
     nextToken
-    startedAt
     __typename
   }
 }
 ` as GeneratedQuery<
   APITypes.ListDailyMealRecordsQueryVariables,
   APITypes.ListDailyMealRecordsQuery
->;
-export const syncDailyMealRecords = /* GraphQL */ `query SyncDailyMealRecords(
-  $filter: ModelDailyMealRecordFilterInput
-  $limit: Int
-  $nextToken: String
-  $lastSync: AWSTimestamp
-) {
-  syncDailyMealRecords(
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-    lastSync: $lastSync
-  ) {
-    items {
-      id
-      date
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      owner
-      __typename
-    }
-    nextToken
-    startedAt
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.SyncDailyMealRecordsQueryVariables,
-  APITypes.SyncDailyMealRecordsQuery
 >;
 export const getUserMealPreset = /* GraphQL */ `query GetUserMealPreset($id: ID!) {
   getUserMealPreset(id: $id) {
@@ -244,9 +163,6 @@ export const getUserMealPreset = /* GraphQL */ `query GetUserMealPreset($id: ID!
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     owner
     __typename
   }
@@ -265,49 +181,14 @@ export const listUserMealPresets = /* GraphQL */ `query ListUserMealPresets(
       id
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       owner
       __typename
     }
     nextToken
-    startedAt
     __typename
   }
 }
 ` as GeneratedQuery<
   APITypes.ListUserMealPresetsQueryVariables,
   APITypes.ListUserMealPresetsQuery
->;
-export const syncUserMealPresets = /* GraphQL */ `query SyncUserMealPresets(
-  $filter: ModelUserMealPresetFilterInput
-  $limit: Int
-  $nextToken: String
-  $lastSync: AWSTimestamp
-) {
-  syncUserMealPresets(
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-    lastSync: $lastSync
-  ) {
-    items {
-      id
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      owner
-      __typename
-    }
-    nextToken
-    startedAt
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.SyncUserMealPresetsQueryVariables,
-  APITypes.SyncUserMealPresetsQuery
 >;
