@@ -1,4 +1,4 @@
-import { defineAuth, secret } from '@aws-amplify/backend';
+import { defineAuth } from '@aws-amplify/backend';
 import { CfnResource, Duration } from 'aws-cdk-lib';
 import type { Backend } from '../backend';
 
@@ -9,23 +9,6 @@ export const auth = defineAuth({
         'Verify your email address - Tracking Your Daily Diet',
       verificationEmailBody: () =>
         "Hi there,<br/><br/>Thank you for getting started with Tracking Your Daily Diet!<br/><br/>We want to make sure it's really you.<br/>Please enter the following verification code in the app.<br/><br/>Verification code: {####}<br/><br/>Best,<br/><br/>Tracking Your Daily Diet",
-    },
-    externalProviders: {
-      google: {
-        clientId: secret('GOOGLE_CLIENT_ID'),
-        clientSecret: secret('GOOGLE_CLIENT_SECRET'),
-        scopes: ['openid', 'email', 'profile'],
-        attributeMapping: {
-          email: 'email',
-          custom: {
-            username: 'sub',
-          },
-        },
-      },
-      // Add the Gen2 Amplify Hosting URL (e.g. https://<branch>.<gen2-appId>.amplifyapp.com/) to the following array after the gen2-main branch is deployed.
-      callbackUrls: [],
-      // Add the Gen2 Amplify Hosting URL (e.g. https://<branch>.<gen2-appId>.amplifyapp.com/) to the following array after the gen2-main branch is deployed.
-      logoutUrls: [],
     },
   },
   userAttributes: {
