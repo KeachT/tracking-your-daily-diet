@@ -7,7 +7,9 @@ echo "Ensuring host node_modules mirrors the container volume..."
 mkdir -p "${ROOT_DIR}/node_modules"
 find "${ROOT_DIR}/node_modules" -mindepth 1 -maxdepth 1 -exec rm -rf {} +
 
-docker compose run --rm --no-deps nextjs \
-  sh -lc 'tar -C /app -cf - node_modules' | tar -C "${ROOT_DIR}" -xf -
+# Bypass the image entrypoint (it runs `npm ci` and prints notices to stdout,
+# which would corrupt the tar stream piped below).
+docker compose run --rm --no-deps --entrypoint sh nextjs \
+  -lc 'tar -C /app -cf - node_modules' | tar -C "${ROOT_DIR}" -xf -
 
 echo "node_modules synced from container volume."

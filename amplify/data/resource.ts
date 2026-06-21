@@ -1,6 +1,7 @@
-import { defineData } from '@aws-amplify/backend';
-import type { Backend } from '../backend';
-import { aws_iam } from 'aws-cdk-lib';
+import { defineData } from '@aws-amplify/backend'
+import { aws_iam } from 'aws-cdk-lib'
+
+import type { Backend } from '../backend'
 
 const schema = `"""
 Represents the daily nutritional goals for a user.
@@ -52,7 +53,7 @@ type UserMealPreset @model @auth(rules: [{ allow: owner }]) {
   dinner: [FoodItem]
   snack: [FoodItem]
 }
-`;
+`
 
 export const data = defineData({
   migratedAmplifyGen1DynamoDbTableMappings: [
@@ -70,15 +71,15 @@ export const data = defineData({
     defaultAuthorizationMode: 'userPool',
   },
   schema,
-});
+})
 
 export function applyEscapeHatches(backend: Backend) {
-  const cfnGraphqlApi = backend.data.resources.cfnResources.cfnGraphqlApi;
+  const cfnGraphqlApi = backend.data.resources.cfnResources.cfnGraphqlApi
   cfnGraphqlApi.additionalAuthenticationProviders = [
     {
       authenticationType: 'AWS_IAM',
     },
-  ];
+  ]
   backend.auth.resources.authenticatedUserIamRole.addToPrincipalPolicy(
     new aws_iam.PolicyStatement({
       effect: aws_iam.Effect.ALLOW,
@@ -86,6 +87,6 @@ export function applyEscapeHatches(backend: Backend) {
       resources: [
         `arn:aws:appsync:${backend.data.stack.region}:${backend.data.stack.account}:apis/35xqjopvlbh4df6l5vrg4qwe5y/*`,
       ],
-    })
-  );
+    }),
+  )
 }
