@@ -1,14 +1,18 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Run format check, lint, and build before push (using the docker compose dev container).
+# Run format check and lint before push (using the docker compose dev container).
+# NOTE: `next build` is intentionally NOT run here. Under Amplify Gen2 the frontend
+# imports amplify_outputs.json, which is gitignored and generated at deploy time
+# (backend phase / `ampx sandbox`). A clean checkout has no such file, so building
+# in a local hook is unreliable; build verification is delegated to Amplify Hosting/CI.
 
-if ! docker compose run --rm --no-deps nextjs sh -c "npm run format:check && npm run lint && npm run build"; then
+if ! docker compose run --rm --no-deps nextjs sh -c "npm run format:check && npm run lint"; then
   cat >&2 <<'EOF'
-Format check, lint, or build failed.
+Format check or lint failed.
 Please fix the issues before pushing.
 You can run it manually with:
-docker compose run --rm --no-deps nextjs sh -c "npm run format:check && npm run lint && npm run build"
+docker compose run --rm --no-deps nextjs sh -c "npm run format:check && npm run lint"
 EOF
   exit 1
 fi
