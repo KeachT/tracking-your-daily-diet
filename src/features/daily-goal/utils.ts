@@ -27,7 +27,6 @@ export const saveDailyGoal = async (
       protein: dailyGoal.protein,
       carbohydrates: dailyGoal.carbohydrates,
       fat: dailyGoal.fat,
-      _version: dailyGoal._version,
     }
 
     const variables: UpdateDailyGoalMutationVariables = {

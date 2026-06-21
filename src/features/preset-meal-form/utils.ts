@@ -145,7 +145,6 @@ export const saveAllUserMealPreset = async (
   if (userMealPreset) {
     const updateUserMealPresetInput: UpdateUserMealPresetInput = {
       id: userMealPreset.id,
-      _version: userMealPreset._version,
       ...normalizedPreset,
     }
     const variables: UpdateUserMealPresetMutationVariables = {

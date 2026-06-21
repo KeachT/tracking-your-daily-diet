@@ -174,7 +174,6 @@ export const saveAndSetDailyMealRecord = async (
       lunch: normalizedFoods.lunch,
       dinner: normalizedFoods.dinner,
       snack: normalizedFoods.snack,
-      _version: dailyMealRecord._version,
     }
     const variables: UpdateDailyMealRecordMutationVariables = {
       input: updateDailyMealRecordInput,
