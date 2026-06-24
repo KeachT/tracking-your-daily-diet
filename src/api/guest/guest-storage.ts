@@ -19,7 +19,6 @@ const KEYS = {
 } as const
 
 const now = () => new Date().toISOString()
-const nowMs = () => Date.now()
 
 // ─── DailyGoal ───────────────────────────────────────────────────────────────
 
@@ -41,8 +40,6 @@ export const guestAddDailyGoal = async (
     fat: input.fat ?? null,
     createdAt: now(),
     updatedAt: now(),
-    _version: 1,
-    _lastChangedAt: nowMs(),
   }
   localStorage.setItem(KEYS.DAILY_GOAL, JSON.stringify(record))
   return record
@@ -65,8 +62,6 @@ export const guestUpdDailyGoal = async (
         : existing.carbohydrates,
     fat: input.fat !== undefined ? input.fat : existing.fat,
     updatedAt: now(),
-    _version: existing._version + 1,
-    _lastChangedAt: nowMs(),
   }
   localStorage.setItem(KEYS.DAILY_GOAL, JSON.stringify(updated))
   return updated
@@ -116,8 +111,6 @@ export const guestAddDailyMealRecord = async (
     snack: (input.snack as DailyMealRecord['snack']) ?? null,
     createdAt: now(),
     updatedAt: now(),
-    _version: 1,
-    _lastChangedAt: nowMs(),
   }
   const records = loadMealRecords()
   records.push(record)
@@ -153,8 +146,6 @@ export const guestUpdDailyMealRecord = async (
         ? (input.snack as DailyMealRecord['snack'])
         : existing.snack,
     updatedAt: now(),
-    _version: existing._version + 1,
-    _lastChangedAt: nowMs(),
   }
   records[index] = updated
   saveMealRecords(records)
@@ -182,8 +173,6 @@ export const guestAddUserMealPreset = async (
     snack: (input.snack as UserMealPreset['snack']) ?? null,
     createdAt: now(),
     updatedAt: now(),
-    _version: 1,
-    _lastChangedAt: nowMs(),
   }
   localStorage.setItem(KEYS.MEAL_PRESET, JSON.stringify(record))
   return record
@@ -215,8 +204,6 @@ export const guestUpdUserMealPreset = async (
         ? (input.snack as UserMealPreset['snack'])
         : existing.snack,
     updatedAt: now(),
-    _version: existing._version + 1,
-    _lastChangedAt: nowMs(),
   }
   localStorage.setItem(KEYS.MEAL_PRESET, JSON.stringify(updated))
   return updated

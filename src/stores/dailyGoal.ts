@@ -11,8 +11,6 @@ const initialDailyGoal: DailyGoal = {
   fat: 0,
   createdAt: '',
   updatedAt: '',
-  _version: 1,
-  _lastChangedAt: 1,
 }
 
 export type DailyGoalState = {

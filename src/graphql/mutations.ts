@@ -20,9 +20,6 @@ export const createDailyGoal = /* GraphQL */ `mutation CreateDailyGoal(
     fat
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     owner
     __typename
   }
@@ -43,9 +40,6 @@ export const updateDailyGoal = /* GraphQL */ `mutation UpdateDailyGoal(
     fat
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     owner
     __typename
   }
@@ -66,9 +60,6 @@ export const deleteDailyGoal = /* GraphQL */ `mutation DeleteDailyGoal(
     fat
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     owner
     __typename
   }
@@ -122,9 +113,6 @@ export const createDailyMealRecord = /* GraphQL */ `mutation CreateDailyMealReco
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     owner
     __typename
   }
@@ -178,9 +166,6 @@ export const updateDailyMealRecord = /* GraphQL */ `mutation UpdateDailyMealReco
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     owner
     __typename
   }
@@ -234,9 +219,6 @@ export const deleteDailyMealRecord = /* GraphQL */ `mutation DeleteDailyMealReco
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     owner
     __typename
   }
@@ -289,9 +271,6 @@ export const createUserMealPreset = /* GraphQL */ `mutation CreateUserMealPreset
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     owner
     __typename
   }
@@ -344,9 +323,6 @@ export const updateUserMealPreset = /* GraphQL */ `mutation UpdateUserMealPreset
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     owner
     __typename
   }
@@ -399,9 +375,6 @@ export const deleteUserMealPreset = /* GraphQL */ `mutation DeleteUserMealPreset
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     owner
     __typename
   }

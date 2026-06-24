@@ -7,9 +7,11 @@
 /* eslint-disable */
 import * as React from "react";
 import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
-import { DailyGoal } from "../models";
 import { fetchByPath, getOverrideProps, validateField } from "./utils";
-import { DataStore } from "aws-amplify/datastore";
+import { generateClient } from "aws-amplify/api";
+import { getDailyGoal } from "../graphql/queries";
+import { updateDailyGoal } from "../graphql/mutations";
+const client = generateClient();
 export default function DailyGoalUpdateForm(props) {
   const {
     id: idProp,
@@ -50,7 +52,12 @@ export default function DailyGoalUpdateForm(props) {
   React.useEffect(() => {
     const queryData = async () => {
       const record = idProp
-        ? await DataStore.query(DailyGoal, idProp)
+        ? (
+            await client.graphql({
+              query: getDailyGoal.replaceAll("__typename", ""),
+              variables: { id: idProp },
+            })
+          )?.data?.getDailyGoal
         : dailyGoalModelProp;
       setDailyGoalRecord(record);
     };
@@ -89,10 +96,10 @@ export default function DailyGoalUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          calories,
-          protein,
-          carbohydrates,
-          fat,
+          calories: calories ?? null,
+          protein: protein ?? null,
+          carbohydrates: carbohydrates ?? null,
+          fat: fat ?? null,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -122,17 +129,22 @@ export default function DailyGoalUpdateForm(props) {
               modelFields[key] = null;
             }
           });
-          await DataStore.save(
-            DailyGoal.copyOf(dailyGoalRecord, (updated) => {
-              Object.assign(updated, modelFields);
-            })
-          );
+          await client.graphql({
+            query: updateDailyGoal.replaceAll("__typename", ""),
+            variables: {
+              input: {
+                id: dailyGoalRecord.id,
+                ...modelFields,
+              },
+            },
+          });
           if (onSuccess) {
             onSuccess(modelFields);
           }
         } catch (err) {
           if (onError) {
-            onError(modelFields, err.message);
+            const messages = err.errors.map((e) => e.message).join("\n");
+            onError(modelFields, messages);
           }
         }
       }}
