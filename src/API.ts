@@ -8,7 +8,6 @@ export type CreateDailyGoalInput = {
   protein?: number | null,
   carbohydrates?: number | null,
   fat?: number | null,
-  _version?: number | null,
 };
 
 export type ModelDailyGoalConditionInput = {
@@ -19,7 +18,6 @@ export type ModelDailyGoalConditionInput = {
   and?: Array< ModelDailyGoalConditionInput | null > | null,
   or?: Array< ModelDailyGoalConditionInput | null > | null,
   not?: ModelDailyGoalConditionInput | null,
-  _deleted?: ModelBooleanInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
   owner?: ModelStringInput | null,
@@ -50,13 +48,6 @@ export enum ModelAttributeTypes {
   _null = "_null",
 }
 
-
-export type ModelBooleanInput = {
-  ne?: boolean | null,
-  eq?: boolean | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-};
 
 export type ModelStringInput = {
   ne?: string | null,
@@ -93,9 +84,6 @@ export type DailyGoal = {
   fat?: number | null,
   createdAt: string,
   updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
   owner?: string | null,
 };
 
@@ -105,12 +93,10 @@ export type UpdateDailyGoalInput = {
   protein?: number | null,
   carbohydrates?: number | null,
   fat?: number | null,
-  _version?: number | null,
 };
 
 export type DeleteDailyGoalInput = {
   id: string,
-  _version?: number | null,
 };
 
 export type CreateDailyMealRecordInput = {
@@ -120,7 +106,6 @@ export type CreateDailyMealRecordInput = {
   lunch?: Array< FoodItemInput | null > | null,
   dinner?: Array< FoodItemInput | null > | null,
   snack?: Array< FoodItemInput | null > | null,
-  _version?: number | null,
 };
 
 export type FoodItemInput = {
@@ -137,7 +122,6 @@ export type ModelDailyMealRecordConditionInput = {
   and?: Array< ModelDailyMealRecordConditionInput | null > | null,
   or?: Array< ModelDailyMealRecordConditionInput | null > | null,
   not?: ModelDailyMealRecordConditionInput | null,
-  _deleted?: ModelBooleanInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
   owner?: ModelStringInput | null,
@@ -153,9 +137,6 @@ export type DailyMealRecord = {
   snack?:  Array<FoodItem | null > | null,
   createdAt: string,
   updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
   owner?: string | null,
 };
 
@@ -176,12 +157,10 @@ export type UpdateDailyMealRecordInput = {
   lunch?: Array< FoodItemInput | null > | null,
   dinner?: Array< FoodItemInput | null > | null,
   snack?: Array< FoodItemInput | null > | null,
-  _version?: number | null,
 };
 
 export type DeleteDailyMealRecordInput = {
   id: string,
-  _version?: number | null,
 };
 
 export type CreateUserMealPresetInput = {
@@ -190,14 +169,12 @@ export type CreateUserMealPresetInput = {
   lunch?: Array< FoodItemInput | null > | null,
   dinner?: Array< FoodItemInput | null > | null,
   snack?: Array< FoodItemInput | null > | null,
-  _version?: number | null,
 };
 
 export type ModelUserMealPresetConditionInput = {
   and?: Array< ModelUserMealPresetConditionInput | null > | null,
   or?: Array< ModelUserMealPresetConditionInput | null > | null,
   not?: ModelUserMealPresetConditionInput | null,
-  _deleted?: ModelBooleanInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
   owner?: ModelStringInput | null,
@@ -212,9 +189,6 @@ export type UserMealPreset = {
   snack?:  Array<FoodItem | null > | null,
   createdAt: string,
   updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
   owner?: string | null,
 };
 
@@ -224,12 +198,10 @@ export type UpdateUserMealPresetInput = {
   lunch?: Array< FoodItemInput | null > | null,
   dinner?: Array< FoodItemInput | null > | null,
   snack?: Array< FoodItemInput | null > | null,
-  _version?: number | null,
 };
 
 export type DeleteUserMealPresetInput = {
   id: string,
-  _version?: number | null,
 };
 
 export type ModelDailyGoalFilterInput = {
@@ -243,7 +215,6 @@ export type ModelDailyGoalFilterInput = {
   and?: Array< ModelDailyGoalFilterInput | null > | null,
   or?: Array< ModelDailyGoalFilterInput | null > | null,
   not?: ModelDailyGoalFilterInput | null,
-  _deleted?: ModelBooleanInput | null,
   owner?: ModelStringInput | null,
 };
 
@@ -267,7 +238,6 @@ export type ModelDailyGoalConnection = {
   __typename: "ModelDailyGoalConnection",
   items:  Array<DailyGoal | null >,
   nextToken?: string | null,
-  startedAt?: number | null,
 };
 
 export type ModelDailyMealRecordFilterInput = {
@@ -278,7 +248,6 @@ export type ModelDailyMealRecordFilterInput = {
   and?: Array< ModelDailyMealRecordFilterInput | null > | null,
   or?: Array< ModelDailyMealRecordFilterInput | null > | null,
   not?: ModelDailyMealRecordFilterInput | null,
-  _deleted?: ModelBooleanInput | null,
   owner?: ModelStringInput | null,
 };
 
@@ -286,7 +255,6 @@ export type ModelDailyMealRecordConnection = {
   __typename: "ModelDailyMealRecordConnection",
   items:  Array<DailyMealRecord | null >,
   nextToken?: string | null,
-  startedAt?: number | null,
 };
 
 export type ModelUserMealPresetFilterInput = {
@@ -296,7 +264,6 @@ export type ModelUserMealPresetFilterInput = {
   and?: Array< ModelUserMealPresetFilterInput | null > | null,
   or?: Array< ModelUserMealPresetFilterInput | null > | null,
   not?: ModelUserMealPresetFilterInput | null,
-  _deleted?: ModelBooleanInput | null,
   owner?: ModelStringInput | null,
 };
 
@@ -304,7 +271,6 @@ export type ModelUserMealPresetConnection = {
   __typename: "ModelUserMealPresetConnection",
   items:  Array<UserMealPreset | null >,
   nextToken?: string | null,
-  startedAt?: number | null,
 };
 
 export type ModelSubscriptionDailyGoalFilterInput = {
@@ -317,7 +283,6 @@ export type ModelSubscriptionDailyGoalFilterInput = {
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionDailyGoalFilterInput | null > | null,
   or?: Array< ModelSubscriptionDailyGoalFilterInput | null > | null,
-  _deleted?: ModelBooleanInput | null,
   owner?: ModelStringInput | null,
 };
 
@@ -370,7 +335,6 @@ export type ModelSubscriptionDailyMealRecordFilterInput = {
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionDailyMealRecordFilterInput | null > | null,
   or?: Array< ModelSubscriptionDailyMealRecordFilterInput | null > | null,
-  _deleted?: ModelBooleanInput | null,
   owner?: ModelStringInput | null,
 };
 
@@ -380,7 +344,6 @@ export type ModelSubscriptionUserMealPresetFilterInput = {
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionUserMealPresetFilterInput | null > | null,
   or?: Array< ModelSubscriptionUserMealPresetFilterInput | null > | null,
-  _deleted?: ModelBooleanInput | null,
   owner?: ModelStringInput | null,
 };
 
@@ -399,9 +362,6 @@ export type CreateDailyGoalMutation = {
     fat?: number | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -421,9 +381,6 @@ export type UpdateDailyGoalMutation = {
     fat?: number | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -443,9 +400,6 @@ export type DeleteDailyGoalMutation = {
     fat?: number | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -498,9 +452,6 @@ export type CreateDailyMealRecordMutation = {
     } | null > | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -553,9 +504,6 @@ export type UpdateDailyMealRecordMutation = {
     } | null > | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -608,9 +556,6 @@ export type DeleteDailyMealRecordMutation = {
     } | null > | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -662,9 +607,6 @@ export type CreateUserMealPresetMutation = {
     } | null > | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -716,9 +658,6 @@ export type UpdateUserMealPresetMutation = {
     } | null > | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -770,9 +709,6 @@ export type DeleteUserMealPresetMutation = {
     } | null > | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -791,9 +727,6 @@ export type GetDailyGoalQuery = {
     fat?: number | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -816,42 +749,9 @@ export type ListDailyGoalsQuery = {
       fat?: number | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
       owner?: string | null,
     } | null >,
     nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type SyncDailyGoalsQueryVariables = {
-  filter?: ModelDailyGoalFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncDailyGoalsQuery = {
-  syncDailyGoals?:  {
-    __typename: "ModelDailyGoalConnection",
-    items:  Array< {
-      __typename: "DailyGoal",
-      id: string,
-      calories?: number | null,
-      protein?: number | null,
-      carbohydrates?: number | null,
-      fat?: number | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      owner?: string | null,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
@@ -902,9 +802,6 @@ export type GetDailyMealRecordQuery = {
     } | null > | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -924,39 +821,9 @@ export type ListDailyMealRecordsQuery = {
       date: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
       owner?: string | null,
     } | null >,
     nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type SyncDailyMealRecordsQueryVariables = {
-  filter?: ModelDailyMealRecordFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncDailyMealRecordsQuery = {
-  syncDailyMealRecords?:  {
-    __typename: "ModelDailyMealRecordConnection",
-    items:  Array< {
-      __typename: "DailyMealRecord",
-      id: string,
-      date: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      owner?: string | null,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
@@ -1006,9 +873,6 @@ export type GetUserMealPresetQuery = {
     } | null > | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -1027,38 +891,9 @@ export type ListUserMealPresetsQuery = {
       id: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
       owner?: string | null,
     } | null >,
     nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type SyncUserMealPresetsQueryVariables = {
-  filter?: ModelUserMealPresetFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncUserMealPresetsQuery = {
-  syncUserMealPresets?:  {
-    __typename: "ModelUserMealPresetConnection",
-    items:  Array< {
-      __typename: "UserMealPreset",
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      owner?: string | null,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
@@ -1077,9 +912,6 @@ export type OnCreateDailyGoalSubscription = {
     fat?: number | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -1099,9 +931,6 @@ export type OnUpdateDailyGoalSubscription = {
     fat?: number | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -1121,9 +950,6 @@ export type OnDeleteDailyGoalSubscription = {
     fat?: number | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -1176,9 +1002,6 @@ export type OnCreateDailyMealRecordSubscription = {
     } | null > | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -1231,9 +1054,6 @@ export type OnUpdateDailyMealRecordSubscription = {
     } | null > | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -1286,9 +1106,6 @@ export type OnDeleteDailyMealRecordSubscription = {
     } | null > | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -1340,9 +1157,6 @@ export type OnCreateUserMealPresetSubscription = {
     } | null > | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -1394,9 +1208,6 @@ export type OnUpdateUserMealPresetSubscription = {
     } | null > | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
@@ -1448,9 +1259,6 @@ export type OnDeleteUserMealPresetSubscription = {
     } | null > | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
     owner?: string | null,
   } | null,
 };
