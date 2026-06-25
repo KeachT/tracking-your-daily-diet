@@ -20,5 +20,5 @@ export function postRefactor() {
 
 // Must stay uncommented after the Gen1->Gen2 stack refactor. It reconciles the
 // drift created when resources were moved into the Gen2 stacks; re-commenting or
-// removing it will break future deployments. See migrate-to-gen2 step 8.
+// removing it will break future deployments.
 postRefactor()
