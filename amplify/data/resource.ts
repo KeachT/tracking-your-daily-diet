@@ -66,6 +66,15 @@ export const data = defineData({
         UserMealPreset: 'UserMealPreset-35xqjopvlbh4df6l5vrg4qwe5y-dev',
       },
     },
+    {
+      // prod is deployed via the `main` Amplify Hosting branch, so the key is 'main'.
+      branchName: 'main',
+      modelNameToTableNameMapping: {
+        DailyGoal: 'DailyGoal-cxyllhsh6fdyrhdchmpf2d5j7m-prod',
+        DailyMealRecord: 'DailyMealRecord-cxyllhsh6fdyrhdchmpf2d5j7m-prod',
+        UserMealPreset: 'UserMealPreset-cxyllhsh6fdyrhdchmpf2d5j7m-prod',
+      },
+    },
   ],
   authorizationModes: {
     defaultAuthorizationMode: 'userPool',
