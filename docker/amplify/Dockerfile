@@ -6,7 +6,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   rm -rf /var/lib/apt/lists/*
 
 # Install Amplify CLI globally without executing lifecycle scripts.
-RUN npm i -g @aws-amplify/cli@latest --ignore-scripts
+# Pinned to a known-good version for reproducible Gen1->Gen2 migration (requires >=14.4.0).
+RUN npm i -g @aws-amplify/cli@14.5.0 --ignore-scripts
 
 USER node
 WORKDIR /app
