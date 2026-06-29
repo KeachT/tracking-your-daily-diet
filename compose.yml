@@ -16,18 +16,6 @@ services:
       - NODE_ENV=development
     command: npm run dev
 
-  amplify:
-    build:
-      context: .
-      dockerfile: docker/amplify/Dockerfile
-    user: node
-    volumes:
-      - .:/app
-      - ~/.aws:/home/node/.aws:ro
-    security_opt:
-      - no-new-privileges:true
-    command: amplify --help
-
 volumes:
   next-cache:
   node_modules:

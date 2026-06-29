@@ -21,17 +21,33 @@ npx playwright test --ui         # Open Playwright UI for debugging
 # Docker-based development (preferred)
 docker compose up nextjs         # Start dev server in Docker
 ./scripts/sync-node-modules.sh   # Sync node_modules volume to host for IDE tooling
+
+# Amplify Gen2 backend (ampx) — run via the nextjs service with AWS creds mounted:
+#   docker compose run --rm -v "$HOME/.aws:/home/node/.aws:ro" \
+#     -e AWS_PROFILE=amplify -e AWS_REGION=ap-northeast-1 --entrypoint npx nextjs ampx <cmd>
+npx ampx sandbox             # Personal cloud backend; writes amplify_outputs.json (local dev)
+npx ampx sandbox delete      # Tear down your sandbox
+npx ampx pipeline-deploy --branch <name> --app-id <id>   # CI/branch backend deploy (successor to amplify push)
 ```
 
 Before first `docker compose up`, run `mkdir -p .next node_modules`.
 
 Git hooks run `npm run lint` via Docker on pre-push. Install with `./scripts/install-git-hooks.sh`.
 
+### Backend config & deploy (Amplify Gen2)
+
+- **Frontend reads `amplify_outputs.json`** (`src/utils/ensureAmplifyConfigured.ts`). It is gitignored and generated at deploy time (Amplify Hosting backend phase) or locally by `ampx sandbox`. A fresh checkout has no such file — that is why `next build` is intentionally not run in the pre-push hook (build verification is delegated to Hosting/CI).
+- **Local backend:** use your own `ampx sandbox` (creates throwaway tables/auth — never touches dev/prod data), or point at the `dev` environment's `amplify_outputs.json`. The old Gen1 `aws-exports.js` flow is gone.
+- **Deploy = push/merge to the matching branch** (Hosting runs `amplify.yml` → `ampx pipeline-deploy --branch $AWS_BRANCH`):
+  - push/merge to `main` → **prod** backend + frontend deploy
+  - push/merge to `dev` → **dev** environment deploy (same mechanism as main→prod)
+  - `main` and `dev` are protected (see `.githooks/pre-commit`) — deploy via PR, not direct commits.
+
 ## Architecture
 
-**Stack:** Next.js (Pages Router) + AWS Amplify (GraphQL API + Cognito Auth) + Mantine UI + Zustand + Tailwind CSS + Playwright (E2E)
+**Stack:** Next.js (Pages Router) + AWS Amplify Gen2 (`ampx` — AppSync GraphQL API + Cognito Auth, defined in `amplify/`) + Mantine UI + Zustand + Tailwind CSS + Playwright (E2E)
 
-### Data Models (GraphQL — `amplify/backend/api/trackingyourdd/schema.graphql`)
+### Data Models (GraphQL — schema defined inline in `amplify/data/resource.ts` via `defineData`)
 
 All models use `@auth(rules: [{ allow: owner }])` — users only access their own data.
 
@@ -92,4 +108,4 @@ Pages are composition-only: they import feature components and arrange them. Pag
 - **Naming:** PascalCase for component files/directories (`src/components/Layout/`), kebab-case for feature folders (`src/features/daily-goal/`)
 - **Imports:** sorted via `eslint-plugin-simple-import-sort`; run `npm run format` before committing
 - **Commits:** Conventional Commits style — `feat:`, `fix:`, `chore:` with issue/PR reference (e.g., `fix: validate preset calories (#201)`)
-- **Amplify CLI:** use the `amplify` Docker Compose service (`docker compose run --rm amplify amplify <command>`) when running Amplify CLI commands
+- **Amplify (Gen2):** backend is Amplify Gen2 (`ampx`), defined in code under `amplify/`. Use `npx ampx sandbox` for a personal cloud backend (generates `amplify_outputs.json`), `npx ampx pipeline-deploy --branch <name> --app-id <id>` for branch deploys. Run via the `nextjs` Docker service with AWS creds mounted: `docker compose run --rm -v "$HOME/.aws:/home/node/.aws:ro" -e AWS_PROFILE=amplify -e AWS_REGION=ap-northeast-1 --entrypoint npx nextjs ampx <command>`
