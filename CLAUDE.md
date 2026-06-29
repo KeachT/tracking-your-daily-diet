@@ -27,7 +27,7 @@ docker compose up nextjs         # Start dev server in Docker
 #     -e AWS_PROFILE=amplify -e AWS_REGION=ap-northeast-1 --entrypoint npx nextjs ampx <cmd>
 npx ampx sandbox             # Personal cloud backend; writes amplify_outputs.json (local dev)
 npx ampx sandbox delete      # Tear down your sandbox
-npx ampx pipeline-deploy --branch <name> --app-id <id>   # CI/branch backend deploy (amplify push 後継)
+npx ampx pipeline-deploy --branch <name> --app-id <id>   # CI/branch backend deploy (successor to amplify push)
 ```
 
 Before first `docker compose up`, run `mkdir -p .next node_modules`.
