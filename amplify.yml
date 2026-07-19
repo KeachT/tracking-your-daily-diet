@@ -11,7 +11,8 @@ frontend:
     preBuild:
       commands:
         - node -v
-        - npm ci
+        # No `npm ci` here: the backend phase above already installed dependencies
+        # in the same build container, so a second install is pure overhead.
     build:
       commands:
         - npm run build
@@ -21,4 +22,7 @@ frontend:
       - "**/*"
   cache:
     paths:
-      - node_modules/**/*
+      # `npm ci` deletes node_modules and reinstalls from scratch, so caching it
+      # is wasted save/restore time. Cache npm's download cache instead — the
+      # backend phase's `--cache .npm --prefer-offline` actually reads from it.
+      - .npm/**/*
