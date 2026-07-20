@@ -19,6 +19,12 @@ Represents a user's daily meal record, which includes meals for breakfast, lunch
 """
 type DailyMealRecord @model @auth(rules: [{ allow: owner }]) {
   id: ID!
+  owner: String
+    @index(
+      name: "byOwnerAndDate"
+      sortKeyFields: ["date"]
+      queryField: "dailyMealRecordsByOwnerAndDate"
+    )
   date: AWSDate!
   breakfast: [FoodItem]
   lunch: [FoodItem]
