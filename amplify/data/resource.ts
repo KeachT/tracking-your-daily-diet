@@ -1,5 +1,5 @@
 import { defineData } from '@aws-amplify/backend'
-import { aws_iam } from 'aws-cdk-lib'
+import { aws_dynamodb, aws_iam } from 'aws-cdk-lib'
 
 import type { Backend } from '../backend'
 
@@ -95,6 +95,17 @@ export function applyEscapeHatches(backend: Backend) {
       authenticationType: 'AWS_IAM',
     },
   ]
+
+  // The Gen1-migrated DynamoDB tables use on-demand billing (PAY_PER_REQUEST).
+  // When adding a GSI via @index, Amplify may attach provisioned capacity
+  // (Read/WriteCapacityUnits) to the index, which conflicts with the table's
+  // billing mode and fails the deploy:
+  //   "Neither ReadCapacityUnits nor WriteCapacityUnits can be specified for
+  //    index ... when BillingMode is PAY_PER_REQUEST".
+  // Pin the billing mode so the generated GSI is created on-demand too.
+  backend.data.resources.cfnResources.amplifyDynamoDbTables[
+    'DailyMealRecord'
+  ].billingMode = aws_dynamodb.BillingMode.PAY_PER_REQUEST
   backend.auth.resources.authenticatedUserIamRole.addToPrincipalPolicy(
     new aws_iam.PolicyStatement({
       effect: aws_iam.Effect.ALLOW,
