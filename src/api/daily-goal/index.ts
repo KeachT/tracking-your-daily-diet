@@ -1,4 +1,5 @@
 export * from './add-daily-goal'
 export * from './delete-daily-goal'
+export * from './fetch-all-daily-goal-ids'
 export * from './fetch-daily-goal'
 export * from './upd-daily-goal'
