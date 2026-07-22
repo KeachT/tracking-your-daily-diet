@@ -1,1 +1,1 @@
-export { purgeAllUserData } from './utils/purgeAllUserData'
+export { DeleteAllDataButton } from './components/DeleteAllDataButton'

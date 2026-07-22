@@ -5,6 +5,7 @@ import { DailyMealRecord } from '../API'
 export type WeeklyDailyMealRecordsState = {
   weeklyDailyMealRecords: DailyMealRecord[]
   setWeeklyDailyMealRecords: (weeklyDailyMealRecords: DailyMealRecord[]) => void
+  reset: () => void
 }
 
 export const useWeeklyDailyMealRecordsStore =
@@ -12,4 +13,5 @@ export const useWeeklyDailyMealRecordsStore =
     weeklyDailyMealRecords: [],
     setWeeklyDailyMealRecords: (newWeeklyDailyMealRecords) =>
       set({ weeklyDailyMealRecords: newWeeklyDailyMealRecords }),
+    reset: () => set({ weeklyDailyMealRecords: [] }),
   }))
