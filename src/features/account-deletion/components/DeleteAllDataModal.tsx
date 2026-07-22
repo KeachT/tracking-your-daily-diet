@@ -34,14 +34,20 @@ export function DeleteAllDataModal({ opened, close }: DeleteAllDataModalProps) {
   }
 
   return (
-    <Modal opened={opened} onClose={closeModal} title="全データを削除" centered>
-      <Stack>
-        <Text size="sm" c="red">
-          すべての食事記録、目標、プリセットを削除します。
+    <Modal
+      opened={opened}
+      onClose={closeModal}
+      title="全データを削除"
+      centered
+      styles={{ title: { flex: 1, textAlign: 'center' } }}
+    >
+      <Stack align="center">
+        <Text size="sm" c="red" ta="center">
+          すべての食事記録、目標、プリセットを削除します
           <br />
-          アカウントは削除されません。
+          アカウントは削除されません
           <br />
-          この操作は取り消せません。
+          この操作は取り消せません
         </Text>
 
         {deleteStatus === 'error' && (
@@ -57,11 +63,11 @@ export function DeleteAllDataModal({ opened, close }: DeleteAllDataModalProps) {
         <Checkbox
           checked={consented}
           onChange={(event) => setConsented(event.currentTarget.checked)}
-          label="内容を理解した上で、全データを削除します"
+          label="内容を理解しました。全データを削除します"
           disabled={isDeleting}
         />
 
-        <Group justify="flex-end">
+        <Group justify="center">
           <Button variant="default" onClick={closeModal} disabled={isDeleting}>
             キャンセル
           </Button>
