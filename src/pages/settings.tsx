@@ -2,7 +2,10 @@ import { Box } from '@mantine/core'
 
 import { Layout } from '../components/Layout'
 import { Robots } from '../constants'
-import { DeleteAllDataButton } from '../features/account-deletion'
+import {
+  DeleteAllDataButton,
+  WithdrawButton,
+} from '../features/account-deletion'
 import { AccountHeader } from '../features/account-header'
 import { DailyGoal } from '../features/daily-goal'
 import { DailyGoalHeader } from '../features/daily-goal-header'
@@ -24,6 +27,10 @@ export default function Settings() {
 
       <Box maw={400} mb={30}>
         <DeleteAllDataButton />
+      </Box>
+
+      <Box maw={400} mb={30}>
+        <WithdrawButton />
       </Box>
     </Layout>
   )
