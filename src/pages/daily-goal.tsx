@@ -7,7 +7,7 @@ import { DailyGoalHeader } from '../features/daily-goal-header'
 
 export default function DailyGoalPage() {
   return (
-    <Layout title="目標設定" robots={Robots.NoindexNofollow}>
+    <Layout title="目標" robots={Robots.NoindexNofollow}>
       <Box maw={300} mb={30}>
         <DailyGoalHeader />
       </Box>
