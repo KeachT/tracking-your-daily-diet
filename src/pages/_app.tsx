@@ -47,7 +47,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 
     if (authStatus === 'authenticated') {
       fetchAndSetDailyGoal(setDailyGoal)
-      router.push(Path.Day)
+      if (router.pathname === Path.Landingpage) {
+        router.push(Path.Day)
+      }
       return
     }
 
