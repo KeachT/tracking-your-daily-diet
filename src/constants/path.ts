@@ -3,6 +3,7 @@ export enum Path {
   Day = '/day',
   Week = '/week',
   Preset = '/preset',
+  DailyGoal = '/daily-goal',
   Settings = '/settings',
   Landingpage = '/landingpage',
   Terms = '/terms',
