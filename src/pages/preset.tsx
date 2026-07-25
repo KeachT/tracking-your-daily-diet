@@ -6,7 +6,7 @@ import { PresetHeader } from '../features/preset-header'
 import { PresetMealForm } from '../features/preset-meal-form'
 import { PresetNutritions } from '../features/preset-nutritions'
 
-export default function Preset() {
+export default function PresetPage() {
   return (
     <Layout title="プリセット" robots={Robots.NoindexNofollow}>
       <Box maw={300} mb={30}>

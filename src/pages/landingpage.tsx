@@ -11,7 +11,7 @@ const LP_DESCRIPTION =
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'
 const OGP_IMAGE_URL = `${SITE_URL}/images/ogp/day-desktop.png`
 
-export default function Lp() {
+export default function LpPage() {
   return (
     <Layout
       title={LP_TITLE}

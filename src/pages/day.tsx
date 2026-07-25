@@ -6,7 +6,7 @@ import { DailyMealForm } from '../features/daily-meal-form'
 import { DailyNutritions } from '../features/daily-nutritions'
 import { DatePickerCard } from '../features/date-picker-card'
 
-export default function Day() {
+export default function DayPage() {
   return (
     <Layout title="日別" robots={Robots.NoindexNofollow}>
       <Box maw={300} mb={30}>

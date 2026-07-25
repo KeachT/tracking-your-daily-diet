@@ -7,20 +7,10 @@ import {
   WithdrawButton,
 } from '../features/account-deletion'
 import { AccountHeader } from '../features/account-header'
-import { DailyGoal } from '../features/daily-goal'
-import { DailyGoalHeader } from '../features/daily-goal-header'
 
-export default function Settings() {
+export default function SettingsPage() {
   return (
-    <Layout title="目標設定" robots={Robots.NoindexNofollow}>
-      <Box maw={300} mb={30}>
-        <DailyGoalHeader />
-      </Box>
-
-      <Box maw={400} mb={50}>
-        <DailyGoal />
-      </Box>
-
+    <Layout title="設定" robots={Robots.NoindexNofollow}>
       <Box maw={300} mb={30}>
         <AccountHeader />
       </Box>
