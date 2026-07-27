@@ -1,6 +1,6 @@
 import { GraphQLQuery } from '@aws-amplify/api'
 
-import { ListDailyGoalsQuery } from '../../API'
+import { ListDailyGoalsQuery, ListDailyGoalsQueryVariables } from '../../API'
 import { listDailyGoals } from '../../graphql/queries'
 import { client } from '../../utils/amplifyClient'
 import { guestFetchDailyGoal } from '../guest/guest-storage'
@@ -10,13 +10,26 @@ export const fetchDailyGoal = async () => {
   if (getGuestModeFlag()) return guestFetchDailyGoal()
 
   try {
-    const { data } = await client.graphql<GraphQLQuery<ListDailyGoalsQuery>>({
-      query: listDailyGoals,
-      authMode: 'userPool',
-    })
+    const dailyGoals: NonNullable<
+      NonNullable<ListDailyGoalsQuery['listDailyGoals']>['items']
+    > = []
+    let nextToken: string | null | undefined = undefined
+
+    do {
+      const variables: ListDailyGoalsQueryVariables = { nextToken }
+
+      const { data } = await client.graphql<GraphQLQuery<ListDailyGoalsQuery>>({
+        query: listDailyGoals,
+        variables,
+        authMode: 'userPool',
+      })
+
+      const result = data?.listDailyGoals
+      dailyGoals.push(...(result?.items ?? []))
+      nextToken = result?.nextToken
+    } while (nextToken)
 
     // Sort the daily goals by createdAt date and return the most recent one
-    const dailyGoals = data?.listDailyGoals?.items || []
     const sortedDailyGoals = dailyGoals.sort((a, b) => {
       return (
         new Date(b?.createdAt || '').getTime() -
