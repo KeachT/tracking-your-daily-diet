@@ -1,13 +1,25 @@
 import { Box } from '@mantine/core'
+import { useEffect } from 'react'
 
+import { LoadingSkeleton } from '../../../components/LoadingSkeleton'
 import { SaveButton } from '../../../components/SaveButton'
 import { useDailyGoalStore } from '../../../stores'
+import { loadDailyGoal } from '../../../utils'
 import { saveDailyGoal } from '../utils'
+import { DailyGoalEmptyNotice } from './DailyGoalEmptyNotice'
+import { DailyGoalLoadError } from './DailyGoalLoadError'
 import { DailyGoalNumberInput } from './DailyGoalNumberInput'
 
 export function DailyGoal() {
   const dailyGoal = useDailyGoalStore((state) => state.dailyGoal)
+  const loadStatus = useDailyGoalStore((state) => state.loadStatus)
   const setDailyGoal = useDailyGoalStore((state) => state.setDailyGoal)
+
+  useEffect(() => {
+    if (useDailyGoalStore.getState().loadStatus !== 'ready') {
+      loadDailyGoal()
+    }
+  }, [])
 
   const setNutritionValues = (
     value: number | string,
@@ -17,8 +29,20 @@ export function DailyGoal() {
     setDailyGoal(newDailyGoal)
   }
 
+  if (loadStatus === 'error') {
+    return <DailyGoalLoadError />
+  }
+
+  if (loadStatus !== 'ready') {
+    return <LoadingSkeleton height={400} />
+  }
+
+  const hasNoGoalYet = !dailyGoal.id
+
   return (
     <Box>
+      {hasNoGoalYet && <DailyGoalEmptyNotice />}
+
       <DailyGoalNumberInput
         label="カロリー (Kcal)"
         placeholder="カロリー"
