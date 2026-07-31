@@ -23,20 +23,33 @@ export const fetchDailyMealRecords = async (
   if (getGuestModeFlag()) return guestFetchDailyMealRecords(variables)
 
   try {
-    const { data } = await client.graphql<
-      GraphQLQuery<ListDailyMealRecordsQuery>
-    >({
-      query: listDailyMealRecords,
-      variables,
-      authMode: 'userPool',
-    })
+    const validDailyMealRecordIds: string[] = []
+    let nextToken: string | null | undefined = undefined
 
-    const dailyMealRecords = data?.listDailyMealRecords?.items || []
+    do {
+      const pageVariables: ListDailyMealRecordsQueryVariables = {
+        ...variables,
+        nextToken,
+      }
 
-    // Filter out null records and map to their IDs
-    const validDailyMealRecordIds = dailyMealRecords
-      .filter((record) => record !== null)
-      .map((record) => record!.id)
+      const { data } = await client.graphql<
+        GraphQLQuery<ListDailyMealRecordsQuery>
+      >({
+        query: listDailyMealRecords,
+        variables: pageVariables,
+        authMode: 'userPool',
+      })
+
+      const result = data?.listDailyMealRecords
+
+      // Filter out null records and map to their IDs
+      const pageIds = (result?.items ?? [])
+        .filter((record) => record !== null)
+        .map((record) => record!.id)
+
+      validDailyMealRecordIds.push(...pageIds)
+      nextToken = result?.nextToken
+    } while (nextToken)
 
     // If no valid daily meal record IDs, return an empty array
     if (validDailyMealRecordIds.length === 0) {

@@ -27,27 +27,38 @@ export const fetchWeeklyDailyMealRecords = async (
       currentDateString,
       prevWeekDateString,
     )
-  const variables: ListDailyMealRecordsQueryVariables = {
-    filter: {
-      date: { between: [prevWeekDateString, currentDateString] },
-    },
+  const filter = {
+    date: { between: [prevWeekDateString, currentDateString] },
   }
 
   try {
-    const { data } = await client.graphql<
-      GraphQLQuery<ListDailyMealRecordsQuery>
-    >({
-      query: listDailyMealRecords,
-      variables,
-      authMode: 'userPool',
-    })
+    const validDailyMealRecordIds: string[] = []
+    let nextToken: string | null | undefined = undefined
 
-    const dailyMealRecords = data?.listDailyMealRecords?.items || []
+    do {
+      const variables: ListDailyMealRecordsQueryVariables = {
+        filter,
+        nextToken,
+      }
 
-    // Remove null entries and fetch detailed records
-    const validDailyMealRecordIds = dailyMealRecords
-      .filter((record) => record !== null)
-      .map((record) => record!.id)
+      const { data } = await client.graphql<
+        GraphQLQuery<ListDailyMealRecordsQuery>
+      >({
+        query: listDailyMealRecords,
+        variables,
+        authMode: 'userPool',
+      })
+
+      const result = data?.listDailyMealRecords
+
+      // Remove null entries and keep their IDs
+      const pageIds = (result?.items ?? [])
+        .filter((record) => record !== null)
+        .map((record) => record!.id)
+
+      validDailyMealRecordIds.push(...pageIds)
+      nextToken = result?.nextToken
+    } while (nextToken)
 
     const dailyMealRecordsWithFoods = await Promise.all(
       validDailyMealRecordIds.map((id) => fetchDailyMealRecordWithFoods(id)),
