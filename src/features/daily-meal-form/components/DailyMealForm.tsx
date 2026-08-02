@@ -22,6 +22,7 @@ import {
 } from '../utils'
 import { DailyMealFormAccordionItem } from './DailyMealFormAccordionItem'
 import { DailyMealFormApplyPresetToAllCategoriesButton } from './DailyMealFormApplyPresetToAllCategoriesButton'
+import { DailyMealFormLoadError } from './DailyMealFormLoadError'
 
 export function DailyMealForm() {
   const currentDate = useCurrentDateStore((state) => state.currentDate)
@@ -31,9 +32,7 @@ export function DailyMealForm() {
   const dailyMealRecord = useDailyMealRecordStore(
     (state) => state.dailyMealRecord,
   )
-  const setDailyMealRecord = useDailyMealRecordStore(
-    (state) => state.setDailyMealRecord,
-  )
+  const loadStatus = useDailyMealRecordStore((state) => state.loadStatus)
   const setUserMealPreset = useUserMealPresetStore(
     (state) => state.setUserMealPreset,
   )
@@ -69,20 +68,17 @@ export function DailyMealForm() {
       setIsDataLoading(true)
       try {
         await Promise.all([
-          loadDailyMealRecord(currentDateString, setDailyMealRecord),
+          loadDailyMealRecord(currentDateString),
           loadUserMealPresetForDay(setUserMealPreset),
         ])
+      } catch {
+        // Keeping the previously loaded preset is the existing behavior.
       } finally {
         setIsDataLoading(false)
       }
     }
     loadAll()
-  }, [
-    currentDateString,
-    setDailyMealRecord,
-    setUserMealPreset,
-    setIsDataLoading,
-  ])
+  }, [currentDateString, setUserMealPreset, setIsDataLoading])
 
   useEffect(() => {
     setDailyCalories(roundToTwoDecimalPlaces(sumCalories))
@@ -91,6 +87,10 @@ export function DailyMealForm() {
     setDailyCarbohydrates(roundToTwoDecimalPlaces(sumCarbohydrates))
     // eslint-disable-next-line
   }, [sumCalories, sumProtein, sumFat, sumCarbohydrates])
+
+  if (loadStatus === 'error') {
+    return <DailyMealFormLoadError />
+  }
 
   return (
     <Box>
