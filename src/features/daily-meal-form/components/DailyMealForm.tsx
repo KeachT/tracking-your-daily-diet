@@ -8,9 +8,12 @@ import {
   useCurrentDateStore,
   useLoadingStateStore,
   useNutritionNumbersStore,
-  useUserMealPresetStore,
 } from '../../../stores'
-import { createStringFromDate, roundToTwoDecimalPlaces } from '../../../utils'
+import {
+  createStringFromDate,
+  loadUserMealPreset,
+  roundToTwoDecimalPlaces,
+} from '../../../utils'
 import { useDailyMealRecordStore } from '../stores'
 import { FormsType } from '../types'
 import {
@@ -18,7 +21,6 @@ import {
   createSumNutritionValues,
   getDefaultCategory,
   loadDailyMealRecord,
-  loadUserMealPresetForDay,
 } from '../utils'
 import { DailyMealFormAccordionItem } from './DailyMealFormAccordionItem'
 import { DailyMealFormApplyPresetToAllCategoriesButton } from './DailyMealFormApplyPresetToAllCategoriesButton'
@@ -33,9 +35,6 @@ export function DailyMealForm() {
     (state) => state.dailyMealRecord,
   )
   const loadStatus = useDailyMealRecordStore((state) => state.loadStatus)
-  const setUserMealPreset = useUserMealPresetStore(
-    (state) => state.setUserMealPreset,
-  )
   const setDailyCalories = useNutritionNumbersStore(
     (state) => state.setDailyCalories,
   )
@@ -69,16 +68,17 @@ export function DailyMealForm() {
       try {
         await Promise.all([
           loadDailyMealRecord(currentDateString),
-          loadUserMealPresetForDay(setUserMealPreset),
+          loadUserMealPreset(),
         ])
       } catch {
-        // Keeping the previously loaded preset is the existing behavior.
+        // Both loaders record their own failure status, so this only guards
+        // against an unexpected throw leaving the skeleton up.
       } finally {
         setIsDataLoading(false)
       }
     }
     loadAll()
-  }, [currentDateString, setUserMealPreset, setIsDataLoading])
+  }, [currentDateString, setIsDataLoading])
 
   useEffect(() => {
     setDailyCalories(roundToTwoDecimalPlaces(sumCalories))

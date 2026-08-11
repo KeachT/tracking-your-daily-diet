@@ -9,21 +9,22 @@ import {
   usePresetNutritionNumbersStore,
   useUserMealPresetStore,
 } from '../../../stores'
-import { roundToTwoDecimalPlaces } from '../../../utils'
+import { loadUserMealPreset, roundToTwoDecimalPlaces } from '../../../utils'
 import { FormsType } from '../types'
 import {
   createInitialFormValuesFromPreset,
   createSumNutritionValues,
-  loadUserMealPreset,
 } from '../utils'
 import { PresetMealFormAccordionItem } from './PresetMealFormAccordionItem'
 import { PresetMealFormBulkSaveButton } from './PresetMealFormBulkSaveButton'
+import { PresetMealFormLoadError } from './PresetMealFormLoadError'
 
 export function PresetMealForm() {
   const setIsDataLoading = useLoadingStateStore(
     (state) => state.setIsDataLoading,
   )
   const userMealPreset = useUserMealPresetStore((state) => state.userMealPreset)
+  const loadStatus = useUserMealPresetStore((state) => state.loadStatus)
   const setUserMealPreset = useUserMealPresetStore(
     (state) => state.setUserMealPreset,
   )
@@ -50,8 +51,16 @@ export function PresetMealForm() {
     createSumNutritionValues(forms)
 
   useEffect(() => {
-    loadUserMealPreset(setUserMealPreset, setIsDataLoading)
-  }, [setUserMealPreset, setIsDataLoading])
+    const load = async () => {
+      setIsDataLoading(true)
+      try {
+        await loadUserMealPreset()
+      } finally {
+        setIsDataLoading(false)
+      }
+    }
+    load()
+  }, [setIsDataLoading])
 
   useEffect(() => {
     const initialFormValues = createInitialFormValuesFromPreset(userMealPreset)
@@ -66,6 +75,10 @@ export function PresetMealForm() {
     setPresetCarbohydrates(roundToTwoDecimalPlaces(sumCarbohydrates))
     // eslint-disable-next-line
   }, [sumCalories, sumProtein, sumFat, sumCarbohydrates])
+
+  if (loadStatus === 'error') {
+    return <PresetMealFormLoadError />
+  }
 
   return (
     <Box>
