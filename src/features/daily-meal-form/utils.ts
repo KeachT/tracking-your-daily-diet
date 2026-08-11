@@ -18,8 +18,6 @@ import {
   fetchDailyMealRecords,
   updDailyMealRecord,
 } from '../../api/daily-meal-record'
-import { fetchUserMealPreset } from '../../api/user-meal-preset'
-import { UserMealPresetState } from '../../stores'
 import {
   DailyMealRecordState,
   useDailyMealRecordStore,
@@ -147,20 +145,6 @@ export const loadDailyMealRecord = async (currentDateString: string) => {
   } catch {
     setLoadStatus('error')
   }
-}
-
-/**
- * Asynchronously loads the user meal preset for the day
- * and updates the global userMealPreset store state.
- *
- * @param setUserMealPreset - Function to update the user meal preset in state.
- * @returns A Promise that resolves when the user meal preset has been loaded and state updated.
- */
-export const loadUserMealPresetForDay = async (
-  setUserMealPreset: UserMealPresetState['setUserMealPreset'],
-) => {
-  const userMealPreset = await fetchUserMealPreset()
-  setUserMealPreset(userMealPreset)
 }
 
 /**
