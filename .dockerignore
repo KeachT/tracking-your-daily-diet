@@ -1,0 +1,16 @@
+# Runtime deps come from the named volume and the source tree is bind-mounted,
+# so keep these out of the build context.
+.git
+node_modules
+.next
+.amplify
+e2e
+docs
+playwright-report
+test-results
+.env
+.env.*
+amplify_outputs.json
+*.log
+.DS_Store
+tsconfig.tsbuildinfo
