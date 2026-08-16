@@ -80,6 +80,14 @@ export const data = defineData({
     defaultAuthorizationMode: 'userPool',
   },
   schema,
+  logging: {
+    // Only error fields are logged, so successful requests add no log volume.
+    fieldLogLevel: 'error',
+    // Keep query bodies and headers out of CloudWatch: the app handles meal and
+    // health records, so user input must never land in the logs.
+    excludeVerboseContent: true,
+    retention: '1 week',
+  },
 })
 
 export function applyEscapeHatches(backend: Backend) {
