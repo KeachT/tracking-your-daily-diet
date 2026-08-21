@@ -1,14 +1,13 @@
 import { create } from 'zustand'
 
 import { UserMealPreset } from '../API'
-
-export type UserMealPresetLoadStatus = 'idle' | 'loading' | 'ready' | 'error'
+import { FetchStatus } from '../constants'
 
 export type UserMealPresetState = {
   userMealPreset: UserMealPreset | null
-  loadStatus: UserMealPresetLoadStatus
+  loadStatus: FetchStatus
   setUserMealPreset: (userMealPreset: UserMealPreset | null) => void
-  setLoadStatus: (loadStatus: UserMealPresetLoadStatus) => void
+  setLoadStatus: (loadStatus: FetchStatus) => void
   reset: () => void
 }
 

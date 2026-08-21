@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 
 import { DailyGoal } from '../API'
+import { FetchStatus } from '../constants'
 
 const initialDailyGoal: DailyGoal = {
   __typename: 'DailyGoal',
@@ -13,13 +14,11 @@ const initialDailyGoal: DailyGoal = {
   updatedAt: '',
 }
 
-export type DailyGoalLoadStatus = 'idle' | 'loading' | 'ready' | 'error'
-
 export type DailyGoalState = {
   dailyGoal: DailyGoal
-  loadStatus: DailyGoalLoadStatus
+  loadStatus: FetchStatus
   setDailyGoal: (dailyGoal: DailyGoal) => void
-  setLoadStatus: (loadStatus: DailyGoalLoadStatus) => void
+  setLoadStatus: (loadStatus: FetchStatus) => void
   reset: () => void
 }
 
