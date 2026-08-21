@@ -44,10 +44,11 @@ enum MealCategoryName {
 
 """
 Represents a user's meal preset that can be quickly applied to daily records.
-Each user has one preset configuration that they can customize.
+A user can keep up to three presets; the app enforces that limit.
 """
 type UserMealPreset @model @auth(rules: [{ allow: owner }]) {
   id: ID!
+  name: String
   breakfast: [FoodItem]
   lunch: [FoodItem]
   dinner: [FoodItem]
