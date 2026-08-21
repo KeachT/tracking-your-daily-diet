@@ -1,14 +1,14 @@
 import { create } from 'zustand'
 
-import { DailyMealRecord } from '../../../API'
+import { FetchStatus } from '@/constants'
 
-export type DailyMealRecordLoadStatus = 'idle' | 'loading' | 'ready' | 'error'
+import { DailyMealRecord } from '../../../API'
 
 export type DailyMealRecordState = {
   dailyMealRecord: DailyMealRecord | null
-  loadStatus: DailyMealRecordLoadStatus
+  loadStatus: FetchStatus
   setDailyMealRecord: (dailyMealRecord: DailyMealRecord | null) => void
-  setLoadStatus: (loadStatus: DailyMealRecordLoadStatus) => void
+  setLoadStatus: (loadStatus: FetchStatus) => void
 }
 
 export const useDailyMealRecordStore = create<DailyMealRecordState>((set) => ({
