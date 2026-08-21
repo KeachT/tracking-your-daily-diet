@@ -6,7 +6,7 @@ import { DatePickerCard } from '../features/date-picker-card'
 import { WeeklyCaloriesChart } from '../features/weekly-calories-chart'
 import { WeeklyNutritions } from '../features/weekly-nutritions'
 
-export default function Week() {
+export default function WeekPage() {
   return (
     <Layout title="週間" robots={Robots.NoindexNofollow}>
       <Box maw={300} mb={30}>

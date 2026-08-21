@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next'
 
 import { Path } from '../constants'
 
-export default function Home() {
+export default function HomePage() {
   return <></>
 }
 

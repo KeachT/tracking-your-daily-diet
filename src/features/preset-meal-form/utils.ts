@@ -13,10 +13,9 @@ import {
 } from '../../API'
 import {
   addUserMealPreset,
-  fetchUserMealPreset,
   updUserMealPreset,
 } from '../../api/user-meal-preset'
-import { LoadingState, UserMealPresetState } from '../../stores'
+import { useUserMealPresetStore } from '../../stores'
 import { FormData, FormsType } from './types'
 
 type MealPresetFieldName = Lowercase<`${MealCategoryName}`>
@@ -131,6 +130,10 @@ export const createSumNutritionValues = (forms: FormsType) => {
 /**
  * Saves all meal categories for the current user preset at once.
  *
+ * Saving is refused unless the preset was actually loaded: an unloaded preset
+ * is still null and would otherwise be read as "no preset yet" and create a
+ * duplicate record alongside the existing one.
+ *
  * @param forms - The forms containing the meal preset data for every category
  * @param userMealPreset - The existing user meal preset object (null when creating)
  * @param setUserMealPreset - The function to update the local user meal preset state
@@ -140,6 +143,10 @@ export const saveAllUserMealPreset = async (
   userMealPreset: UserMealPreset | null,
   setUserMealPreset: (userMealPreset: UserMealPreset) => void,
 ) => {
+  if (useUserMealPresetStore.getState().loadStatus !== 'ready') {
+    throw new Error('Cannot save a user meal preset that has not been loaded')
+  }
+
   const normalizedPreset = normalizeAllMealCategories(forms)
 
   if (userMealPreset) {
@@ -164,26 +171,4 @@ export const saveAllUserMealPreset = async (
   }
   const newPreset = await addUserMealPreset(variables)
   setUserMealPreset(newPreset)
-}
-
-/**
- * Loads the user meal preset and sets it in the state.
- *
- * @param setUserMealPreset - The function to update the user meal preset state.
- * @param setIsDataLoading - Function to update the loading state
- * @returns A promise that resolves when the user meal preset has been loaded.
- */
-export const loadUserMealPreset = async (
-  setUserMealPreset: UserMealPresetState['setUserMealPreset'],
-  setIsDataLoading: LoadingState['setIsDataLoading'],
-) => {
-  setIsDataLoading(true)
-  try {
-    const userMealPreset = await fetchUserMealPreset()
-    if (userMealPreset) {
-      setUserMealPreset(userMealPreset)
-    }
-  } finally {
-    setIsDataLoading(false)
-  }
 }

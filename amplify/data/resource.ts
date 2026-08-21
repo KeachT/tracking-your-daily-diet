@@ -44,10 +44,11 @@ enum MealCategoryName {
 
 """
 Represents a user's meal preset that can be quickly applied to daily records.
-Each user has one preset configuration that they can customize.
+A user can keep up to three presets; the app enforces that limit.
 """
 type UserMealPreset @model @auth(rules: [{ allow: owner }]) {
   id: ID!
+  name: String
   breakfast: [FoodItem]
   lunch: [FoodItem]
   dinner: [FoodItem]
@@ -80,6 +81,14 @@ export const data = defineData({
     defaultAuthorizationMode: 'userPool',
   },
   schema,
+  logging: {
+    // Only error fields are logged, so successful requests add no log volume.
+    fieldLogLevel: 'error',
+    // Keep query bodies and headers out of CloudWatch: the app handles meal and
+    // health records, so user input must never land in the logs.
+    excludeVerboseContent: true,
+    retention: '1 week',
+  },
 })
 
 export function applyEscapeHatches(backend: Backend) {

@@ -2,18 +2,25 @@ import { Box } from '@mantine/core'
 
 import { Layout } from '../components/Layout'
 import { Robots } from '../constants'
-import { DailyGoal } from '../features/daily-goal'
-import { DailyGoalHeader } from '../features/daily-goal-header'
+import {
+  DeleteAllDataButton,
+  WithdrawButton,
+} from '../features/account-deletion'
+import { AccountHeader } from '../features/account-header'
 
-export default function Settings() {
+export default function SettingsPage() {
   return (
-    <Layout title="目標設定" robots={Robots.NoindexNofollow}>
+    <Layout title="設定" robots={Robots.NoindexNofollow}>
       <Box maw={300} mb={30}>
-        <DailyGoalHeader />
+        <AccountHeader />
       </Box>
 
       <Box maw={400} mb={30}>
-        <DailyGoal />
+        <DeleteAllDataButton />
+      </Box>
+
+      <Box maw={400} mb={30}>
+        <WithdrawButton />
       </Box>
     </Layout>
   )

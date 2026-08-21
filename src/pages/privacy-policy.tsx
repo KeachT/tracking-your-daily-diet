@@ -26,7 +26,7 @@ const sections = [
   },
 ]
 
-export default function PrivacyPolicy() {
+export default function PrivacyPolicyPage() {
   return (
     <Layout title="プライバシーポリシー" robots={Robots.NoindexFollow}>
       <LegalDocumentMock

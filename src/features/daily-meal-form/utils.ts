@@ -18,9 +18,10 @@ import {
   fetchDailyMealRecords,
   updDailyMealRecord,
 } from '../../api/daily-meal-record'
-import { fetchUserMealPreset } from '../../api/user-meal-preset'
-import { UserMealPresetState } from '../../stores'
-import { DailyMealRecordState } from './stores/dailyMealRecord'
+import {
+  DailyMealRecordState,
+  useDailyMealRecordStore,
+} from './stores/dailyMealRecord'
 import { FormData, FormField, FormsType } from './types'
 
 export { createFoodInitialValues } from '../../utils/createFoodInitialValues'
@@ -115,41 +116,41 @@ export const createDailyMealRecordInitialValues = (
  * Asynchronously loads daily meal record for a specific date
  * and updates the global dailyMealRecord store state.
  *
+ * The record is cleared before fetching so that a failure can never leave the
+ * previous date's record in the store.
+ *
+ * The status is what lets the UI tell "not fetched yet" apart from "no record
+ * for this date", so it is always moved out of 'loading' — including on failure.
+ *
  * @param currentDateString - The date string to filter daily meal records by.
- * @param setDailyMealRecord - Function to update the daily meal record in state.
  * @returns A Promise that resolves when the daily meal record has been loaded and state updated.
  */
-export const loadDailyMealRecord = async (
-  currentDateString: string,
-  setDailyMealRecord: (dailyMealRecord: DailyMealRecord | null) => void,
-) => {
+export const loadDailyMealRecord = async (currentDateString: string) => {
+  const { setDailyMealRecord, setLoadStatus } =
+    useDailyMealRecordStore.getState()
+
+  setLoadStatus('loading')
+  setDailyMealRecord(null)
+
   const variables: ListDailyMealRecordsQueryVariables = {
     filter: {
       date: { eq: currentDateString },
     },
   }
-  // This assumes that there is only one record per date.
-  const dailyMealRecords = await fetchDailyMealRecords(variables)
-  const dailyMealRecord = dailyMealRecords[0] || null
-  setDailyMealRecord(dailyMealRecord)
-}
 
-/**
- * Asynchronously loads the user meal preset for the day
- * and updates the global userMealPreset store state.
- *
- * @param setUserMealPreset - Function to update the user meal preset in state.
- * @returns A Promise that resolves when the user meal preset has been loaded and state updated.
- */
-export const loadUserMealPresetForDay = async (
-  setUserMealPreset: UserMealPresetState['setUserMealPreset'],
-) => {
-  const userMealPreset = await fetchUserMealPreset()
-  setUserMealPreset(userMealPreset)
+  try {
+    const dailyMealRecords = await fetchDailyMealRecords(variables)
+    setDailyMealRecord(dailyMealRecords[0] || null)
+    setLoadStatus('ready')
+  } catch {
+    setLoadStatus('error')
+  }
 }
 
 /**
  * Saves and sets a DailyMealRecord based on the provided forms and current date string.
+ *
+ * Saving is refused unless the record was actually loaded.
  *
  * @param forms - The forms containing the meal data to be saved.
  * @param currentDateString - The current date as a string.
@@ -163,10 +164,18 @@ export const saveAndSetDailyMealRecord = async (
   dailyMealRecord: DailyMealRecord | null,
   setDailyMealRecord: DailyMealRecordState['setDailyMealRecord'],
 ) => {
+  if (useDailyMealRecordStore.getState().loadStatus !== 'ready') {
+    throw new Error('Cannot save a daily meal record that has not been loaded')
+  }
+
   const currentValues = forms.getValues()
   const normalizedFoods = normalizeDailyMealRecordFoods(currentValues)
 
   if (dailyMealRecord) {
+    if (dailyMealRecord.date !== currentDateString) {
+      throw new Error('Cannot save a daily meal record loaded for another date')
+    }
+
     const updateDailyMealRecordInput: UpdateDailyMealRecordInput = {
       id: dailyMealRecord.id,
       date: dailyMealRecord.date,

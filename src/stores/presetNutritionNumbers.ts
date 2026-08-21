@@ -9,6 +9,7 @@ export type PresetNutritionNumbersState = {
   setPresetProtein: (presetProtein: number) => void
   setPresetFat: (presetFat: number) => void
   setPresetCarbohydrates: (presetCarbohydrates: number) => void
+  reset: () => void
 }
 
 export const usePresetNutritionNumbersStore =
@@ -24,4 +25,11 @@ export const usePresetNutritionNumbersStore =
     setPresetFat: (newPresetFat) => set({ presetFat: newPresetFat }),
     setPresetCarbohydrates: (newPresetCarbohydrates) =>
       set({ presetCarbohydrates: newPresetCarbohydrates }),
+    reset: () =>
+      set({
+        presetCalories: 0,
+        presetProtein: 0,
+        presetFat: 0,
+        presetCarbohydrates: 0,
+      }),
   }))

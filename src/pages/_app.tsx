@@ -11,8 +11,8 @@ import { useEffect } from 'react'
 
 import { LoadingIndicator } from '../components/LoadingIndicator'
 import { Path } from '../constants'
-import { useDailyGoalStore, useGuestModeStore } from '../stores'
-import { checkIsLoading, fetchAndSetDailyGoal } from '../utils'
+import { useGuestModeStore } from '../stores'
+import { checkIsLoading, loadDailyGoal } from '../utils'
 
 export default function App(props: AppProps) {
   return (
@@ -27,13 +27,12 @@ export default function App(props: AppProps) {
 function MyApp({ Component, pageProps }: AppProps) {
   const { authStatus } = useAuthenticator((context) => [context.authStatus])
   const { isGuestMode } = useGuestModeStore()
-  const setDailyGoal = useDailyGoalStore((state) => state.setDailyGoal)
   const router = useRouter()
   const isLoading = checkIsLoading(authStatus, router.pathname, isGuestMode)
 
   useEffect(() => {
     if (isGuestMode) {
-      fetchAndSetDailyGoal(setDailyGoal)
+      loadDailyGoal()
       if (router.pathname === Path.Landingpage) {
         router.push(Path.Day)
       }
@@ -46,8 +45,10 @@ function MyApp({ Component, pageProps }: AppProps) {
     }
 
     if (authStatus === 'authenticated') {
-      fetchAndSetDailyGoal(setDailyGoal)
-      router.push(Path.Day)
+      loadDailyGoal()
+      if (router.pathname === Path.Landingpage) {
+        router.push(Path.Day)
+      }
       return
     }
 
