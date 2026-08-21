@@ -10,20 +10,120 @@ type GeneratedQuery<InputType, OutputType> = string & {
 
 export const getDailyGoal = /* GraphQL */ `query GetDailyGoal($id: ID!) {
   getDailyGoal(id: $id) {
-    id
     calories
-    protein
     carbohydrates
-    fat
     createdAt
-    updatedAt
+    fat
+    id
     owner
+    protein
+    updatedAt
     __typename
   }
 }
 ` as GeneratedQuery<
   APITypes.GetDailyGoalQueryVariables,
   APITypes.GetDailyGoalQuery
+>;
+export const getDailyMealRecord = /* GraphQL */ `query GetDailyMealRecord($id: ID!) {
+  getDailyMealRecord(id: $id) {
+    breakfast {
+      calories
+      carbohydrates
+      fat
+      id
+      name
+      protein
+      __typename
+    }
+    createdAt
+    date
+    dinner {
+      calories
+      carbohydrates
+      fat
+      id
+      name
+      protein
+      __typename
+    }
+    id
+    lunch {
+      calories
+      carbohydrates
+      fat
+      id
+      name
+      protein
+      __typename
+    }
+    owner
+    snack {
+      calories
+      carbohydrates
+      fat
+      id
+      name
+      protein
+      __typename
+    }
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetDailyMealRecordQueryVariables,
+  APITypes.GetDailyMealRecordQuery
+>;
+export const getUserMealPreset = /* GraphQL */ `query GetUserMealPreset($id: ID!) {
+  getUserMealPreset(id: $id) {
+    breakfast {
+      calories
+      carbohydrates
+      fat
+      id
+      name
+      protein
+      __typename
+    }
+    createdAt
+    dinner {
+      calories
+      carbohydrates
+      fat
+      id
+      name
+      protein
+      __typename
+    }
+    id
+    lunch {
+      calories
+      carbohydrates
+      fat
+      id
+      name
+      protein
+      __typename
+    }
+    name
+    owner
+    snack {
+      calories
+      carbohydrates
+      fat
+      id
+      name
+      protein
+      __typename
+    }
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetUserMealPresetQueryVariables,
+  APITypes.GetUserMealPresetQuery
 >;
 export const listDailyGoals = /* GraphQL */ `query ListDailyGoals(
   $filter: ModelDailyGoalFilterInput
@@ -32,14 +132,14 @@ export const listDailyGoals = /* GraphQL */ `query ListDailyGoals(
 ) {
   listDailyGoals(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
-      id
       calories
-      protein
       carbohydrates
-      fat
       createdAt
-      updatedAt
+      fat
+      id
       owner
+      protein
+      updatedAt
       __typename
     }
     nextToken
@@ -50,56 +150,6 @@ export const listDailyGoals = /* GraphQL */ `query ListDailyGoals(
   APITypes.ListDailyGoalsQueryVariables,
   APITypes.ListDailyGoalsQuery
 >;
-export const getDailyMealRecord = /* GraphQL */ `query GetDailyMealRecord($id: ID!) {
-  getDailyMealRecord(id: $id) {
-    id
-    date
-    breakfast {
-      id
-      name
-      calories
-      protein
-      carbohydrates
-      fat
-      __typename
-    }
-    lunch {
-      id
-      name
-      calories
-      protein
-      carbohydrates
-      fat
-      __typename
-    }
-    dinner {
-      id
-      name
-      calories
-      protein
-      carbohydrates
-      fat
-      __typename
-    }
-    snack {
-      id
-      name
-      calories
-      protein
-      carbohydrates
-      fat
-      __typename
-    }
-    createdAt
-    updatedAt
-    owner
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.GetDailyMealRecordQueryVariables,
-  APITypes.GetDailyMealRecordQuery
->;
 export const listDailyMealRecords = /* GraphQL */ `query ListDailyMealRecords(
   $filter: ModelDailyMealRecordFilterInput
   $limit: Int
@@ -107,11 +157,11 @@ export const listDailyMealRecords = /* GraphQL */ `query ListDailyMealRecords(
 ) {
   listDailyMealRecords(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
-      id
-      date
       createdAt
-      updatedAt
+      date
+      id
       owner
+      updatedAt
       __typename
     }
     nextToken
@@ -122,55 +172,6 @@ export const listDailyMealRecords = /* GraphQL */ `query ListDailyMealRecords(
   APITypes.ListDailyMealRecordsQueryVariables,
   APITypes.ListDailyMealRecordsQuery
 >;
-export const getUserMealPreset = /* GraphQL */ `query GetUserMealPreset($id: ID!) {
-  getUserMealPreset(id: $id) {
-    id
-    breakfast {
-      id
-      name
-      calories
-      protein
-      carbohydrates
-      fat
-      __typename
-    }
-    lunch {
-      id
-      name
-      calories
-      protein
-      carbohydrates
-      fat
-      __typename
-    }
-    dinner {
-      id
-      name
-      calories
-      protein
-      carbohydrates
-      fat
-      __typename
-    }
-    snack {
-      id
-      name
-      calories
-      protein
-      carbohydrates
-      fat
-      __typename
-    }
-    createdAt
-    updatedAt
-    owner
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.GetUserMealPresetQueryVariables,
-  APITypes.GetUserMealPresetQuery
->;
 export const listUserMealPresets = /* GraphQL */ `query ListUserMealPresets(
   $filter: ModelUserMealPresetFilterInput
   $limit: Int
@@ -178,10 +179,11 @@ export const listUserMealPresets = /* GraphQL */ `query ListUserMealPresets(
 ) {
   listUserMealPresets(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
-      id
       createdAt
-      updatedAt
+      id
+      name
       owner
+      updatedAt
       __typename
     }
     nextToken
