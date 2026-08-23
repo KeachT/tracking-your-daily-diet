@@ -10,13 +10,13 @@ import { saveAllUserMealPreset } from '../utils'
 type PresetMealFormBulkSaveButtonProps = {
   forms: FormsType
   userMealPreset: UserMealPreset | null
-  setUserMealPreset: (preset: UserMealPreset) => void
+  upsertUserMealPreset: (preset: UserMealPreset) => void
 }
 
 export function PresetMealFormBulkSaveButton({
   forms,
   userMealPreset,
-  setUserMealPreset,
+  upsertUserMealPreset,
 }: PresetMealFormBulkSaveButtonProps) {
   const { saveStatus, startLoading, markSuccess, markError } =
     useStatusButtonState(SAVE_BUTTON_REENABLE_DELAY_MS)
@@ -24,7 +24,7 @@ export function PresetMealFormBulkSaveButton({
   const handleSaveAllPreset = async () => {
     startLoading()
     try {
-      await saveAllUserMealPreset(forms, userMealPreset, setUserMealPreset)
+      await saveAllUserMealPreset(forms, userMealPreset, upsertUserMealPreset)
       markSuccess()
     } catch {
       markError()

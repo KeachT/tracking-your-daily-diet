@@ -2,7 +2,7 @@ import { Alert, Button, Stack } from '@mantine/core'
 import { IconAlertTriangle, IconRefresh } from '@tabler/icons-react'
 import { useState } from 'react'
 
-import { loadUserMealPreset } from '../../../utils'
+import { loadUserMealPresets } from '../../../utils'
 
 export function PresetMealFormLoadError() {
   const [isRetrying, setIsRetrying] = useState(false)
@@ -10,7 +10,7 @@ export function PresetMealFormLoadError() {
   const handleRetry = async () => {
     setIsRetrying(true)
     try {
-      await loadUserMealPreset()
+      await loadUserMealPresets()
     } finally {
       setIsRetrying(false)
     }

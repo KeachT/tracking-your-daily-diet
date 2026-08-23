@@ -128,47 +128,77 @@ export const createSumNutritionValues = (forms: FormsType) => {
 }
 
 /**
- * Saves all meal categories for the current user preset at once.
+ * Saves all meal categories of the selected preset at once.
  *
- * Saving is refused unless the preset was actually loaded: an unloaded preset
- * is still null and would otherwise be read as "no preset yet" and create a
- * duplicate record alongside the existing one.
+ * This path only ever updates. Creating is reachable solely from the "add
+ * preset" control, which is what keeps a failed load from being mistaken for
+ * "no preset yet" and silently creating a duplicate record.
+ *
+ * Saving is still refused unless the presets were actually loaded, since
+ * without them there is no selected id to update.
  *
  * @param forms - The forms containing the meal preset data for every category
- * @param userMealPreset - The existing user meal preset object (null when creating)
- * @param setUserMealPreset - The function to update the local user meal preset state
+ * @param userMealPreset - The preset currently selected for editing
+ * @param upsertUserMealPreset - The function to write the saved preset back into local state
  */
 export const saveAllUserMealPreset = async (
   forms: FormsType,
   userMealPreset: UserMealPreset | null,
-  setUserMealPreset: (userMealPreset: UserMealPreset) => void,
+  upsertUserMealPreset: (userMealPreset: UserMealPreset) => void,
 ) => {
   if (useUserMealPresetStore.getState().loadStatus !== 'ready') {
     throw new Error('Cannot save a user meal preset that has not been loaded')
   }
 
-  const normalizedPreset = normalizeAllMealCategories(forms)
-
-  if (userMealPreset) {
-    const updateUserMealPresetInput: UpdateUserMealPresetInput = {
-      id: userMealPreset.id,
-      ...normalizedPreset,
-    }
-    const variables: UpdateUserMealPresetMutationVariables = {
-      input: updateUserMealPresetInput,
-    }
-    const updatedPreset = await updUserMealPreset(variables)
-    setUserMealPreset(updatedPreset)
-    return
+  if (!userMealPreset) {
+    throw new Error('Cannot save without a selected user meal preset')
   }
 
+  const updateUserMealPresetInput: UpdateUserMealPresetInput = {
+    id: userMealPreset.id,
+    ...normalizeAllMealCategories(forms),
+  }
+  const variables: UpdateUserMealPresetMutationVariables = {
+    input: updateUserMealPresetInput,
+  }
+
+  upsertUserMealPreset(await updUserMealPreset(variables))
+}
+
+/**
+ * Creates an empty preset and selects it.
+ *
+ * @param name - The display name for the new preset
+ * @returns The created preset.
+ */
+export const createUserMealPreset = async (name: string) => {
   const createUserMealPresetInput: CreateUserMealPresetInput = {
     id: createId(),
-    ...normalizedPreset,
+    name,
+    breakfast: [],
+    lunch: [],
+    dinner: [],
+    snack: [],
   }
   const variables: CreateUserMealPresetMutationVariables = {
     input: createUserMealPresetInput,
   }
-  const newPreset = await addUserMealPreset(variables)
-  setUserMealPreset(newPreset)
+
+  return addUserMealPreset(variables)
+}
+
+/**
+ * Renames an existing preset without touching its food items.
+ *
+ * @param id - The id of the preset to rename
+ * @param name - The new display name
+ * @returns The updated preset.
+ */
+export const renameUserMealPreset = async (id: string, name: string) => {
+  const updateUserMealPresetInput: UpdateUserMealPresetInput = { id, name }
+  const variables: UpdateUserMealPresetMutationVariables = {
+    input: updateUserMealPresetInput,
+  }
+
+  return updUserMealPreset(variables)
 }

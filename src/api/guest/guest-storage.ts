@@ -4,6 +4,7 @@ import {
   CreateUserMealPresetMutationVariables,
   DailyGoal,
   DailyMealRecord,
+  DeleteUserMealPresetMutationVariables,
   ListDailyMealRecordsQueryVariables,
   UpdateDailyGoalMutationVariables,
   UpdateDailyMealRecordMutationVariables,
@@ -154,11 +155,26 @@ export const guestUpdDailyMealRecord = async (
 
 // ─── UserMealPreset ──────────────────────────────────────────────────────────
 
-export const guestFetchUserMealPreset =
-  async (): Promise<UserMealPreset | null> => {
-    const raw = localStorage.getItem(KEYS.MEAL_PRESET)
-    return raw ? (JSON.parse(raw) as UserMealPreset) : null
-  }
+/**
+ * Reads the stored presets.
+ *
+ * Guests used to hold a single preset object under this key. Such a value is
+ * read back as a one-element list so an existing guest keeps their preset; the
+ * next write migrates the key to the array form.
+ */
+const readMealPresets = (): UserMealPreset[] => {
+  const raw = localStorage.getItem(KEYS.MEAL_PRESET)
+  if (!raw) return []
+
+  const parsed = JSON.parse(raw) as UserMealPreset | UserMealPreset[]
+  return Array.isArray(parsed) ? parsed : [parsed]
+}
+
+const saveMealPresets = (presets: UserMealPreset[]) =>
+  localStorage.setItem(KEYS.MEAL_PRESET, JSON.stringify(presets))
+
+export const guestFetchUserMealPresets = async (): Promise<UserMealPreset[]> =>
+  readMealPresets().sort((a, b) => a.createdAt.localeCompare(b.createdAt))
 
 export const guestAddUserMealPreset = async (
   variables: CreateUserMealPresetMutationVariables,
@@ -167,6 +183,7 @@ export const guestAddUserMealPreset = async (
   const record: UserMealPreset = {
     __typename: 'UserMealPreset',
     id: crypto.randomUUID(),
+    name: input.name ?? null,
     breakfast: (input.breakfast as UserMealPreset['breakfast']) ?? null,
     lunch: (input.lunch as UserMealPreset['lunch']) ?? null,
     dinner: (input.dinner as UserMealPreset['dinner']) ?? null,
@@ -174,19 +191,30 @@ export const guestAddUserMealPreset = async (
     createdAt: now(),
     updatedAt: now(),
   }
-  localStorage.setItem(KEYS.MEAL_PRESET, JSON.stringify(record))
+  saveMealPresets([...readMealPresets(), record])
   return record
+}
+
+export const guestDeleteUserMealPreset = async (
+  variables: DeleteUserMealPresetMutationVariables,
+): Promise<void> => {
+  saveMealPresets(
+    readMealPresets().filter((preset) => preset.id !== variables.input.id),
+  )
 }
 
 export const guestUpdUserMealPreset = async (
   variables: UpdateUserMealPresetMutationVariables,
 ): Promise<UserMealPreset> => {
-  const existing = await guestFetchUserMealPreset()
-  if (!existing) throw new Error('Guest meal preset not found')
+  const presets = readMealPresets()
+  const index = presets.findIndex((preset) => preset.id === variables.input.id)
+  if (index === -1) throw new Error('Guest meal preset not found')
+  const existing = presets[index]
 
   const { input } = variables
   const updated: UserMealPreset = {
     ...existing,
+    name: input.name !== undefined ? (input.name ?? null) : existing.name,
     breakfast:
       input.breakfast !== undefined
         ? (input.breakfast as UserMealPreset['breakfast'])
@@ -205,7 +233,8 @@ export const guestUpdUserMealPreset = async (
         : existing.snack,
     updatedAt: now(),
   }
-  localStorage.setItem(KEYS.MEAL_PRESET, JSON.stringify(updated))
+  presets[index] = updated
+  saveMealPresets(presets)
   return updated
 }
 

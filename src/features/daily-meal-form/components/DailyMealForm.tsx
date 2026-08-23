@@ -11,7 +11,7 @@ import {
 } from '../../../stores'
 import {
   createStringFromDate,
-  loadUserMealPreset,
+  loadUserMealPresets,
   roundToTwoDecimalPlaces,
 } from '../../../utils'
 import { useDailyMealRecordStore } from '../stores'
@@ -68,7 +68,7 @@ export function DailyMealForm() {
       try {
         await Promise.all([
           loadDailyMealRecord(currentDateString),
-          loadUserMealPreset(),
+          loadUserMealPresets(),
         ])
       } catch {
         // Both loaders record their own failure status, so this only guards
