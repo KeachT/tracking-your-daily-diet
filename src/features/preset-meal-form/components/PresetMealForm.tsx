@@ -5,11 +5,12 @@ import { useEffect } from 'react'
 import { MealCategoryName } from '@/constants'
 
 import {
+  selectSelectedUserMealPreset,
   useLoadingStateStore,
   usePresetNutritionNumbersStore,
   useUserMealPresetStore,
 } from '../../../stores'
-import { loadUserMealPreset, roundToTwoDecimalPlaces } from '../../../utils'
+import { loadUserMealPresets, roundToTwoDecimalPlaces } from '../../../utils'
 import { FormsType } from '../types'
 import {
   createInitialFormValuesFromPreset,
@@ -23,10 +24,10 @@ export function PresetMealForm() {
   const setIsDataLoading = useLoadingStateStore(
     (state) => state.setIsDataLoading,
   )
-  const userMealPreset = useUserMealPresetStore((state) => state.userMealPreset)
+  const userMealPreset = useUserMealPresetStore(selectSelectedUserMealPreset)
   const loadStatus = useUserMealPresetStore((state) => state.loadStatus)
-  const setUserMealPreset = useUserMealPresetStore(
-    (state) => state.setUserMealPreset,
+  const upsertUserMealPreset = useUserMealPresetStore(
+    (state) => state.upsertUserMealPreset,
   )
   const setPresetCalories = usePresetNutritionNumbersStore(
     (state) => state.setPresetCalories,
@@ -54,7 +55,7 @@ export function PresetMealForm() {
     const load = async () => {
       setIsDataLoading(true)
       try {
-        await loadUserMealPreset()
+        await loadUserMealPresets()
       } finally {
         setIsDataLoading(false)
       }
@@ -80,6 +81,10 @@ export function PresetMealForm() {
     return <PresetMealFormLoadError />
   }
 
+  if (loadStatus === 'ready' && !userMealPreset) {
+    return null
+  }
+
   return (
     <Box>
       <Accordion multiple defaultValue={[defaultCategory]} variant="separated">
@@ -96,7 +101,7 @@ export function PresetMealForm() {
         <PresetMealFormBulkSaveButton
           forms={forms}
           userMealPreset={userMealPreset}
-          setUserMealPreset={setUserMealPreset}
+          upsertUserMealPreset={upsertUserMealPreset}
         />
       </Center>
     </Box>

@@ -9,18 +9,18 @@ type GeneratedMutation<InputType, OutputType> = string & {
 };
 
 export const createDailyGoal = /* GraphQL */ `mutation CreateDailyGoal(
-  $input: CreateDailyGoalInput!
   $condition: ModelDailyGoalConditionInput
+  $input: CreateDailyGoalInput!
 ) {
-  createDailyGoal(input: $input, condition: $condition) {
-    id
+  createDailyGoal(condition: $condition, input: $input) {
     calories
-    protein
     carbohydrates
-    fat
     createdAt
-    updatedAt
+    fat
+    id
     owner
+    protein
+    updatedAt
     __typename
   }
 }
@@ -28,92 +28,52 @@ export const createDailyGoal = /* GraphQL */ `mutation CreateDailyGoal(
   APITypes.CreateDailyGoalMutationVariables,
   APITypes.CreateDailyGoalMutation
 >;
-export const updateDailyGoal = /* GraphQL */ `mutation UpdateDailyGoal(
-  $input: UpdateDailyGoalInput!
-  $condition: ModelDailyGoalConditionInput
-) {
-  updateDailyGoal(input: $input, condition: $condition) {
-    id
-    calories
-    protein
-    carbohydrates
-    fat
-    createdAt
-    updatedAt
-    owner
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.UpdateDailyGoalMutationVariables,
-  APITypes.UpdateDailyGoalMutation
->;
-export const deleteDailyGoal = /* GraphQL */ `mutation DeleteDailyGoal(
-  $input: DeleteDailyGoalInput!
-  $condition: ModelDailyGoalConditionInput
-) {
-  deleteDailyGoal(input: $input, condition: $condition) {
-    id
-    calories
-    protein
-    carbohydrates
-    fat
-    createdAt
-    updatedAt
-    owner
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.DeleteDailyGoalMutationVariables,
-  APITypes.DeleteDailyGoalMutation
->;
 export const createDailyMealRecord = /* GraphQL */ `mutation CreateDailyMealRecord(
-  $input: CreateDailyMealRecordInput!
   $condition: ModelDailyMealRecordConditionInput
+  $input: CreateDailyMealRecordInput!
 ) {
-  createDailyMealRecord(input: $input, condition: $condition) {
-    id
-    date
+  createDailyMealRecord(condition: $condition, input: $input) {
     breakfast {
-      id
-      name
       calories
-      protein
       carbohydrates
       fat
-      __typename
-    }
-    lunch {
       id
       name
-      calories
       protein
-      carbohydrates
-      fat
-      __typename
-    }
-    dinner {
-      id
-      name
-      calories
-      protein
-      carbohydrates
-      fat
-      __typename
-    }
-    snack {
-      id
-      name
-      calories
-      protein
-      carbohydrates
-      fat
       __typename
     }
     createdAt
-    updatedAt
+    date
+    dinner {
+      calories
+      carbohydrates
+      fat
+      id
+      name
+      protein
+      __typename
+    }
+    id
+    lunch {
+      calories
+      carbohydrates
+      fat
+      id
+      name
+      protein
+      __typename
+    }
     owner
+    snack {
+      calories
+      carbohydrates
+      fat
+      id
+      name
+      protein
+      __typename
+    }
+    updatedAt
     __typename
   }
 }
@@ -121,157 +81,52 @@ export const createDailyMealRecord = /* GraphQL */ `mutation CreateDailyMealReco
   APITypes.CreateDailyMealRecordMutationVariables,
   APITypes.CreateDailyMealRecordMutation
 >;
-export const updateDailyMealRecord = /* GraphQL */ `mutation UpdateDailyMealRecord(
-  $input: UpdateDailyMealRecordInput!
-  $condition: ModelDailyMealRecordConditionInput
-) {
-  updateDailyMealRecord(input: $input, condition: $condition) {
-    id
-    date
-    breakfast {
-      id
-      name
-      calories
-      protein
-      carbohydrates
-      fat
-      __typename
-    }
-    lunch {
-      id
-      name
-      calories
-      protein
-      carbohydrates
-      fat
-      __typename
-    }
-    dinner {
-      id
-      name
-      calories
-      protein
-      carbohydrates
-      fat
-      __typename
-    }
-    snack {
-      id
-      name
-      calories
-      protein
-      carbohydrates
-      fat
-      __typename
-    }
-    createdAt
-    updatedAt
-    owner
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.UpdateDailyMealRecordMutationVariables,
-  APITypes.UpdateDailyMealRecordMutation
->;
-export const deleteDailyMealRecord = /* GraphQL */ `mutation DeleteDailyMealRecord(
-  $input: DeleteDailyMealRecordInput!
-  $condition: ModelDailyMealRecordConditionInput
-) {
-  deleteDailyMealRecord(input: $input, condition: $condition) {
-    id
-    date
-    breakfast {
-      id
-      name
-      calories
-      protein
-      carbohydrates
-      fat
-      __typename
-    }
-    lunch {
-      id
-      name
-      calories
-      protein
-      carbohydrates
-      fat
-      __typename
-    }
-    dinner {
-      id
-      name
-      calories
-      protein
-      carbohydrates
-      fat
-      __typename
-    }
-    snack {
-      id
-      name
-      calories
-      protein
-      carbohydrates
-      fat
-      __typename
-    }
-    createdAt
-    updatedAt
-    owner
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.DeleteDailyMealRecordMutationVariables,
-  APITypes.DeleteDailyMealRecordMutation
->;
 export const createUserMealPreset = /* GraphQL */ `mutation CreateUserMealPreset(
-  $input: CreateUserMealPresetInput!
   $condition: ModelUserMealPresetConditionInput
+  $input: CreateUserMealPresetInput!
 ) {
-  createUserMealPreset(input: $input, condition: $condition) {
-    id
+  createUserMealPreset(condition: $condition, input: $input) {
     breakfast {
-      id
-      name
       calories
-      protein
       carbohydrates
       fat
-      __typename
-    }
-    lunch {
       id
       name
-      calories
       protein
-      carbohydrates
-      fat
-      __typename
-    }
-    dinner {
-      id
-      name
-      calories
-      protein
-      carbohydrates
-      fat
-      __typename
-    }
-    snack {
-      id
-      name
-      calories
-      protein
-      carbohydrates
-      fat
       __typename
     }
     createdAt
-    updatedAt
+    dinner {
+      calories
+      carbohydrates
+      fat
+      id
+      name
+      protein
+      __typename
+    }
+    id
+    lunch {
+      calories
+      carbohydrates
+      fat
+      id
+      name
+      protein
+      __typename
+    }
+    name
     owner
+    snack {
+      calories
+      carbohydrates
+      fat
+      id
+      name
+      protein
+      __typename
+    }
+    updatedAt
     __typename
   }
 }
@@ -279,107 +134,255 @@ export const createUserMealPreset = /* GraphQL */ `mutation CreateUserMealPreset
   APITypes.CreateUserMealPresetMutationVariables,
   APITypes.CreateUserMealPresetMutation
 >;
-export const updateUserMealPreset = /* GraphQL */ `mutation UpdateUserMealPreset(
-  $input: UpdateUserMealPresetInput!
-  $condition: ModelUserMealPresetConditionInput
+export const deleteDailyGoal = /* GraphQL */ `mutation DeleteDailyGoal(
+  $condition: ModelDailyGoalConditionInput
+  $input: DeleteDailyGoalInput!
 ) {
-  updateUserMealPreset(input: $input, condition: $condition) {
-    id
-    breakfast {
-      id
-      name
-      calories
-      protein
-      carbohydrates
-      fat
-      __typename
-    }
-    lunch {
-      id
-      name
-      calories
-      protein
-      carbohydrates
-      fat
-      __typename
-    }
-    dinner {
-      id
-      name
-      calories
-      protein
-      carbohydrates
-      fat
-      __typename
-    }
-    snack {
-      id
-      name
-      calories
-      protein
-      carbohydrates
-      fat
-      __typename
-    }
+  deleteDailyGoal(condition: $condition, input: $input) {
+    calories
+    carbohydrates
     createdAt
-    updatedAt
+    fat
+    id
     owner
+    protein
+    updatedAt
     __typename
   }
 }
 ` as GeneratedMutation<
-  APITypes.UpdateUserMealPresetMutationVariables,
-  APITypes.UpdateUserMealPresetMutation
+  APITypes.DeleteDailyGoalMutationVariables,
+  APITypes.DeleteDailyGoalMutation
 >;
-export const deleteUserMealPreset = /* GraphQL */ `mutation DeleteUserMealPreset(
-  $input: DeleteUserMealPresetInput!
-  $condition: ModelUserMealPresetConditionInput
+export const deleteDailyMealRecord = /* GraphQL */ `mutation DeleteDailyMealRecord(
+  $condition: ModelDailyMealRecordConditionInput
+  $input: DeleteDailyMealRecordInput!
 ) {
-  deleteUserMealPreset(input: $input, condition: $condition) {
-    id
+  deleteDailyMealRecord(condition: $condition, input: $input) {
     breakfast {
-      id
-      name
       calories
-      protein
       carbohydrates
       fat
-      __typename
-    }
-    lunch {
       id
       name
-      calories
       protein
-      carbohydrates
-      fat
-      __typename
-    }
-    dinner {
-      id
-      name
-      calories
-      protein
-      carbohydrates
-      fat
-      __typename
-    }
-    snack {
-      id
-      name
-      calories
-      protein
-      carbohydrates
-      fat
       __typename
     }
     createdAt
-    updatedAt
+    date
+    dinner {
+      calories
+      carbohydrates
+      fat
+      id
+      name
+      protein
+      __typename
+    }
+    id
+    lunch {
+      calories
+      carbohydrates
+      fat
+      id
+      name
+      protein
+      __typename
+    }
     owner
+    snack {
+      calories
+      carbohydrates
+      fat
+      id
+      name
+      protein
+      __typename
+    }
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteDailyMealRecordMutationVariables,
+  APITypes.DeleteDailyMealRecordMutation
+>;
+export const deleteUserMealPreset = /* GraphQL */ `mutation DeleteUserMealPreset(
+  $condition: ModelUserMealPresetConditionInput
+  $input: DeleteUserMealPresetInput!
+) {
+  deleteUserMealPreset(condition: $condition, input: $input) {
+    breakfast {
+      calories
+      carbohydrates
+      fat
+      id
+      name
+      protein
+      __typename
+    }
+    createdAt
+    dinner {
+      calories
+      carbohydrates
+      fat
+      id
+      name
+      protein
+      __typename
+    }
+    id
+    lunch {
+      calories
+      carbohydrates
+      fat
+      id
+      name
+      protein
+      __typename
+    }
+    name
+    owner
+    snack {
+      calories
+      carbohydrates
+      fat
+      id
+      name
+      protein
+      __typename
+    }
+    updatedAt
     __typename
   }
 }
 ` as GeneratedMutation<
   APITypes.DeleteUserMealPresetMutationVariables,
   APITypes.DeleteUserMealPresetMutation
+>;
+export const updateDailyGoal = /* GraphQL */ `mutation UpdateDailyGoal(
+  $condition: ModelDailyGoalConditionInput
+  $input: UpdateDailyGoalInput!
+) {
+  updateDailyGoal(condition: $condition, input: $input) {
+    calories
+    carbohydrates
+    createdAt
+    fat
+    id
+    owner
+    protein
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateDailyGoalMutationVariables,
+  APITypes.UpdateDailyGoalMutation
+>;
+export const updateDailyMealRecord = /* GraphQL */ `mutation UpdateDailyMealRecord(
+  $condition: ModelDailyMealRecordConditionInput
+  $input: UpdateDailyMealRecordInput!
+) {
+  updateDailyMealRecord(condition: $condition, input: $input) {
+    breakfast {
+      calories
+      carbohydrates
+      fat
+      id
+      name
+      protein
+      __typename
+    }
+    createdAt
+    date
+    dinner {
+      calories
+      carbohydrates
+      fat
+      id
+      name
+      protein
+      __typename
+    }
+    id
+    lunch {
+      calories
+      carbohydrates
+      fat
+      id
+      name
+      protein
+      __typename
+    }
+    owner
+    snack {
+      calories
+      carbohydrates
+      fat
+      id
+      name
+      protein
+      __typename
+    }
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateDailyMealRecordMutationVariables,
+  APITypes.UpdateDailyMealRecordMutation
+>;
+export const updateUserMealPreset = /* GraphQL */ `mutation UpdateUserMealPreset(
+  $condition: ModelUserMealPresetConditionInput
+  $input: UpdateUserMealPresetInput!
+) {
+  updateUserMealPreset(condition: $condition, input: $input) {
+    breakfast {
+      calories
+      carbohydrates
+      fat
+      id
+      name
+      protein
+      __typename
+    }
+    createdAt
+    dinner {
+      calories
+      carbohydrates
+      fat
+      id
+      name
+      protein
+      __typename
+    }
+    id
+    lunch {
+      calories
+      carbohydrates
+      fat
+      id
+      name
+      protein
+      __typename
+    }
+    name
+    owner
+    snack {
+      calories
+      carbohydrates
+      fat
+      id
+      name
+      protein
+      __typename
+    }
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateUserMealPresetMutationVariables,
+  APITypes.UpdateUserMealPresetMutation
 >;

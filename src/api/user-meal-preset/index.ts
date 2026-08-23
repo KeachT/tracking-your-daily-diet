@@ -1,5 +1,5 @@
 export { addUserMealPreset } from './add-user-meal-preset'
 export { deleteUserMealPreset } from './delete-user-meal-preset'
 export { fetchAllUserMealPresetIds } from './fetch-all-user-meal-preset-ids'
-export { fetchUserMealPreset } from './fetch-user-meal-preset'
+export { fetchUserMealPresets } from './fetch-user-meal-presets'
 export { updUserMealPreset } from './upd-user-meal-preset'

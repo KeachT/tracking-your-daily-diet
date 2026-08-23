@@ -4,6 +4,7 @@ import {
 } from '../../../components/StatusButton'
 import { SAVE_BUTTON_REENABLE_DELAY_MS } from '../../../constants'
 import {
+  selectSelectedUserMealPreset,
   useCurrentDateStore,
   useLoadingStateStore,
   useUserMealPresetStore,
@@ -30,7 +31,7 @@ export function DailyMealFormApplyPresetToAllCategoriesButton({
   const setDailyMealRecord = useDailyMealRecordStore(
     (state) => state.setDailyMealRecord,
   )
-  const userMealPreset = useUserMealPresetStore((state) => state.userMealPreset)
+  const userMealPreset = useUserMealPresetStore(selectSelectedUserMealPreset)
   const currentDateString = createStringFromDate(currentDate)
 
   const handleApplyPresetToAllCategories = async () => {
