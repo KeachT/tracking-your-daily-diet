@@ -1,15 +1,18 @@
+import { Menu } from '@mantine/core'
+
+import { UserMealPreset } from '../../../API'
 import {
   StatusButton,
   useStatusButtonState,
 } from '../../../components/StatusButton'
 import { SAVE_BUTTON_REENABLE_DELAY_MS } from '../../../constants'
 import {
-  selectSelectedUserMealPreset,
   useCurrentDateStore,
   useLoadingStateStore,
   useUserMealPresetStore,
 } from '../../../stores'
 import { createStringFromDate } from '../../../utils'
+import { createPresetLabel } from '../../preset-switcher'
 import { useDailyMealRecordStore } from '../stores'
 import { FormsType } from '../types'
 import { createAppliedPresetValues, saveAndSetDailyMealRecord } from '../utils'
@@ -31,15 +34,13 @@ export function DailyMealFormApplyPresetToAllCategoriesButton({
   const setDailyMealRecord = useDailyMealRecordStore(
     (state) => state.setDailyMealRecord,
   )
-  const userMealPreset = useUserMealPresetStore(selectSelectedUserMealPreset)
+  const userMealPresets = useUserMealPresetStore(
+    (state) => state.userMealPresets,
+  )
   const currentDateString = createStringFromDate(currentDate)
 
-  const handleApplyPresetToAllCategories = async () => {
+  const applyPreset = async (userMealPreset: UserMealPreset) => {
     startLoading()
-    if (!userMealPreset) {
-      markError()
-      return
-    }
     try {
       const appliedValues = createAppliedPresetValues(userMealPreset)
       if (!appliedValues) {
@@ -58,18 +59,43 @@ export function DailyMealFormApplyPresetToAllCategoriesButton({
     }
   }
 
+  const buttonProps = {
+    variant: 'outline' as const,
+    color: 'blue',
+    status: saveStatus,
+    label: 'プリセット適用',
+    statusLabels: {
+      success: 'プリセット適用成功',
+      error: 'プリセット適用失敗',
+    },
+    disabled: isDataLoading || userMealPresets.length === 0,
+  }
+
+  // With a single preset there is nothing to choose, so keep the original
+  // one-click behaviour rather than making the user confirm through a menu.
+  if (userMealPresets.length <= 1) {
+    return (
+      <StatusButton
+        {...buttonProps}
+        onClick={() => userMealPresets[0] && applyPreset(userMealPresets[0])}
+      />
+    )
+  }
+
   return (
-    <StatusButton
-      variant="outline"
-      color="blue"
-      onClick={handleApplyPresetToAllCategories}
-      status={saveStatus}
-      label="プリセット適用"
-      statusLabels={{
-        success: 'プリセット適用成功',
-        error: 'プリセット適用失敗',
-      }}
-      disabled={isDataLoading || !userMealPreset}
-    />
+    <Menu shadow="md" position="bottom" withinPortal>
+      <Menu.Target>
+        <StatusButton {...buttonProps} />
+      </Menu.Target>
+
+      <Menu.Dropdown>
+        <Menu.Label>適用するプリセット</Menu.Label>
+        {userMealPresets.map((preset, index) => (
+          <Menu.Item key={preset.id} onClick={() => applyPreset(preset)}>
+            {createPresetLabel(preset, index)}
+          </Menu.Item>
+        ))}
+      </Menu.Dropdown>
+    </Menu>
   )
 }
