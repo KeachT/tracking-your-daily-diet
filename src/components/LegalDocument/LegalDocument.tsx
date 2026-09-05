@@ -5,23 +5,23 @@ type LegalSection = {
   contents: string[]
 }
 
-type LegalDocumentMockProps = {
+type LegalDocumentProps = {
   title: string
   effectiveDate: string
   sections: LegalSection[]
 }
 
-export function LegalDocumentMock({
+export function LegalDocument({
   title,
   effectiveDate,
   sections,
-}: LegalDocumentMockProps) {
+}: LegalDocumentProps) {
   return (
     <Stack gap="lg" w="100%" maw={900} mx="auto" py="xl">
       <Stack gap={4}>
         <Title order={1}>{title}</Title>
         <Text size="sm" c="dimmed">
-          制定日: {effectiveDate}（モック）
+          制定日: {effectiveDate}
         </Text>
       </Stack>
 
