@@ -1,1 +1,1 @@
-export { PresetNutritions } from './PresetNutritions'
+export * from './PresetNutritions'

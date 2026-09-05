@@ -1,1 +1,1 @@
-export { DailyGoalHeader } from './DailyGoalHeader'
+export * from './DailyGoalHeader'

@@ -1,2 +1,2 @@
-export { PresetSwitcher } from './components/PresetSwitcher'
-export { createPresetLabel } from './utils'
+export * from './components/PresetSwitcher'
+export * from './utils'
