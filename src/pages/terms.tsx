@@ -71,7 +71,7 @@ const sections = [
 
 export default function TermsPage() {
   return (
-    <Layout title="利用規約" robots={Robots.NoindexFollow}>
+    <Layout title="利用規約" showNavBar={false} robots={Robots.NoindexFollow}>
       <LegalDocument
         title="利用規約"
         effectiveDate="2026年9月5日"

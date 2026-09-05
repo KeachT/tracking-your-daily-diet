@@ -76,7 +76,11 @@ const sections = [
 
 export default function PrivacyPolicyPage() {
   return (
-    <Layout title="プライバシーポリシー" robots={Robots.NoindexFollow}>
+    <Layout
+      title="プライバシーポリシー"
+      showNavBar={false}
+      robots={Robots.NoindexFollow}
+    >
       <LegalDocument
         title="プライバシーポリシー"
         effectiveDate="2026年9月5日"
