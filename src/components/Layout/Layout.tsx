@@ -6,6 +6,7 @@ import { LayoutFooter } from '../LayoutFooter'
 import { LayoutHeader } from '../LayoutHeader'
 import { LayoutNavBar } from '../LayoutNavBar'
 import classes from './Layout.module.css'
+import { useNavBarVisible } from './useNavBarVisible'
 
 type LayoutProps = {
   title: string
@@ -25,6 +26,7 @@ export function Layout({
   robots,
 }: LayoutProps) {
   const [navbarOpened, setNavbarOpened] = useState(false)
+  const navBarVisible = useNavBarVisible(showNavBar)
 
   return (
     <Box>
@@ -35,7 +37,7 @@ export function Layout({
 
       <AppShell
         navbar={
-          showNavBar
+          navBarVisible
             ? {
                 width: 300,
                 breakpoint: 'md',
@@ -50,10 +52,11 @@ export function Layout({
           <LayoutHeader
             navbarOpened={navbarOpened}
             setNavbarOpened={setNavbarOpened}
+            showBurger={navBarVisible}
           />
         </AppShell.Header>
 
-        {showNavBar && (
+        {navBarVisible && (
           <AppShell.Navbar>
             <LayoutNavBar />
           </AppShell.Navbar>
