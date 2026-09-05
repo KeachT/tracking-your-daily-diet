@@ -10,7 +10,7 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 
 import { LoadingIndicator } from '../components/LoadingIndicator'
-import { Path } from '../constants'
+import { Path, PublicPaths } from '../constants'
 import { useGuestModeStore } from '../stores'
 import { checkIsLoading, loadDailyGoal } from '../utils'
 
@@ -40,7 +40,9 @@ function MyApp({ Component, pageProps }: AppProps) {
     }
 
     if (authStatus === 'unauthenticated') {
-      router.push(Path.Landingpage)
+      if (!PublicPaths.includes(router.pathname)) {
+        router.push(Path.Landingpage)
+      }
       return
     }
 
