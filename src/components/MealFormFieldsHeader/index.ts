@@ -1,1 +1,1 @@
-export { MealFormFieldsHeader } from './MealFormFieldsHeader'
+export * from './MealFormFieldsHeader'

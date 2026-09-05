@@ -1,1 +1,1 @@
-export { PresetHeader } from './PresetHeader'
+export * from './PresetHeader'
