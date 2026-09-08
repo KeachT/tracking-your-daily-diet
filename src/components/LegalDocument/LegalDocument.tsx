@@ -8,12 +8,15 @@ type LegalSection = {
 type LegalDocumentProps = {
   title: string
   effectiveDate: string
+  /** Omitted until the document is first revised, so a new page shows only 制定日. */
+  revisedDate?: string
   sections: LegalSection[]
 }
 
 export function LegalDocument({
   title,
   effectiveDate,
+  revisedDate,
   sections,
 }: LegalDocumentProps) {
   return (
@@ -23,6 +26,11 @@ export function LegalDocument({
         <Text size="sm" c="dimmed">
           制定日: {effectiveDate}
         </Text>
+        {revisedDate && (
+          <Text size="sm" c="dimmed">
+            最終改定日: {revisedDate}
+          </Text>
+        )}
       </Stack>
 
       {sections.map((section) => (
