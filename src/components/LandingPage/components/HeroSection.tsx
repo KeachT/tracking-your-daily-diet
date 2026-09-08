@@ -35,10 +35,10 @@ export function HeroSection({ open, onGuestLogin }: HeroSectionProps) {
             gradient={{ from: 'teal', to: 'blue', deg: 45 }}
             onClick={open}
           >
-            無料で始める
+            ログイン
           </Button>
           <Text size="xs" c="dimmed">
-            アカウント作成で全機能を利用 / クレジットカード不要
+            アカウント作成で全機能を利用
           </Text>
         </Stack>
 

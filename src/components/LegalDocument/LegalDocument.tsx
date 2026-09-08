@@ -8,7 +8,6 @@ type LegalSection = {
 type LegalDocumentProps = {
   title: string
   effectiveDate: string
-  /** Omitted until the document is first revised, so a new page shows only 制定日. */
   revisedDate?: string
   sections: LegalSection[]
 }

@@ -4,7 +4,6 @@ import { useDisclosure } from '@mantine/hooks'
 import { useGuestModeStore } from '../../../stores'
 import { AuthenticatorModal } from '../../AuthenticatorModal'
 import classes from '../styles/LandingPage.module.css'
-import { AlertMessage } from './AlertMessage'
 import { AppPreviewSection } from './AppPreviewSection'
 import { FAQSection } from './FAQSection'
 import { FeatureSection } from './FeatureSection'
@@ -27,7 +26,6 @@ export function LandingPage() {
           <PainPointSection />
           <HowToSection />
           <FAQSection />
-          <AlertMessage />
           <FinalCTASection open={open} onGuestLogin={enterGuestMode} />
         </Stack>
       </Container>

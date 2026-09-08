@@ -22,7 +22,7 @@ export function FinalCTASection({ open, onGuestLogin }: FinalCTASectionProps) {
         </Text>
 
         <Button size="lg" w={220} variant="white" color="teal" onClick={open}>
-          無料で始める
+          ログイン
         </Button>
 
         <Button
