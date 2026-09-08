@@ -5,24 +5,31 @@ type LegalSection = {
   contents: string[]
 }
 
-type LegalDocumentMockProps = {
+type LegalDocumentProps = {
   title: string
   effectiveDate: string
+  revisedDate?: string
   sections: LegalSection[]
 }
 
-export function LegalDocumentMock({
+export function LegalDocument({
   title,
   effectiveDate,
+  revisedDate,
   sections,
-}: LegalDocumentMockProps) {
+}: LegalDocumentProps) {
   return (
     <Stack gap="lg" w="100%" maw={900} mx="auto" py="xl">
       <Stack gap={4}>
         <Title order={1}>{title}</Title>
         <Text size="sm" c="dimmed">
-          制定日: {effectiveDate}（モック）
+          制定日: {effectiveDate}
         </Text>
+        {revisedDate && (
+          <Text size="sm" c="dimmed">
+            最終改定日: {revisedDate}
+          </Text>
+        )}
       </Stack>
 
       {sections.map((section) => (

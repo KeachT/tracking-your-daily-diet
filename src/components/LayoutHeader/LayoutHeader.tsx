@@ -9,11 +9,13 @@ import styles from './LayoutHeader.module.css'
 type LayoutHeaderProps = {
   navbarOpened: boolean
   setNavbarOpened: Dispatch<SetStateAction<boolean>>
+  showBurger?: boolean
 }
 
 export function LayoutHeader({
   navbarOpened,
   setNavbarOpened,
+  showBurger = true,
 }: LayoutHeaderProps) {
   const theme = useMantineTheme()
   const [scroll] = useWindowScroll()
@@ -28,13 +30,15 @@ export function LayoutHeader({
         transition: 'box-shadow 200ms',
       }}
     >
-      <Burger
-        opened={navbarOpened}
-        onClick={() => setNavbarOpened((navbarOpened) => !navbarOpened)}
-        size="sm"
-        hiddenFrom="md"
-        color={theme.colors.gray[6]}
-      />
+      {showBurger && (
+        <Burger
+          opened={navbarOpened}
+          onClick={() => setNavbarOpened((navbarOpened) => !navbarOpened)}
+          size="sm"
+          hiddenFrom="md"
+          color={theme.colors.gray[6]}
+        />
+      )}
 
       <Box className={styles.iconContainer}>
         <Image src="/favicon.ico" alt="App Icon" />

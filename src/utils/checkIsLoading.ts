@@ -1,4 +1,4 @@
-import { Path } from '../constants'
+import { Path, PublicPaths } from '../constants'
 
 export const checkIsLoading = (
   authStatus: string,
@@ -11,4 +11,4 @@ export const checkIsLoading = (
     pathname === Path.Landingpage) ||
   (!isGuestMode &&
     authStatus !== 'authenticated' &&
-    pathname !== Path.Landingpage)
+    !PublicPaths.includes(pathname))

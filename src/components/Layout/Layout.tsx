@@ -50,6 +50,7 @@ export function Layout({
           <LayoutHeader
             navbarOpened={navbarOpened}
             setNavbarOpened={setNavbarOpened}
+            showBurger={showNavBar}
           />
         </AppShell.Header>
 
