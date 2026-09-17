@@ -9,7 +9,7 @@ The Next.js app lives in `src`, with domain features grouped under `src/features
 - `npm run dev` — start the Next.js dev server with hot reloading.
 - `npm run build` / `npm run start` — produce and serve a production build.
 - `npm run lint` or `npm run lint:fix` — run ESLint (optionally auto-fixing) across the core source directories.
-- `npx playwright test` — execute the Playwright test suite; add `--project=chromium` or `--ui` when debugging.
+- `docker compose run --rm e2e` — execute the Playwright test suite in the `e2e` service against the `nextjs` dev server; replace the command (e.g. `docker compose run --rm e2e npx playwright test --project=chromium`) to pass arguments.
 
 ## Coding Style & Naming Conventions
 
@@ -17,4 +17,4 @@ Use TypeScript throughout and prefer function components with explicit return ty
 
 ## Commit & Pull Request Guidelines
 
-Match the existing Conventional Commits style (`feat:`, `fix:`, `chore:`) with succinct, imperative summaries and reference the related issue or pull request number (e.g., `fix: improve preset calorie validation (#201)`). In PRs, provide a user-focused summary, note testing performed (`npm run lint`, `npx playwright test`), and attach screenshots or screen recordings for UI changes. Flag required environment variables (such as `E2E_BASE_URL` for tests) and call out any Amplify or configuration migrations.
+Match the existing Conventional Commits style (`feat:`, `fix:`, `chore:`) with succinct, imperative summaries and reference the related issue or pull request number (e.g., `fix: improve preset calorie validation (#201)`). In PRs, provide a user-focused summary, note testing performed (`npm run lint`, `docker compose run --rm e2e`), and attach screenshots or screen recordings for UI changes. Flag required environment variables (such as `E2E_BASE_URL` for tests) and call out any Amplify or configuration migrations.

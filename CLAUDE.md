@@ -13,10 +13,11 @@ npm run lint:fix                 # ESLint auto-fix
 npm run format                   # Prettier format
 npm run format:check             # Prettier check
 
-# E2E tests (Playwright)
-npx playwright test              # Run all E2E tests
-npx playwright test --project=chromium   # Run on a specific browser
-npx playwright test --ui         # Open Playwright UI for debugging
+# E2E tests (Playwright) — run in the `e2e` service (Microsoft's Playwright image;
+# the dev image has no browsers). Starts `nextjs` if needed and waits for it.
+docker compose run --rm e2e      # Run all E2E tests against http://nextjs:3000
+docker compose run --rm e2e npx playwright test --project=chromium   # Pass Playwright args
+docker compose run --rm --no-deps --publish 9323:9323 e2e npx playwright show-report --host 0.0.0.0   # Serve the last report at http://localhost:9323
 
 # Docker-based development (preferred)
 docker compose up nextjs         # Start dev server in Docker

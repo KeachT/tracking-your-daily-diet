@@ -15,6 +15,52 @@ services:
     environment:
       - NODE_ENV=development
     command: npm run dev
+    # Lets the e2e service wait until the dev server accepts connections. A TCP
+    # probe rather than an HTTP one: next dev logs every request it serves, and a
+    # page hit every few seconds would bury the log. start_period covers the
+    # entrypoint's npm ci on a fresh volume.
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - "require('net').connect(3000, '127.0.0.1').on('connect', () => process.exit(0)).on('error', () => process.exit(1))"
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5m
+      start_interval: 5s
+
+  # Playwright runner: `docker compose run --rm e2e` runs `npx playwright test`
+  # against the nextjs service. Microsoft's image carries the browsers and the
+  # system libraries they need, so the dev image stays lean. The runner itself
+  # comes from the shared node_modules volume.
+  #
+  # Keep the image tag equal to the @playwright/test version in
+  # package-lock.json — a mismatch fails with "Executable doesn't exist".
+  e2e:
+    image: mcr.microsoft.com/playwright:v1.56.1-noble
+    profiles: [e2e]
+    working_dir: /app
+    volumes:
+      - .:/app
+      - node_modules:/app/node_modules
+    environment:
+      - E2E_BASE_URL=http://nextjs:3000
+      # With a TTY, the HTML reporter otherwise serves the report after a failure
+      # and waits for Ctrl+C, so the run never exits. The report is still written
+      # to playwright-report/ — the README shows how to serve it.
+      - PLAYWRIGHT_HTML_OPEN=never
+    # Both recommended by Playwright's Docker guide: Chromium can run out of
+    # shared memory without host IPC, and init reaps its child processes.
+    ipc: host
+    init: true
+    security_opt:
+      - no-new-privileges:true
+    depends_on:
+      nextjs:
+        condition: service_healthy
+    command: npx playwright test
 
 volumes:
   next-cache:
