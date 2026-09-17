@@ -1,4 +1,7 @@
-FROM node:22-alpine
+# Debian (glibc), not Alpine (musl): glibc is what Amplify Hosting builds on and
+# what prebuilt native binaries target first. Pin the codename so a rebuild never
+# jumps a Debian release on its own.
+FROM node:22-bookworm-slim
 
 # Prepare application directory and drop root privileges early.
 RUN mkdir -p /app && chown node:node /app
