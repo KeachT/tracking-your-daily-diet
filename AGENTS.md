@@ -13,7 +13,7 @@ The Next.js app lives in `src`, with domain features grouped under `src/features
 
 ## Coding Style & Naming Conventions
 
-Use TypeScript throughout and prefer function components with explicit return types when logic is non-trivial. Follow the repo’s prevailing two-space indentation, PascalCase component files (`src/components/Layout/Layout.tsx`), and kebab-case feature folders (`src/features/daily-goal`). Co-locate styles (Tailwind classes or CSS modules) with the component they style. Maintain sorted imports via `eslint-plugin-simple-import-sort`, and format with Prettier plus the Tailwind plugin before committing (`npx prettier --write`). Keep Amplify-generated files untouched unless regenerating via the Amplify CLI.
+Use TypeScript throughout and prefer function components with explicit return types when logic is non-trivial. Follow the repo’s prevailing two-space indentation, PascalCase component files (`src/components/Layout/Layout.tsx`), and kebab-case feature folders (`src/features/daily-goal`). Style components with Mantine props and CSS modules co-located with the component they style; Tailwind is not installed. Maintain sorted imports via `eslint-plugin-simple-import-sort`, and format with Prettier before committing (`npx prettier --write`). Keep Amplify-generated files untouched unless regenerating via the Amplify CLI.
 
 ## Commit & Pull Request Guidelines
 

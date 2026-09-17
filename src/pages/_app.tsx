@@ -1,5 +1,4 @@
 import '@/utils/ensureAmplifyConfigured'
-import '@/styles/globals.css'
 import '@aws-amplify/ui-react/styles.css'
 import '@mantine/core/styles.css'
 
