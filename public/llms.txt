@@ -22,6 +22,6 @@
 
 ## 技術スタック
 
-- フロントエンド: Next.js (Pages Router) + Mantine UI + Tailwind CSS + Zustand
+- フロントエンド: Next.js (Pages Router) + Mantine UI + Zustand
 - バックエンド: AWS Amplify (Cognito Auth + AppSync GraphQL)
 - ホスティング: AWS Amplify Hosting

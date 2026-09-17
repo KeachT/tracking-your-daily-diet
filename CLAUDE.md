@@ -46,7 +46,7 @@ Git hooks run `npm run lint` via Docker on pre-push. Install with `./scripts/ins
 
 ## Architecture
 
-**Stack:** Next.js (Pages Router) + AWS Amplify Gen2 (`ampx` — AppSync GraphQL API + Cognito Auth, defined in `amplify/`) + Mantine UI + Zustand + Tailwind CSS + Playwright (E2E)
+**Stack:** Next.js (Pages Router) + AWS Amplify Gen2 (`ampx` — AppSync GraphQL API + Cognito Auth, defined in `amplify/`) + Mantine UI (styled with CSS Modules) + Zustand + Playwright (E2E)
 
 ### Data Models (GraphQL — schema defined inline in `amplify/data/resource.ts` via `defineData`)
 
