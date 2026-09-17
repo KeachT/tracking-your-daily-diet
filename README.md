@@ -40,6 +40,18 @@ https://www.tracking-your-daily-diet.com
   - Start dev server again: `docker compose up --build nextjs`
   - Note: `--rm` removes only the temporary container; changes to `package-lock.json` and the `node_modules` volume remain.
 
+## E2E Tests
+
+Playwright runs in the `e2e` Docker Compose service, which uses Microsoft's Playwright image as-is, so no browsers are installed on the host or in the dev image.
+
+- Run all tests: `docker compose run --rm e2e`
+  - The `nextjs` service is started if needed, and the run waits until the dev server accepts connections.
+  - Tests reach the app at `http://nextjs:3000` (`E2E_BASE_URL` is set by the service).
+- Pass Playwright arguments by replacing the command: `docker compose run --rm e2e npx playwright test --project=chromium`
+- View the last HTML report (written to `playwright-report/`): `docker compose run --rm --no-deps --publish 9323:9323 e2e npx playwright show-report --host 0.0.0.0`, then open http://localhost:9323.
+- The service only runs when targeted, so `docker compose up` still starts `nextjs` alone.
+- The image tag in `compose.yml` must match the `@playwright/test` version in `package-lock.json`. Update both together.
+
 ## Git Hooks
 
 This repo uses Git hooks (via `core.hooksPath`) to run checks locally.

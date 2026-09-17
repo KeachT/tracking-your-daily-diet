@@ -15,6 +15,36 @@ services:
     environment:
       - NODE_ENV=development
     command: npm run dev
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - "require('net').connect(3000, '127.0.0.1').on('connect', () => process.exit(0)).on('error', () => process.exit(1))"
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5m
+      start_interval: 5s
+
+  e2e:
+    image: mcr.microsoft.com/playwright:v1.56.1-noble
+    profiles: [e2e]
+    working_dir: /app
+    volumes:
+      - .:/app
+      - node_modules:/app/node_modules
+    environment:
+      - E2E_BASE_URL=http://nextjs:3000
+      - PLAYWRIGHT_HTML_OPEN=never
+    ipc: host
+    init: true
+    security_opt:
+      - no-new-privileges:true
+    depends_on:
+      nextjs:
+        condition: service_healthy
+    command: npx playwright test
 
 volumes:
   next-cache:
