@@ -29,6 +29,11 @@ https://www.tracking-your-daily-diet.com
 - Run `docker compose up nextjs` to start the Next.js development server.
 - Dependencies are installed in the `node_modules` named volume.
   When IDE tooling (e.g., Cursor or Prettier) needs access on the host, execute `./scripts/sync-node-modules.sh` to copy the volume contents locally without installing Node.js on the host machine.
+- The entrypoint reinstalls dependencies only when `package-lock.json` changes, so it does not notice a new base image or Node.js major version.
+  After changing either in `docker/nextjs/Dockerfile`, recreate the volumes so native binaries are rebuilt for the new platform:
+  - `docker compose down --volumes` (removes the `node_modules` and `next-cache` volumes)
+  - `docker compose up --build nextjs`
+  - `./scripts/sync-node-modules.sh` (if you keep a host copy for IDE tooling)
 - When running `npm audit` / `npm audit fix`, prefer a one-off container to avoid Turbopack/Next.js reading `node_modules` while it is being modified:
   - Stop dev server: `docker compose stop nextjs`
   - Run audit (and optionally fix): `docker compose run --rm --no-deps nextjs npm audit` / `docker compose run --rm --no-deps nextjs npm audit fix`
