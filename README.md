@@ -44,6 +44,8 @@ https://www.tracking-your-daily-diet.com
 
 Playwright runs in the `e2e` Docker Compose service, which uses Microsoft's Playwright image as-is, so no browsers are installed on the host or in the dev image.
 
+There are no specs yet, so a run currently ends with `Error: No tests found` and exit code 1. Add one under `e2e/tests/` and it runs from there.
+
 - Run all tests: `docker compose run --rm e2e`
   - The `nextjs` service is started if needed, and the run waits until the dev server accepts connections.
   - Tests reach the app at `http://nextjs:3000` (`E2E_BASE_URL` is set by the service).
